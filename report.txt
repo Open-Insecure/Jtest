@@ -1,0 +1,414 @@
+HomePage =http://www.taobao.com/!
+Domain = taobao.com!
+Start!
+Getting web by url:http://www.taobao.com/
+Find a new url,depth:2 //delta.taobao.com
+Find a new url,depth:2 http://www.taobao.com/market/hi/axzcynes.php?spm=1.278832.267607.1
+Find a new url,depth:2 //list.taobao.com/browse/ad_search.htm
+Find a new url,depth:2 //s.taobao.com/search?q=%C5%AE%C1%B9%D0%AC&refpid=420460_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C5%AE%D1%A9%B7%C4%C9%C0&refpid=420461_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C1%AC%D2%C2%C8%B9&refpid=420462_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%B4%F3%C2%EB%C5%AE%D7%B0&refpid=420463_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C5%AE%B0%FC&refpid=420464_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C5%AEt%D0%F4&refpid=420465_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%D3%BE%D2%C2&refpid=420466_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C4%D0t%D0%F4&refpid=420467_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%B6%CC%BF%E3&refpid=430144_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%D4%D0%B8%BE%D7%B0&refpid=430145_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%B7%C0%C9%B9%D2%C2&refpid=430146_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C4%D0%D0%AC&refpid=430147_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%C1%B9%CF%AF&refpid=430148_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%CE%C3%D5%CA&refpid=430149_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 //s.taobao.com/search?q=%CD%CF%D0%AC&refpid=430150_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:2 http://top.taobao.com/index.php?from=tbsy
+Find a new url,depth:2 //www.taobao.com
+Find a new url,depth:2 http://ju.taobao.com/?spm=1.7281509.a214dau.2
+Find a new url,depth:2 http://trip.taobao.com/?spm=1.7281509.a214dau.4
+Find a new url,depth:2 http://sf.taobao.com/?spm=1.7281509.a214dau.5
+Find a new url,depth:2 http://www.taobao.com/go/chn/hitao/top.php?spm=1.7281509.a214dau.8
+Find a new url,depth:2 http://yun.taobao.com/?spm=1.7281509.a214dau.9
+Find a new url,depth:2 http://china.taobao.com/?spm=1.7281509.a214dau.10
+Find a new url,depth:2 http://www.taobao.com/go/act/315/xb_20100707.php?spm=1.7281509.a214dau.11&&TBG=42685.203542.2&ad_id=&am_id=1300268931aef04f0cdc&cm_id=&pm_id=#rushi
+Find a new url,depth:2 //bbs.taobao.com/catalog/438501.htm
+Find a new url,depth:2 //www.taobao.com/go/chn/rules/home.php
+Find a new url,depth:2 //bbs.taobao.com
+Find a new url,depth:2 //110.taobao.com/home/index.htm
+Find a new url,depth:2 //gongyi.taobao.com
+Find a new url,depth:2 //bbs.taobao.com/catalog/thread/508895-268557425.htm
+Find a new url,depth:2 //bbs.taobao.com/catalog/thread/508895-268559611.htm
+Find a new url,depth:2 //bbs.taobao.com/catalog/thread/508895-268558043.htm
+Find a new url,depth:2 //bbs.taobao.com/catalog/thread/508895-268553921.htm
+Find a new url,depth:2 //login.taobao.com/member/login.jhtml?redirectURL=http://taojinbi.taobao.com/vip_home.htm
+Find a new url,depth:2 //vip.taobao.com
+Find a new url,depth:2 //login.taobao.com/member/login.jhtml?f=top&redirectURL=http%3A%2F%2Fwww.taobao.com%2F
+Find a new url,depth:2 //reg.taobao.com/member/new_register.jhtml?from=index&ex_info=&ex_sign=
+Find a new url,depth:2 //mai.taobao.com/welcome.htm
+Find a new url,depth:2 http://wt.taobao.com/?ks-menu=cz
+Find a new url,depth:2 http://game.taobao.com
+Find a new url,depth:2 http://trip.taobao.com
+Find a new url,depth:2 http://caipiao.taobao.com/?t=1&ad_id=&am_id=13010663204b41fb5276&cm_id=&pm_id=
+Find a new url,depth:2 http://dianying.taobao.com
+Find a new url,depth:2 http://waimai.taobao.com/shop_list.htm
+Find a new url,depth:2 http://licai.taobao.com
+Find a new url,depth:2 http://ebook.taobao.com/
+Find a new url,depth:2 http://music.taobao.com?from=taobaohomepage
+Find a new url,depth:2 http://life.taobao.com/market/sdmjf2011.php
+Find a new url,depth:2 http://nvren.taobao.com/?spm=1.7275165.a214d7z.1
+Find a new url,depth:2 http://www.taobao.com/market/sport/citiao/yundongpai.php?spm=1.7275165.a214d7z.2
+Find a new url,depth:2 http://www.taobao.com/market/qinglv/citiao/shouye.php?spm=1.7275165.a214d7z.3
+Find a new url,depth:2 http://nanren.taobao.com/?spm=1.7275165.a214d7z.4
+Find a new url,depth:2 http://www.taobao.com/market/baobao/2014/index.php?spm=1.7275165.a214d7z.5
+Find a new url,depth:2 http://www.taobao.com/market/home/2014/index.php?spm=1.7275165.a214d7z.6
+Find a new url,depth:2 http://www.taobao.com/market/mei/index.php?spm=1.7275165.a214d7z.7
+Find a new url,depth:2 http://zln.taobao.com/?spm=1.7275165.a214d7z.8
+Find a new url,depth:2 http://www.taobao.com/market/foodindex.php?spm=1.7275165.a214d7z.9
+Find a new url,depth:2 http://jiehun.taobao.com/?spm=1.7275165.a214d7z.10
+Find a new url,depth:2 http://www.taobao.com/market/car/index.php?spm=1.7275165.a214d7z.11
+Find a new url,depth:2 http://www.taobao.com/market/jia/2014index.php?spm=1.7275165.a214d7z.12
+Find a new url,depth:2 http://www.taobao.com/market/3c/home.php?spm=1.7275165.a214d7z.13
+Find a new url,depth:2 http://shenghuo.taobao.com/?spm=1.7275165.a214d7z.14
+Find a new url,depth:2 http://game.taobao.com/?spm=1.7275165.a214d7z.15
+Find a new url,depth:2 http://2.taobao.com/?spm=1.7275165.a214d7z.16
+Find a new url,depth:2 http://paimai.taobao.com/?spm=1.7275165.a214d7z.17
+Find a new url,depth:2 http://guang.taobao.com/?spm=1.7275165.a214d7z.18
+Find a new url,depth:2 http://tese.taobao.com/?spm=1.7275165.a214d7z.19
+Find a new url,depth:2 http://www.taobao.com/market/gmall/index-dpl.php?spm=1.7275165.a214d7z.20
+Find a new url,depth:2 http://tiaoshi.taobao.com/?spm=1.7275165.a214d7z.21
+Find a new url,depth:2 http://xue.taobao.com/?spm=1.7275165.a214d7z.22
+Find a new url,depth:2 http://mm.taobao.com/?spm=1.7275165.a214d7z.23
+Find a new url,depth:2 http://star.taobao.com/?spm=1.7275165.a214d7z.24
+Find a new url,depth:2 http://hi.taobao.com/?spm=1.7275165.a214d7z.25
+Find a new url,depth:2 http://ye.taobao.com/?spm=1.7275165.a214d7z.26
+Find a new url,depth:2 http://style.taobao.com/?spm=1.7275165.a214d7z.27
+Find a new url,depth:2 http://life.taobao.com/?spm=1.7275165.a214d7z.28
+Find a new url,depth:2 http://shi.taobao.com/?spm=1.7275165.a214d7z.29
+Find a new url,depth:2 http://dapei.taobao.com/?spm=1.7275165.a214d7z.30
+Find a new url,depth:2 http://tejia.taobao.com/?spm=1.7275165.a214d7z.31
+Find a new url,depth:2 http://try.taobao.com/?spm=1.7275165.a214d7z.32
+Find a new url,depth:2 http://qing.taobao.com/?spm=1.7275165.a214d7z.33
+Find a new url,depth:2 http://qiang.taobao.com/?spm=1.7275165.a214d7z.34
+Find a new url,depth:2 http://taojinbi.taobao.com/?spm=1.7275165.a214d7z.35
+Find a new url,depth:2 http://wangwang.taobao.com/?spm=1.7275165.a214d7z.36
+Find a new url,depth:2 http://www.taobao.com/market/nvxie/citiao/liangxie.php?spm=1.7275253.a214d81.1
+Find a new url,depth:2 http://www.taobao.com/market/baihuo/newintimebaihuo.php?spm=1.7275253.a214d81.2
+Find a new url,depth:2 http://ny.taobao.com/?spm=1.7275253.a214d81.3
+Find a new url,depth:2 http://acg.taobao.com/?spm=1.7275253.a214d81.4
+Find a new url,depth:2 http://www.taobao.com/go/market/fashion/xrdzz.php?spm=1.7275253.a214d81.5
+Find a new url,depth:2 http://www.taobao.com/market/nvzhuang/dress.php?spm=1.7275253.a214d81.6
+Find a new url,depth:2 http://fang.taobao.com/?spm=1.7275253.a214d81.7
+Find a new url,depth:2 http://miiee.taobao.com/?spm=1.7275253.a214d81.8
+Find a new url,depth:2 http://ju.taobao.com/tg/point_list.htm?spm=1.7275253.a214d81.12
+Find a new url,depth:2 //ur.taobao.com/survey/view.htm?id=2546
+Get web Successfully!http://www.taobao.com/
+Getting web by url://delta.taobao.com
+Get web failed!//delta.taobao.com
+Getting web by url:http://www.taobao.com/market/hi/axzcynes.php?spm=1.278832.267607.1
+Getting web by url://list.taobao.com/browse/ad_search.htm
+Get web failed!//list.taobao.com/browse/ad_search.htm
+Getting web by url://s.taobao.com/search?q=%C5%AE%C1%B9%D0%AC&refpid=420460_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C5%AE%C1%B9%D0%AC&refpid=420460_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%C5%AE%D1%A9%B7%C4%C9%C0&refpid=420461_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C5%AE%D1%A9%B7%C4%C9%C0&refpid=420461_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%C1%AC%D2%C2%C8%B9&refpid=420462_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C1%AC%D2%C2%C8%B9&refpid=420462_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%B4%F3%C2%EB%C5%AE%D7%B0&refpid=420463_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%B4%F3%C2%EB%C5%AE%D7%B0&refpid=420463_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%C5%AE%B0%FC&refpid=420464_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C5%AE%B0%FC&refpid=420464_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%C5%AEt%D0%F4&refpid=420465_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C5%AEt%D0%F4&refpid=420465_1006&source=tbsy&style=grid&tab=all
+Find a new url,depth:3 http://www.taobao.com/favicon.ico
+Getting web by url://s.taobao.com/search?q=%D3%BE%D2%C2&refpid=420466_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%D3%BE%D2%C2&refpid=420466_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%C4%D0%D0%AC&refpid=430147_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C4%D0%D0%AC&refpid=430147_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%C1%B9%CF%AF&refpid=430148_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C1%B9%CF%AF&refpid=430148_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%CE%C3%D5%CA&refpid=430149_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%CE%C3%D5%CA&refpid=430149_1006&source=tbsy&style=grid&tab=all
+Getting web by url://s.taobao.com/search?q=%CD%CF%D0%AC&refpid=430150_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%CD%CF%D0%AC&refpid=430150_1006&source=tbsy&style=grid&tab=all
+Getting web by url:http://top.taobao.com/index.php?from=tbsy
+Getting web by url://www.taobao.com
+Get web failed!//www.taobao.com
+Getting web by url:http://ju.taobao.com/?spm=1.7281509.a214dau.2
+Getting web by url:http://trip.taobao.com/?spm=1.7281509.a214dau.4
+Getting web by url:http://sf.taobao.com/?spm=1.7281509.a214dau.5
+Getting web by url://s.taobao.com/search?q=%C4%D0t%D0%F4&refpid=420467_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%C4%D0t%D0%F4&refpid=420467_1006&source=tbsy&style=grid&tab=all
+Getting web by url:http://yun.taobao.com/?spm=1.7281509.a214dau.9
+Getting web by url://s.taobao.com/search?q=%B6%CC%BF%E3&refpid=430144_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%B6%CC%BF%E3&refpid=430144_1006&source=tbsy&style=grid&tab=all
+Getting web by url:http://china.taobao.com/?spm=1.7281509.a214dau.10
+Getting web by url://s.taobao.com/search?q=%D4%D0%B8%BE%D7%B0&refpid=430145_1006&source=tbsy&style=grid&tab=all
+Get web failed!//s.taobao.com/search?q=%D4%D0%B8%BE%D7%B0&refpid=430145_1006&source=tbsy&style=grid&tab=all
+Getting web by url:http://www.taobao.com/go/act/315/xb_20100707.php?spm=1.7281509.a214dau.11&&TBG=42685.203542.2&ad_id=&am_id=1300268931aef04f0cdc&cm_id=&pm_id=#rushi
+Getting web by url://s.taobao.com/search?q=%B7%C0%C9%B9%D2%C2&refpid=430146_1006&source=tbsy&style=grid&tab=all
+Getting web by url:http://www.taobao.com/go/chn/hitao/top.php?spm=1.7281509.a214dau.8
+Get web failed!//s.taobao.com/search?q=%B7%C0%C9%B9%D2%C2&refpid=430146_1006&source=tbsy&style=grid&tab=all
+Getting web by url://bbs.taobao.com/catalog/438501.htm
+Get web failed!//bbs.taobao.com/catalog/438501.htm
+Getting web by url://www.taobao.com/go/chn/rules/home.php
+Get web failed!//www.taobao.com/go/chn/rules/home.php
+Getting web by url://bbs.taobao.com
+Get web failed!//bbs.taobao.com
+Getting web by url://110.taobao.com/home/index.htm
+Get web failed!//110.taobao.com/home/index.htm
+Getting web by url://gongyi.taobao.com
+Get web failed!//gongyi.taobao.com
+Getting web by url://bbs.taobao.com/catalog/thread/508895-268557425.htm
+Get web failed!//bbs.taobao.com/catalog/thread/508895-268557425.htm
+Getting web by url://bbs.taobao.com/catalog/thread/508895-268559611.htm
+Get web Successfully!http://www.taobao.com/go/chn/hitao/top.php?spm=1.7281509.a214dau.8
+Getting web by url://bbs.taobao.com/catalog/thread/508895-268558043.htm
+Find a new url,depth:3 http://www.taobao.com/m?TBG=146112.176505.4&spm=1.146112.176505.4
+Find a new url,depth:3 http://trip.taobao.com/mobile/?spm=1.7390223.a214tmk.1&ad_id=&am_id=1301048151a679d80b29&cm_id=&pm_id=
+Get web failed!//bbs.taobao.com/catalog/thread/508895-268559611.htm
+Get web failed!//bbs.taobao.com/catalog/thread/508895-268558043.htm
+Find a new url,depth:3 http://guang.taobao.com
+Find a new url,depth:3 http://trip.taobao.com/
+Getting web by url://bbs.taobao.com/catalog/thread/508895-268553921.htm
+Getting web by url://login.taobao.com/member/login.jhtml?redirectURL=http://taojinbi.taobao.com/vip_home.htm
+Find a new url,depth:3 http://dongtai.taobao.com/hub/new_arrival.htm?scm=1046.1.7.1
+Find a new url,depth:3 http://trip.taobao.com/jipiao/
+Find a new url,depth:3 http://trip.taobao.com/qijian/
+Find a new url,depth:3 http://trip.taobao.com/ijipiao/
+Find a new url,depth:3 http://trip.taobao.com/jiudian/
+Find a new url,depth:3 http://tuan.trip.taobao.com/search.htm
+Get web failed!//bbs.taobao.com/catalog/thread/508895-268553921.htm
+Find a new url,depth:3 http://trip.taobao.com/dujia/
+Getting web by url://vip.taobao.com
+Get web failed!//vip.taobao.com
+Get web failed!//login.taobao.com/member/login.jhtml?redirectURL=http://taojinbi.taobao.com/vip_home.htm
+Getting web by url://reg.taobao.com/member/new_register.jhtml?from=index&ex_info=&ex_sign=
+Find a new url,depth:3 http://trip.taobao.com/qianzheng/
+Get web failed!//reg.taobao.com/member/new_register.jhtml?from=index&ex_info=&ex_sign=
+Getting web by url://login.taobao.com/member/login.jhtml?f=top&redirectURL=http%3A%2F%2Fwww.taobao.com%2F
+Find a new url,depth:3 http://dongtai.taobao.com/hub/promotion.htm?scm=1046.1.8.1
+Find a new url,depth:3 http://trip.taobao.com/piao/
+Find a new url,depth:3 http://trip.taobao.com/kezhan/
+Getting web by url://mai.taobao.com/welcome.htm
+Get web failed!//mai.taobao.com/welcome.htm
+Getting web by url:http://wt.taobao.com/?ks-menu=cz
+Get web failed!//login.taobao.com/member/login.jhtml?f=top&redirectURL=http%3A%2F%2Fwww.taobao.com%2F
+Getting web by url:http://game.taobao.com
+Find a new url,depth:3 http://china.taobao.com
+Find a new url,depth:3 http://taobao.com/?spm=a2146.1154677.a2ca5.1
+Find a new url,depth:3 https://login.taobao.com/member/login.jhtml
+Find a new url,depth:3 http://yun.taobao.com/?spm=a2146.1154671.a2c9z.1
+Find a new url,depth:3 http://yun.taobao.com/index.html?spm=a2146.1154671.a2c9z.2
+Find a new url,depth:3 http://yun.taobao.com/sj.html?spm=a2146.1154671.a2c9z.3
+Find a new url,depth:3 http://yun.taobao.com/mh.html?spm=a2146.1154671.a2c9z.4
+Find a new url,depth:3 http://yun.taobao.com/mp.html?spm=a2146.1154671.a2c9z.5
+Find a new url,depth:3 http://yun.taobao.com/mh/1s.html?spm=a2146.1154676.a2ca4.2
+Find a new url,depth:3 http://yun.taobao.com/mh/1s.html?spm=a2146.1154676.a2ca4.4
+Find a new url,depth:3 http://yun.taobao.com/sj/z1.html?spm=a2146.1154676.a2ca4.5
+Find a new url,depth:3 http://sf.taobao.com/
+Find a new url,depth:3 http://sf.taobao.com/courtList.htm
+Find a new url,depth:3 http://sf.taobao.com/noticeList.htm
+Find a new url,depth:3 http://paimai.taobao.com/calendar.htm?tab=1
+Find a new url,depth:3 http://paimai.taobao.com/
+Find a new url,depth:3 http://www.taobao.com/go/act/auction/sfguide.php
+Find a new url,depth:3 http://paimai.taobao.com/auctionList/my_auction_list.htm
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.408.nQ1M6A&stype=4&ist=1&category=50025972&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.407.R9q1Dr&stype=4&ist=1&category=50025969&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.409.HkjPQD&stype=4&ist=1&category=50025971&_pc_client=1
+Find a new url,depth:3 http://i.taobao.com/my_taobao.htm
+Find a new url,depth:3 http://trade.taobao.com/trade/itemlist/list_bought_items.htm?t=20110530
+Find a new url,depth:3 http://trade.taobao.com/trade/itemlist/list_sold_items.htm?t=20110530
+Find a new url,depth:3 http://mai.taobao.com/seller_admin.htm
+Find a new url,depth:3 http://favorite.taobao.com/collect_list-1-.htm?scjjc=c1
+Find a new url,depth:3 http://favorite.taobao.com/collect_list.htm?itemtype=1
+Find a new url,depth:3 http://favorite.taobao.com/collect_list.htm?itemtype=0
+Find a new url,depth:3 //skip.ju.taobao.com
+Find a new url,depth:3 //act.ju.taobao.com
+Find a new url,depth:3 http://ju.taobao.com/tool/downApp.htm
+Find a new url,depth:3 https://login.taobao.com/member/login.jhtml?redirect_url=http://wt.taobao.com
+Find a new url,depth:3 http://wt.taobao.com/sell/dingQiCharge.html?spm=813.5763041.0.0.0Riqbj
+Find a new url,depth:3 http://wt.taobao.com/chongzhi/rechargeList.html?spm=813.5763041.0.0.0Riqbj
+Find a new url,depth:3 http://wt.taobao.com/chongzhi/contactList.html?spm=813.5763041.0.0.0Riqbj
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.411.eRnHTO&stype=4&ist=1&category=50025970&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.410.0ap4Bm&stype=4&ist=1&category=50025976&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.413.p7KRn8&stype=4&ist=1&category=50025973&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.414.OGJy2O&stype=4&ist=1&category=50025975&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.412.7ysAdQ&stype=4&ist=1&category=122406001&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%D5%E3%BD%AD
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BD%AD%CB%D5
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BA%D3%C4%CF
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%B8%A3%BD%A8
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%B1%B1%BE%A9
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%B9%E3%B6%AB
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%B0%B2%BB%D5
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BA%FE%B1%B1
+Find a new url,depth:3 http://wt.taobao.com/?spm=3.6918057.a2225oi.1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%D4%C6%C4%CF
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BD%AD%CE%F7
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%C9%BD%B6%AB
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%CC%EC%BD%F2
+Find a new url,depth:3 http://yiqi.taobao.com/plus/group_square.htm
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BC%AA%C1%D6
+Find a new url,depth:3 http://www.taobao.com/go/act/sns/taoban_download1.php?channel_id=701354&tracelog=tbshouye
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%C9%CF%BA%A3
+Find a new url,depth:3 http://list.taobao.com/browse/cat-0.htm?taobao_from=6
+Find a new url,depth:3 http://trade.taobao.com/trade/itemlist/list_bought_items.htm
+Find a new url,depth:3 http://dongtai.taobao.com/index.htm?scm=1046.1.1.1
+Find a new url,depth:3 http://i.taobao.com/feed/friend_feed.htm?tracelog=taobaoindexrsidenewfeed
+Find a new url,depth:3 http://trade.taobao.com/trade/itemlist/list_sold_items.htm
+Find a new url,depth:3 http://sell.taobao.com/auction/goods/goods_on_sale.htm
+Find a new url,depth:3 http://fuwu.taobao.com/?tracelog=tbdd
+Find a new url,depth:3 http://learn.taobao.com/user/xueyuanRedirect.htm?target=http://www.alibado.com
+Find a new url,depth:3 http://service.taobao.com/support/main/service_center.htm
+Find a new url,depth:3 http://cart.taobao.com/my_cart.htm
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%D6%D8%C7%EC
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%B9%E3%CE%F7
+Find a new url,depth:3 http://china.taobao.com/?spm=1.1000386.220593.11.ohQFhD&ad_id=&am_id=13010563302183a5ee39&cm_id=&pm_id=
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?spm=a2106.mfoodlist.1000711.1.mAuTyE&cat=50002766%2C50035978%2C50108542%2C&viewIndex=1&fsarea=&fslpid=&userKeywordJudge=false&yp4p_page=1&changeview=grid&product15=true&atype=b&pcat=techan&q=%CC%D8%B2%FA&ppath=&isnew=2&fmarket=1&changeArea=true&changeview=grid
+Find a new url,depth:3 http://www.taobao.com/go/act/sale/kgsqlc.php
+Find a new url,depth:3 http://shanxi.china.taobao.com/?spm=885.100012745.345587.56.WVUufA&ad_id=&am_id=130106659179314e2278&cm_id=&pm_id=
+Find a new url,depth:3 http://neimenggu.china.taobao.com/
+Find a new url,depth:3 http://jinzhong.china.taobao.com/
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%B9%F3%D6%DD
+Find a new url,depth:3 http://yun.taobao.com/0yuan?spm=3.6874837.a2225ep.2
+Find a new url,depth:3 http://anhui.china.taobao.com/?spm=5360.547303.345587.49.6JtufA&ad_id=&am_id=13010665887088527c9c&cm_id=&pm_id=
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%C9%C2%CE%F7
+Find a new url,depth:3 http://jiangxi.china.taobao.com/
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%C7%E0%BA%A3
+Find a new url,depth:3 http://wuhu.china.taobao.com/?spm=5360.547303.345587.52.6JtufA&ad_id=&am_id=1301066590e44dd34b47&cm_id=&pm_id=
+Find a new url,depth:3 http://www.taobao.com/sitemap.php?id=sitemap2
+Find a new url,depth:3 http://ningguo.china.taobao.com/?spm=5360.547303.345587.51.6JtufA&ad_id=&am_id=130106658940f470d0a2&cm_id=&pm_id=
+Find a new url,depth:3 http://xuancheng.china.taobao.com/?spm=5360.547303.345587.50.6JtufA
+Find a new url,depth:3 http://shandong.china.taobao.com/?spm=5360.547303.345587.53.6JtufA
+Find a new url,depth:3 http://yantai.china.taobao.com/?spm=5360.547303.345587.54.6JtufA&ad_id=&am_id=130107021991f8eb9498&cm_id=&pm_id=
+Find a new url,depth:3 http://linyi.china.taobao.com/?spm=5360.547303.345587.55.6JtufA
+Find a new url,depth:3 http://linan.china.taobao.com/?spm=5360.547303.345587.65.I7TXGM&ad_id=&am_id=13010666188531018d3c&cm_id=&pm_id=
+Find a new url,depth:3 http://lishui.china.taobao.com/
+Find a new url,depth:3 http://suichang.china.taobao.com/?spm=885.100013728.345587.150.Vta4XI&ad_id=&am_id=130106659387f4d4ad6d&cm_id=&pm_id=
+Find a new url,depth:3 http://longyou.china.taobao.com/?spm=5360.547303.345587.63.I7TXGM&ad_id=&am_id=13010665965784ebce97&cm_id=&pm_id=
+Find a new url,depth:3 http://fujian.china.taobao.com/
+Find a new url,depth:3 http://xiamen.china.taobao.com/?spm=885.100012343.345587.62.dcqsJX&ad_id=&am_id=1301066595b469915f2d&cm_id=&pm_id=
+Find a new url,depth:3 http://wt.taobao.com/phone_item_list.html?spm=3.6874837.a2225ep.13&ispId=10
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BA%FE%C4%CF
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BA%A3%C4%CF
+Find a new url,depth:3 http://wuyishan.china.taobao.com/?spm=885.100013728.345587.149.Vta4XI&ad_id=&am_id=1301066592b68a62c541&cm_id=&pm_id=
+Find a new url,depth:3 http://wt.taobao.com/phone_item_list.html?spm=3.6874837.a2225ep.14&ispId=20
+Find a new url,depth:3 http://trip.taobao.com/tuan/
+Find a new url,depth:3 http://trip.taobao.com/place/
+Find a new url,depth:3 http://jipiao.trip.taobao.com/order_manager.htm
+Find a new url,depth:3 http://trip.taobao.com/market/trip/sqcy_lv.php?spm=181.7214761.a214cl4.1&acm=tt-1052493-38722.1003.8.81235&uuid=81235&scm=1003.8.tt-1052493-38722.OTHER_1404562425441_81235&pos=1
+Find a new url,depth:3 http://trip.taobao.com/go/chn/trip/home2013/lowestprice.php?spm=181.7214761.a214cl4.2&ad_id=&am_id=&cm_id=140104946135389ac13c&pm_id=#ieround
+Find a new url,depth:3 http://trip.taobao.com/kezhan/?spm=181.7214761.a214cl4.3
+Find a new url,depth:3 http://dujia.trip.taobao.com/search.htm?spm=181.7214761.a214cl4.4&playType=5&cq=&mq=%CC%A8%CD%E5&searchBy=vsearch
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E6%B3%B0%E5%9B%BD/?spm=181.7214761.a214cl4.5&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%CC%A9%B9%FA&toCityCode=27368
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E9%A9%AC%E6%9D%A5%E8%A5%BF%E4%BA%9A/?spm=181.7214761.a214cl4.6&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%C2%ED%C0%B4%CE%F7%D1%C7&toCityCode=27024
+Find a new url,depth:3 http://gaochun.china.taobao.com/?spm=885.100012343.345587.64.dcqsJX
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E6%96%B0%E5%8A%A0%E5%9D%A1/?spm=181.7214761.a214cl4.7&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%D0%C2%BC%D3%C6%C2&toCityCode=3286452
+Find a new url,depth:3 http://weifang.china.taobao.com/
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E6%97%A5%E6%9C%AC/?spm=181.7214761.a214cl4.8&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%C8%D5%B1%BE&toCityCode=43446
+Find a new url,depth:3 http://taizhou.china.taobao.com/
+Find a new url,depth:3 http://hubei.china.taobao.com/?spm=885.100002532.345587.42.LYyXL5&ad_id=&am_id=1301066584e9830e1ef3&cm_id=&pm_id=
+Find a new url,depth:3 http://hunan.china.taobao.com/
+Find a new url,depth:3 http://enshi.china.taobao.com/?spm=5360.547303.345587.43.6JtufA&ad_id=&am_id=1301065770afce1442a1&cm_id=&pm_id=
+Find a new url,depth:3 http://henan.china.taobao.com/
+Find a new url,depth:3 http://huanggang.china.taobao.com/
+Find a new url,depth:3 http://hainan.china.taobao.com/?spm=885.100038737.345587.147.8zDnSt
+Find a new url,depth:3 http://heilongjiang.china.taobao.com/?spm=5360.547303.344708.102.6JtufA
+Find a new url,depth:3 http://jilin.china.taobao.com/?spm=5360.547303.344708.326.6JtufA
+Find a new url,depth:3 http://liaoning.china.taobao.com/?spm=5360.547303.344708.213.6JtufA
+Find a new url,depth:3 http://xinjiang.china.taobao.com/?spm=5360.547303.345587.44.6JtufA&ad_id=&am_id=1301066585c5110d0972&cm_id=&pm_id=
+Find a new url,depth:3 http://ningxia.china.taobao.com/
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E9%9F%A9%E5%9B%BD/?spm=181.7214761.a214cl4.9&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%BA%AB%B9%FA&toCityCode=27023
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E8%B6%8A%E5%8D%97/?spm=181.7214761.a214cl4.10&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%D4%BD%C4%CF&toCityCode=27019
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E8%8F%B2%E5%BE%8B%E5%AE%BE/?spm=181.7214761.a214cl4.11&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%B7%C6%C2%C9%B1%F6&toCityCode=27027
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E7%BE%8E%E5%9B%BD/?spm=181.7214761.a214cl4.12&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%C3%C0%B9%FA&toCityCode=3286564
+Find a new url,depth:3 http://dujia.trip.taobao.com/search/%E6%BE%B3%E5%A4%A7%E5%88%A9%E4%BA%9A/?spm=181.7214761.a214cl4.13&playType=5&playId=&searchConditions=&version=&cq=&fromCityCode=&mq=%B0%C4%B4%F3%C0%FB%D1%C7&toCityCode=27409
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.14&q=%CF%E3%B8%DB#q=%E9%A6%99%E6%B8%AF&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.15&q=%CC%A9%B9%FA#q=%E6%B3%B0%E5%9B%BD&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.16&q=%C8%FD%D1%C7#q=%E4%B8%89%E4%BA%9A&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.17&q=%B1%B1%BE%A9#q=%E5%8C%97%E4%BA%AC&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://gansu.china.taobao.com/?ad_id=&am_id=130109631542199ba549&cm_id=&pm_id=
+Find a new url,depth:3 http://sichuan.china.taobao.com/?spm=5360.547303.345587.45.Q0g6Wn&ad_id=&am_id=1301066586bd776bd53f&cm_id=&pm_id=
+Find a new url,depth:3 http://yunnan.china.taobao.com/?spm=885.100002262.345587.59.DyhMMY
+Find a new url,depth:3 http://guizhou.china.taobao.com/?spm=885.100037373.345587.47.3ANvyl&ad_id=&am_id=13010260454189bc61ff&cm_id=&pm_id=
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.18&q=%BD%AD%CB%D5#q=%E6%B1%9F%E8%8B%8F&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://tongren.china.taobao.com/?spm=885.100002532.345587.48.LYyXL5
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.19&q=%B5%CF%CA%BF%C4%E1%C0%D6%D4%B0#q=%E8%BF%AA%E5%A3%AB%E5%B0%BC%E4%B9%90%E5%9B%AD&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.20&q=%BA%A3%D1%F3%B9%AB%D4%B0#q=%E6%B5%B7%E6%B4%8B%E5%85%AC%E5%9B%AD&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://dujia.trip.taobao.com/searchTicket.htm?spm=181.7214761.a214cl4.21&q=%B3%A4%C2%A1#q=%E9%95%BF%E9%9A%86&stype=&sgrade=&city=&tfee=&tcat=&ttype=&isrefund=false&ismodify=false&istoday=false&seller=&cspuid=&ordert=DEFAULT&orderd=&jumpto=&pagesize=10&moreseller=false&ismorelist=&_input_charset=UTF-8&destroyed=false
+Find a new url,depth:3 http://trip.taobao.com/market/trip/yunnan.html?spm=181.7214761.a214cl4.22
+Find a new url,depth:3 http://trip.taobao.com/market/trip/sanya.html?spm=181.7214761.a214cl4.23
+Find a new url,depth:3 http://trip.taobao.com/market/trip/xiamen.html?spm=181.7214761.a214cl4.24
+Find a new url,depth:3 http://trip.taobao.com/market/trip/zhejiang.html?spm=181.7214761.a214cl4.25
+Find a new url,depth:3 http://trip.taobao.com/market/trip/beijing.html?spm=181.7214761.a214cl4.26
+Find a new url,depth:3 http://trip.taobao.com/market/trip/gangao.html?spm=181.7214761.a214cl4.27
+Find a new url,depth:3 http://trip.taobao.com/go/chn/vacation-home/mian/elitevaful.php?spm=181.7214761.a214cl4.28
+Find a new url,depth:3 http://trip.taobao.com/market/trip/riben.html?spm=181.7214761.a214cl4.29
+Find a new url,depth:3 http://trip.taobao.com/market/trip/hanguo.html?spm=181.7214761.a214cl4.30
+Find a new url,depth:3 http://trip.taobao.com/market/trip/meiguo.html?spm=181.7214761.a214cl4.31
+Find a new url,depth:3 http://trip.taobao.com/market/trip/taiguo.html?spm=181.7214761.a214cl4.32
+Find a new url,depth:3 http://trip.taobao.com/mobile/
+Find a new url,depth:3 http://chuxiong.china.taobao.com/
+Find a new url,depth:3 http://ju.taobao.com/tg/my_ju.htm
+Find a new url,depth:3 http://favorite.taobao.com/collect_list-1-.htm
+Find a new url,depth:3 http://seller.ju.taobao.com/seller/seller_home.htm
+Find a new url,depth:3 http://o.ju.taobao.com/tg/hpcenter/index.htm?reqType=index
+Find a new url,depth:3 http://ju.taobao.com/
+Find a new url,depth:3 http://ju.taobao.com/tg/forecast.htm
+Find a new url,depth:3 http://ju.taobao.com/tg/today_items.htm?type=0
+Find a new url,depth:3 http://ju.taobao.com/tg/ju_life_home.htm
+Find a new url,depth:3 http://ju.taobao.com/tg/today_items.htm?spm=608.3051441.a24o3.1
+Find a new url,depth:3 http://ju.taobao.com/tg/brand.htm?spm=608.3051441.a24o3.2
+Find a new url,depth:3 http://ju.taobao.com/tg/point_list.htm?spm=608.3051441.a24o3.3
+Find a new url,depth:3 http://mingpin.taobao.com/?spm=608.3051441.a24o3.4
+Find a new url,depth:3 http://ju.taobao.com/jusp/jiazhuang/tp.htm?spm=608.3051441.a24o3.5
+Find a new url,depth:3 http://ju.taobao.com/tg/ju_life_home.htm?spm=608.3051441.a24o3.6&ck=
+Find a new url,depth:3 http://ju.taobao.com/jusp/trip/tp.htm?spm=608.3051441.a24o3.7
+Find a new url,depth:3 http://ju.taobao.com/jusp/liangfan/tp.htm?spm=608.3051441.a24o3.8
+Find a new url,depth:3 http://act.ju.taobao.com/market/ju/jurencai.php
+Find a new url,depth:3 http://list.taobao.com/browse/cat-0.htm
+Find a new url,depth:3 http://shopsearch.taobao.com/browse/shop_search.htm
+Find a new url,depth:3 http://global.taobao.com/
+Find a new url,depth:3 http://ershou.taobao.com/
+Find a new url,depth:3 http://sale.taobao.com/
+Find a new url,depth:3 http://jie.taobao.com/
+Find a new url,depth:3 http://liwu.taobao.com
+Find a new url,depth:3 http://www.taobao.com/go/act/taobaodaigou2010/taobaodaigou2010.php
+Find a new url,depth:3 http://www.taobao.com/go/chn/channel/new.php?ad_id=&am_id=&cm_id=1400116505dec403ac3e&pm_id=
+Find a new url,depth:3 http://www.taobao.com/go/act/sale/cxpm4.php
+Find a new url,depth:3 http://wt.taobao.com/phone_item_list.html?spm=3.6874837.a2225ep.15&ispId=30
+Find a new url,depth:3 http://wt.taobao.com/num_list.html?spm=3.6874837.a2225ep.19&country=1&rule=AAA&from=
+Find a new url,depth:3 http://wt.taobao.com/num_list.html?spm=3.6874837.a2225ep.20&country=1&rule=AAAA&from=
+Find a new url,depth:3 http://wt.taobao.com/num_list.html?spm=3.6874837.a2225ep.21&country=1&rule=ABAB&from=
+Find a new url,depth:3 http://www.taobao.com/go/act/315/xb_20100707.php?ad_id=&am_id=1300268931aef04f0cdc&cm_id=&pm_id=#rushi
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%BA%D3%B1%B1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%CB%C4%B4%A8
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%C4%DA%C3%C9%B9%C5
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.303.Guk7hj&stype=4&ist=1&city=%CE%C2%D6%DD&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.304.1xXaac&stype=4&ist=1&city=%BA%BC%D6%DD&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.882530145.305.kIVKTq&stype=4&ist=1&city=%C4%FE%B2%A8&_pc_client=1
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?stype=4&ist=1&_pc_client=1&city=%CB%D5%D6%DD
+Find a new url,depth:3 http://s.paimai.taobao.com/list.htm?spm=a213x.6685589.0.0.iHWRjC&stype=1&ist=1&q=%D1%F4%B9%E2%B0%CD%C0%E8+%B3%B5%CE%BB&page=1&_pc_client=1
+Find a new url,depth:3 http://tw.china.taobao.com/index.htm?spm=1.6659421.a214722.65.PfTIZQ&scm=1220.11.5.2&md=5221&ad_id=&am_id=13010718209c71b65f62&cm_id=&pm_id=
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&&fsarea=1110000:2
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=1368
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=2218
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=2960
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&&fsarea=1120000:2
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=17793
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=15332
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=17614
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=17662
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=18017
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=17650
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=17643
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&&fsarea=1130000:2
+Find a new url,depth:3 http://trip.taobao.com/go/market/trip/mahsangyou-weibo.php?acm=tt-1047293-38009-1.1003.8.85995&ad_id=&cm_id=1401107931a86e568f1c&pm_id=&am_id=&uuid=85995&scm=1003.8.tt-1047293-38009-1.OTHER_1406295875600_85995&pos=1
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=5316
+Find a new url,depth:3 http://trip.taobao.com/market/trip/swyx.php?acm=tt-1047293-38009-2.1003.8.85850&uuid=85850&scm=1003.8.tt-1047293-38009-2.OTHER_1404447389377_85850&pos=1
+Find a new url,depth:3 http://tuan.trip.taobao.com/search.htm?keywords=&acm=tt-1047293-38009-3.1003.8.85736&cityName=%C8%FD%D1%C7&spm=0.0.0.0.84X24z&uuid=85736&scm=1003.8.tt-1047293-38009-3.OTHER_1406453654225_85736&pos=1&city=460200
+Find a new url,depth:3 http://list.taobao.com/market/food2011.htm?fmarket=1&fslpid=1495
+Find a new url,depth:3 http://trip.taobao.com/go/act/ticket/trip/dailydeals.php?acm=tt-1047293-38009-4.1003.8.85789&spm=181.7091613.a1z6a.3.gTqa4n&uuid=85789&scm=1003.8.tt-1047293-38009-4.OTHER_1406388146332_85789&pos=1
+Find a new url,depth:3 http://ju.taobao.com/jusp/aiqi/tp.htm?acm=tt-1047293-38009-5.1003.8.85467&spm=608.7058829.a241oz.4.A0IEbI&uuid=85467&scm=1003.8.tt-1047293-38009-5.OTHER_1407335380313_85467&pos=1
+Find a new url,depth:3 http://trip.taobao.com/mobile?spm=181.7206941.1997139549.1
+Find a new url,depth:3 http://trip.taobao.com/mobile?spm=181.7206941.1997139549.2
+
