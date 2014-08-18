@@ -76,7 +76,7 @@ public class PornTest {
 		//使用代理方式获得
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		list.add(new BasicNameValuePair("session_language", "cn_CN"));
-		HttpResponse response=client.proxyPostUrl(url,"182.253.49.130",8080,list);
+		HttpResponse response=client.proxyPostUrl(url,"122.232.229.90",80,list);
 		Document doc=null;
 		if(response==null){
 			//连接代理失败，换下一个代理
@@ -143,6 +143,7 @@ public class PornTest {
 			for(int i=0;i<arr.length;i++){
 				System.out.println(arr[i]);
 				if("seccode".equals(arr[i])||"file".equals(arr[i])||"max_vid".equals(arr[i])||"mp4".equals(arr[i])){
+					System.out.println(arr[i]);					
 					map.put(arr[i], arr[i+1]);
 				}
 			}
