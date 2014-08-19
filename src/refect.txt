@@ -1,0 +1,25 @@
+public  Boolean recf(Object obj) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, InstantiationException  {
+		 Class ownerClass = obj.getClass();
+		 //必要的字段是否有值
+		 String []need={"cusName","password","idCard","phone"};
+		 List<String> tempList=Arrays.asList(need);
+		 Field fields[] = ownerClass.getDeclaredFields();  
+		 for(int i = 0;i < fields.length;i ++){
+			 Field field = fields[i];   
+             String fieldName = field.getName();//获得属性名称  
+             //要检测的必要字段
+             if(tempList.contains(fieldName)){
+            	String firstLetter = fieldName.substring(0, 1).toUpperCase();//将属性的首字母大写  
+            	String getMethodName = "get" + firstLetter + fieldName.substring(1);//拼写成属性的标准get方法名称  
+               // 获得各属性对应的getXXX()方法  
+                Method getMethod = ownerClass.getMethod(getMethodName, new Class[] {});  
+                // 调用原对象的getXXX()方法  
+                Object value = getMethod.invoke(obj, new Object[]{}); 
+                //获得get方法的返回值进行检测
+                if(value==null||value.equals("")){
+                	return true;
+                }
+             }
+         }
+		return false;
+	}
