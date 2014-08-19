@@ -20,6 +20,7 @@ import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.HttpHostConnectException;
@@ -51,7 +52,7 @@ import org.jsoup.select.Elements;
  * @author  hexd
  * 创建时间：2014-7-21 下午2:57:06 
  * 类说明 
- * 建立一个爬虫工具类，方便编写使用
+ * 建立一个爬虫工具类(支持多线程)，方便编写使用
  * 使用HTTPclient4.1版本 为了兼容新浪sae
  */
 public class CrawlerUtil {
@@ -94,7 +95,7 @@ public class CrawlerUtil {
 		}
 		//设置cookie
 		 client.setCookieStore(cookieStore);
-		System.out.println("cookie:"+cookieStore.toString());
+//		System.out.println("cookie:"+cookieStore.toString());
 		//设置浏览器参数
 		String HEADER_HOST = host;
 		String HEADER_CONNECTION = "keep-alive";
@@ -188,7 +189,7 @@ public class CrawlerUtil {
 		HttpPost post =getPostInstance(url);
 		HttpResponse response=null;
 		try {
-	        //设置代理对象 ip/代理名称,端口   // "125.39.66.66", 80 "66.85.131.18", 8089 "210.51.56.198",808  "96.56.105.66",7004	
+	        //设置代理对象 ip/代理名称,端口   // "125.39.66.66", 80 "66.85.131.18", 8089 "210.51.56.198",808  "96.56.105.66",7004	 "122.232.229.90",80
 			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyUrl, port));
 	        //实例化验证     
 	        CredentialsProvider credsProvider = new BasicCredentialsProvider();  
@@ -362,6 +363,43 @@ public class CrawlerUtil {
 	{
 		client.getConnectionManager().shutdown();
 	}
+	
+	/**执行头方法
+	 * @param httpHead
+	 * @return
+	 */
+	public HttpResponse executeHead(HttpHead httpHead){
+		HttpResponse response=null;
+		try {
+			response=client.execute(httpHead);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	/**直接执行get方法
+	 * @param get
+	 * @return
+	 */
+	public HttpResponse executeGetMethod(HttpGet get){
+		HttpResponse response=null;
+		try {
+			response=client.execute(get);
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
 	//测试
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
 		CrawlerUtil cu = new CrawlerUtil();

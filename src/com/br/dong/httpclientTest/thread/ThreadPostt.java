@@ -102,8 +102,8 @@ public class ThreadPostt {
 			final int j = i;
 			System.out.println(j);
 			//创建post
-			HttpPost httppost = new HttpPost(urls[i]);
-		//	tps.exe.execute(new PostThread(httpClient, httppost, i,uefEntity));
+				HttpPost httppost = new HttpPost(urls[i]);
+				//tps.exe.execute(new PostThread(httpClient, httppost, i,uefEntity));
 		}
 	}
  

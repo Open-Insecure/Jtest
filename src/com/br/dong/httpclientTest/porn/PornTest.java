@@ -27,43 +27,51 @@ import com.br.dong.httpclientTest.CrawlerUtil;
  */
 public class PornTest {
 
-	//视频列表url
+	//视频列表url page页数需要拼装
 	private static String url="http://91p.vido.ws/v.php?next=watch&page=";
-	//视频文件下载url
+	//视频文件请求url 后跟参数需要拼装
 	private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
 	private static CrawlerUtil client=new CrawlerUtil();
-	private static CrawlerUtil clientforHttps=new CrawlerUtil();
-	
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
-		
+		//创建http请求的client
 		client.clientCreate("http","91p.vido.ws" , "http://91p.vido.ws/index.php");
-//		clientforHttps.clientCreate("https","91p.vido.ws" , "http://91p.vido.ws/index.php");
+		getPaging();
+     	//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
+     	getPageVideos("http://91p.vido.ws/v.php?next=watch&page=2");
+     	// getInfoDeatil("http://91p.vido.ws/view_video.php?viewkey=671600a14646d0a8f199&page=2&viewtype=basic&category=rf");
+     	getInfoDeatilProxy("http://91p.vido.ws/view_video.php?viewkey=65a5320bf0dcd0243c54&page=2&viewtype=basic&category=mr");
+	}
+	/**
+	 * 获取分页信息
+	 */
+	public static void getPaging(){
+		int maxpage=2000;
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		list.add(new BasicNameValuePair("session_language", "cn_CN"));
 		//第一次采集第一页的
-		HttpResponse response=client.post(url+"1", client.produceEntity(list));
-		Document doc= client.getDocUTF8(response);
-// 		System.out.println(doc.toString());
-		//拿到视频列表
-		Elements content=doc.select("div[id=fullbox-content]");
-		//拿到视频分页
-//		Elements paging=doc.select("div[class*=pagingnav]>a");
-		Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
-		int maxpage=50;
-		try{
+		HttpResponse response;
+		try {
+			response = client.post(url+"1", client.produceEntity(list));
+			Document doc= client.getDocUTF8(response);
+//	 		System.out.println(doc.toString());
+			//拿到视频列表
+			Elements content=doc.select("div[id=fullbox-content]");
+			//拿到视频分页
+//			Elements paging=doc.select("div[class*=pagingnav]>a");
+			Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
 			maxpage=Integer.parseInt(maxpageElement.text());
+		} catch (CloneNotSupportedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}catch(NumberFormatException e){
 			System.out.println("拿去最大页数失败,自动填充为2000");
 		}
+
      	System.out.println("获得最大页数:"+maxpage);
 		//进行视频页面采集  最大页数+1
 //     	for(int i=2;i<=maxpage+1;i++){
 //     		System.out.println(url+""+i);
 //     	}
-     	//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
-     	getPageVideos("http://91p.vido.ws/v.php?next=watch&page=2");
-     	//     	getInfoDeatil("http://91p.vido.ws/view_video.php?viewkey=671600a14646d0a8f199&page=2&viewtype=basic&category=rf");
-     	getInfoDeatilProxy("http://91p.vido.ws/view_video.php?viewkey=65a5320bf0dcd0243c54&page=2&viewtype=basic&category=mr");
 	}
 	
 	/**
@@ -101,55 +109,58 @@ public class PornTest {
 		//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
 		System.out.println(doc.toString());
 		//解析doc 获得参数 VID,mp4,seccode,max_vid
-		Map map=getParams(doc.toString());
 		//获得下载文件临时url seccode seccode随着时间变化 会失效
-		String tempUrl=getDownLoadUrl("83954","0","3406644652b0fa3d898d30e794f2adfb","84029");
-		System.out.println(tempUrl);
-		map.toString();
-		//真正包含视频文件下载的链接
+		String downLoadUrl=getDownLoadUrl(doc.toString());
+		System.out.println("下载地址:"+downLoadUrl);
+		//下载地址:http://50.7.73.90//dl//7cc1eb5db30e98a62097618350301783/53f2b02d//91porn/mp43/83954.mp4
+		}
+	
+	/**解析参数返回获得视频源地址的链接
+	 * @return
+	 * @throws CloneNotSupportedException 
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 */
+	public static String getDownLoadUrl(String content) throws ClientProtocolException, IOException, CloneNotSupportedException{
+		Map map=new HashMap();
+		String file="";
+		String max_vid="";
+		String seccode="";
+		String mp4="";
+		String downUrl="";
+		if(content.contains("seccode")){
+			//截取包含参数的临时字符串
+			String temp=content.substring(content.indexOf("so.addParam('allowscriptaccess'"),content.indexOf("so.write('mediaspace');")).replace("\n", "");
+			String [] arr=temp.split(";");
+			for(int i=0;i<arr.length;i++){
+				if(arr[i].contains("file")){
+					 file=arr[i].replaceAll("(?:so.addVariable|\\(|file|,|'|\"|\\))", "");// 替换掉不相关的
+				}else if(arr[i].contains("max_vid")){
+					 max_vid=arr[i].replaceAll("(?:so.addVariable|\\(|max_vid|,|'|\"|\\))", "");// 替换掉不相关的
+				}else if(arr[i].contains("seccode")){
+					 seccode=arr[i].replaceAll("(?:so.addVariable|\\(|seccode|,|'|\"|\\))", "");// 替换掉不相关的
+				}else if(arr[i].contains("mp4")){
+					 mp4=arr[i].replaceAll("(?:so.addVariable|\\(|mp4|,|'|\"|\\))", "");// 替换掉不相关的
+				}
+			}
+			map.put("VID", file);
+			map.put("max_vid", max_vid);
+			map.put("seccode", seccode);
+			map.put("mp4", mp4);
+			
+		}
+		String tempUrl=vedioFileUrl+"VID="+map.get("VID")+"&seccode="+map.get("seccode")+"&mp4="+mp4+"&max_vid="+map.get("max_vid");
 		Document tempdoc=client.getDocUTF8(client.noProxyGetUrl(tempUrl));
  		System.out.println(tempdoc.toString());
 		if (tempdoc.text() != null && tempdoc.text().contains("file=http://")) {
 			//过滤出真正的下载地址
-			System.out.println(tempdoc.text().substring(
+			 downUrl=tempdoc.text().substring(
 					tempdoc.text().indexOf("﻿file=") + 6,
-					tempdoc.text().indexOf("&domainUrl")));
+					tempdoc.text().indexOf("&domainUrl"));
 		//http://50.7.69.10//dl//8bb3e2c39d328430db7f9811a06fe8dd/53f1b5b5//91porn/mp43/83954.mp4
 		//http://107.155.123.34//dl//81b0256e55efc72fd8d4c5d1889b1684/53f1bc61//91porn/mp43/83954.mp4
 		}
-		}
-	
-	/**返回下载视频链接地址
-	 * @param VID
-	 * @param mp4
-	 * @param seccode
-	 * @param max_vid
-	 * @return
-	 */
-	public static String getDownLoadUrl(String VID,String mp4,String seccode,String max_vid){
-		return  vedioFileUrl+"VID="+VID+"&mp4="+mp4+"&seccode="+seccode+"&max_vid="+max_vid;
-	}
-	/**解析参数
-	 * @return
-	 */
-	public static Map getParams(String content){
-		Map map=new HashMap();
-		if(content.contains("seccode")){
-			//截取包含参数的临时字符串
-			String temp=content.substring(content.indexOf("so.addParam('allowscriptaccess'"),content.indexOf("so.write('mediaspace');"));
-			System.out.println(temp);
-			temp=temp.replaceAll("(?:so.addVariable|\\(|'|\"|\\);)", "");// 替换掉不相关的
-			String[] arr=temp.split(",");
-			for(int i=0;i<arr.length;i++){
-				System.out.println(arr[i]);
-				if("seccode".equals(arr[i])||"file".equals(arr[i])||"max_vid".equals(arr[i])||"mp4".equals(arr[i])){
-					System.out.println(arr[i]);					
-					map.put(arr[i], arr[i+1]);
-				}
-			}
-			
-		}
-		return map;
+		return downUrl;
 	}
 	
 	/**获得某一页下的视频的标题,图片预览,视频链接地址,视频时长

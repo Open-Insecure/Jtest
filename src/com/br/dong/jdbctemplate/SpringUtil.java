@@ -11,7 +11,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public final class SpringUtil {
 	//ClassPathXmlApplicationContext 从src文件下开始找
     private static ApplicationContext  ctx = new ClassPathXmlApplicationContext("com/br/dong/jdbctemplate/applicationContext.xml");
-    
     public static Object getBean(String beanName){
          return ctx.getBean(beanName);
     }    
