@@ -18,8 +18,18 @@ public class ProxyBean {
 		this.type = type;
 		this.updatetime = updatetime;
 	}
-	
-	public ProxyBean() {
+
+    @Override
+    public String toString() {
+        return "ProxyBean{" +
+                "ip='" + ip + '\'' +
+                ", port='" + port + '\'' +
+                ", type='" + type + '\'' +
+                ", updatetime='" + updatetime + '\'' +
+                '}';
+    }
+
+    public ProxyBean() {
 		super();
 	}
 

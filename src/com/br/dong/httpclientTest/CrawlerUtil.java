@@ -59,6 +59,8 @@ public class CrawlerUtil {
 	//解析response的时候所用的编码
 	private static String DECODE_UTF_8="UTF-8";
 	private static String DECODE_GBK="GBK";
+    //超时时间
+    private static int TIME_OUT_TIME=50000;
 	//想要带入的参数，可以根据需要扩展
 	private String parm1;
 	//使用cookie
@@ -77,6 +79,12 @@ public class CrawlerUtil {
 	public CrawlerUtil(){
 		
 	}
+
+    public void clientCreatNoUrl(String type) throws NoSuchAlgorithmException, KeyManagementException {
+
+        this.clientCreate(type,"","");
+    }
+
 	/**实例化client并且设置请求头和get post实例
 	 * @param type 返回client的类型 type="http"的时候使用http的实例 type="https"的时候使用https实例
 	 * @param host 目标主机url
@@ -154,8 +162,9 @@ public class CrawlerUtil {
 			SchemeRegistry sr = ccm.getSchemeRegistry();
 			sr.register(new Scheme("https", ssf, 443));
 			client = new DefaultHttpClient(ccm, client.getParams());
+            //设置超时时间
 			client.getParams().setParameter(
-					CoreConnectionPNames.CONNECTION_TIMEOUT, 50000);
+					CoreConnectionPNames.CONNECTION_TIMEOUT,TIME_OUT_TIME );
 			return client;
 
 	}
@@ -166,8 +175,9 @@ public class CrawlerUtil {
 	public DefaultHttpClient getDefaultClient(){
 		//ThreadSafeClientConnManager 解决多线程公用一个client问题
 		DefaultHttpClient client = new DefaultHttpClient(new ThreadSafeClientConnManager());
+        //设置超时时间
 		client.getParams().setParameter(
-				CoreConnectionPNames.CONNECTION_TIMEOUT, 50000);
+				CoreConnectionPNames.CONNECTION_TIMEOUT, TIME_OUT_TIME);
 		return client;
 	}
 	

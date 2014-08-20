@@ -27,51 +27,84 @@ import com.br.dong.httpclientTest.CrawlerUtil;
  */
 public class PornTest {
 
-	//视频列表url page页数需要拼装
+    //视频列表url page页数需要拼装
 	private static String url="http://91p.vido.ws/v.php?next=watch&page=";
 	//视频文件请求url 后跟参数需要拼装
 	private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
+    //默认查找页数
+    private static int defaultPage=100;
+    //多少条进行一次批量插入
+    private static int batchNum=100;
 	private static CrawlerUtil client=new CrawlerUtil();
+
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
 		//创建http请求的client
 		client.clientCreate("http","91p.vido.ws" , "http://91p.vido.ws/index.php");
-		getPaging();
-     	//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
-     	getPageVideos("http://91p.vido.ws/v.php?next=watch&page=2");
-     	// getInfoDeatil("http://91p.vido.ws/view_video.php?viewkey=671600a14646d0a8f199&page=2&viewtype=basic&category=rf");
-     	getInfoDeatilProxy("http://91p.vido.ws/view_video.php?viewkey=65a5320bf0dcd0243c54&page=2&viewtype=basic&category=mr");
-	}
+//    	getPaging(false);
+//     	//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
+//     	getPageVideos("http://91p.vido.ws/v.php?next=watch&page=2");
+//     	// getInfoDeatil("http://91p.vido.ws/view_video.php?viewkey=671600a14646d0a8f199&page=2&viewtype=basic&category=rf");
+//     	getInfoDeatilProxy("http://91p.vido.ws/view_video.php?viewkey=65a5320bf0dcd0243c54&page=2&viewtype=basic&category=mr","125.39.66.66",80);
+         VedioBean vedio=JdbcUtil.getVedioInfo();
+         System.out.println(vedio.toString());
+
+     }
+    /**
+     * 获得一个代理
+     * */
+    public static ProxyBean getProxy(){
+         return JdbcUtil.getProxy();
+    }
+    /**
+     * 拿去post参数，获得中文返回页面
+     * */
+    public static List<NameValuePair> getPostParmList(){
+        List<NameValuePair> list = new ArrayList<NameValuePair>();
+        list.add(new BasicNameValuePair("session_language", "cn_CN"));
+        return list;
+    }
+
 	/**
-	 * 获取分页信息
+	 * 获取分页信息,并且逐页采集视频信息 插入数据库
+     * wantMaxPage true 则拿去最大页数    false 则拿去默认的页数
+     *
 	 */
-	public static void getPaging(){
-		int maxpage=2000;
-		List<NameValuePair> list = new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair("session_language", "cn_CN"));
+	public static void getPaging(Boolean wantMaxPage){
+
+		int maxpage=defaultPage;
+
 		//第一次采集第一页的
 		HttpResponse response;
-		try {
-			response = client.post(url+"1", client.produceEntity(list));
-			Document doc= client.getDocUTF8(response);
+        //查找最大页数
+        if(wantMaxPage){
+            try {
+                response = client.post(url+"1", client.produceEntity(getPostParmList()));
+                Document doc= client.getDocUTF8(response);
 //	 		System.out.println(doc.toString());
-			//拿到视频列表
-			Elements content=doc.select("div[id=fullbox-content]");
-			//拿到视频分页
-//			Elements paging=doc.select("div[class*=pagingnav]>a");
-			Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
-			maxpage=Integer.parseInt(maxpageElement.text());
-		} catch (CloneNotSupportedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}catch(NumberFormatException e){
-			System.out.println("拿去最大页数失败,自动填充为2000");
-		}
+                //拿到视频分页
+                Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
+                maxpage=Integer.parseInt(maxpageElement.text());
+            } catch (CloneNotSupportedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }catch(NumberFormatException e){
+                System.out.println("拿去最大页数失败,自动填充为50");
+            }
+        }
 
      	System.out.println("获得最大页数:"+maxpage);
-		//进行视频页面采集  最大页数+1
-//     	for(int i=2;i<=maxpage+1;i++){
-//     		System.out.println(url+""+i);
-//     	}
+        List<VedioBean> list=new ArrayList<VedioBean>();
+		//进行视频页面采集  实际最大页数要+1
+     	for(int i=1;i<=maxpage+1;i++){
+     		//在此进行视频页面的采集
+             try {
+                 getPageVideos(url+i,list);
+             } catch (IOException e) {
+                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+             } catch (CloneNotSupportedException e) {
+                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+             }
+         }
 	}
 	
 	/**
@@ -80,11 +113,11 @@ public class PornTest {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public static void  getInfoDeatilProxy(String url) throws ClientProtocolException, IOException, CloneNotSupportedException{
+	public static void  getInfoDeatilProxy(String url,String proxyUrl,int proxyPort) throws ClientProtocolException, IOException, CloneNotSupportedException{
 		//使用代理方式获得
 		List<NameValuePair> list = new ArrayList<NameValuePair>();
 		list.add(new BasicNameValuePair("session_language", "cn_CN"));
-		HttpResponse response=client.proxyPostUrl(url,"122.232.229.90",80,list);
+		HttpResponse response=client.proxyPostUrl(url,proxyUrl,proxyPort,list);
 		Document doc=null;
 		if(response==null){
 			//连接代理失败，换下一个代理
@@ -147,6 +180,7 @@ public class PornTest {
 			map.put("max_vid", max_vid);
 			map.put("seccode", seccode);
 			map.put("mp4", mp4);
+
 			
 		}
 		String tempUrl=vedioFileUrl+"VID="+map.get("VID")+"&seccode="+map.get("seccode")+"&mp4="+mp4+"&max_vid="+map.get("max_vid");
@@ -169,8 +203,9 @@ public class PornTest {
 	 * @throws IOException
 	 * @throws CloneNotSupportedException
 	 */
-	public static void getPageVideos(String url) throws ClientProtocolException, IOException, CloneNotSupportedException{
-		Document doc=client.getDocUTF8(client.noProxyGetUrl(url));
+
+	public static void getPageVideos(String url,List<VedioBean> list) throws ClientProtocolException, IOException, CloneNotSupportedException{
+		Document doc=client.getDocUTF8(client.post(url, client.produceEntity(getPostParmList())));
 		Elements videobox=doc.select("div[class*=listchannel]");
 		System.out.println(url+"视频总数:"+videobox.size()+"个");
 		//拿去视频预览图片
@@ -178,13 +213,19 @@ public class PornTest {
 			String title=e.select("div[class*=imagechannel]>a>img").attr("title");//标题
 			String preImgSrc=e.select("div[class*=imagechannel]>a>img").attr("src");//获得预览图片链接
 			String vedioUrl=e.select("div[class*=imagechannel]>a").attr("abs:href");//视频链接地址
-			String infotime=e.text().substring(e.text().indexOf("时长:")-3,e.text().indexOf(" 添加时间"));		//获得时长
-	
+			String infotime=e.text().substring(e.text().indexOf("时长:"),e.text().indexOf(" 添加时间"));		//获得时长
 			System.out.println(title+preImgSrc+vedioUrl+infotime);
-			
-			//获得视频链接
+            list.add(new VedioBean(title,preImgSrc,vedioUrl,infotime,0));
+
+			if(list.size()>batchNum){
+                //清空list
+                JdbcUtil.insertVedioBatch(list);
+                System.out.println("进行一次插入"+list.size());
+                list.clear();
+            }
 		}
-		System.out.println(videobox.toString());
-		
+		 //System.out.println(videobox.toString());
 	}
+
+
 }

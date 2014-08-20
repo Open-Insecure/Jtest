@@ -66,8 +66,67 @@ public class JdbcUtil {
 			}
 		});
     	
-    	
-    } 	
+    }
+    /**
+     *清空表
+     */
+    public static void deleteAll(){
+        String sql="delete from proxy";
+        jdbcAop.execute(sql);
+    }
+
+    /**
+     * 随机查找一条数据
+     */
+    public static ProxyBean getProxy(){
+        String sql="select *, rand() as random from proxy order by random limit 1";
+        return (ProxyBean)jdbcAop.queryForObject(sql,new ProxyRowMapper());
+    }
+
+
+    /**
+     * 随机查找一条数据
+     */
+    public static VedioBean getVedioInfo(){
+        String sql="select *, rand() as random from vedio order by random limit 1";
+        return (VedioBean)jdbcAop.queryForObject(sql,new VedioRowMapper());
+    }
+    /**
+     * 批量插入视频信息
+     * */
+    public static void insertVedioBatch(List<VedioBean> list){
+        final List<VedioBean> batchlist=list;
+        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,flag) values(?,?,?,?,?)";
+        //批量插入
+        jdbcAop.batchUpdate(sql,new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                // TODO Auto-generated method stub
+                String title=batchlist.get(i).getTitle();
+                String preImgSrc=batchlist.get(i).getPreImgSrc();
+                String vedioUrl=batchlist.get(i).getVedioUrl();
+                String infotime=batchlist.get(i).getInfotime();
+                int flag=batchlist.get(i).getFlag();
+                ps.setString(1, title);
+                ps.setString(2, preImgSrc);
+                ps.setString(3, vedioUrl);
+                ps.setString(4, infotime);
+                ps.setInt(5,flag);
+                //每1000条进行事物提交
+                if (i%1000 == 0) {
+                    System.out.println("进行一次插入操作");
+                    ps.executeBatch(); //执行prepareStatement对象中所有的sql语句
+                }
+
+            }
+
+            public int getBatchSize() {
+                // TODO Auto-generated method stub
+                return batchlist.size();
+            }
+        });
+    }
+
     //测试插入
     public static void main(String[] args) {
 //		List<ProxyBean> list=new ArrayList<ProxyBean>();

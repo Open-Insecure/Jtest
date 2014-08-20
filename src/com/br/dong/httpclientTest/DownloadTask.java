@@ -235,9 +235,6 @@ public class DownloadTask {
 		//下载线程监听器
 		final DownloadThreadListener threadListener = new DownloadThreadListener() {
 			
-			/*  
-			 * 
-			 */
 			public void afterPerDown(DownloadThreadEvent event) {
 				// 
 				synchronized (this) {
