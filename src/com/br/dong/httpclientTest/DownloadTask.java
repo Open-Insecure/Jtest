@@ -64,7 +64,7 @@ public class DownloadTask {
 	}
 	/**
 	 * 开始下载
-	 * 
+	 *     as
 	 * @throws Exception
 	 */
 	long contentLength;//下载的资源大小
@@ -105,9 +105,6 @@ public class DownloadTask {
 	}
 
 	/**开始下载 使用CrawlerUtil 创建HttpClient实例
-	 * @param type
-	 * @param hosturl
-	 * @param refUrl
 	 * @throws Exception
 	 */
 	public void startDown() throws Exception {
@@ -370,13 +367,6 @@ public class DownloadTask {
 		}
 
 		/**支持多线程下载的下载线程构造方法
-		 * @param url
-		 * @param startPosition
-		 * @param endPosition
-		 * @param file
-		 * @param type
-		 * @param host
-		 * @param refUrl
 		 */
 		DownloadThread(String url, long startPosition, long endPosition,
 				File file,String type,String hosturl,String refUrl) {
@@ -392,14 +382,6 @@ public class DownloadTask {
 		}
 
 		/**不支持多线程下载的下载线程构造方法
-		 * @param url
-		 * @param startPosition
-		 * @param endPosition
-		 * @param file
-		 * @param isRange
-		 * @param type
-		 * @param host
-		 * @param refUrl
 		 */
 		DownloadThread(String url, long startPosition, long endPosition,
 				File file, boolean isRange,String type,String hosturl,String refUrl) {
