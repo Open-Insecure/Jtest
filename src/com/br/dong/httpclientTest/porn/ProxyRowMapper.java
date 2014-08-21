@@ -19,7 +19,7 @@ public class ProxyRowMapper implements RowMapper {
     public Object mapRow(ResultSet rs, int i) throws SQLException {
         ProxyBean proxy=new ProxyBean();
         proxy.setIp(rs.getString("ip"));
-        proxy.setPort(rs.getString("port") );
+        proxy.setPort(Integer.parseInt(rs.getString("port")) );
         proxy.setType(rs.getString("type"));
         proxy.setUpdatetime(rs.getString("updatetime"));
         return proxy;

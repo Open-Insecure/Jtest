@@ -29,9 +29,9 @@ public class ProxyGet {
     private static String xiciGuowai="http://www.xici.net.co/wn/";
 
     public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
-//         getProxys();
-       ProxyBean proxy=  JdbcUtil.getProxy();
-        System.out.println(proxy.toString());
+         getProxys();
+//       ProxyBean proxy=  JdbcUtil.getProxy();
+//        System.out.println(proxy.toString());
 
     }
 
@@ -76,17 +76,19 @@ class ProxyThread extends Thread{
             //暂时先拿去10页的
             for(Element e:iplist){
                 String ip=e.select("td:eq(1)").text();
-                String port=e.select("td:eq(2)").text();
+                String  tport=e.select("td:eq(2)").text().trim();
                 String type=e.select("td:eq(5)").text();
+                System.out.println(ip+tport+type);
                 //过滤出http的代理 插入数据库
                 if("http".equals(type.toLowerCase())){
+                    int port=Integer.parseInt(tport);
                     ProxyBean proxy=new ProxyBean(ip,port,type, DateUtil.getCurrentDay());
                     System.out.println(proxy.toString());
                     list.add(proxy);
                 }
             }
             //插入数据库
-            JdbcUtil.insertBatch(list);
+             JdbcUtil.insertBatch(list);
 
 
         } catch (NoSuchAlgorithmException e) {

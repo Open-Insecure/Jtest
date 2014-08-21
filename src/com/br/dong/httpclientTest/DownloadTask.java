@@ -27,13 +27,6 @@ import sun.rmi.runtime.Log;
  * 多线程下载
  */
 
-/**
- * @author Dong
- *下载任务事件的监听接口 未继承EventListener
- */
-interface DownloadTaskListener {
-	public void downloadCompleted();
-}
 /**下载任务
  * @author Dong
  */
@@ -57,7 +50,8 @@ public class DownloadTask {
                 }  
             });  
             //开始下载
-            downloadTask.startDown();  
+            CrawlerUtil client = new CrawlerUtil();
+            downloadTask.startDown(client);
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
@@ -100,15 +94,15 @@ public class DownloadTask {
 	/**添加监听
 	 * @param listener
 	 */
-	private void addDownloadTaskListener(DownloadTaskListener listener) {
+	public  void addDownloadTaskListener(DownloadTaskListener listener) {
 		this.listener = listener;
 	}
 
 	/**开始下载 使用CrawlerUtil 创建HttpClient实例
 	 * @throws Exception
 	 */
-	public void startDown() throws Exception {
-		CrawlerUtil client = new CrawlerUtil();
+	public void  startDown(CrawlerUtil client) throws Exception {
+//		CrawlerUtil client = new CrawlerUtil();
 		//创建http请求的client
 	     client.clientCreate(type,hosturl,refUrl);
 		try {
@@ -118,7 +112,6 @@ public class DownloadTask {
 				startDownloadThread(type,hosturl,refUrl);
 			}
 		} catch (Exception e) {
-			throw e;
 		} finally {
 			client.closeClient();
 		}

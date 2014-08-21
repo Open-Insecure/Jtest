@@ -1,6 +1,7 @@
 package com.br.dong.httpclientTest;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.URI;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -188,8 +189,7 @@ public class CrawlerUtil {
 		try {
 			//System.out.println("executing request " + get.getURI());
 			response =client.execute(get);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (HttpHostConnectException e) {
 			// TODO: handle exception
 			} 
 		return response;
@@ -209,20 +209,17 @@ public class CrawlerUtil {
 	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);  
 	        ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);  
 			//System.out.println("executing request " + get.getURI());
-	        try{
 	    		//从新设置post的内容
 	    		post.setEntity(produceEntity(list));
 	    		 response = client.execute(post);
-	        }catch(HttpHostConnectException e){
-				System.out.println("连接代理"+proxyUrl+"失败..");
-			}catch(NoHttpResponseException e){
-				System.out.println("服务器"+proxyUrl+"没有响应..");
-			}
-	
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-			} 
+
+		}catch(HttpHostConnectException e){
+            System.out.println("连接代理服务器"+proxyUrl+"失败..");
+        }catch(NoHttpResponseException e){
+            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
+        }catch (SocketException e){
+            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
+        }
 		return response;
 	}
 	//使用代理get方式访问url
@@ -412,45 +409,6 @@ public class CrawlerUtil {
 	
 	//测试
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
-		CrawlerUtil cu = new CrawlerUtil();
-		cu.clientCreate("http", "www.firstgongyu.com",
-				"http://www.firstgongyu.com/forum-2-2.html");
-		HttpResponse response = cu
-				.noProxyGetUrl("http://www.firstgongyu.com/forum.php?mod=forumdisplay&fid=2&page=1&&mobile=no");
-		HttpEntity entity = response.getEntity();
-		System.out.println("————————————–");
-		// 打印响应状态
-		System.out.println(response.getStatusLine());
-		if (entity != null) {
-			// 打印响应内容长度
-			System.out.println("Response content length: "
-					+ entity.getContentLength());
-			// 打印响应内容
-			// System.out.println("Response content: " +
-			// EntityUtils.toString(entity));
-			// 使用jsoup解析网页
-			Document doc = Jsoup.parse(EntityUtils.toString(entity, "UTF-8")); // 从字符串中加载
-			// 获得信息列表
-			Elements divHeros = doc.select("table[summary$=forum_2]");
-			// 获得x列表
-			Elements xs = divHeros.select("th[class$=new]");
-			// 获得地区列表
-			// String places=xs.select("em>a[href]").attr("href"); 查找em子元素a的链接地址
-			Elements places = xs.select("em");
-			// 获得具体x消息的链接
+    }
 
-			// 获得x消息列表
-			for (Element name : xs) {
-				System.out.println(name.text());
-			}
-			System.out.println("————————————");
-			for (Element name : places) {
-				// 获得地区标签和链接 attr("abs:href"); 包含根路径的地址
-				System.out.println(name.text() + "地区连接:"
-						+ name.select("a").attr("abs:href"));
-			}
-		}
-		System.out.println("————————————");
-		cu.closeClient();
-	}
 }

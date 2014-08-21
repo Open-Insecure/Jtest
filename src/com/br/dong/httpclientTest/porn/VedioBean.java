@@ -12,6 +12,7 @@ public class VedioBean {
      private String preImgSrc;//图片链接
      private String vedioUrl; //视频播放地址
      private String infotime;  //时长
+     private String updatetime;//更新日期
      private int flag;        //是否采集标志    0表示未采集 1表示采集
 
     @Override
@@ -25,12 +26,22 @@ public class VedioBean {
                 '}';
     }
 
-    public VedioBean(String title, String preImgSrc, String vedioUrl, String infotime, int flag) {
+    public VedioBean(String title, String preImgSrc, String vedioUrl, String infotime, String updatetime, int flag) {
         this.title = title;
         this.preImgSrc = preImgSrc;
         this.vedioUrl = vedioUrl;
         this.infotime = infotime;
+        this.updatetime = updatetime;
         this.flag = flag;
+    }
+
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
     }
 
     public VedioBean() {

@@ -1,9 +1,11 @@
 package com.br.dong.httpclientTest.porn;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -34,8 +36,11 @@ public class JdbcUtil {
 	//拿到bean
 	public static Object getBean(String beanName){
          return ctx.getBean(beanName);
-    }     
-	 //进行批量插入
+    }
+    /**
+     * 批量插入代理信息
+     * @param list
+     */
     public static void insertBatch(List<ProxyBean> list){
     	final List<ProxyBean> batchlist=list;
     	String sql="insert into proxy(ip,port,type,updatetime) values(?,?,?,?)";
@@ -45,11 +50,11 @@ public class JdbcUtil {
 			public void setValues(PreparedStatement ps, int i) throws SQLException {
 				// TODO Auto-generated method stub
 				   String ip=batchlist.get(i).getIp(); 
-				   String prot=batchlist.get(i).getPort(); 
+				   int prot=batchlist.get(i).getPort();
 				   String type=batchlist.get(i).getType(); 
 				   String updatetime=batchlist.get(i).getUpdatetime(); 
 				    ps.setString(1, ip); 
-				    ps.setString(2, prot); 
+				    ps.setInt(2, prot);
 				    ps.setString(3, type); 
 				    ps.setString(4, updatetime); 
 				   //每1000条进行事物提交  
@@ -57,9 +62,7 @@ public class JdbcUtil {
                     	System.out.println("进行一次插入操作");
                         ps.executeBatch(); //执行prepareStatement对象中所有的sql语句  
                     }  
-                    
 			}
-			
 			public int getBatchSize() {
 				// TODO Auto-generated method stub
 				return batchlist.size();
@@ -68,7 +71,7 @@ public class JdbcUtil {
     	
     }
     /**
-     *清空表
+     *清空表代理表
      */
     public static void deleteAll(){
         String sql="delete from proxy";
@@ -76,16 +79,27 @@ public class JdbcUtil {
     }
 
     /**
-     * 随机查找一条数据
+     * 随机查找一条代理数据
      */
     public static ProxyBean getProxy(){
         String sql="select *, rand() as random from proxy order by random limit 1";
         return (ProxyBean)jdbcAop.queryForObject(sql,new ProxyRowMapper());
     }
 
+    /**
+     * 查找视频的数据
+     * @param index 开始的下标
+     * @param data  查找多少条数据
+     * @return
+     * 示例 0,20 表示从第0条查找到第19条 总共查找20条数据
+     */
+    public static List getVedios(int index,int data){
+      String sql="select * from vedio order by updatetime and flag=0 desc limit "+index+","+data;
+        return jdbcAop.queryForList(sql);
+    }
 
     /**
-     * 随机查找一条数据
+     * 随机查找一条视频数据
      */
     public static VedioBean getVedioInfo(){
         String sql="select *, rand() as random from vedio order by random limit 1";
@@ -96,22 +110,26 @@ public class JdbcUtil {
      * */
     public static void insertVedioBatch(List<VedioBean> list){
         final List<VedioBean> batchlist=list;
-        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,flag) values(?,?,?,?,?)";
+        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,updatetime,flag) values(?,?,?,?,?,?)";
         //批量插入
         jdbcAop.batchUpdate(sql,new BatchPreparedStatementSetter() {
+            //此为匿名内部类的变量
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 // TODO Auto-generated method stub
+                ResultSet rs;
                 String title=batchlist.get(i).getTitle();
                 String preImgSrc=batchlist.get(i).getPreImgSrc();
                 String vedioUrl=batchlist.get(i).getVedioUrl();
                 String infotime=batchlist.get(i).getInfotime();
+                String updatetime=batchlist.get(i).getUpdatetime();
                 int flag=batchlist.get(i).getFlag();
                 ps.setString(1, title);
                 ps.setString(2, preImgSrc);
                 ps.setString(3, vedioUrl);
                 ps.setString(4, infotime);
-                ps.setInt(5,flag);
+                ps.setString(5, updatetime);
+                ps.setInt(6,flag);
                 //每1000条进行事物提交
                 if (i%1000 == 0) {
                     System.out.println("进行一次插入操作");
@@ -134,7 +152,7 @@ public class JdbcUtil {
 //			list.add(new ProxyBean("ip","port","type",DateUtil.getCurrentDay()));
 //		}
 //		insertBatch(list);
-		
+        getVedios(0,20);
 	}
 		
 }
