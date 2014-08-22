@@ -19,7 +19,8 @@ public class FileOperate {
 	  }  
 	  
 	  /** 
-	   * 新建目录 
+	   * 新建目录
+       * 只能创建一级目录
 	   * @param folderPath String 如 c:/fqf 
 	   * @return boolean 
 	   */  
@@ -37,7 +38,20 @@ public class FileOperate {
 	      e.printStackTrace();  
 	      
 	    }  
-	  }  
+	  }
+
+    /**
+     * 创建多级目录
+     * @param folderPath
+     */
+      public void newFolderMuti(String folderPath){
+          File pageElementFileDir = new File(folderPath);
+          if (!pageElementFileDir.exists()) {
+              pageElementFileDir.mkdirs();
+          } else{
+              System.out.println(folderPath+"目录已经存在");
+          }
+      }
 	  
 	  /** 
 	   * 新建文件 
@@ -71,8 +85,7 @@ public class FileOperate {
 	  /** 
 	   * 删除文件 
 	   * @param filePathAndName String 文件路径及名称 如c:/fqf.txt 
-	   * @param fileContent String 
-	   * @return boolean 
+	   * @return boolean
 	   */  
 	  public void delFile(String filePathAndName) {  
 	    try {  
@@ -92,9 +105,7 @@ public class FileOperate {
 	  
 	  /** 
 	   * 删除文件夹 
-	   * @param filePathAndName String 文件夹路径及名称 如c:/fqf 
-	   * @param fileContent String 
-	   * @return boolean 
+	   * @return boolean
 	   */  
 	  public void delFolder(String folderPath) {  
 	    try {  

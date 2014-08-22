@@ -10,8 +10,10 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.DownloadTask;
 import com.br.dong.httpclientTest.DownloadTaskListener;
+import com.br.dong.scanner.ScannerCreatFile;
 import com.br.dong.utils.DateUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -41,33 +43,23 @@ public class PornTest {
     //多少条进行一次批量插入
     private static int batchNum=100;
 	private static CrawlerUtil client=new CrawlerUtil();
-    //
-    private static int wantData=2;
+    private static FileOperate fo=new FileOperate();
     //--下载程序使用的参数
-    private static String saveFile="F:\\test_jar\\";
+    private static String saveFile="f:/vedios/default";
     private static String type="http";
     private static String hosturl="91p.vido.ws";
     private static String refUrl="http://91p.vido.ws/index.php";
-
+    //想要下载第几页
+    private static int wantPage=20;
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
-		//创建http请求的client
-//		client.clientCreate("http","91p.vido.ws" , "http://91p.vido.ws/index.php");
-//    	getPaging(false);
-//     	//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
-//    	getInfoDeatilProxy("http://91p.vido.ws/view_video.php?viewkey=65a5320bf0dcd0243c54&page=2&viewtype=basic&category=mr",getProxy());
-//         VedioBean vedio=JdbcUtil.getVedioInfo();
-//         System.out.println(vedio.toString());
-
+        //文件保存路径
+        saveFile= ScannerCreatFile.scannerMain(saveFile);
+        fo.newFolderMuti(saveFile);
         //分别起3个线程查找视频列表数据,并且进行下载任务DownLoadTask
-        ExecutorService threadPool = Executors.newFixedThreadPool(3);
-        for(int i=2;i<5;i++){
-            try {
-                threadPool.execute(new PronThread(""+i,i*wantData,wantData));
-                Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-
+        ExecutorService threadPool = Executors.newFixedThreadPool(1);
+        //暂时只起一个主线程
+        for(int i=wantPage;i<wantPage+1;i++){
+             threadPool.execute(new PronThread("视频主线程["+i+"]",url+i));
         }
 //        System.out.println("**[全部下载完成]**");
 //        threadPool.shutdown();// 任务执行完毕，关闭线程池
@@ -86,6 +78,35 @@ public class PornTest {
         list.add(new BasicNameValuePair("session_language", "cn_CN"));
         return list;
     }
+
+    /**
+     * 在线拿去实时视频列表页面 数据库中的页面会过期
+     * @param url
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     * @throws CloneNotSupportedException
+     */
+    public static List<VedioBean> getPageVideosOnline(String url) throws ClientProtocolException, IOException, CloneNotSupportedException, KeyManagementException, NoSuchAlgorithmException {
+            client.clientCreatNoUrl("http");
+            List<VedioBean> list=new ArrayList<VedioBean>();
+            Document doc=client.getDocUTF8(client.post(url, client.produceEntity(getPostParmList())));
+            Elements videobox=doc.select("div[class*=listchannel]");
+            System.out.println(url+"视频总数:"+videobox.size()+"个");
+            //拿去视频预览图片
+        for(Element e:videobox){
+            String title=e.select("div[class*=imagechannel]>a>img").attr("title");//标题
+            String preImgSrc=e.select("div[class*=imagechannel]>a>img").attr("src");//获得预览图片链接
+            String vedioUrl=e.select("div[class*=imagechannel]>a").attr("abs:href");//视频链接地址
+            String infotime=e.text().substring(e.text().indexOf("时长:"),e.text().indexOf(" 添加时间"));//获得时长
+            String updatetime= DateUtil.getStrOfDateMinute();
+            System.out.println(title+preImgSrc+vedioUrl+infotime+updatetime);
+            list.add(new VedioBean(title,preImgSrc,vedioUrl,infotime,updatetime,0));
+        }
+        return list;
+            //System.out.println(videobox.toString());
+    }
+
 
 	/**
 	 * 获取分页信息,并且逐页采集视频信息 插入数据库
@@ -131,82 +152,84 @@ public class PornTest {
 	}
 	
 	/**
-	 * 获得某个帖子的详细信息
+	 *
 	 * @throws CloneNotSupportedException 
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public static void  getInfoDeatilProxy(String threadName,String url,ProxyBean proxy,String fileName) throws ClientProtocolException, IOException, CloneNotSupportedException{
+	public static void  getInfoDeatilProxy(DownLoadBean bean) throws ClientProtocolException, IOException, CloneNotSupportedException{
         try {
             client.clientCreate("http","91p.vido.ws" , "http://91p.vido.ws/index.php");
         } catch (KeyManagementException e) {
         } catch (NoSuchAlgorithmException e) {
         }
         //使用代理方式获得
-        System.out.println(threadName+"正在连接代理"+proxy.getIp()+":"+proxy.getPort());
+        System.out.println(bean.getThread().getName() + "正在连接代理" + bean.getProxy().toString());
         List<NameValuePair> list = new ArrayList<NameValuePair>();
 		list.add(new BasicNameValuePair("session_language", "cn_CN"));
-		HttpResponse response=client.proxyPostUrl(url,proxy.getIp(),proxy.getPort(),list);
+        //代理post访问视频页面
+		HttpResponse response=client.proxyPostUrl(bean.getVedioUrl(),bean.getProxy().getIp(),bean.getProxy().getPort(),list);
 		Document doc=null;
 		if(response==null){
 			//连接代理失败，换下一个代理
-            getInfoDeatilProxy(threadName,url,getProxy(),fileName);
+            System.out.println(bean.getThread().getName()+"连接代理:"+bean.getProxy().toString()+"失败..");
+            //bean重新设置代理
+            bean.resetProxy();
+            getInfoDeatilProxy(bean);
             //代理失败以后 删除代理表中的代理
 		}else{//连接代理成功 解析url
 			 doc=client.getDocUTF8(response);
 //			 System.out.println(doc.toString());
             if(!doc.toString().contains("游客")){
+                //设置doc到bean中
+                bean.setDoc(doc);
                 //如果代理ip没有超过游客访问次数
-                System.out.println(threadName+"访问的代理可用,准备下载视频..");
-                //下载视频
-                downLoad(doc, fileName);
+                System.out.println(bean.getThread().getName()+"访问的代理"+bean.getProxy().toString()+"可用,准备下载视频..");
+                //解析并下载视频
+                downLoad(bean);
             }else{
                 //超过访问次数
-                System.out.println(threadName+"访问的当前代理超过访问次数,准备更换代理..");
-                getInfoDeatilProxy(threadName,url,getProxy(),fileName);
+                bean.resetProxy();//更换代理
+                System.out.println(bean.getThread().getName()+"访问的当前代理"+bean.getProxy().toString()+"超过访问次数,准备更换代理..");
+                getInfoDeatilProxy(bean);
             }
-			//在此处理具体的文件地址,解析出视频下载地址
 		}
 		
-		 //	 Document docHttps=clientforHttps.getDocUTF8(client.proxyPostUrl(url,"199.200.120.36",8089,list));
-//		 Document doc=client.getDocUTF8(client.noProxyGetUrl(url));
-	
 	}
-	/**
-	 * @param doc
-	 * @throws CloneNotSupportedException 
+	/**解析并下载视频 调用getDownLoadUrl()方法解析下载视频
+     * 解析bean中的doc 获得参数 VID,mp4,seccode,max_vid
+     *  seccode seccode随着时间变化 会失效
+	 * @throws CloneNotSupportedException
 	 * @throws IOException 
 	 */
-	public static void downLoad(Document doc,String fileName) throws IOException, CloneNotSupportedException{
-		//vedio http://91p.vido.ws/getfile.php?VID=8297&mp4=0&seccode=4455c308e748341a1f232bb67c557044&max_vid=83997
-//		System.out.println(doc.toString());
-		//解析doc 获得参数 VID,mp4,seccode,max_vid
-		//获得下载文件临时url seccode seccode随着时间变化 会失效
-		String downLoadUrl=getDownLoadUrl(doc.toString());
-        if(!"".equals(downLoadUrl)){
-            System.out.println("下载地址:"+downLoadUrl);
-            //解析下载地址的名字
-            DownloadTask downloadTask=new DownloadTask(downLoadUrl,saveFile+fileName,10,type,hosturl,refUrl);
+	public static void downLoad(DownLoadBean bean) throws IOException, CloneNotSupportedException{
+        System.out.println(bean.getThread().getName()+"访问视频页面:"+bean.getVedioUrl());
+        //解析bean
+        String downLoadUrl=getDownLoadUrl(bean);
+        if(!downLoadUrl.contains("error")){
+            System.out.println(bean.getThread().getName()+"开始下载:"+downLoadUrl);
+            DownloadTask downloadTask=new DownloadTask(downLoadUrl,saveFile+"/"+bean.getFileName(),10,type,hosturl,refUrl);
             //下载地址:http://50.7.73.90//dl//7cc1eb5db30e98a62097618350301783/53f2b02d//91porn/mp43/83954.mp4
             //调用开始下载
             try {
-
                 downloadTask.addDownloadTaskListener(new DownloadTaskListener() {
                     //实现接口
                     @Override
                     public void downloadCompleted() {//下载完成
                         // TODO Auto-generated method stub
-                        System.out.print("download completed");
+//                        System.out.print("download completed");
                     }
                 });
                 //开始下载
                 downloadTask.startDown(client);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(bean.getThread().getName() + "startDown[下载视频报错]");
             }
         }else{
             //处理访问拿到下载地址页面失败的错误
-            System.out.println("拿到file=..失败");
+            System.out.println(downLoadUrl);
+            bean.resetProxy();
+            getInfoDeatilProxy(bean);
         }
 
     }
@@ -217,13 +240,15 @@ public class PornTest {
 	 * @throws IOException 
 	 * @throws ClientProtocolException 
 	 */
-	public static String getDownLoadUrl(String content) throws ClientProtocolException, IOException, CloneNotSupportedException{
+	public static String getDownLoadUrl(DownLoadBean bean) throws ClientProtocolException, IOException, CloneNotSupportedException{
 		Map map=new HashMap();
 		String file="";
 		String max_vid="";
 		String seccode="";
 		String mp4="";
 		String downUrl="";
+        //视频页面的html信息
+        String content=bean.getDoc().toString();
 		if(content.contains("seccode")){
 			//截取包含参数的临时字符串
 			String temp=content.substring(content.indexOf("so.addParam('allowscriptaccess'"),content.indexOf("so.write('mediaspace');")).replace("\n", "");
@@ -244,14 +269,19 @@ public class PornTest {
 			map.put("seccode", seccode);
 			map.put("mp4", mp4);
 
-		}
+		} else{
+            System.out.println("["+content+"]");
+        }
+        //拿到包含下载地址的页面
 		String tempUrl=vedioFileUrl+"VID="+map.get("VID")+"&seccode="+map.get("seccode")+"&mp4="+mp4+"&max_vid="+map.get("max_vid");
 		//--异常 跳转的下载地址
-        HttpResponse response=client.noProxyGetUrl(tempUrl) ;
+         HttpResponse response=client.noProxyGetUrl(tempUrl) ;
+//        HttpResponse response=client.proxyGetUrl(tempUrl, bean.getProxy().getIp(), bean.getProxy().getPort()) ;
         if(response!=null){
-            //解析下载地址正常
+            //解析下载地址页面
             Document tempdoc=client.getDocUTF8(response);
 //            System.out.println(tempdoc.toString());
+            //包含下载地址
             if (tempdoc.text() != null && tempdoc.text().contains("file=http://")) {
                 //过滤出真正的下载地址
                 downUrl=tempdoc.text().substring(
@@ -259,11 +289,17 @@ public class PornTest {
                         tempdoc.text().indexOf("&domainUrl"));
                 //http://50.7.69.10//dl//8bb3e2c39d328430db7f9811a06fe8dd/53f1b5b5//91porn/mp43/83954.mp4
                 //http://107.155.123.34//dl//81b0256e55efc72fd8d4c5d1889b1684/53f1bc61//91porn/mp43/83954.mp4
+                return downUrl;
+            } else{
+                String msg=bean.getThread().getName()+"error[解析下载地址出错]"+tempdoc.toString()+"准备更换代理";
+                return msg;
             }
-            return downUrl;
+
         } else{
            //解析下载地址出错!!!!!!!这里还没处理
-              return "";
+            String msg=bean.getThread().getName()+"error[访问下载地址获得页面出错]"+"准备更换代理";
+            return msg;
+
         }
 
 //
@@ -308,30 +344,42 @@ public class PornTest {
  */
 
 class PronThread extends Thread{
-
-    PronThread(String name,int start,int count) {
+    PronThread(String name,String url) {
         super(name);
-        this.start=start;
-        this.count=count;
+        this.url=url;
     }
-    int start;//视频起始下载标志
-    int count; //下载视频的个数
+    List<VedioBean> list;
+    String url;//视频列表链接
     @Override
     public void run(){
-        System.out.println("视频线程"+getName()+"正在运行，目标下载"+count+"个视频");
-        List list= JdbcUtil.getVedios(start,count);//从0开始查找20条数据
+        try {
+            list=PornTest.getPageVideosOnline(url);
+        } catch (IOException e) {
+        } catch (CloneNotSupportedException e) {
+        } catch (NoSuchAlgorithmException e) {
+        } catch (KeyManagementException e) {
+        }
+        //不从数据库拿了 链接会过期
         for(int i=0;i<list.size();i++){
-            Map map= (Map) list.get(i);
-            String fileName= (String) map.get("title")+".mp4";
-            String vedioUrl= (String) map.get("vedioUrl");
-            //
+            //设置主线程的
+            this.setName(this.getName()+"-"+i);
+            String fileName=list.get(i).getTitle()+".mp4";
+            String vedioUrl=list.get(i).getVedioUrl();
+            //装配下载参数bean
+            DownLoadBean bean=new DownLoadBean();
+            bean.setFileName(fileName);
+            bean.setVedioUrl(vedioUrl);
+            bean.setProxy(JdbcUtil.getProxy());
+            bean.setThread(this);
             try {
-                PornTest.getInfoDeatilProxy("视频线程"+getName(),vedioUrl,PornTest.getProxy(),fileName);
-
+                //线程开始分析视频页面获取下载地址
+                PornTest.getInfoDeatilProxy(bean);
+            }  catch (CloneNotSupportedException e) {
+            }  catch (HttpHostConnectException e){
+            } catch (ClientProtocolException e) {
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (IllegalStateException e){
+                System.out.println("IllegalStateException..");
             }
         }
     }

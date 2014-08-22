@@ -22,13 +22,30 @@ import org.apache.http.client.methods.HttpHead;
 import sun.rmi.runtime.Log;
 
 /**
- * @author hexd 创建时间：2014-8-19 下午12:13:48 类说明
- * 
- * 多线程下载
- */
-
-/**下载任务
- * @author Dong
+ * Created with IntelliJ IDEA.
+ * User: Dong
+ * Date: 14-8-20
+ * Time: 下午4:56
+ *                       _ooOoo_
+ *                      o8888888o
+ *                      88" . "88
+ *                      (| ^_^ |)
+ *                      O\  =  /O
+ *                   ____/`---'\____
+ *                 .'  \\|     |//  `.
+ *                /  \\|||  :  |||//  \
+ *               /  _||||| -:- |||||-  \
+ *               |   | \\\  -  /// |   |
+ *               | \_|  ''\---/''  |   |
+ *               \  .-\__  `-`  ___/-. /
+ *             ___`. .'  /--.--\  `. . ___
+ *           ."" '<  `.___\_<|>_/___.'  >'"".
+ *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+ *         \  \ `-.   \_ __\ /__ _/   .-` /  /
+ *   ========`-.____`-.___\_____/___.-`____.-'========
+ *                        `=---='
+ *   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ *         佛祖保佑       永无BUG        永不修改
  */
 public class DownloadTask {
 	public static void main(String[] args) {
@@ -38,29 +55,24 @@ public class DownloadTask {
 		String type="http";
 		String hosturl="91p.vido.ws";
 		String refUrl="http://91p.vido.ws/index.php";
-		DownloadTask downloadTask= new DownloadTask(url, saveFile, 10,type,hosturl,refUrl);//10个线程  
-        try {  
-              
-            downloadTask.addDownloadTaskListener(new DownloadTaskListener() {  
+		DownloadTask downloadTask= new DownloadTask(url, saveFile, 10,type,hosturl,refUrl);//10个线程
+        try {
+
+            downloadTask.addDownloadTaskListener(new DownloadTaskListener() {
                 //实现接口
-            	@Override  
-                public void downloadCompleted() {//下载完成  
-                    // TODO Auto-generated method stub  
-                    System.out.print("download completed");  
-                }  
-            });  
+            	@Override
+                public void downloadCompleted() {//下载完成
+                    // TODO Auto-generated method stub
+                    System.out.print("download completed");
+                }
+            });
             //开始下载
             CrawlerUtil client = new CrawlerUtil();
             downloadTask.startDown(client);
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
-	/**
-	 * 开始下载
-	 *     as
-	 * @throws Exception
-	 */
 	long contentLength;//下载的资源大小
 	String url;//下载链接
 	boolean acceptRanges;//是否支持range断点续传

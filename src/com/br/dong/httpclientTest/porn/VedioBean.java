@@ -7,6 +7,7 @@ package com.br.dong.httpclientTest.porn;
  * Time: 下午4:56
  * To change this template use File | Settings | File Templates.
  */
+
 public class VedioBean {
      private String title; //视频标题
      private String preImgSrc;//图片链接

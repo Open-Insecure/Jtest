@@ -30,7 +30,7 @@ public class ProxyGet {
 
     public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
          getProxys();
-//       ProxyBean proxy=  JdbcUtil.getProxy();
+//       ProxyBean proxy=JdbcUtil.getProxy();
 //        System.out.println(proxy.toString());
 
     }

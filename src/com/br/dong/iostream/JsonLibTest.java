@@ -13,7 +13,7 @@
 //import net.sf.json.util.JSONUtils;
 //
 //import org.apache.commons.beanutils.PropertyUtils;
-//import org.junit.Test;
+//import org.junit.Taaaa;
 //public class JsonLibTest {
 //
 //	/*
@@ -31,7 +31,7 @@
 //	 */
 //	
 //	//一般数组转换成JSON
-//	@Test
+//	@Taaaa
 //	public void testArrayToJSON(){
 //	    boolean[] boolArray = new boolean[]{true,false,true};  
 //	    JSONArray jsonArray = JSONArray.fromObject( boolArray );  
@@ -41,7 +41,7 @@
 //	
 //	
 //	//Collection对象转换成JSON
-//	@Test
+//	@Taaaa
 //	public void testListToJSON(){
 //	    List list = new ArrayList();  
 //	    list.add( "first" );  
@@ -53,7 +53,7 @@
 //	
 //	
 //	//字符串json转换成json， 根据情况是用JSONArray或JSONObject
-//	@Test
+//	@Taaaa
 //	public void testJsonStrToJSON(){
 //	    JSONArray jsonArray = JSONArray.fromObject( "['json','is','easy']" );  
 //	    System.out.println( jsonArray );  
@@ -62,7 +62,7 @@
 //	
 //	
 //	//Map转换成json， 是用jsonObject
-//	@Test
+//	@Taaaa
 //	public void testMapToJSON(){
 //		Map map = new HashMap();  
 //		map.put( "name", "json" );  
@@ -76,7 +76,7 @@
 //	}
 //	
 //	//复合类型bean转成成json
-//	@Test
+//	@Taaaa
 //	public void testBeadToJSON(){
 //		MyBean bean = new MyBean();
 //		bean.setId("001");
@@ -97,7 +97,7 @@
 //	}
 //	
 //	//普通类型的json转换成对象
-//	@Test
+//	@Taaaa
 //	public void testJSONToObject() throws Exception{
 //	    String json = "{name=\"json\",bool:true,int:1,double:2.2,func:function(a){ return a; },array:[1,2]}";  
 //	    JSONObject jsonObject = JSONObject.fromObject( json ); 
@@ -124,7 +124,7 @@
 //	
 //	
 //	//将json解析成复合类型对象, 包含List
-//	@Test
+//	@Taaaa
 //	public void testJSONToBeanHavaList(){
 //		String json = "{list:[{name:'test1'},{name:'test2'}],map:[{test1:{name:'test1'}},{test2:{name:'test2'}}]}";
 ////		String json = "{list:[{name:'test1'},{name:'test2'}]}";
@@ -144,7 +144,7 @@
 //	
 //	
 //	//将json解析成复合类型对象, 包含Map
-//	@Test
+//	@Taaaa
 //	public void testJSONToBeanHavaMap(){
 //		//把Map看成一个对象
 //		String json = "{list:[{name:'test1'},{name:'test2'}],map:{test1:{name:'test1'},test2:{name:'test2'}}}";

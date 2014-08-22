@@ -214,11 +214,11 @@ public class CrawlerUtil {
 	    		 response = client.execute(post);
 
 		}catch(HttpHostConnectException e){
-            System.out.println("连接代理服务器"+proxyUrl+"失败..");
+//            System.out.println("连接代理服务器"+proxyUrl+"失败..");
         }catch(NoHttpResponseException e){
-            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
+//            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
         }catch (SocketException e){
-            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
+//            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
         }
 		return response;
 	}
@@ -241,9 +241,9 @@ public class CrawlerUtil {
 	        try{
 	    		response =client.execute(httpHost, get); 
 	        }catch(HttpHostConnectException e){
-				System.out.println("连接代理"+proxyUrl+"失败..");
+//				System.out.println("连接代理"+proxyUrl+"失败..");
 			}catch(NoHttpResponseException e){
-				System.out.println("服务器"+proxyUrl+"没有响应..");
+//				System.out.println("服务器"+proxyUrl+"没有响应..");
 			}
 	
 		} catch (Exception e) {
