@@ -79,6 +79,35 @@ public class ScannerCreatFile {
     }
 
     /**
+     * 下载页数
+     * @return
+     */
+    public static int wantPage(int wantPage){
+        //数组缓冲
+        byte[] b = new byte[1024];
+        //有效数据个数
+        int n = 0;
+            String page="";
+            while(true){
+                System.out.println("请输入想要下载的页数");
+                Scanner scanner=new Scanner(System.in);
+                page=scanner.nextLine();
+                if("".equals(page)){
+                    continue;
+                }else{
+                    try{
+                        wantPage=Integer.parseInt(page);
+                    }catch (Exception e){
+                        System.out.println("输入错误");
+                        continue;
+                    }
+
+                }
+            break;
+        }
+        return wantPage;
+    }
+    /**
      * @param type 类型
      * @return true代表符合要求，false代表不符合
      */

@@ -50,11 +50,12 @@ public class PornTest {
     private static String hosturl="91p.vido.ws";
     private static String refUrl="http://91p.vido.ws/index.php";
     //想要下载第几页
-    private static int wantPage=20;
+    private static int wantPage=1;
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
         //文件保存路径
         saveFile= ScannerCreatFile.scannerMain(saveFile);
         fo.newFolderMuti(saveFile);
+        wantPage=ScannerCreatFile.wantPage(wantPage);
         //分别起3个线程查找视频列表数据,并且进行下载任务DownLoadTask
         ExecutorService threadPool = Executors.newFixedThreadPool(1);
         //暂时只起一个主线程
