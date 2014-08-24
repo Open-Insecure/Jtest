@@ -13,7 +13,7 @@ CREATE TABLE vedio(
 	vedioUrl varchar(100),
 	infotime varchar(20),
 	updatetime varchar(30),
-	flag int,
+	flag int
 )default charset=utf8;
 
 

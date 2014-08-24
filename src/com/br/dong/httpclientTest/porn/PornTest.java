@@ -52,16 +52,20 @@ public class PornTest {
     //想要下载第几页
     private static int wantPage=1;
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
+        //--视频列表采集
+//        getPaging(true);
+        //------
         //文件保存路径
         saveFile= ScannerCreatFile.scannerMain(saveFile);
         fo.newFolderMuti(saveFile);
         wantPage=ScannerCreatFile.wantPage(wantPage);
-        //分别起3个线程查找视频列表数据,并且进行下载任务DownLoadTask
+        //分别起3个线程查找视频列表数据,并且进行下载任务DownLdTask
         ExecutorService threadPool = Executors.newFixedThreadPool(1);
-        //暂时只起一个主线程
-        for(int i=wantPage;i<wantPage+1;i++){
+        //暂时一个主线程
+        for(int i=wantPage;i<wantPage+2;i++){
              threadPool.execute(new PronThread("视频主线程["+i+"]",url+i));
         }
+        //----
 //        System.out.println("**[全部下载完成]**");
 //        threadPool.shutdown();// 任务执行完毕，关闭线程池
      }
@@ -115,8 +119,14 @@ public class PornTest {
      *
 	 */
 	public static void getPaging(Boolean wantMaxPage){
-
-		int maxpage=defaultPage;
+        try {
+            client.clientCreatNoUrl("http");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (KeyManagementException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        int maxpage=defaultPage;
 
 		//第一次采集第一页的
 		HttpResponse response;
@@ -345,6 +355,7 @@ public class PornTest {
  */
 
 class PronThread extends Thread{
+
     PronThread(String name,String url) {
         super(name);
         this.url=url;
