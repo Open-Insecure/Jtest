@@ -34,7 +34,7 @@ public class ProxyBean {
 	}
 
 	public String getIp() {
-		return ip;
+		return ip.trim();
 	}
 	public void setIp(String ip) {
 		this.ip = ip;

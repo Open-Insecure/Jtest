@@ -2,6 +2,7 @@ package com.br.dong.httpclientTest;
 
 import java.io.IOException;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -62,6 +63,8 @@ public class CrawlerUtil {
 	private static String DECODE_GBK="GBK";
     //超时时间
     private static int TIME_OUT_TIME=50000;
+    //socket超时时间
+    private static int SO_TIMEOUT_TIME=500000;
 	//想要带入的参数，可以根据需要扩展
 	private String parm1;
 	//使用cookie
@@ -164,8 +167,8 @@ public class CrawlerUtil {
 			sr.register(new Scheme("https", ssf, 443));
 			client = new DefaultHttpClient(ccm, client.getParams());
             //设置超时时间
-			client.getParams().setParameter(
-					CoreConnectionPNames.CONNECTION_TIMEOUT,TIME_OUT_TIME );
+//			client.getParams().setParameter(
+//					CoreConnectionPNames.CONNECTION_TIMEOUT,TIME_OUT_TIME );
 			return client;
 
 	}
@@ -179,11 +182,14 @@ public class CrawlerUtil {
         //设置超时时间
 		client.getParams().setParameter(
 				CoreConnectionPNames.CONNECTION_TIMEOUT, TIME_OUT_TIME);
+		client.getParams().setParameter(
+                CoreConnectionPNames.SO_TIMEOUT, SO_TIMEOUT_TIME);
+
 		return client;
 	}
 	
 	//不使用代理get方式访问url
-	public  HttpResponse noProxyGetUrl(String url) throws ClientProtocolException, IOException, CloneNotSupportedException{
+	public  HttpResponse noProxyGetUrl(String url) throws ClientProtocolException, IOException, CloneNotSupportedException,SocketException{
 		HttpGet get =getGetInstance(url);
 		HttpResponse response=null;
 		try {
@@ -191,7 +197,11 @@ public class CrawlerUtil {
 			response =client.execute(get);
 		} catch (HttpHostConnectException e) {
 			// TODO: handle exception
-			} 
+			}catch (SocketException e){
+        } catch (ClientProtocolException e){
+        }  catch (SocketTimeoutException e){
+
+        }
 		return response;
 	}
 	//使用代理post方式访问url
@@ -219,6 +229,10 @@ public class CrawlerUtil {
 //            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
         }catch (SocketException e){
 //            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
+        }catch (SocketTimeoutException e){
+
+        } catch (ClientProtocolException e){
+
         }
 		return response;
 	}
@@ -249,7 +263,7 @@ public class CrawlerUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: handle exception
-			} 
+			}
 		return response;
 	}
 	/**克隆获得post的实例
@@ -342,11 +356,14 @@ public class CrawlerUtil {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		}catch (SocketException e){
+        }
+        catch (SocketTimeoutException e){
+        } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return document;
+        return document;
 	}
 	
 	public Document getDocGBK(HttpResponse response){
@@ -381,10 +398,10 @@ public class CrawlerUtil {
 			response=client.execute(httpHead);
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		}catch (HttpHostConnectException e){
+        }
+        catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return response;
 	}

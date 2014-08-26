@@ -6,6 +6,7 @@ package com.br.dong.httpclientTest.porn;
  * Date: 14-8-20
  * Time: 下午4:56
  * To change this template use File | Settings | File Templates.
+ *
  */
 
 public class VedioBean {
@@ -14,7 +15,8 @@ public class VedioBean {
      private String vedioUrl; //视频播放地址
      private String infotime;  //时长
      private String updatetime;//更新日期
-     private int flag;        //是否采集标志    0表示未采集 1表示采集
+     private String videoId;//视频id
+     private int flag=0;        //是否采集标志    0表示未采集 1表示采集
 
     @Override
     public String toString() {
@@ -23,6 +25,8 @@ public class VedioBean {
                 ", preImgSrc='" + preImgSrc + '\'' +
                 ", vedioUrl='" + vedioUrl + '\'' +
                 ", infotime='" + infotime + '\'' +
+                ", updatetime='" + updatetime + '\'' +
+                ", videoId='" + videoId + '\'' +
                 ", flag=" + flag +
                 '}';
     }
@@ -36,6 +40,13 @@ public class VedioBean {
         this.flag = flag;
     }
 
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
 
     public String getUpdatetime() {
         return updatetime;

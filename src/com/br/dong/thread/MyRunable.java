@@ -14,6 +14,10 @@ public class MyRunable implements Runnable {
         this.count = count;
     }
 
+    public MyRunable() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
     @Override
     public void run() {
         System.out.println("线程"+count);

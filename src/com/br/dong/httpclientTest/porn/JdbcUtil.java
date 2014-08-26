@@ -68,8 +68,18 @@ public class JdbcUtil {
 				return batchlist.size();
 			}
 		});
-    	
     }
+
+    /**
+     * 删除指定代理
+     * @param proxy
+     */
+    public static void deleteProxyByIp(ProxyBean proxy){
+        String sql="delete from proxy where ip=?";
+        System.out.println("delete "+proxy.toString()+" from proxy table");
+       jdbcAop.update(sql,new Object[]{proxy.getIp()});
+    }
+
     /**
      *清空表代理表
      */
@@ -105,12 +115,21 @@ public class JdbcUtil {
         String sql="select *, rand() as random from vedio order by random limit 1";
         return (VedioBean)jdbcAop.queryForObject(sql,new VedioRowMapper());
     }
+
+    /**
+     * 插入一条视频信息
+     * @param video
+     */
+    public static void insertVideo(VedioBean video){
+        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,videoId,updatetime,flag) values(?,?,?,?,?,?,?)";
+        jdbcAop.update(sql, new Object[] {video.getTitle(),video.getPreImgSrc(),video.getVedioUrl(),video.getInfotime(),video.getVideoId(),video.getUpdatetime(),video.getFlag()});
+    }
     /**
      * 批量插入视频信息
      * */
     public static void insertVedioBatch(List<VedioBean> list){
         final List<VedioBean> batchlist=list;
-        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,updatetime,flag) values(?,?,?,?,?,?)";
+        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,videoId,updatetime,flag) values(?,?,?,?,?,?,?)";
         //批量插入
         jdbcAop.batchUpdate(sql,new BatchPreparedStatementSetter() {
             //此为匿名内部类的变量

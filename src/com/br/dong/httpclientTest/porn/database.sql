@@ -6,12 +6,13 @@ CREATE TABLE proxy(
 	updatetime varchar(20)
 );
 
---视频资料表       解决插入乱码问题
+--视频资料表
 CREATE TABLE vedio(
 	 title varchar(120),
    preImgSrc varchar(100),
 	vedioUrl varchar(100),
 	infotime varchar(20),
+	 	videoId varchar(100),
 	updatetime varchar(30),
 	flag int
 )default charset=utf8;

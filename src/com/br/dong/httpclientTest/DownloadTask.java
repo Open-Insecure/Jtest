@@ -163,7 +163,6 @@ public class DownloadTask {
 	/**
 	 * 获取下载文件信息
 	 */
-
 	private Boolean getDownloadFileInfo(CrawlerUtil client) throws IOException,
 			ClientProtocolException, Exception {
 		HttpHead httpHead = new HttpHead(url);
