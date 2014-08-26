@@ -48,7 +48,7 @@ public class PronVideo {
     //线程池
     static ExecutorService threadPool= Executors.newFixedThreadPool(20);
     public static void main(String[] args) {
-        getPaging(true);
+        getPaging(false);
     }
     /**
      * 拿去post参数，获得中文返回页面
