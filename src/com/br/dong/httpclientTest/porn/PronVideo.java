@@ -35,7 +35,7 @@ public class PronVideo {
     private static String url="http://91p.vido.ws/v.php?next=watch&page=";
     //视频文件请求url 后跟参数需要拼装
     //默认查找页数
-    private static int defaultPage=100;
+    private static int defaultPage=1000;
     //多少条进行一次批量插入
     private static int batchNum=100;
     private static FileOperate fo=new FileOperate();

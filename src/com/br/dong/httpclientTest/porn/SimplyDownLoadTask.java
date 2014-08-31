@@ -62,8 +62,8 @@ public class SimplyDownLoadTask extends Thread {
     //视频文件请求url 后跟参数需要拼装
     private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
     //--下载程序使用的参数
-    private static String saveFile="f:/vedios/new/";
-//    private static String saveFile="c:/vedios/default/";
+     private static String saveFile="f:/vedios/new/";
+    //  private static String saveFile="c:/vedios/new20140830/";
 
     //重写run方法
     public void run() {
