@@ -41,10 +41,13 @@ public class PronVideo {
     private static FileOperate fo=new FileOperate();
     //当前页面视频采集完成标志  pageGetFlag=20表示此页的20部视频全部下完
     public static int pageGetFlag=0;
-    //
+    //当前要采集的第几页的页数
     public static int current=1;
-
+    //第一次循环标志
     public static boolean first=true;
+    //--下载程序使用的参数
+    public  static String saveFile="F:\\vedios\\new\\";
+    //private static String saveFile="c:\\vedios\\new20140830\\";
     //线程池
     static ExecutorService threadPool= Executors.newFixedThreadPool(20);
     public static void main(String[] args) {
@@ -93,10 +96,21 @@ public class PronVideo {
         return list;
         //System.out.println(videobox.toString());
     }
+
     /**
-     * 获取分页信息,并且逐页采集视频信息 插入数据库
-     * wantMaxPage true 则拿去最大页数    false 则拿去默认的页数
-     *
+     * 定制采集从多少页到多少页的数据
+     * @param startPage
+     * @param endPage
+     * @param path
+     */
+    public static void getPaging(int startPage,int endPage,String path){
+        saveFile=path;
+        collect(startPage,endPage);
+
+    }
+    /**
+     * 在线拿去91pron的分页最大页数，从current页数开始进行视频抓取的入口方法
+     * @param wantMaxPage    true 则拿去最大页数    false 则拿去默认的页数
      */
     public static void getPaging(Boolean wantMaxPage){
         CrawlerUtil client=new CrawlerUtil();
@@ -110,8 +124,8 @@ public class PronVideo {
         int maxpage=defaultPage;
         //第一次采集第一页的
         HttpResponse response;
-        //查找最大页数
         if(wantMaxPage){
+            //查找最大页数
             try {
                 response = client.post(url+"1", client.produceEntity(getPostParmList()));
                 Document doc= client.getDocUTF8(response);
@@ -128,18 +142,33 @@ public class PronVideo {
         }
 
         System.out.println("get max page:"+maxpage);
-        while(current<maxpage+1){
+        collect(current,maxpage);
+    }
+
+    /**
+     * 采集多少页到多少页的视频
+     * @param startPage   起始页数
+     * @param endPage     结束页数
+     * 注意  current
+     */
+    public static void collect(int startPage,int endPage){
+        //当前页开始循环到最大页数
+        PronUI.jta.append("start page:"+startPage+"end page:"+endPage+"total videos:"+((endPage+1)-startPage)*20+"\n");
+        while(startPage<endPage+1){
             //设置采集标志位未采集
             try {
                 if(first){
-                    System.out.println("start to collection .."+url+current);
-                    getPageVideosOnline(url+current);
+                    System.out.println("start to collection .."+url+startPage);
+                    PronUI.jta.append("start to collection .."+url+startPage+"\n");
+                    getPageVideosOnline(url+startPage);
+                    startPage++;
                     first=false;
                 }
                 if(pageGetFlag%20==0&&pageGetFlag>=20){
-                    current++;
-                    System.out.println("start to collection .."+url+current);
-                    getPageVideosOnline(url+current);
+                    startPage++;
+                    System.out.println("start to collection .."+url+startPage);
+                    PronUI.jta.append("start to collection .."+url+startPage+"\n");
+                    getPageVideosOnline(url+startPage);
                 }
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -151,8 +180,7 @@ public class PronVideo {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
-        //判断当前页是否要采集
-
+        //退出系统
 
     }
 

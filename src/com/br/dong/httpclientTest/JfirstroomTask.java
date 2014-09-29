@@ -215,15 +215,11 @@ public class JfirstroomTask {
 		 //登录
 		   login(getResUrl);
 		//资源购买一区联系方式购买贴链接采集 F:\firstroom\resone.txt
-		 // getOneResource();
+//		 getOneResource();
 		//首页联系贴采集  F:\firstroom\main.txt
 //		  getMain();
-  		// getInfoDeatil(oneurl);
-		// getInfoDeatil(twourl);
-		//   getInfoDeatil(threeurl);
-		//  getInfoDeatil("http://www.firstgongyu.com/thread-8863-1-3.html?mobile=no");
 		  //读取main.txt循环创建详细页面
-// 		  readMainTxt("f://firstroom//main.txt");
-		   getInfoTest("http://www.firstgongyu.com/thread-4689-1-1.html?mobile=no");  
+		  readMainTxt("f://firstroom//main.txt");
+//		   getInfoTest("http://www.firstgongyu.com/thread-4689-1-1.html?mobile=no");
 	}
 }

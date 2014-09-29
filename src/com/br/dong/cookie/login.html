@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>login</title>
+    <script type="text/javascript" src="cookie.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+</head>
+<body>
+
+<!--
+注意：chrome不支持本地cookie的意思是，不支持通过文件路径访问的js的cookie，
+就好比我写个html文件放在本地，里面有创建cookie的代码，直接用chrome打开这个html文件，
+创建cookie的代码是不会执行成功的，因为chrome阻止了对document.cookie的赋值。想要解决这个问题也很简单，
+就是通过127.0.0.1来访问同一个文件，那你创建cookie的js代码就能正常执行了
+-->
+<form action="">
+    <p>
+        <span>UserName:</span>
+        <input id="userName" type="text" value=""/></p>
+    <p>
+        <span>Password:</span>
+        <input id="password" type="password" value=""/></p>
+    <p>
+        <span style="font-size:12px; color:blue;">记住密码</span>
+        <input id="saveCookie" type="checkbox" value="" /></p>
+    <p>
+        <input id="submit" type="button" value="GO" />
+    </p>
+</form>
+</body>
+</html>

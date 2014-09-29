@@ -15,7 +15,7 @@ public final class ReadProperties {
 
     static { 
         Properties prop = new Properties(); 
-        InputStream in = Object.class.getResourceAsStream("/config.properties"); 
+        InputStream in = Object.class.getResourceAsStream("/com/br/dong/properties/config.properties");
         try { 
             prop.load(in); 
             param1 = prop.getProperty("path").trim(); 

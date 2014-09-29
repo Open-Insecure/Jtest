@@ -2,7 +2,7 @@ package com.br.dong.thread;
 
 
 /**
- * 测试类
+ * 模拟多线程火车票售票系统
  * @author administrator
  *
  */
@@ -46,7 +46,7 @@ class Seller implements Runnable{
  *
  */
 class Ticket {
-	private int ticketCount;
+	private int ticketCount;    //票
 	protected boolean has=true ;//是否有票
 	public Ticket(int ticketCount) {
 		// TODO Auto-generated constructor stub

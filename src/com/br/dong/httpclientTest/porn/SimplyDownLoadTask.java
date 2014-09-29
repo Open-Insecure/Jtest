@@ -2,6 +2,7 @@ package com.br.dong.httpclientTest.porn;
 
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.DownloadTaskListener;
+import org.apache.http.ConnectionClosedException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -61,9 +62,6 @@ public class SimplyDownLoadTask extends Thread {
     long downloaded;//已经下载大小
     //视频文件请求url 后跟参数需要拼装
     private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
-    //--下载程序使用的参数
-     private static String saveFile="f:/vedios/new/";
-    //  private static String saveFile="c:/vedios/new20140830/";
 
     //重写run方法
     public void run() {
@@ -190,9 +188,9 @@ public class SimplyDownLoadTask extends Thread {
             map.put("seccode", seccode);
             map.put("mp4", mp4);
             //设置存放路径
-            localPath=saveFile+file+".mp4";
+            localPath=PronVideo.saveFile+file+".mp4";
             //设置video的属性
-            video.setVideoId(localPath);
+            video.setVideoId(file+".mp4");
 
         } else{
             System.out.println("["+content+"]");
@@ -237,7 +235,9 @@ public class SimplyDownLoadTask extends Thread {
         HttpHead httpHead = new HttpHead(downLoadUrl);
         HttpResponse response = client.executeHead(httpHead);
         if(response==null){
-            response = client.executeHead(httpHead);
+//            response = client.executeHead(httpHead);
+            //如果响应为空 则返回false
+            return false;
         }
         // 获取HTTP状态码
 //        int statusCode = response.getStatusLine().getStatusCode();
@@ -253,7 +253,13 @@ public class SimplyDownLoadTask extends Thread {
         if (headers.length > 0)
         {	//获得要下载的文件的大小
             contentLength = Long.valueOf(headers[0].getValue());
-            System.out.println("file length:[ "+contentLength/(1024*1024)+"M ]");
+            System.out.println(video.getVideoId()+"file length:[ "+contentLength/(1024*1024)+"M ]");
+            //如果文件大于50MB就删了吧 或者等于0的 也不采集了
+            if(contentLength/(1024*1024)>50||contentLength/(1024*1024)<=2){
+                return false;
+            }
+            //设置文件大小
+            video.setFlag((int)(contentLength/(1024*1024)));
         }
         httpHead.abort();
         return true;
@@ -268,6 +274,11 @@ public class SimplyDownLoadTask extends Thread {
             //判断下载链接是否有效
             if(getDownloadFileInfo()){
                 startDownload();
+            }else{
+                //下载链接无效 计数跳过
+                PronVideo.pageGetFlag++;
+                System.out.println("skip.."+downLoadUrl+"skip:"+video.getVideoId()+"["+ PronVideo.pageGetFlag+"/20]");
+                PronUI.jta.append("skip.."+video.getVideoId()+"["+ PronVideo.pageGetFlag+"/20]"+"\n");
             }
         } catch (Exception e) {
             System.out.println("start download fall.." + downLoadUrl);
@@ -298,10 +309,12 @@ public class SimplyDownLoadTask extends Thread {
            return ;
        }
         //下载计数器+1
-        synchronized(this){
+//        synchronized(this){
+
             PronVideo.pageGetFlag++;
             System.out.println("start download.."+downLoadUrl+" already download:"+ PronVideo.pageGetFlag+"/20");
-        }
+        PronUI.jta.append("start download.."+video.getVideoId()+"["+ PronVideo.pageGetFlag+"/20]"+"\n");
+//        }
         //插入video到数据库中
         JdbcUtil.insertVideo(video);
         // 定义下载线程事件实现类
@@ -319,9 +332,13 @@ public class SimplyDownLoadTask extends Thread {
                        "rw");
                byte[] buffer = new byte[10240];
                int count = 0;
-               while ((count = inputStream.read(buffer, 0, buffer.length)) > 0) {
-                   outputStream.write(buffer, 0, count);
-                   downloaded += count;
+               try{
+                   while ((count = inputStream.read(buffer, 0, buffer.length)) > 0) {
+                       outputStream.write(buffer, 0, count);
+                       downloaded += count;
+                   }
+               } catch (ConnectionClosedException e){
+                   System.out.println("ConnectionClosedException "+video.getVideoId());
                }
                //不能瞎比close
 //           outputStream.close();
