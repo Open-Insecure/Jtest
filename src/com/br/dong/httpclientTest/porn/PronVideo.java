@@ -13,6 +13,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -136,7 +137,12 @@ public class PronVideo {
             } catch (CloneNotSupportedException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
-            }catch(NumberFormatException e){
+            }  catch (SocketException e){
+                e.printStackTrace();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+            catch(NumberFormatException e){
                 System.out.println("fail to get max page,auto set max page="+defaultPage);
             }
         }

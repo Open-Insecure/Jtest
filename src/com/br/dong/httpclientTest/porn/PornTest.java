@@ -139,7 +139,10 @@ public class PornTest {
                 //拿到视频分页
                 Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
                 maxpage=Integer.parseInt(maxpageElement.text());
-            } catch (CloneNotSupportedException e1) {
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            catch (CloneNotSupportedException e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
             }catch(NumberFormatException e){

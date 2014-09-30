@@ -84,6 +84,12 @@ public class CrawlerUtil {
 		
 	}
 
+    /**
+     * 创建不需要host和refUrl参数的client实例
+     * @param type
+     * @throws NoSuchAlgorithmException
+     * @throws KeyManagementException
+     */
     public void clientCreatNoUrl(String type) throws NoSuchAlgorithmException, KeyManagementException {
 
         this.clientCreate(type,"","");
@@ -334,18 +340,17 @@ public class CrawlerUtil {
 	 * @throws CloneNotSupportedException 
 	 * 
 	 * */
-	public  HttpResponse post(String URL,UrlEncodedFormEntity entity) throws CloneNotSupportedException
-	{
+	public  HttpResponse post(String URL,UrlEncodedFormEntity entity) throws CloneNotSupportedException, IOException,SocketException {
 		HttpPost post = getPostInstance(URL);
 		//从新设置post的内容
 		post.setEntity(entity);
 		HttpResponse response = null;
-		try {
-			response = client.execute(post);
-		} catch (Exception e) {
-		// TODO: handle exception
-			e.printStackTrace();
-		}  
+        try{
+            response = client.execute(post);
+        } catch (SocketException e)  {
+            System.out.println("SocketException..");
+        }
+
 		return response;
 	}
 	public Document getDocUTF8(HttpResponse response){
