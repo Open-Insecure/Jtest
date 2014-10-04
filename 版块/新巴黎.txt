@@ -62,7 +62,7 @@
 【*电子有声区*】 EBOOK  http://xinbali.me/forum-37-1.html
 
 
-
+http://blog.csdn.net/jdsjlzx/article/details/8825724 httpclient4 上传附件
 Remote Address:107.150.17.66:80
 Request URL:http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes
 Request Method:POST
