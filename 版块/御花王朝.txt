@@ -1,61 +1,184 @@
-Óù»¨Íõ³¯ www.yhwc.me
-¸üĞÂµÄ°æ¿éÈçÏÂ
+Remote Address:162.220.13.9:80
+Request URL:http://162.220.13.9/post.php?action=newthread&fid=352&extra=page%3D1&topicsubmit=yes
+Request Method:POST
+Status Code:302 Moved Temporarily
+Request Headersview source
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:zh-CN,zh;q=0.8
+Cache-Control:max-age=0
+Connection:keep-alive
+Content-Length:58205
+Content-Type:multipart/form-data; boundary=----WebKitFormBoundary68BjR8VK29HC1hEB
+Cookie:RVd_sid=x7Mm4U; RVd_cookietime=2592000; RVd_auth=RljxyrONDJgAzQr7ZWDnSr6hyNW9QglEOhUBuRrrF%2BT2iJ4b8uhBph0oSNtMTLgR
+Host:162.220.13.9
+Origin:http://162.220.13.9
+Referer:http://162.220.13.9/post.php?action=newthread&fid=352&extra=page%3D1
+User-Agent:Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36
+Query String Parametersview sourceview URL encoded
+action:newthread
+fid:352
+extra:page=1
+topicsubmit:yes
+Request Payload
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="formhash"
 
-Ó°ÊÓÇø£¬BTÖÖ×Ó±¾µØ»¯£¬ÒÔ¸½¼şĞÎÊ½ÉÏ´«µ½ÂÛÌ³
-
-¡¾Íõ³¯ÑÇÖŞÓ°ÊÓ×¨Çø¡¿ http://yhwc.me/forum-26-1.html
-
-
-¡¾Íõ³¯Å·ÃÀÓ°ÊÓ×¨Çø¡¿ http://yhwc.me/forum-27-1.html
+763ffbd1
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="isblog"
 
 
-¡¾Íõ³¯Ñ¸À×Ó°ÊÓ×¨Çø¡¿ http://yhwc.me/forum-29-1.html
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="frombbs"
+
+1
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="typeid"
+
+9
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="subject"
+
+Â³Â¾Â°Â£@ÂµÃšÃ’Â»Â»Ã¡Ã‹Ã¹@Â¾Â«Ã‘Â¡Â¹ÃºÂ²ÃºÃÃ”Â°Â®Ã—Ã”Ã…Ã„ÂºÃÂ¼Â¯Â·Â¡ÃŠÂ°ÃˆÃ¾
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="selecttypeid"
+
+9
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="message"
+
+[size=12px]Â³Â¾Â°Â£@ÂµÃšÃ’Â»Â»Ã¡Ã‹Ã¹@Â¾Â«Ã‘Â¡Â¹ÃºÂ²ÃºÃÃ”Â°Â®Ã—Ã”Ã…Ã„ÂºÃÂ¼Â¯Â·Â¡ÃŠÂ°ÃˆÃ¾[/size]
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attach[]"; filename=""
+Content-Type: application/octet-stream
 
 
-¡¾Íõ³¯ÍøÅÌÏÂÔØ×¨Çø¡¿ http://yhwc.me/forum-224-1.html
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="localid[]"
 
 
-¡¾Íõ³¯¶¯ÂşÓ°ÊÓ×¨Çø¡¿ http://yhwc.me/forum-28-1.html
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attachperm[]"
+
+0
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attachdesc[]"
 
 
-¡¾Íõ³¯Èı¼¶Ó°ÊÓ×¨Çø¡¿ http://yhwc.me/forum-64-1.html
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attach[]"; filename="Â³Â¾Â°Â£@ÂµÃšÃ’Â»Â»Ã¡Ã‹Ã¹@Â¾Â«Ã‘Â¡Â¹ÃºÂ²ÃºÃÃ”Â°Â®Ã—Ã”Ã…Ã„ÂºÃÂ¼Â¯Â·Â¡ÃŠÂ°ÃˆÃ¾.torrent"
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="localid[]"
+
+1
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attachperm[]"
+
+0
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attachdesc[]"
+
+
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attach[]"; filename=""
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="localid[]"
+
+2
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attachperm[]"
+
+0
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="attachdesc[]"
+
+
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="iconid"
+
+0
+------WebKitFormBoundary68BjR8VK29HC1hEB
+Content-Disposition: form-data; name="wysiwyg"
+
+1
+------WebKitFormBoundary68BjR8VK29HC1hEB--
+Response Headersview source
+Connection:keep-alive
+Content-Encoding:gzip
+Content-Type:text/html
+Date:Sat, 04 Oct 2014 05:02:27 GMT
+location:viewthread.php?tid=473104&extra=page%3D1&frombbs=1
+Server:nginx/1.0.0
+Transfer-Encoding:chunked
+Vary:Accept-Encoding
+X-Powered-By:PHP/5.3.14
+
+
+å¾¡èŠ±ç‹æœ www.yhwc.me
+æ›´æ–°çš„ç‰ˆå—å¦‚ä¸‹
+
+å½±è§†åŒºï¼ŒBTç§å­æœ¬åœ°åŒ–ï¼Œä»¥é™„ä»¶å½¢å¼ä¸Šä¼ åˆ°è®ºå›
+
+ã€ç‹æœäºšæ´²å½±è§†ä¸“åŒºã€‘ http://yhwc.me/forum-26-1.html
+
+
+ã€ç‹æœæ¬§ç¾å½±è§†ä¸“åŒºã€‘ http://yhwc.me/forum-27-1.html
+
+
+ã€ç‹æœè¿…é›·å½±è§†ä¸“åŒºã€‘ http://yhwc.me/forum-29-1.html
+
+
+ã€ç‹æœç½‘ç›˜ä¸‹è½½ä¸“åŒºã€‘ http://yhwc.me/forum-224-1.html
+
+
+ã€ç‹æœåŠ¨æ¼«å½±è§†ä¸“åŒºã€‘ http://yhwc.me/forum-28-1.html
+
+
+ã€ç‹æœä¸‰çº§å½±è§†ä¸“åŒºã€‘ http://yhwc.me/forum-64-1.html
 
 
 =======================================
 
-Í¼Æ¬Çø£¬Í¼Æ¬±¾µØ»¯Ö»ÓÃÓÚ×ÔÅÄÇø
+å›¾ç‰‡åŒºï¼Œå›¾ç‰‡æœ¬åœ°åŒ–åªç”¨äºè‡ªæ‹åŒº
 
 
-.::Íõ³¯×ÔÅÄÍµÅÄ…^::.  http://yhwc.me/forum-220-1.html
+.::ç‹æœè‡ªæ‹å·æ‹å€::.  http://yhwc.me/forum-220-1.html
 
 
-.::Íõ³¯ÈÕº«ÙNˆD…^::. http://yhwc.me/forum-18-1.html
+.::ç‹æœæ—¥éŸ©è²¼åœ–å€::. http://yhwc.me/forum-18-1.html
 
 
-.::Íõ³¯Å·ÖŞÙNˆD…^::. http://yhwc.me/forum-19-1.html
+.::ç‹æœæ¬§æ´²è²¼åœ–å€::. http://yhwc.me/forum-19-1.html
 
 
-.::Íõ³¯Ğ´ÕæË¿Íà…^::. http://yhwc.me/forum-20-1.html
+.::ç‹æœå†™çœŸä¸è¢œå€::. http://yhwc.me/forum-20-1.html
 
 
-.::Íõ³¯¿¨Í¨³ÉÈË…^::. http://yhwc.me/forum-21-1.html
+.::ç‹æœå¡é€šæˆäººå€::. http://yhwc.me/forum-21-1.html
 
 
-.::Íõ³¯Ã÷ĞÇºÏ³É…^::. http://yhwc.me/forum-23-1.html
+.::ç‹æœæ˜æ˜Ÿåˆæˆå€::. http://yhwc.me/forum-23-1.html
 
 
-.::Íõ³¯Í¬ĞÔÌùÍ¼…^::. http://yhwc.me/forum-302-1.html
+.::ç‹æœåŒæ€§è´´å›¾å€::. http://yhwc.me/forum-302-1.html
 
 
 
 ========================================
 
-Ğ¡ËµÇø  EBOOK ±¾µØ»¯¸½¼ş
+å°è¯´åŒº  EBOOK æœ¬åœ°åŒ–é™„ä»¶
 
-.::Íõ³¯¼¤ÇéÂÒÂ×…^:: http://yhwc.me/forum-16-1.html
+.::ç‹æœæ¿€æƒ…ä¹±ä¼¦å€:: http://yhwc.me/forum-16-1.html
 
-.::Íõ³¯ÏÖ´ú¶¼ÊĞ…^:: http://yhwc.me/forum-15-1.html
+.::ç‹æœç°ä»£éƒ½å¸‚å€:: http://yhwc.me/forum-15-1.html
 
-.::Íõ³¯ÎäÏÀÁíÀà…^:: http://yhwc.me/forum-17-1.html
+.::ç‹æœæ­¦ä¾ å¦ç±»å€:: http://yhwc.me/forum-17-1.html
 
-   Ebook-Ãû¼ÒºÏ¼¯   http://yhwc.me/forum-298-1.html
+   Ebook-åå®¶åˆé›†   http://yhwc.me/forum-298-1.html
