@@ -202,3 +202,131 @@ location:viewthread.php?tid=71810&extra=page%3D1&frombbs=1
 Server:nginx/1.0.0
 Transfer-Encoding:chunked
 X-Powered-By:PHP/5.3.14
+
+
+
+
+------------------------------------------------
+Remote Address:107.150.17.66:80
+Request URL:http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes
+Request Method:POST
+Status Code:302 Moved Temporarily
+Request Headersview source
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding:gzip,deflate
+Accept-Language:zh-CN,zh;q=0.8
+Cache-Control:max-age=0
+Connection:keep-alive
+Content-Length:2287
+Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Cookie:s1m_cookietime=2592000; s1m_auth=pa5YI5lRaxN%2BXfuRiI4LL7a0HHjB8LxOAv2AAJnBqA3jA2zRA9ItqoCl76hm6MI; s1m_sid=CcdBLy; s1m_visitedfid=25; s1m_oldtopics=D71252D; s1m_smile=1D2
+Host:107.150.17.66
+Origin:http://107.150.17.66
+Referer:http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1
+User-Agent:Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36
+Query String Parametersview sourceview URL encoded
+action:newthread
+fid:25
+extra:page=1
+topicsubmit:yes
+Request Payload
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="formhash"
+
+a2da1e20
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="isblog"
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="frombbs"
+
+1
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="typeid"
+
+33
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="subject"
+
+sd4479270@µÚÒ»»áËù@ÃÄÄïµÚ¶þ²¿·Ö
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="selecttypeid"
+
+33
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="message"
+
+[color=Red]sd4479270@µÚÒ»»áËù@ÃÄÄïµÚ¶þ²¿·Ö[/color]
+ÈçºÎ·¢±íÍ¼Æ¬£¿
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attach[]"; filename=""
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="localid[]"
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attachperm[]"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attachprice[]"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attachdesc[]"
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attach[]"; filename=""
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="localid[]"
+
+1
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attachperm[]"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attachprice[]"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="attachdesc[]"
+
+
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="readperm"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="price"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="iconid"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU
+Content-Disposition: form-data; name="wysiwyg"
+
+0
+------WebKitFormBoundaryGFE2NcKGBOIwAAjU--
+Response Headersview source
+Connection:keep-alive
+Content-Encoding:gzip
+Content-Type:text/html
+Date:Mon, 06 Oct 2014 02:04:54 GMT
+location:viewthread.php?tid=71994&extra=page%3D1&frombbs=1
+Server:nginx/1.0.0
+Transfer-Encoding:chunked
+Vary:Accept-Encoding
+X-Powered-By:PHP/5.3.14

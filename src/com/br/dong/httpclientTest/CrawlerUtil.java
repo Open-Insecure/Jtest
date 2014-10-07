@@ -10,6 +10,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -30,6 +31,7 @@ import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -104,7 +106,6 @@ public class CrawlerUtil {
 	 */
 	public void clientCreate(String type,String host,String refURL) throws KeyManagementException, NoSuchAlgorithmException
 	{
-		
 		//初始化client
 		if("http".equals(type)){
 			client=getDefaultClient();
@@ -140,6 +141,7 @@ public class CrawlerUtil {
 		get.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
 		
 	}
+
 	/**
 	 * 初始化访问https目标url的类
 	 */
@@ -340,7 +342,7 @@ public class CrawlerUtil {
 	 * @throws CloneNotSupportedException 
 	 * 
 	 * */
-	public  HttpResponse post(String URL,UrlEncodedFormEntity entity) throws CloneNotSupportedException, IOException,SocketException {
+	public  HttpResponse post(String URL,UrlEncodedFormEntity entity) throws CloneNotSupportedException, IOException {
 		HttpPost post = getPostInstance(URL);
 		//从新设置post的内容
 		post.setEntity(entity);
@@ -353,7 +355,28 @@ public class CrawlerUtil {
 
 		return response;
 	}
-	public Document getDocUTF8(HttpResponse response){
+
+    /**
+     * 用户上传附件的post 包括附件路径和普通参数设置
+     * @param URL
+     * @param entity
+     * @return
+     * @throws CloneNotSupportedException
+     * @throws IOException
+     */
+    public HttpResponse postByMultipartEntity(String URL,MultipartEntity entity) throws CloneNotSupportedException, IOException {
+        HttpPost post = getPostInstance(URL);
+        //从新设置post的内容
+        post.setEntity(entity);
+        HttpResponse response = null;
+        try{
+            response = client.execute(post);
+        } catch (SocketException e)  {
+            System.out.println("SocketException..");
+        }
+        return response;
+    }
+    public Document getDocUTF8(HttpResponse response){
 		HttpEntity entity=response.getEntity();
 		Document document=null;
 		try {
@@ -428,9 +451,30 @@ public class CrawlerUtil {
 		}
 		return response;
 	}
-	
+
+    protected static String generateBoundary() {
+        StringBuilder buffer = new StringBuilder();
+        Random rand = new Random();
+        int count = rand.nextInt(11) + 30; // a random size from 30 to 40
+        for (int i = 0; i < count; i++) {
+            buffer.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
+        }
+        return buffer.toString();
+    }
+
+    public  HttpResponse execute(HttpPost post) throws IOException {
+        return client.execute(post) ;
+
+    }
+
+    private final static char[] MULTIPART_CHARS =
+            "-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
 	//测试
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
+        //------WebKitFormBoundary1ozYW8mBY4lbZLIL
+        //h7QuE5mQfQlkLYdrxLQQWizLThwnMYi4r0pi8R86
+
     }
 
 }
