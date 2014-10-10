@@ -13,12 +13,11 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileOperate {
-	public FileOperate() {  
-	  }  
-	  
-	  /** 
+	  /**
 	   * 新建目录
        * 只能创建一级目录
 	   * @param folderPath String 如 c:/fqf 
@@ -44,7 +43,7 @@ public class FileOperate {
      * 创建多级目录
      * @param folderPath
      */
-      public void newFolderMuti(String folderPath){
+      public static void newFolderMuti(String folderPath){
           File pageElementFileDir = new File(folderPath);
           if (!pageElementFileDir.exists()) {
               pageElementFileDir.mkdirs();
@@ -258,7 +257,7 @@ public class FileOperate {
 	   * @param oldPath String 如：c:/fqf.txt 
 	   * @param newPath String 如：d:/fqf.txt 
 	   */  
-	  public void moveFolder(String oldPath, String newPath) {  
+	  public  void moveFolder(String oldPath, String newPath) {
 	    copyFolder(oldPath, newPath);  
 	    delFolder(oldPath);  
 	  }  
@@ -295,7 +294,7 @@ public class FileOperate {
 		
 	    }
 	  //读取文件的每一行字符
-		public void readLine(String filePath){
+		public static void readLine(String filePath){
 			BufferedReader in=null;
 			try{
 				 in=new BufferedReader(new FileReader(filePath));
@@ -312,4 +311,49 @@ public class FileOperate {
 				e.printStackTrace();
 			} 
 		}
+
+    /**
+     *防止fileList递归调用后被重新置空
+     */
+    public static List fileList=new ArrayList();
+
+    /**
+     * 手动置空fileList
+     */
+    public static void resetFileList(){
+        fileList.clear();
+    }
+    /**
+     *读取目录下面的所有文件，返回文件名的list
+     * @param floder
+     */
+    public static List readFloder(File floder){
+        //判断传入对象是否为一个文件夹对象
+        if(!floder.isDirectory()){
+             System.out.println("你输入的不是一个文件夹，请检查路径是否有误！！");
+        }
+        else{
+            File[] t = floder.listFiles();
+            for(int i=0;i<t.length;i++){
+                //判断文件列表中的对象是否为文件夹对象，如果是则执行tree递归，直到把此文件夹中所有文件输出为止
+                if(t[i].isDirectory()){
+                    System.out.println(t[i].getName()+"\tttdir");
+                    //递归调用
+                    readFloder(t[i]);
+                }
+                else{
+                    System.out.println(t[i].getName()+"tFile");
+                    fileList.add(t[i].getName());
+                }
+            }
+        }
+          return fileList;
+    }
+
+
+    public static void main(String[] args) {
+        resetFileList();
+        List list=readFloder(new File("F:\\vedios\\torrent\\"));
+        System.out.println(list.size());
+    }
 }

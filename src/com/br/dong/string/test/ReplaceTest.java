@@ -8,6 +8,10 @@ public class ReplaceTest {
 	public static void main(String[] args) throws Exception {  
 	    String src = "南京市玄武区北京东路徐州市鼓楼区戏马台";   
 	    src = src.replaceAll("(?:江苏省|玄武区|鼓楼区)", "");  
-	    System.out.println(src);  
+	    System.out.println(src);
+
+        String src2="(?:<>/\\:\"\"*?";
+        src2=src2.replaceAll("(?:/|<|>|:|\\?|\\||\\*|\"|\\(|\\)|)","");
+        System.out.println(src2);
 	  }  
 }

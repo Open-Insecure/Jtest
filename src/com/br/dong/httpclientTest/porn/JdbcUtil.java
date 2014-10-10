@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.br.dong.httpclientTest.sis001.SisTorrentBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -164,14 +165,53 @@ public class JdbcUtil {
         });
     }
 
-    //测试插入
+    /**********************************************************
+     * 对应Sis001的数据库
+     */
+    /**
+     * 针对urls表
+     */
+    public static List getUrls(String type){
+        String sql="select * from urls where type=?";
+        return jdbcAop.queryForList(sql,type);
+    }
+
+    /**
+     * 查找种子列表中是否有相同的种子
+     * @param torrentUrl
+     * @return
+     */
+    public static List checkSameTorrent(String torrentUrl){
+        String sql="select * from torrents where torrentUrl=?";
+        return jdbcAop.queryForList(sql,torrentUrl);
+    }
+
+    /**
+     * 根据种子所属标记进行查询
+     * @param flag
+     * @return
+     */
+    public static List getTorrentsByFlag(String flag){
+        String sql="select * from torrents where flag=?";
+        return jdbcAop.queryForList(sql,flag);
+    }
+
+    /**
+     * 插入种子信息岛种子列表中
+     * @param bean
+     */
+    public static void insertTorrent(SisTorrentBean bean){
+       String sql="insert into torrents(flag,type,title,url,size,torrentUrl,time,picUrl) values(?,?,?,?,?,?,?,?)";
+        jdbcAop.update(sql,new Object[]{bean.getFlag(),bean.getType(),bean.getTitle(),bean.getUrl(),bean.getSize(),bean.getTorrentUrl(),bean.getTime(),bean.getPicUrl()});
+    }
+
+    //测试
     public static void main(String[] args) {
-//		List<ProxyBean> list=new ArrayList<ProxyBean>();
-//		for(int i=0;i<100;i++){
-//			list.add(new ProxyBean("ip","port","type",DateUtil.getCurrentDay()));
-//		}
-//		insertBatch(list);
-        getVedios(0,20);
+       List rows=getTorrentsByFlag("aa");
+        for(int i=0;i<rows.size();i++){
+            Map map= (Map) rows.get(i);
+            System.out.println(map.toString());
+        }
 	}
 		
 }

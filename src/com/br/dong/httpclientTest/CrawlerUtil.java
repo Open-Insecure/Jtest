@@ -26,15 +26,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.impl.client.BasicCookieStore;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
@@ -73,6 +72,8 @@ public class CrawlerUtil {
 	private BasicCookieStore cookieStore = new BasicCookieStore();
 	//返回给调用此类的一个client实例
 	private DefaultHttpClient client;
+    //返回一个httpclient 4.3.5的client实例
+    private CloseableHttpClient closeableHttpClient;
 	//post方式
 	private HttpPost post=new HttpPost();
 	//get方式
@@ -87,6 +88,12 @@ public class CrawlerUtil {
 	}
 
     /**
+     * 返回一个单独的CloseableHttpClient实例
+     */
+   public void closeableClientCreat(){
+       closeableHttpClient= HttpClients.createDefault();
+   }
+    /**
      * 创建不需要host和refUrl参数的client实例
      * @param type
      * @throws NoSuchAlgorithmException
@@ -97,7 +104,8 @@ public class CrawlerUtil {
         this.clientCreate(type,"","");
     }
 
-	/**实例化client并且设置请求头和get post实例
+	/**注意此方法可以用于多线程！每个线程单独维护一个client
+     * 实例化client并且设置请求头和get post实例
 	 * @param type 返回client的类型 type="http"的时候使用http的实例 type="https"的时候使用https实例
 	 * @param host 目标主机url
 	 * @param refURL 引用的refURL 具体可以使用谷歌浏览器network查看
@@ -159,7 +167,7 @@ public class CrawlerUtil {
 		}
 	};
 	
-	/**实现返回一个访问https的client实例
+	/**实现返回一个访问https的client实例  可以多个线程维护自己的client
 	 * @return
 	 * @throws KeyManagementException
 	 * @throws NoSuchAlgorithmException
@@ -181,7 +189,7 @@ public class CrawlerUtil {
 
 	}
 	
-	/**返回一个默认的client
+	/**返回一个默认的client 可以多个线程维护自己的client
 	 * @return
 	 */
 	public DefaultHttpClient getDefaultClient(){
@@ -203,7 +211,9 @@ public class CrawlerUtil {
 		try {
 			//System.out.println("executing request " + get.getURI());
 			response =client.execute(get);
-		} catch (HttpHostConnectException e) {
+		}catch (ConnectionPoolTimeoutException e){
+        }
+        catch (HttpHostConnectException e) {
 			// TODO: handle exception
 			}catch (SocketException e){
         } catch (ClientProtocolException e){
@@ -351,31 +361,13 @@ public class CrawlerUtil {
             response = client.execute(post);
         } catch (SocketException e)  {
             System.out.println("SocketException..");
+        }  catch (ConnectionPoolTimeoutException e){
+            System.out.println("ConnectionPoolTimeoutException..");
         }
 
 		return response;
 	}
 
-    /**
-     * 用户上传附件的post 包括附件路径和普通参数设置
-     * @param URL
-     * @param entity
-     * @return
-     * @throws CloneNotSupportedException
-     * @throws IOException
-     */
-    public HttpResponse postByMultipartEntity(String URL,MultipartEntity entity) throws CloneNotSupportedException, IOException {
-        HttpPost post = getPostInstance(URL);
-        //从新设置post的内容
-        post.setEntity(entity);
-        HttpResponse response = null;
-        try{
-            response = client.execute(post);
-        } catch (SocketException e)  {
-            System.out.println("SocketException..");
-        }
-        return response;
-    }
     public Document getDocUTF8(HttpResponse response){
 		HttpEntity entity=response.getEntity();
 		Document document=null;
@@ -402,12 +394,34 @@ public class CrawlerUtil {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (SocketException e){
+            System.out.println("SocketException..");
+        } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return document;
+        return document;
 	}
+
+    /**
+     * 根据HttpResponse响应获得的HttpEntity和编码方式 获得jsoup解析出来的Document
+     * @param entity
+     * @param encoded
+     * @return
+     */
+    public Document getDocument(HttpEntity entity,String encoded){
+        Document document=null;
+        try {
+            document=Jsoup.parse(EntityUtils.toString(entity, encoded));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return document;
+    }
 	/**
 	 * 关闭Httpclient
 	 * */
@@ -452,23 +466,13 @@ public class CrawlerUtil {
 		return response;
 	}
 
-    protected static String generateBoundary() {
-        StringBuilder buffer = new StringBuilder();
-        Random rand = new Random();
-        int count = rand.nextInt(11) + 30; // a random size from 30 to 40
-        for (int i = 0; i < count; i++) {
-            buffer.append(MULTIPART_CHARS[rand.nextInt(MULTIPART_CHARS.length)]);
-        }
-        return buffer.toString();
-    }
 
     public  HttpResponse execute(HttpPost post) throws IOException {
         return client.execute(post) ;
 
     }
 
-    private final static char[] MULTIPART_CHARS =
-            "-_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
 
 	//测试
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
