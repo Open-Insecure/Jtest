@@ -4,10 +4,13 @@ CREATE TABLE torrents(
 	 type varchar(10),
 	 title varchar(200),
    url varchar(100),
-	 size varchar(20),
+	 size varchar(100),
 	 torrentUrl varchar(100),
 	 time varchar(30),
-	 picUrl  varchar(100)
+	 updatetime varchar(30),
+	 picUrl  varchar(100),
+	 message varchar(3000),
+	 temp varchar(500)
 )default charset=utf8;
 
 --创建采集区域url表
@@ -19,16 +22,25 @@ CREATE TABLE urls(
 
 )default charset=utf8;
 
-insert into urls(type,title,url,flodername)values('torrent','亚洲无码转帖','http://sis001.com/forum/forum-25-','yzwmzt');
-insert into urls(type,title,url,flodername)values('torrent','亚洲有码转帖','http://sis001.com/forum/forum-58-','yzymzt');
-insert into urls(type,title,url,flodername)values('torrent','欧美无码','http://sis001.com/forum/forum-77-','omwm');
-insert into urls(type,title,url,flodername)values('torrent','成人游戏卡通漫画转区','http://sis001.com/forum/forum-27-','cryxktmhzq');
-insert into urls(type,title,url,flodername)values('torrent','亚洲无码原创区','http://sis001.com/forum/forum-143-','yzwmyc');
-insert into urls(type,title,url,flodername)values('torrent','亚洲有码原创区','http://sis001.com/forum/forum-230-','yzymyc');
-insert into urls(type,title,url,flodername)values('torrent','欧美无码原创区','http://sis001.com/forum/forum-229-','omwmyc');
-insert into urls(type,title,url,flodername)values('torrent','成人游戏动漫原创分享区','http://sis001.com/forum/forum-231-','cryxdmyc');
-insert into urls(type,title,url,flodername)values('torrent','新手会员原创BT发布区','http://sis001.com/forum/forum-406-','xsbtfb');
-insert into urls(type,title,url,flodername)values('torrent','BT自拍原创区','http://sis001.com/forum/forum-530-','btzp');
+
+--种子
+insert into urls(type,title,url,flodername)values('torrent','亚洲无码转帖','http://38.103.161.188/forum/forum-25-','bt_yzwmzt');
+insert into urls(type,title,url,flodername)values('torrent','亚洲有码转帖','http://38.103.161.188/forum/forum-58-','bt_yzymzt');
+insert into urls(type,title,url,flodername)values('torrent','欧美无码','http://38.103.161.188/forum/forum-77-','bt_omwm');
+insert into urls(type,title,url,flodername)values('torrent','成人游戏卡通漫画转区','http://38.103.161.188/forum/forum-27-','bt_cryxktmhzq');
+insert into urls(type,title,url,flodername)values('torrent','亚洲无码原创区','http://38.103.161.188/forum/forum-143-','bt_yzwmyc');
+insert into urls(type,title,url,flodername)values('torrent','情色三级','http://38.103.161.188/forum/forum-426-','bt_3j');
+--网盘或迅雷等链接下载
+insert into urls(type,title,url,flodername)values('url','成人网盘','http://38.103.161.188/forum/forum-187-','url_wp');
+insert into urls(type,title,url,flodername)values('url','电驴','http://38.103.161.188/forum/forum-270-','url_dl');
+insert into urls(type,title,url,flodername)values('url','迅雷','http://38.103.161.188/forum/forum-212-','url_xl');
+
+-- insert into urls(type,title,url,flodername)values('torrent','亚洲有码原创区','http://38.103.161.188/forum/forum-230-','bt_yzymyc');
+-- insert into urls(type,title,url,flodername)values('torrent','欧美无码原创区','http://38.103.161.188/forum/forum-229-','bt_omwmyc');
+-- insert into urls(type,title,url,flodername)values('torrent','成人游戏动漫原创分享区','http://38.103.161.188/forum/forum-231-','bt_cryxdmyc');
+-- insert into urls(type,title,url,flodername)values('torrent','新手会员原创BT发布区','http://38.103.161.188/forum/forum-406-','bt_xsbtfb');
+-- insert into urls(type,title,url,flodername)values('torrent','BT自拍原创区','http://38.103.161.188/forum/forum-530-','bt_btzp');
+
 
 
 

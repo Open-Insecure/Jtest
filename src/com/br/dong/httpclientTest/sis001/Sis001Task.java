@@ -6,6 +6,7 @@ import com.br.dong.httpclientTest.porn.JdbcUtil;
 import com.br.dong.utils.DateUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.nodes.Document;
 
@@ -27,41 +28,20 @@ import java.util.concurrent.Executors;
  * To change this template use File | Settings | File Templates.
  */
 public class Sis001Task {
-    //亚洲无码转帖
-    private static String ywzt="http://sis001.com/forum/forum-25-";
-    //亚洲有码转帖
-    private static String yyzt="http://sis001.com/forum/forum-58-";
-    //欧美无码
-    private static String omwmzt="http://sis001.com/forum/forum-77-";
-    //成人游戏卡通漫画转区
-    private static String dmzt="http://sis001.com/forum/forum-27-";
-    //亚洲无码原创区
-    private static String ywyc="http://sis001.com/forum/forum-143-";
-    //亚洲有码原创区
-    private static String yyyc="http://sis001.com/forum/forum-230-";
-    //欧美无码原创区
-    private static String omwmyc="http://sis001.com/forum/forum-229-";
-    //成人游戏动漫原创分享区
-    private static String dmyc="http://sis001.com/forum/forum-231-";
-    //新手会员原创BT发布区
-    private static String xsyc="http://sis001.com/forum/forum-406-";
-    //BT自拍原创区
-    private static String zpyc="http://sis001.com/forum/forum-530-";
-
     //线程池
-    static ExecutorService threadPool= Executors.newCachedThreadPool();
+    private static ExecutorService threadPool= Executors.newCachedThreadPool();
     //本地硬盘
-    private static String floderpath="F:\\vedios\\torrent\\";
+    private static String floderpath="F:\\vedios\\sis\\";
+//    private  static String floderpath="C:\\sis\\download\\";
     public static CrawlerUtil client=new CrawlerUtil();
     //登录url
-    private static String loginPostUrl="http://sis001.com/forum/logging.php?action=login&loginsubmit=true";
+    private static String loginPostUrl="http://38.103.161.188/forum/logging.php?action=login&loginsubmit=true";
     //用户名
     private static String username="ckwison";
     //密码
     private static String password="1234qwer!@#$";
     public static void main(String[] args) {
-        List rows= JdbcUtil.getUrls("torrent");
-        String date= DateUtil.getCurrentDay();
+
         //登录
         Boolean loginflag=false;
         loginflag= login(username,password);
@@ -69,12 +49,38 @@ public class Sis001Task {
             System.out.println(username+"登录失败，尝试重新登录！");
               return ;
         }
+        System.out.println(username+"登录成功");
+
+//        Sis001DownLoadTask test=new Sis001DownLoadTask("url","F:\\vedios\\torrent\\","http://38.103.161.188/forum/forum-270-");
+//        test.start();
+         start();
+    }
+
+    /**
+     * 开始种子线程
+     * 种子类的线程 Sis001DownLoadTask name以 bt_ 开头 对应数据库urls表中的floderName字段
+     * url类的线程 Sis001DownLoadTask name以 url_ 开头 对应数据库urls表中的floderName字段
+     */
+    public static void start(){
+        //获取urls表中flag=torrent的数据
+        //获取urls表中flag=url    还有一个问题注意要改了！ 用getAllUrls方法
+        List rows2= JdbcUtil.getUrls("url");
+        threadPoolStart(rows2,"url");
+        List rows= JdbcUtil.getUrls("torrent");
+        threadPoolStart(rows,"torrent");
+    }
+
+    /**
+     * 线程池开始
+     * @param rows
+     * @param pretype 用来作为生成文件夹路径的前缀文件名
+     */
+    public static void threadPoolStart(List rows,String pretype){
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
 //            System.out.println(floderpath+(String)map.get("floderName")+date+"\\");
-            //创建对应文件夹
-            newFolderMuti(floderpath+(String)map.get("floderName")+"\\");
-            String finalFloderPath=floderpath+(String)map.get("floderName")+"\\";
+            String finalFloderPath=floderpath+pretype+"\\"+(String)map.get("floderName")+DateUtil.getCurrentDay()+"\\"; //拼装最终的存储文件夹
+            newFolderMuti(finalFloderPath); //创建对应文件夹
             String finalUrl=(String)map.get("url");
             threadPool.execute(new Sis001DownLoadTask((String)map.get("floderName"), finalFloderPath, finalUrl));
         }
@@ -92,7 +98,6 @@ public class Sis001Task {
         }
         System.out.println("采集结束");
         System.exit(0);
-
     }
 
     /**
@@ -110,10 +115,23 @@ public class Sis001Task {
     public  static Boolean login(String username,String password) {
         try {
             client.clientCreatNoUrl("http");
+            //先get执行一下
+            HttpResponse response=client.noProxyGetUrl("http://38.103.161.188/forum/index.php");
+            Document doc=client.getDocGBK(response);
+            System.out.println(doc.toString());
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (KeyManagementException e) {
             e.printStackTrace();
+        } catch (SocketException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         //填充登录参数
         List<NameValuePair> list = new ArrayList<NameValuePair>();

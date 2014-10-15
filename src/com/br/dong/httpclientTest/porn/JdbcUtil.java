@@ -10,6 +10,7 @@ import java.util.Map;
 import com.br.dong.httpclientTest.sis001.SisTorrentBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -175,7 +176,10 @@ public class JdbcUtil {
         String sql="select * from urls where type=?";
         return jdbcAop.queryForList(sql,type);
     }
-
+    public static List getAllUrls(String type){
+        String sql="select * from urls ";
+        return jdbcAop.queryForList(sql);
+    }
     /**
      * 查找种子列表中是否有相同的种子
      * @param torrentUrl
@@ -201,8 +205,13 @@ public class JdbcUtil {
      * @param bean
      */
     public static void insertTorrent(SisTorrentBean bean){
-       String sql="insert into torrents(flag,type,title,url,size,torrentUrl,time,picUrl) values(?,?,?,?,?,?,?,?)";
-        jdbcAop.update(sql,new Object[]{bean.getFlag(),bean.getType(),bean.getTitle(),bean.getUrl(),bean.getSize(),bean.getTorrentUrl(),bean.getTime(),bean.getPicUrl()});
+       String sql="insert into torrents(flag,type,title,url,size,torrentUrl,time,picUrl,message,updatetime,temp) values(?,?,?,?,?,?,?,?,?,?,?)";
+        try{
+            jdbcAop.update(sql,new Object[]{bean.getFlag(),bean.getType(),bean.getTitle(),bean.getUrl(),bean.getSize(),bean.getTorrentUrl(),bean.getTime(),bean.getPicUrl(),bean.getMessage(),bean.getUpdatetime(),bean.getTemp()});
+
+        }catch (DataIntegrityViolationException e){
+
+        }
     }
 
     //测试

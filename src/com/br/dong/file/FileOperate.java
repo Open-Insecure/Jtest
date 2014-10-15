@@ -58,7 +58,7 @@ public class FileOperate {
 	   * @param fileContent String 文件内容 
 	   * @return boolean 
 	   */  
-	  public void newFile(String filePathAndName, String fileContent) {  
+	  public static void newFile(String filePathAndName, String fileContent) {
 	  
 	    try {  
 	      String filePath = filePathAndName;  

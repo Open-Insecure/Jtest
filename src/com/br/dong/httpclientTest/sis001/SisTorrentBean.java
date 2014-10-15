@@ -17,17 +17,21 @@ public class SisTorrentBean {
     private String torrentUrl;//下载bt种子的url
     private String time;//采集日期
     private String picUrl;//bt种子视频预览图片地址
+    private String message; //内容
+    private String updatetime;//更新时间
+    private String temp;//备用
     private int downloads;//bt种子被下载的次数
     //System.out.println(type+"|"+url+"|"+time+"|"+title+"|"+size);
 
 
-    public SisTorrentBean(String flag,String type, String title, String url, String size, String time) {
+    public SisTorrentBean(String flag,String type, String title, String url, String size, String time,String updatetime) {
         this.flag = flag;
         this.type = type;
         this.title = title;
         this.url = url;
         this.size = size;
         this.time = time;
+        this.updatetime=updatetime;
     }
 
     @Override
@@ -43,6 +47,30 @@ public class SisTorrentBean {
                 ", picUrl='" + picUrl + '\'' +
                 ", downloads=" + downloads +
                 '}';
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getFlag() {

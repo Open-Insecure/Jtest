@@ -60,9 +60,17 @@ public class UploadTask extends Thread{
     private  String uploadUrl="";
     //当前种子所在根目录
     private static String folderpath="F:\\vedios\\torrent\\";
-    //public   String folderpath="C:\\sis\\torrent\\";
+    // private static String folderpath="C:\\sis\\torrent\\";
     public static void main(String[] args) throws IOException {
-        UploadTask task=new UploadTask("cryxdmyc","ericchena","asd123123","http://107.150.17.66/","http://107.150.17.66/logging.php?action=login&loginsubmit=true","http://107.150.17.66/post.php?action=newthread&fid=25&extra=","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes");
+        /**
+         * yzwm   25
+         * yzym   75
+         * omwm 26
+         * btyc 28
+         * dm 27
+         */
+//        UploadTask task=new UploadTask("yzwmzt","ericchena","asd123123","http://107.150.17.66/","http://107.150.17.66/logging.php?action=login&loginsubmit=true","http://107.150.17.66/post.php?action=newthread&fid=75&extra=","http://107.150.17.66/post.php?action=newthread&fid=75&extra=page%3D1&topicsubmit=yes");
+        UploadTask task=new UploadTask("yzwmzt","z1073021759","asd123123","http://162.220.13.9/","http://162.220.13.9/logging.php?action=login&loginsubmit=true","http://162.220.13.9/post.php?action=newthread&fid=26&extra=","http://162.220.13.9/post.php?action=newthread&fid=26&extra=page%3D1&topicsubmit=yes");
         task.start();
     }
     //重写run方法
@@ -93,6 +101,7 @@ public class UploadTask extends Thread{
      */
     public void init(){
         List rows=getTorrentsByFlag(this.getName());
+        System.out.println("片子:"+rows.size());
         login(username,password);
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
@@ -125,16 +134,19 @@ public class UploadTask extends Thread{
         builder.addTextBody("formhash", getFormhash(postPage), ContentType.TEXT_PLAIN);//设置formhash，从发表帖子页面读取formhash参数填充
         builder.addTextBody("isblog", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("frombbs", "1", ContentType.TEXT_PLAIN);
-        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//主题类型
+
         //设置StringBody 编码GBK防止乱码
-        StringBody   subject=new StringBody(map.get("title").toString()+"["+map.get("size")+"]",ContentType.create("text/plain",GBK));
+        String subjectStr=map.get("title").toString()+"["+map.get("size")+"]";
+        StringBody  subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
         //内容
-        String msg=map.get("title").toString()+"\r\n影片大小与类型:"+map.get("size")+"预览图片:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
+//        String msg=map.get("title").toString()+"\r\n影片大小与类型:"+map.get("size")+"预览图片:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
+        String msg=map.get("message").toString()+"\r\n"+"[img]"+map.get("picUrl")+"[/img]";
         StringBody   message=new StringBody(msg,ContentType.create("text/plain", GBK));
         builder.addTextBody("selecttypeid", "33", ContentType.TEXT_PLAIN); //选择的主题类型
+        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//主题类型
         builder.addPart("subject", subject);//帖子标题
         builder.addPart("message", message); //帖子内容
-        builder.addBinaryBody("attach[]", file, ContentType.APPLICATION_OCTET_STREAM, "F:\\vedios\\torrent\\内射福建风流骚逼女教师.torrent.torrent");
+        builder.addBinaryBody("attach[]", file, ContentType.APPLICATION_OCTET_STREAM, folderpath+map.get("title"));
         builder.addTextBody("localid[]", "1", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachperm[]", "0", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachprice[]", "0", ContentType.TEXT_PLAIN);
@@ -148,7 +160,6 @@ public class UploadTask extends Thread{
         post.setEntity(entity);
 //        long length = entity.getContentLength();
 //        System.out.println("长度..."+length);
-
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
@@ -156,6 +167,8 @@ public class UploadTask extends Thread{
                 System.out.println("--------------------------------------");
                 System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
                 System.out.println("--------------------------------------");
+            } else{
+                System.out.println("upload error!");
             }
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

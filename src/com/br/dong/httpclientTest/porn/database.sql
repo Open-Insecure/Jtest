@@ -1,4 +1,4 @@
---代理列表 
+--代理列表
 CREATE TABLE proxy(
 	ip varchar(20),
     port int,
@@ -16,6 +16,8 @@ CREATE TABLE vedio(
 	updatetime varchar(30),
 	flag int
 )default charset=utf8;
+
+
 
 
 //

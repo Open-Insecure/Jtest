@@ -1,3 +1,7 @@
+http://107.150.17.66/
+
+
+
 至于formhash，计算方法是 substr(md5(substr($_G['timestamp'], 0, -7).$_G['username'].$_G['uid'].$_G['authkey'].$hashadd.$specialadd), 8, 8);
 跟其他的无关，只跟当前的账户关联。
 新巴黎 www.xinbali.me 发布用户名 免代理IP http://107.150.17.66/  程序是Discuz 6.0 GBK
