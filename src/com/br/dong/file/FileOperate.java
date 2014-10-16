@@ -1,18 +1,6 @@
 package com.br.dong.file;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -292,7 +280,38 @@ public class FileOperate {
 		            e.printStackTrace();
 		        }
 		
-	    }
+	     }
+
+    /**
+     * 读取文件并且返回String
+     * @param filePath
+     * @return
+     */
+      public static String readFile(String filePath){
+          StringBuffer stringBuffer=new StringBuffer();
+          try {
+              String encoding="GBK";
+              File file=new File(filePath);
+              if(file.isFile() && file.exists()){ //判断文件是否存在
+                  InputStreamReader read = new InputStreamReader(
+                          new FileInputStream(file),encoding);//考虑到编码格式
+                  BufferedReader bufferedReader = new BufferedReader(read);
+                  String lineTxt = null;
+                  while((lineTxt = bufferedReader.readLine()) != null){
+//                      System.out.println(lineTxt);
+                      stringBuffer.append(lineTxt+"\r\n");
+                  }
+                  read.close();
+              }else{
+                  System.out.println("找不到指定的文件");
+              }
+          } catch (Exception e) {
+              System.out.println("读取文件内容出错");
+              e.printStackTrace();
+          }
+          return stringBuffer.toString();
+      }
+
 	  //读取文件的每一行字符
 		public static void readLine(String filePath){
 			BufferedReader in=null;

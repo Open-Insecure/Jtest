@@ -13,6 +13,8 @@ CREATE TABLE torrents(
 	 temp varchar(500)
 )default charset=utf8;
 
+
+
 --创建采集区域url表
 CREATE TABLE urls(
 	  type varchar(10),

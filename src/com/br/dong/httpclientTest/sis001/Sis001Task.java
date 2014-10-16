@@ -64,22 +64,19 @@ public class Sis001Task {
     public static void start(){
         //获取urls表中flag=torrent的数据
         //获取urls表中flag=url    还有一个问题注意要改了！ 用getAllUrls方法
-        List rows2= JdbcUtil.getUrls("url");
-        threadPoolStart(rows2,"url");
-        List rows= JdbcUtil.getUrls("torrent");
-        threadPoolStart(rows,"torrent");
+        List rows= JdbcUtil.getAllUrls();
+        threadPoolStart(rows);
     }
 
     /**
      * 线程池开始
      * @param rows
-     * @param pretype 用来作为生成文件夹路径的前缀文件名
      */
-    public static void threadPoolStart(List rows,String pretype){
+    public static void threadPoolStart(List rows){
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
 //            System.out.println(floderpath+(String)map.get("floderName")+date+"\\");
-            String finalFloderPath=floderpath+pretype+"\\"+(String)map.get("floderName")+DateUtil.getCurrentDay()+"\\"; //拼装最终的存储文件夹
+            String finalFloderPath=floderpath+map.get("type")+"\\"+(String)map.get("floderName")+DateUtil.getCurrentDay()+"\\"; //拼装最终的存储文件夹
             newFolderMuti(finalFloderPath); //创建对应文件夹
             String finalUrl=(String)map.get("url");
             threadPool.execute(new Sis001DownLoadTask((String)map.get("floderName"), finalFloderPath, finalUrl));

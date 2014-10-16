@@ -251,7 +251,7 @@ public class Sis001DownLoadTask extends Thread{
             Elements elements= doc.select("tbody[id^=normalthread_]");
 //            System.out.println(elements.toString()); //打印采集内容
             for(Element element:elements){
-               String type= element.select("em:eq(1)>a").text();  //类型
+               String type= element.select("em:eq(1)>a").text();  //类型中文描述
                String time= element.select("em:eq(0)>a").text();  //更新时间
                String title=element.select("span[id^=thread_]>a").text();  //标题
                String url=absPre+element.select("span[id^=thread_]>a").attr("href");//该帖子的绝对链接地址

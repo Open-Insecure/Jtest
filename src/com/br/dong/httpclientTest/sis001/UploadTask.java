@@ -46,6 +46,8 @@ public class UploadTask extends Thread{
     private static FileOperate fileOperate=new FileOperate();
     //
     private static CrawlerUtil crawlerUtil=new CrawlerUtil();
+    //发布帖子是否包含附件的标志
+    private String withFile;
     //用户名
     private String username;
     //密码
@@ -59,8 +61,7 @@ public class UploadTask extends Thread{
     //上传posturl
     private  String uploadUrl="";
     //当前种子所在根目录
-    private static String folderpath="F:\\vedios\\torrent\\";
-    // private static String folderpath="C:\\sis\\torrent\\";
+    private static String folderpath="";
     public static void main(String[] args) throws IOException {
         /**
          * yzwm   25
@@ -70,30 +71,50 @@ public class UploadTask extends Thread{
          * dm 27
          */
 //        UploadTask task=new UploadTask("yzwmzt","ericchena","asd123123","http://107.150.17.66/","http://107.150.17.66/logging.php?action=login&loginsubmit=true","http://107.150.17.66/post.php?action=newthread&fid=75&extra=","http://107.150.17.66/post.php?action=newthread&fid=75&extra=page%3D1&topicsubmit=yes");
-        UploadTask task=new UploadTask("yzwmzt","z1073021759","asd123123","http://162.220.13.9/","http://162.220.13.9/logging.php?action=login&loginsubmit=true","http://162.220.13.9/post.php?action=newthread&fid=26&extra=","http://162.220.13.9/post.php?action=newthread&fid=26&extra=page%3D1&topicsubmit=yes");
+        UploadTask task=new UploadTask("yzwmzt","F:\\vedios\\torrent\\yzwmzt\\","yes","z1073021759","asd123123","http://162.220.13.9/","http://162.220.13.9/logging.php?action=login&loginsubmit=true","http://162.220.13.9/post.php?action=newthread&fid=26&extra=","http://162.220.13.9/post.php?action=newthread&fid=26&extra=page%3D1&topicsubmit=yes");
         task.start();
     }
     //重写run方法
     public void run(){
         init();
+
     }
+
 
     /**
      * 线程构造方法
-     * @param name 该线程对应数据库中torrents表flag标志
+     * @param name 该线程对应数据库中torrents表flag标志 对应本地存储的文件夹名字
+     * @param withFile 是否包含附件上传的标志
      * @param index 首页登录页面用来获得登录表单formhash
      * @param loginPostUrl 登录post接口地址
      * @param postPage  发帖地址用来获得发帖表单的formhash
      * @param uploadUrl 发帖接口地址
      */
-    public UploadTask(String name,String username,String password,String index,String loginPostUrl,String postPage,String uploadUrl) {
+    public UploadTask(String name,String folderpath,String withFile,String username,String password,String index,String loginPostUrl,String postPage,String uploadUrl) {
         super(name);
+        this.folderpath=folderpath;
+        this.withFile=withFile;
         this.username=username;
         this.password=password;
         this.index=index;
         this.loginPostUrl=loginPostUrl;
         this.postPage=postPage;
         this.uploadUrl=uploadUrl;
+        System.out.println(toString());
+    }
+
+    @Override
+    public String toString() {
+        return "UploadTask{" +
+                "httpclient=" + httpclient +
+                ", withFile='" + withFile + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", index='" + index + '\'' +
+                ", loginPostUrl='" + loginPostUrl + '\'' +
+                ", postPage='" + postPage + '\'' +
+                ", uploadUrl='" + uploadUrl + '\'' +
+                '}';
     }
 
     /**
@@ -106,7 +127,14 @@ public class UploadTask extends Thread{
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
             System.out.println(map.toString());
-            upload(uploadUrl,map);
+            if("yesy".equals(this.withFile)){
+                //如果包含附件的时候，则使用此方法上传
+                upload(uploadUrl,map);
+            }else{
+                //发布纯文本消息
+                uploadNoFile(uploadUrl,map);
+            }
+
         }
     };
 
@@ -121,13 +149,67 @@ public class UploadTask extends Thread{
     }
 
     /**
+     * 纯文本发布内容 不带附件
+     * @param url
+     * @param map
+     */
+    public void uploadNoFile(String url,Map map){
+        HttpPost post = new HttpPost(url);
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//设置为浏览器兼容模式
+        builder.setCharset(Charset.forName(GBK));// 设置请求的编码格式
+        builder.addTextBody("formhash", getFormhash(postPage), ContentType.TEXT_PLAIN);//设置formhash，从发表帖子页面读取formhash参数填充
+        builder.addTextBody("isblog", "", ContentType.TEXT_PLAIN);
+        builder.addTextBody("frombbs", "1", ContentType.TEXT_PLAIN);
+
+        //设置StringBody 编码GBK防止乱码
+        String subjectStr=map.get("title").toString()+"["+map.get("size")+"]";
+        StringBody  subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
+        //内容 -此处的纯文本可以使用本地所存的txt文档的内容或者使用数据库中message字段的内容都行
+//        String msg=map.get("title").toString()+"\r\n影片大小与类型:"+map.get("size")+"预览图片:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
+        String msg=map.get("message").toString()+"\r\n"+"[img]"+map.get("picUrl")+"[/img]";
+        StringBody   message=new StringBody(msg,ContentType.create("text/plain", GBK));
+        builder.addTextBody("selecttypeid", "33", ContentType.TEXT_PLAIN); //选择的主题类型
+        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//主题类型
+        builder.addPart("subject", subject);//帖子标题
+        builder.addPart("message", message); //帖子内容
+        builder.addTextBody("localid[]", "1", ContentType.TEXT_PLAIN);
+        builder.addTextBody("attachperm[]", "0", ContentType.TEXT_PLAIN);
+        builder.addTextBody("attachprice[]", "0", ContentType.TEXT_PLAIN);
+        builder.addTextBody("attachdesc[]", "111", ContentType.TEXT_PLAIN);
+        builder.addTextBody("readperm", "0", ContentType.TEXT_PLAIN);
+        builder.addTextBody("price", "0", ContentType.TEXT_PLAIN);//单价
+        builder.addTextBody("iconid", "0", ContentType.TEXT_PLAIN);//图标id
+        builder.addTextBody("wysiwyg", "0", ContentType.TEXT_PLAIN);//
+//
+        HttpEntity entity = builder.build();
+        post.setEntity(entity);
+//        long length = entity.getContentLength();
+//        System.out.println("长度..."+length);
+        try {
+            HttpResponse response=httpclient.execute(post);
+            HttpEntity eee = response.getEntity();
+            if (eee != null) {
+                System.out.println("--------------------------------------");
+                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
+                System.out.println("--------------------------------------");
+            } else{
+                System.out.println("upload error!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    /**
      * post接口上传附件和普通参数的方法
      * @param url 上传post接口
      * @param map 种子信息map
      */
     public  void upload(String url,Map map){
         HttpPost post = new HttpPost(url);
-        File file = new File(folderpath+this.getName()+"\\"+map.get("title"));
+//        File file = new File(folderpath+this.getName()+"\\"+map.get("title"));
+        File file = new File(folderpath+map.get("title"));
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//设置为浏览器兼容模式
         builder.setCharset(Charset.forName(GBK));// 设置请求的编码格式
@@ -166,6 +248,7 @@ public class UploadTask extends Thread{
             if (eee != null) {
                 System.out.println("--------------------------------------");
                 System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
+                UploadUI.jta.append("发布成功"+map.get("title")+"\n");
                 System.out.println("--------------------------------------");
             } else{
                 System.out.println("upload error!");
@@ -202,6 +285,7 @@ public class UploadTask extends Thread{
                    Document doc= crawlerUtil.getDocument(entity,GBK);
                    if(doc!=null&&doc.toString().contains(username)){
                        System.out.println(username+"登录成功");
+                       UploadUI.jta.append(username+"登录成功"+"\n");
                    }
                 }
             } finally {

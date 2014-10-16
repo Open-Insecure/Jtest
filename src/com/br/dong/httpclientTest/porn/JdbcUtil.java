@@ -176,7 +176,7 @@ public class JdbcUtil {
         String sql="select * from urls where type=?";
         return jdbcAop.queryForList(sql,type);
     }
-    public static List getAllUrls(String type){
+    public static List getAllUrls(){
         String sql="select * from urls ";
         return jdbcAop.queryForList(sql);
     }
