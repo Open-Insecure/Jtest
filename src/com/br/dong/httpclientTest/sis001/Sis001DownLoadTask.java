@@ -44,7 +44,7 @@ public class Sis001DownLoadTask extends Thread{
     //要采集的版块的url
     private  String zoneurl="";
     //默认最大页数
-    private static int maxPage=1;
+    private static int maxPage=30;
     //存盘路径目录
     private   String folderpath="";
     private final static int BUFFER = 1024;

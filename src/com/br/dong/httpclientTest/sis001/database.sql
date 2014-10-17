@@ -1,6 +1,6 @@
 --创建种子列表
 CREATE TABLE torrents(
-   flag varchar(10),
+   flag varchar(30),
 	 type varchar(10),
 	 title varchar(200),
    url varchar(100),
@@ -12,7 +12,8 @@ CREATE TABLE torrents(
 	 message varchar(3000),
 	 temp varchar(500)
 )default charset=utf8;
-
+ --修改一个字段的类型
+alter table torrents MODIFY flag VARCHAR(30);
 
 
 --创建采集区域url表

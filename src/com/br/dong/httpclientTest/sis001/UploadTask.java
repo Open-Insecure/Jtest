@@ -127,7 +127,7 @@ public class UploadTask extends Thread{
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
             System.out.println(map.toString());
-            if("yesy".equals(this.withFile)){
+            if("yes".equals(this.withFile)){
                 //如果包含附件的时候，则使用此方法上传
                 upload(uploadUrl,map);
             }else{

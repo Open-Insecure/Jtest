@@ -79,7 +79,7 @@ public class Sis001Task {
             String finalFloderPath=floderpath+map.get("type")+"\\"+(String)map.get("floderName")+DateUtil.getCurrentDay()+"\\"; //拼装最终的存储文件夹
             newFolderMuti(finalFloderPath); //创建对应文件夹
             String finalUrl=(String)map.get("url");
-            threadPool.execute(new Sis001DownLoadTask((String)map.get("floderName"), finalFloderPath, finalUrl));
+            threadPool.execute(new Sis001DownLoadTask((String)map.get("floderName")+DateUtil.getCurrentDay(), finalFloderPath, finalUrl));
         }
         //判断线程池里的线程是否全部执行完
         threadPool.shutdown();
