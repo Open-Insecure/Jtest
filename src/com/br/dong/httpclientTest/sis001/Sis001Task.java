@@ -4,6 +4,7 @@ import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.porn.JdbcUtil;
 import com.br.dong.utils.DateUtil;
+import com.br.dong.utils.MysqlEncodingUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -50,10 +51,14 @@ public class Sis001Task {
               return ;
         }
         System.out.println(username+"登录成功");
+          //测试图片解析存数据库方法
+          Sis001DownLoadTask test=new Sis001DownLoadTask("pic_no_download","http://38.103.161.188/forum/forum-249-");
+        //测试小说
+//          Sis001DownLoadTask test=new Sis001DownLoadTask("txt_download",floderpath,"http://38.103.161.188/forum/forum-83-");
+          test.start();
+//         start();
 
-//        Sis001DownLoadTask test=new Sis001DownLoadTask("url","F:\\vedios\\torrent\\","http://38.103.161.188/forum/forum-270-");
-//        test.start();
-         start();
+
     }
 
     /**

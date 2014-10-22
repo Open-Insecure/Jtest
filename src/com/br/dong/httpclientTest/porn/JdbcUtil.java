@@ -181,13 +181,13 @@ public class JdbcUtil {
         return jdbcAop.queryForList(sql);
     }
     /**
-     * 查找种子列表中是否有相同的种子
-     * @param torrentUrl
+     * 查找种子列表中是否有相同的记录
+     * @param url
      * @return
      */
-    public static List checkSameTorrent(String torrentUrl){
-        String sql="select * from torrents where torrentUrl=?";
-        return jdbcAop.queryForList(sql,torrentUrl);
+    public static List checkSameUrl(String url){
+        String sql="select * from torrents where url=?";
+        return jdbcAop.queryForList(sql,url);
     }
 
     /**

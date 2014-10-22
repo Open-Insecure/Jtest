@@ -53,11 +53,14 @@ public class Sis001DownLoadTask extends Thread{
     public void run() {
         init(zoneurl);
     }
+
+
     /**
      * 采集线程构造方法
      * @param name        线程名字,本地所存的文件夹名字
      *                    种子类的线程 Sis001DownLoadTask name以 bt_ 开头 对应数据库urls表中的floderName字段
      *                    url类的线程 Sis001DownLoadTask name以 url_ 开头 对应数据库urls表中的floderName字段
+     *                    pic_no_download 在具体采集的时候针对为pic图片类型的采集
      * @param folderpath  线程采集的种子所存的文件夹路径
      * @param zoneurl     线程所采集的版块
      */
@@ -68,6 +71,15 @@ public class Sis001DownLoadTask extends Thread{
         this.zoneurl=zoneurl;
     }
 
+    /**
+     *  采集线程构造方法
+     * @param name
+     * @param zoneurl    线程所采集的版块
+     */
+    public Sis001DownLoadTask(String name,String zoneurl){
+        super(name);
+        this.zoneurl=zoneurl;
+    }
 
 
     /**
@@ -82,8 +94,8 @@ public class Sis001DownLoadTask extends Thread{
             for(int i=1;i<=maxPage;i++){
                 String p=zoneurl+i+html;
                 System.out.println(this.getName()+"正在采集:"+p);
-                //两种类型可以共用此方法进行列表数据采集
-                listPageAnalyseTorrents(p);
+                //两种类型可以共用此方法进行列表数据分析
+                listPageAnalyse(p);
             }
     }
 
@@ -94,8 +106,8 @@ public class Sis001DownLoadTask extends Thread{
      * @param bean
      */
     public  void downloadTest(SisTorrentBean bean){
-        //检查数据库中是否已经有该种子的记录
-        List rows=JdbcUtil.checkSameTorrent(bean.getTorrentUrl());
+        //检查数据库中是否已经有该帖子的记录
+        List rows=JdbcUtil.checkSameUrl(bean.getUrl());
         if(rows==null||rows.size()==0){
             //没有相同记录，则进行下载种子与插入数据库
             HttpClient client = new DefaultHttpClient();
@@ -106,11 +118,11 @@ public class Sis001DownLoadTask extends Thread{
                 HttpEntity entity = response.getEntity();
                 InputStream in = entity.getContent();
                 //重新命名文件
-                String title=bean.getTitle().replaceAll(needReplace,"")+".torrent";
+                String title=bean.getTitle().replaceAll(needReplace,"");
                 //重新命名bean的title
                 bean.setTitle(title);
                 //保存的种子文件路径
-                File file=new File(folderpath+title);
+                File file=new File(folderpath+title+".torrent");
 //            FileOutputStream out = new FileOutputStream(new File("F:\\test_jar\\bb.torrent"));
                 FileOutputStream out = new FileOutputStream(file);
                 byte[] b = new byte[BUFFER];
@@ -138,19 +150,21 @@ public class Sis001DownLoadTask extends Thread{
 }
 
     /**
-     * 写入文件程序
-     * @param bean
+     * 写入文件程序，并且插入记录到数据库中
+     * 相对于不是种子文件来说的下载文件，数据表torrents中的torrenturl存放的是该条详细页面的url地址，用来判定是否重复
+     * @param bean  其中title属于写入的txt文件的文件名，message属于写入的文件内容
      */
     public void writeFile(SisTorrentBean bean){
-        //检查数据库中是否已经有该种子的记录
-        List rows=JdbcUtil.checkSameTorrent(bean.getTorrentUrl());
-        String title=bean.getTitle().replaceAll(needReplace,"")+".txt";
+        //检查数据库中是否已经有该条下载记录
+        List rows=JdbcUtil.checkSameUrl(bean.getUrl());
+        //替换title文件名为windows下符合命名规则的文件名
+        String title=bean.getTitle().replaceAll(needReplace,"");
         if(rows==null||rows.size()==0){
             //重新命名文件
             //重新命名bean的title
             bean.setTitle(title);
             //保存txt文件
-            FileOperate.newFile(folderpath+title,bean.getMessage());
+            FileOperate.newFile(folderpath+title+".txt",bean.getMessage());
             //在此插入到数据库中
             JdbcUtil.insertTorrent(bean);
             System.out.println(title+"write success!");
@@ -159,6 +173,103 @@ public class Sis001DownLoadTask extends Thread{
         }
     }
 
+    /**
+     * 此方法用来直接写入采集的信息到数据库中
+     * 比如采集外链美图信息，将外链地址全部写入到torrents表中的message字段中。在上传的时候直接使用message中的字段进行上传
+     * 相对于不是种子文件来说的下载文件，数据表torrents中的torrenturl存放的是该条详细页面的url地址，用来判定是否重复
+     * @param bean
+     */
+    public void saveData(SisTorrentBean bean){
+        //检查数据库中是否已经有该条下载记录
+        List rows=JdbcUtil.checkSameUrl(bean.getUrl());
+        //替换title文件名为windows下符合命名规则的文件名
+        String title=bean.getTitle().replaceAll(needReplace,"");
+        if(rows==null||rows.size()==0){
+            //重新命名文件
+            //重新命名bean的title
+            bean.setTitle(title);
+            //在此插入到数据库中
+            JdbcUtil.insertTorrent(bean);
+        } else{
+            System.out.println(title+"已经存在！");
+        }
+    }
+
+    /**
+     * 进行小说类型详细页面分析
+     * @param bean
+     */
+    public void detailPageAnalyseTxt(SisTorrentBean bean){
+        Document doc=null;
+        try {
+            HttpResponse response=Sis001Task.client.noProxyGetUrl(bean.getUrl());
+            if(response==null){
+                return ;
+            }
+            doc= Sis001Task.client.getDocGBK(response);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        if(doc!=null){
+//            System.out.println("ddd"+doc.toString());
+            try{
+                //此处try一下 防止有些帖子解析读取报错
+                StringBuffer sb=new StringBuffer();
+                doc.select("div[id^=postmessage_]").first().select("table").remove();//清除掉不需要采集的
+                doc.select("div[id^=postmessage_]").first().select("fieldset").remove();//清除掉不需要采集的
+                String content=doc.select("div[id^=postmessage_]>div").first().html().replace("<br />","\r\n");//替换br标签为换行标记
+                sb.append(content+"\r\n");
+//                System.out.println(sb.toString());//打印测试
+                //设置在写入到本地文件的message内容到bean中方便在writeFile方法中写入到本地文件
+                bean.setMessage(sb.toString());
+
+               //写入文件
+                writeFile(bean);
+            }catch (Exception e){
+            }
+        }
+    }
+
+    /**
+     * 分析图片类详细页面
+     * @param bean
+     */
+    public void detailPageAnalysePic(SisTorrentBean bean){
+        Document doc=null;
+        try {
+            HttpResponse response=Sis001Task.client.noProxyGetUrl(bean.getUrl());
+            if(response==null){
+                return ;
+            }
+            doc= Sis001Task.client.getDocGBK(response);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        if(doc!=null){
+//            System.out.println("ddd"+doc.toString());
+           try{
+               //此处try一下 防止有些帖子解析读取报错
+               StringBuffer sb=new StringBuffer();
+               String content=doc.select("div[id^=postmessage_]").first().text();
+               sb.append(content+"\r\n");
+               Elements pics=doc.select("div[id^=postmessage_]").first().select("img");//
+               for(Element element:pics){
+                   sb.append("[img]"+element.attr("src")+"[/img]\r\n");
+               }
+//               System.out.println("----"+sb.toString());//打印测试
+               //设置在写入到本地文件的message内容到bean中方便在writeFile方法中写入到本地文件
+               bean.setMessage(sb.toString());
+
+               //保存信息到数据库中
+               saveData(bean);
+           }catch (Exception e){
+           }
+        }
+    }
     /**
      * 分析网盘和迅雷详细页面
      * @param bean
@@ -184,8 +295,6 @@ public class Sis001DownLoadTask extends Thread{
                 bean.setPicUrl(picurl);
                 //替换下预览图片
                 bean.setMessage(message);
-                //txt的就把当前帖子的url当做torrenturl用来数据库查重复
-                bean.setTorrentUrl(bean.getUrl());
                 writeFile(bean);
             }catch (NullPointerException e){
                 System.out.println("NullPointerException...");
@@ -233,7 +342,7 @@ public class Sis001DownLoadTask extends Thread{
      * 种子列表页面分析方法
      * @param targetUrl
      */
-    public  void listPageAnalyseTorrents(String targetUrl){
+    public  void listPageAnalyse(String targetUrl){
         Document doc=null;
         try {
             HttpResponse response=Sis001Task.client.noProxyGetUrl(targetUrl);
@@ -257,19 +366,33 @@ public class Sis001DownLoadTask extends Thread{
                String url=absPre+element.select("span[id^=thread_]>a").attr("href");//该帖子的绝对链接地址
                String size=element.select("td[class=nums]").select(":eq(5)").text();   //视频大小和类型
                String updatetime= DateUtil.getCurrentDay();
-//             System.out.println(type+"|"+url+"|"+time+"|"+title+"|"+size);
+             System.out.println(type+"|"+url+"|"+time+"|"+title+"|"+size);//打印采集信息
                //每一行的内容进入详细url进行下载操作
                SisTorrentBean bean=new SisTorrentBean(this.getName(), type,title,url,size,time,updatetime);
-               //进入详细,根据线程类型
-                if(this.getName().contains("bt")){
-//                    System.out.println("这是bt类型的线程");
-                    detailPageAnalyse(bean);
-                }else if(this.getName().contains("url")){
-//                    System.out.println("这是链接类型的线程");
-                    detailPageAnalyseUrl(bean);
-                }
-
+               //进入详细,根据线程类型调用不同的处理方法
+                typeAnalyse(bean);
             }
+        }
+    }
+
+    /**
+     * 根据不同的线程的name-即数据库中urls表中flodername字段打头来调用不同的具体页面采集方法
+     */
+    public void typeAnalyse(SisTorrentBean bean){
+        if(this.getName().contains("bt")){
+            // bt类型进行采集
+            detailPageAnalyse(bean);
+        }else if(this.getName().contains("url")){
+            //链接(迅雷，电驴，网盘链接)类型进行采集
+            detailPageAnalyseUrl(bean);
+        }else if(this.getName().contains("pic_no_download")){
+            //进行图片类型的采集，只采集图片外链地址，不采集到本地
+            detailPageAnalysePic(bean);
+        }else if(this.getName().contains("pic_down")){
+            //进行图片类型采集，采集下载到本地
+        }else if(this.getName().contains("txt_download")){
+            //进行小说txt类型采集
+            detailPageAnalyseTxt(bean);
         }
     }
     /**
