@@ -11,6 +11,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.nodes.Document;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.SocketException;
 import java.security.KeyManagementException;
@@ -32,8 +35,8 @@ public class Sis001Task {
     //线程池
     private static ExecutorService threadPool= Executors.newCachedThreadPool();
     //本地硬盘
-    private static String floderpath="F:\\vedios\\sis\\";
-//    private  static String floderpath="C:\\sis\\download\\";
+    private static String floderpath="F:\\vedios\\sis\\"+DateUtil.getCurrentDay()+"\\";
+//    private  static String floderpath="C:\\sis\\download\\"+DateUtil.getCurrentDay();
     public static CrawlerUtil client=new CrawlerUtil();
     //登录url
     private static String loginPostUrl="http://38.103.161.188/forum/logging.php?action=login&loginsubmit=true";
@@ -52,11 +55,12 @@ public class Sis001Task {
         }
         System.out.println(username+"登录成功");
           //测试图片解析存数据库方法
-          Sis001DownLoadTask test=new Sis001DownLoadTask("pic_no_download","http://38.103.161.188/forum/forum-249-");
+//          Sis001DownLoadTask test=new Sis001DownLoadTask("pic_no_download","http://38.103.161.188/forum/forum-249-");
         //测试小说
 //          Sis001DownLoadTask test=new Sis001DownLoadTask("txt_download",floderpath,"http://38.103.161.188/forum/forum-83-");
-          test.start();
-//         start();
+//          test.start();
+         start();
+
 
 
     }
@@ -69,10 +73,66 @@ public class Sis001Task {
     public static void start(){
         //获取urls表中flag=torrent的数据
         //获取urls表中flag=url    还有一个问题注意要改了！ 用getAllUrls方法
-        List rows= JdbcUtil.getAllUrls();
-        threadPoolStart(rows);
+//        List rows= JdbcUtil.getAllUrls();    //改为读取txt文本获得要采集的列表数据
+//        threadPoolStart(rows);
+        //读取文本的urls配置文件
+        readTxtInfos("urls.txt");
     }
 
+    /**
+     * 读取要采集的text文档，创建子线程
+     * @param textName
+     * @return
+     */
+    public static void readTxtInfos(String textName){
+        String textPath= Sis001Task.class.getResource(textName).toString().substring(6); //获得当前txt的路径
+        //读取txt
+        readLine(textPath);
+    }
+
+    /**
+     * 依次读取每一行，创建线程
+     * @param filePath
+     */
+    public static void readLine(String filePath){
+        BufferedReader in=null;
+        try{
+            in=new BufferedReader(new FileReader(filePath));
+            String line;
+            try {
+                while((line=in.readLine())!=null){
+                    System.out.println(""+line);
+                    String []urls=line.split(",");//每一行进行分割出对应的需要的
+                    String name=urls[0];//在线程类中判断此线程要使用哪种采集方法
+                    String finalUrl=urls[1];   //当前版块的对应的url
+                    String finalFloderPath=floderpath+urls[2]+"\\";//文件夹路径
+                    System.out.println(urls.length+finalFloderPath+finalUrl);
+                    newFolderMuti(finalFloderPath); //创建对应文件夹
+                    threadPool.execute(new Sis001DownLoadTask(name, finalFloderPath, finalUrl));//线程池启动线程
+                }
+                //判断线程池里的线程是否全部执行完
+                threadPool.shutdown();
+                while (true) {
+                    if (threadPool.isTerminated()) {
+                        break;
+                    }
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                }
+                System.out.println("采集结束");
+                System.exit(0);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }catch (ArrayIndexOutOfBoundsException e){
+        }
+    }
     /**
      * 线程池开始
      * @param rows

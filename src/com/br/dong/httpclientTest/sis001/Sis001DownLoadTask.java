@@ -265,7 +265,8 @@ public class Sis001DownLoadTask extends Thread{
                bean.setMessage(sb.toString());
 
                //保存信息到数据库中
-               saveData(bean);
+//               saveData(bean);
+               writeFile(bean);//改成也写入到本地中吧，为了统一
            }catch (Exception e){
            }
         }
@@ -291,9 +292,8 @@ public class Sis001DownLoadTask extends Thread{
             try{
                 String message=doc.select("div[id^=postmessage_]").first().text().replace("【","\r\n【");
                 String  picurl=doc.select("div[id^=postmessage_]").first().select("img").attr("src");//种子视频预览图片地址
-                //设置bean的相关属性
+                //设置bean的相关属性 替换下预览图片
                 bean.setPicUrl(picurl);
-                //替换下预览图片
                 bean.setMessage(message);
                 writeFile(bean);
             }catch (NullPointerException e){
