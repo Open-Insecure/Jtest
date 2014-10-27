@@ -71,10 +71,6 @@ public class Sis001Task {
      * url类的线程 Sis001DownLoadTask name以 url_ 开头 对应数据库urls表中的floderName字段
      */
     public static void start(){
-        //获取urls表中flag=torrent的数据
-        //获取urls表中flag=url    还有一个问题注意要改了！ 用getAllUrls方法
-//        List rows= JdbcUtil.getAllUrls();    //改为读取txt文本获得要采集的列表数据
-//        threadPoolStart(rows);
         //读取文本的urls配置文件
         readTxtInfos("urls.txt");
     }
@@ -105,10 +101,11 @@ public class Sis001Task {
                     String []urls=line.split(",");//每一行进行分割出对应的需要的
                     String name=urls[0];//在线程类中判断此线程要使用哪种采集方法
                     String finalUrl=urls[1];   //当前版块的对应的url
-                    String finalFloderPath=floderpath+urls[2]+"\\";//文件夹路径
+                    String folderName=urls[2];
+                    String finalFloderPath=floderpath+folderName+"\\";//文件夹路径
                     System.out.println(urls.length+finalFloderPath+finalUrl);
                     newFolderMuti(finalFloderPath); //创建对应文件夹
-                    threadPool.execute(new Sis001DownLoadTask(name, finalFloderPath, finalUrl));//线程池启动线程
+                    threadPool.execute(new Sis001DownLoadTask(name, finalFloderPath, finalUrl,folderName));//线程池启动线程
                 }
                 //判断线程池里的线程是否全部执行完
                 threadPool.shutdown();
@@ -132,34 +129,6 @@ public class Sis001Task {
             e.printStackTrace();
         }catch (ArrayIndexOutOfBoundsException e){
         }
-    }
-    /**
-     * 线程池开始
-     * @param rows
-     */
-    public static void threadPoolStart(List rows){
-        for(int i=0;i<rows.size();i++){
-            Map map= (Map) rows.get(i);
-//            System.out.println(floderpath+(String)map.get("floderName")+date+"\\");
-            String finalFloderPath=floderpath+map.get("type")+"\\"+(String)map.get("floderName")+DateUtil.getCurrentDay()+"\\"; //拼装最终的存储文件夹
-            newFolderMuti(finalFloderPath); //创建对应文件夹
-            String finalUrl=(String)map.get("url");
-            threadPool.execute(new Sis001DownLoadTask((String)map.get("floderName")+DateUtil.getCurrentDay(), finalFloderPath, finalUrl));
-        }
-        //判断线程池里的线程是否全部执行完
-        threadPool.shutdown();
-        while (true) {
-            if (threadPool.isTerminated()) {
-                break;
-            }
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-        }
-        System.out.println("采集结束");
-        System.exit(0);
     }
 
     /**

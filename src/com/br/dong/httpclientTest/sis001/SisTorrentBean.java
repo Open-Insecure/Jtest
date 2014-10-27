@@ -24,7 +24,7 @@ public class SisTorrentBean {
     //System.out.println(type+"|"+url+"|"+time+"|"+title+"|"+size);
 
 
-    public SisTorrentBean(String flag,String type, String title, String url, String size, String time,String updatetime) {
+    public SisTorrentBean(String flag,String type, String title, String url, String size, String time,String updatetime,String temp) {
         this.flag = flag;
         this.type = type;
         this.title = title;
@@ -32,6 +32,7 @@ public class SisTorrentBean {
         this.size = size;
         this.time = time;
         this.updatetime=updatetime;
+        this.temp=temp;
     }
 
     @Override

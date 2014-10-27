@@ -47,6 +47,8 @@ public class Sis001DownLoadTask extends Thread{
     private static int maxPage=30;
     //存盘路径目录
     private   String folderpath="";
+    //
+    private String folderName="";
     private final static int BUFFER = 1024;
     //重写run方法
     //特别注意 线程自己要单独用的变量不要写成static 否则变量被多个线程共享了
@@ -63,12 +65,14 @@ public class Sis001DownLoadTask extends Thread{
      *                    pic_no_download 在具体采集的时候针对为pic图片类型的采集
      * @param folderpath  线程采集的种子所存的文件夹路径
      * @param zoneurl     线程所采集的版块
+     * @param folderName 对应torrents表中的temp字段 在上传的时候使用此字段来查找要上传的信息
      */
-    public Sis001DownLoadTask(String name,String folderpath,String zoneurl) {
+    public Sis001DownLoadTask(String name,String folderpath,String zoneurl,String folderName) {
         super(name);
 //        System.out.println(name + "当前传入的文件路径：" + folderpath + "要采集的url:" + zoneurl);
         this.folderpath=folderpath;
         this.zoneurl=zoneurl;
+        this.folderName=folderName;
     }
 
     /**
@@ -120,7 +124,7 @@ public class Sis001DownLoadTask extends Thread{
                 //重新命名文件
                 String title=bean.getTitle().replaceAll(needReplace,"");
                 //重新命名bean的title
-                bean.setTitle(title);
+                bean.setTitle(title+".torrent");
                 //保存的种子文件路径
                 File file=new File(folderpath+title+".torrent");
 //            FileOutputStream out = new FileOutputStream(new File("F:\\test_jar\\bb.torrent"));
@@ -162,7 +166,7 @@ public class Sis001DownLoadTask extends Thread{
         if(rows==null||rows.size()==0){
             //重新命名文件
             //重新命名bean的title
-            bean.setTitle(title);
+            bean.setTitle(title+".txt");
             //保存txt文件
             FileOperate.newFile(folderpath+title+".txt",bean.getMessage());
             //在此插入到数据库中
@@ -367,8 +371,8 @@ public class Sis001DownLoadTask extends Thread{
                String size=element.select("td[class=nums]").select(":eq(5)").text();   //视频大小和类型
                String updatetime= DateUtil.getCurrentDay();
              System.out.println(type+"|"+url+"|"+time+"|"+title+"|"+size);//打印采集信息
-               //每一行的内容进入详细url进行下载操作
-               SisTorrentBean bean=new SisTorrentBean(this.getName(), type,title,url,size,time,updatetime);
+               //每一行的内容进入详细url进行下载操作 ,修改temp标志为文件夹名字的标志
+               SisTorrentBean bean=new SisTorrentBean(this.getName(), type,title,url,size,time,updatetime,folderName);
                //进入详细,根据线程类型调用不同的处理方法
                 typeAnalyse(bean);
             }

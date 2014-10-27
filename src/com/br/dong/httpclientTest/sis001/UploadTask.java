@@ -60,6 +60,8 @@ public class UploadTask extends Thread{
     private  String postPage="";
     //上传posturl
     private  String uploadUrl="";
+    //发布类型
+    private String type="";
     //当前种子所在根目录
     private static String folderpath="";
     public static void main(String[] args) throws IOException {
@@ -71,8 +73,8 @@ public class UploadTask extends Thread{
          * dm 27
          */
 //        UploadTask task=new UploadTask("yzwmzt","ericchena","asd123123","http://107.150.17.66/","http://107.150.17.66/logging.php?action=login&loginsubmit=true","http://107.150.17.66/post.php?action=newthread&fid=75&extra=","http://107.150.17.66/post.php?action=newthread&fid=75&extra=page%3D1&topicsubmit=yes");
-        UploadTask task=new UploadTask("yzwmzt","F:\\vedios\\torrent\\yzwmzt\\","yes","z1073021759","asd123123","http://162.220.13.9/","http://162.220.13.9/logging.php?action=login&loginsubmit=true","http://162.220.13.9/post.php?action=newthread&fid=26&extra=","http://162.220.13.9/post.php?action=newthread&fid=26&extra=page%3D1&topicsubmit=yes");
-        task.start();
+//        UploadTask task=new UploadTask("yzwmzt","F:\\vedios\\torrent\\yzwmzt\\","yes","z1073021759","asd123123","http://162.220.13.9/","http://162.220.13.9/logging.php?action=login&loginsubmit=true","http://162.220.13.9/post.php?action=newthread&fid=26&extra=","http://162.220.13.9/post.php?action=newthread&fid=26&extra=page%3D1&topicsubmit=yes");
+//        task.start();
     }
     //重写run方法
     public void run(){
@@ -83,14 +85,15 @@ public class UploadTask extends Thread{
 
     /**
      * 线程构造方法
-     * @param name 该线程对应数据库中torrents表flag标志 对应本地存储的文件夹名字
+     * @param name 该线程对应数据库中torrents表update+temp标志如：2014-10-27,bt亚洲无码转帖 对应本地存储的文件夹名字
      * @param withFile 是否包含附件上传的标志
      * @param index 首页登录页面用来获得登录表单formhash
      * @param loginPostUrl 登录post接口地址
      * @param postPage  发帖地址用来获得发帖表单的formhash
      * @param uploadUrl 发帖接口地址
+     * @param type 发布类型
      */
-    public UploadTask(String name,String folderpath,String withFile,String username,String password,String index,String loginPostUrl,String postPage,String uploadUrl) {
+    public UploadTask(String name,String folderpath,String withFile,String username,String password,String index,String loginPostUrl,String postPage,String uploadUrl,String type) {
         super(name);
         this.folderpath=folderpath;
         this.withFile=withFile;
@@ -100,6 +103,7 @@ public class UploadTask extends Thread{
         this.loginPostUrl=loginPostUrl;
         this.postPage=postPage;
         this.uploadUrl=uploadUrl;
+        this.type=type;
         System.out.println(toString());
     }
 
@@ -132,20 +136,66 @@ public class UploadTask extends Thread{
                 upload(uploadUrl,map);
             }else{
                 //发布纯文本消息
-                uploadNoFile(uploadUrl,map);
+                if("nomal".equals(type)){
+                    normalPost(uploadUrl,map);
+                }else{
+                    uploadNoFile(uploadUrl,map);
+                }
+
             }
 
         }
     };
 
     /**
-     * 通过torrents表中flag标志来查询所对应的代表的版块标志
      * @param flag
      * @return
      */
     public List getTorrentsByFlag(String flag){
-          return JdbcUtil.getTorrentsByFlag(flag);
+        String temp[]=flag.split(",");
+          return JdbcUtil.getTorrentsByFlag(temp);
 
+    }
+
+    /**
+     * 针对于前端普通的form表单进行post提交
+     * @param url
+     * @param map
+     */
+    public void normalPost(String url,Map map){
+        HttpPost httppost = new HttpPost(url);
+        List<NameValuePair> list = new ArrayList<NameValuePair>();
+        list.add(new BasicNameValuePair("formhash", getFormhash(postPage)));
+        list.add(new BasicNameValuePair("isblog", ""));
+        list.add(new BasicNameValuePair("frombbs", "1"));
+        list.add(new BasicNameValuePair("subject", map.get("title").toString()+"["+map.get("size")+"]"));
+        list.add(new BasicNameValuePair("message",map.get("message").toString()));
+        list.add(new BasicNameValuePair("tags", "1"));
+        list.add(new BasicNameValuePair("readperm", "0"));
+        list.add(new BasicNameValuePair("iconid", "0"));
+        list.add(new BasicNameValuePair("wysiwyg", "0"));
+        UrlEncodedFormEntity uefEntity;
+        try {
+            uefEntity = new UrlEncodedFormEntity(list, "GBK");
+            httppost.setEntity(uefEntity);
+            System.out.println("executing request " + httppost.getURI());
+            CloseableHttpResponse response = httpclient.execute(httppost);
+            try {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    Document doc= crawlerUtil.getDocument(entity,GBK);
+                    System.out.println(doc.toString());
+                }
+            } finally {
+                response.close();
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -178,6 +228,7 @@ public class UploadTask extends Thread{
         builder.addTextBody("attachprice[]", "0", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachdesc[]", "111", ContentType.TEXT_PLAIN);
         builder.addTextBody("readperm", "0", ContentType.TEXT_PLAIN);
+//        builder.addTextBody("tags", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("price", "0", ContentType.TEXT_PLAIN);//单价
         builder.addTextBody("iconid", "0", ContentType.TEXT_PLAIN);//图标id
         builder.addTextBody("wysiwyg", "0", ContentType.TEXT_PLAIN);//
@@ -286,6 +337,8 @@ public class UploadTask extends Thread{
                    if(doc!=null&&doc.toString().contains(username)){
                        System.out.println(username+"登录成功");
                        UploadUI.jta.append(username+"登录成功"+"\n");
+                   }  else{
+                       System.out.println("登录失败:"+doc.toString());
                    }
                 }
             } finally {
@@ -319,7 +372,7 @@ public class UploadTask extends Thread{
                 Elements elements=doc.select("form[method=post]").select("input[name=formhash]");
                 String formhash=elements.toString();
                 formhash=formhash.substring(formhash.indexOf("value=\"")+7,formhash.indexOf("\" />"));
-//                System.out.println(formhash);
+                System.out.println("formhash.."+formhash);
                 return formhash;
             }
         return "";

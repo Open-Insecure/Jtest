@@ -33,7 +33,12 @@ public class UploadUI extends JFrame implements ActionListener {
     public static JTextArea jta;
     //线程池
     private static ExecutorService threadPool= Executors.newCachedThreadPool();
+
+    /**
+     * 构造方法初始化界面UI
+     */
     public UploadUI(){
+       //初始化下拉框
        initJcomboBox();
         //处理最里面的jp1
         jp=new JPanel();
@@ -114,10 +119,13 @@ public class UploadUI extends JFrame implements ActionListener {
         this.setVisible(true);
     }
     public void initJcomboBox(){
+        //账号密码list
+
         List<ComboxBean> sitelist=new ArrayList<ComboxBean>();
         sitelist.add(new ComboxBean("新巴黎","http://107.150.17.66/"));
         sitelist.add(new ComboxBean("MM公寓","http://107.150.3.8/"));
         sitelist.add(new ComboxBean("御花王朝","http://162.220.13.9/"));
+        sitelist.add(new ComboxBean("新亲密爱人","http://www.21mybbs.me/"));
         List<ComboxBean> withfilelist=new ArrayList<ComboxBean>();
         withfilelist.add(new ComboxBean("是","yes"));
         withfilelist.add(new ComboxBean("否","no"));
@@ -132,11 +140,16 @@ public class UploadUI extends JFrame implements ActionListener {
                 if(e.getStateChange() == ItemEvent.SELECTED){
                     //选中的项目
                     ComboxBean cb=(ComboxBean)e.getItem();
-                    resetFidBox(cb.getName());
+                    resetFidBox(cb.getName());//设置关联的下拉框
                 }
             }
         });
     }
+
+    /**
+     * 重新设置关联下拉框
+     * @param sitename
+     */
     public void resetFidBox(String sitename){
         fidBox.removeAllItems();
         if("新巴黎".equals(sitename)){
@@ -161,7 +174,23 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("224|王朝网盘下载专区"));
             fidBox.addItem(new String("29|王朝迅雷影视专区"));
             fidBox.addItem(new String("64|王朝三级影视专区"));
+            fidBox.addItem(new String("65|亚洲有码专区"));
+            fidBox.addItem(new String("66|亚洲无码专区"));
             fidBox.addItem(new String("28|王朝动漫影视专区"));
+        } else if("新亲密爱人".equals(sitename)){
+            fidBox.addItem(new String("19|亚洲转帖区"));
+            fidBox.addItem(new String("20|欧美转帖区"));
+            fidBox.addItem(new String("30|电驴转帖区"));
+            fidBox.addItem(new String("28|迅雷转帖区"));
+            fidBox.addItem(new String("34|东方情色"));
+            fidBox.addItem(new String("35|欧美西洋"));
+            fidBox.addItem(new String("36|唯美图区"));
+            fidBox.addItem(new String("38|明星丝袜"));
+            fidBox.addItem(new String("33|原创自拍"));
+            fidBox.addItem(new String("43|都市人妻区"));
+            fidBox.addItem(new String("45|青春校园区"));
+            fidBox.addItem(new String("44|乱伦小说区"));
+            fidBox.addItem(new String("46|电子书下载"));
         }
 
 
@@ -190,6 +219,17 @@ public class UploadUI extends JFrame implements ActionListener {
             }
             String temp[]=path.split("\\\\");
             int size=temp.length;
+//            System.out.println("size"+size);
+//            for(int i=0;i<size;i++){
+//                System.out.println(temp[i]);
+//            }
+            //获得选择的路径的
+            String date=temp[size-2];
+            String floderName=temp[size-1];
+            System.out.println("dd+"+date+"ff"+floderName);
+            //发布类型
+            String type="";
+
             //根据网站 放置不同账号
             String username="";
             String passowrd="asd123123";
@@ -199,9 +239,13 @@ public class UploadUI extends JFrame implements ActionListener {
                 username="一品梅136";
             } else if("御花王朝".equals(site.getName())){
                 username="z1073021759";
+            } else if("新亲密爱人".equals(site.getName())){
+                username="yoii0";
+                passowrd="kuangren";
+                type="nomal" ;
             }
             //调用线程开始上传
-            UploadTask task=new UploadTask(temp[size-1],path,withfile.getValue(),username ,passowrd,site.getValue(),site.getValue()+"logging.php?action=login&loginsubmit=true",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=page%3D1&topicsubmit=yes");
+            UploadTask task=new UploadTask(date+","+floderName,path,withfile.getValue(),username ,passowrd,site.getValue(),site.getValue()+"logging.php?action=login&loginsubmit=true",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=page%3D1&topicsubmit=yes",type);
             task.start();
         }
         //退出按钮被点击

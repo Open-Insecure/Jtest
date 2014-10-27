@@ -192,12 +192,11 @@ public class JdbcUtil {
 
     /**
      * 根据种子所属标记进行查询
-     * @param flag
      * @return
      */
-    public static List getTorrentsByFlag(String flag){
-        String sql="select * from torrents where flag=?";
-        return jdbcAop.queryForList(sql,flag);
+    public static List getTorrentsByFlag(String []temp){
+        String sql="select * from torrents where updatetime=? and temp=?";
+        return jdbcAop.queryForList(sql,temp[0],temp[1]);
     }
 
     /**
@@ -216,7 +215,8 @@ public class JdbcUtil {
 
     //测试
     public static void main(String[] args) {
-       List rows=getTorrentsByFlag("aa");
+        String temp[]={"2014-10-27","bt亚洲无码转帖"} ;
+       List rows=getTorrentsByFlag(temp);
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
             System.out.println(map.toString());
