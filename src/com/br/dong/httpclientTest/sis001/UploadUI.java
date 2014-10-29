@@ -120,12 +120,15 @@ public class UploadUI extends JFrame implements ActionListener {
     }
     public void initJcomboBox(){
         //账号密码list
-
         List<ComboxBean> sitelist=new ArrayList<ComboxBean>();
+        //discuz 6.0版本
         sitelist.add(new ComboxBean("新巴黎","http://107.150.17.66/"));
         sitelist.add(new ComboxBean("MM公寓","http://107.150.3.8/"));
         sitelist.add(new ComboxBean("御花王朝","http://162.220.13.9/"));
         sitelist.add(new ComboxBean("新亲密爱人","http://www.21mybbs.me/"));
+        sitelist.add(new ComboxBean("夜吧","http://www.night8.net/"));
+        sitelist.add(new ComboxBean("人性本色","http://63.141.255.218:8085/"));
+        sitelist.add(new ComboxBean("玫瑰情人","http://63.141.255.218:8086/"));
         List<ComboxBean> withfilelist=new ArrayList<ComboxBean>();
         withfilelist.add(new ComboxBean("是","yes"));
         withfilelist.add(new ComboxBean("否","no"));
@@ -191,6 +194,60 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("45|青春校园区"));
             fidBox.addItem(new String("44|乱伦小说区"));
             fidBox.addItem(new String("46|电子书下载"));
+        }else if("夜吧".equals(sitename)){
+            fidBox.addItem(new String("59|迅雷成人下载区"));
+            fidBox.addItem(new String("57|BT亚洲成人下载区"));
+            fidBox.addItem(new String("81|欧美无码电影分享区"));
+            fidBox.addItem(new String("84|BT动漫成人下载专区"));
+            fidBox.addItem(new String("83|网盘成人下载区"));
+            fidBox.addItem(new String("69|日韩辣妹贴图区"));
+            fidBox.addItem(new String("70|欧美靓女贴图区"));
+            fidBox.addItem(new String("71|高跟美足丝袜区"));
+            fidBox.addItem(new String("72|网友自拍贴图分享区"));
+            fidBox.addItem(new String("80|卡通动漫贴图区"));
+            fidBox.addItem(new String("79|同性贴图区"));
+            fidBox.addItem(new String("77|人体艺术集中营"));
+            fidBox.addItem(new String("63|校园书生"));
+            fidBox.addItem(new String("64|乱伦迷情"));
+            fidBox.addItem(new String("65|武侠玄幻"));
+            fidBox.addItem(new String("66|EBOOK"));
+        } else if("人性本色".equals(sitename)){
+            fidBox.addItem(new String("33|〓 亚 洲 影 视 〓"));
+            fidBox.addItem(new String("34|〓 欧 美 影 视 〓"));
+            fidBox.addItem(new String("37|〓 三 级 影 视 〓"));
+            fidBox.addItem(new String("35| 〓 在 线 影 视 〓"));
+            fidBox.addItem(new String("36| 〓 手 机 视 频 〓"));
+            fidBox.addItem(new String("84|〓 卡 通 动 漫 〓"));
+            fidBox.addItem(new String("38|〓 都 市 情 感 〓"));
+            fidBox.addItem(new String("40|〓 乱 伦 天 地 〓"));
+            fidBox.addItem(new String("39|〓 玄 幻 武 侠 〓"));
+            fidBox.addItem(new String("41|〓 长 篇 连 载 〓"));
+            fidBox.addItem(new String("83|〓 清 纯 丝 袜 〓"));
+            fidBox.addItem(new String("28|〓 亚 洲 美 图 〓"));
+            fidBox.addItem(new String("30|〓 自 拍 偷 窥 〓"));
+            fidBox.addItem(new String("29|〓 欧 美 贴 图 〓"));
+            fidBox.addItem(new String("31|〓 明 星 名 模 〓"));
+            fidBox.addItem(new String("32|〓 卡 通 动 漫 〓"));
+            fidBox.addItem(new String("77|〓 套 图 欣 赏 〓"));
+        } else if("玫瑰情人".equals(sitename)){
+            fidBox.addItem(new String("75|◇→清纯唯美←◇"));
+            fidBox.addItem(new String("2|◇→东方丽人←◇"));
+            fidBox.addItem(new String("4|◇→西洋靓女←◇"));
+            fidBox.addItem(new String("3|◇→偷拍自拍←◇"));
+            fidBox.addItem(new String("5|◇→卡通动漫←◇"));
+            fidBox.addItem(new String("76|◇→套图欣赏←◇"));
+            fidBox.addItem(new String("11|◇→亚洲BT←◇"));
+            fidBox.addItem(new String("12|◇→欧美BT←◇"));
+            fidBox.addItem(new String("72|◇→网盘影视←◇"));
+            fidBox.addItem(new String("32|◇→在线影视←◇"));
+            fidBox.addItem(new String("13|◇→讯雷下载←◇"));
+            fidBox.addItem(new String("14|◇→动漫影视←◇"));
+            fidBox.addItem(new String("89|◇→校园明星←◇"));
+            fidBox.addItem(new String("16|◇→都市激情←◇"));
+            fidBox.addItem(new String("21|◇→武侠玄幻←◇"));
+            fidBox.addItem(new String("17|◇→熟女乱伦←◇"));
+            fidBox.addItem(new String("22|◇→长篇小说←◇"));
+            fidBox.addItem(new String("90|◇→IE BOOK←◇"));
         }
 
 
@@ -229,7 +286,6 @@ public class UploadUI extends JFrame implements ActionListener {
             System.out.println("dd+"+date+"ff"+floderName);
             //发布类型
             String type="";
-
             //根据网站 放置不同账号
             String username="";
             String passowrd="asd123123";
@@ -243,6 +299,15 @@ public class UploadUI extends JFrame implements ActionListener {
                 username="yoii0";
                 passowrd="kuangren";
                 type="nomal" ;
+            }else if("夜吧".equals(site.getName())){
+                username="he7253997";
+                passowrd="123456";
+            }else if("人性本色".equals(site.getName())){
+                username="rxbs001";
+                passowrd="aaa123456";
+            } else if("玫瑰情人".equals(site.getName())){
+                username="smilei34516";
+                passowrd="qwert";
             }
             //调用线程开始上传
             UploadTask task=new UploadTask(date+","+floderName,path,withfile.getValue(),username ,passowrd,site.getValue(),site.getValue()+"logging.php?action=login&loginsubmit=true",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=page%3D1&topicsubmit=yes",type);

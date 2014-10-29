@@ -4,7 +4,6 @@ import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.porn.JdbcUtil;
 import com.br.dong.utils.DateUtil;
-import com.br.dong.utils.MysqlEncodingUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;

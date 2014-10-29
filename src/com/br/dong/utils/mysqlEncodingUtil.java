@@ -9,7 +9,7 @@ import java.io.UnsupportedEncodingException;
  * Time: 下午5:37
  * To change this template use File | Settings | File Templates.
  */
-public class MysqlEncodingUtil {
+class MysqlEncodingUtil {
     //从数据库取出用
     public static String latin1ToGBK(String str)
     {

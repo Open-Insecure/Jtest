@@ -131,10 +131,12 @@ public class UploadTask extends Thread{
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
             System.out.println(map.toString());
+            //界面选择是否上传附件:是
             if("yes".equals(this.withFile)){
                 //如果包含附件的时候，则使用此方法上传
                 upload(uploadUrl,map);
             }else{
+                //界面选择是否上传附件:否
                 //发布纯文本消息
                 if("nomal".equals(type)){
                     normalPost(uploadUrl,map);
@@ -211,7 +213,6 @@ public class UploadTask extends Thread{
         builder.addTextBody("formhash", getFormhash(postPage), ContentType.TEXT_PLAIN);//设置formhash，从发表帖子页面读取formhash参数填充
         builder.addTextBody("isblog", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("frombbs", "1", ContentType.TEXT_PLAIN);
-
         //设置StringBody 编码GBK防止乱码
         String subjectStr=map.get("title").toString()+"["+map.get("size")+"]";
         StringBody  subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
