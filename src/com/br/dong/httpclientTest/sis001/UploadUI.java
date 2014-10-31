@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,13 +33,16 @@ public class UploadUI extends JFrame implements ActionListener {
     public static JTextArea jta;
     //线程池
     private static ExecutorService threadPool= Executors.newCachedThreadPool();
-
+    //
+    private List<UserBean> list_xbl,list_mm,list_yhwc,list_qm,list_yb,list_rxbs,list_mgqr,list_mct,list_lyd,list_cht;
+    Random rand = new Random();
     /**
      * 构造方法初始化界面UI
      */
     public UploadUI(){
        //初始化下拉框
        initJcomboBox();
+        initAccList();
         //处理最里面的jp1
         jp=new JPanel();
         jp.setLayout(null);
@@ -118,6 +121,70 @@ public class UploadUI extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
     }
+    public void initAccList(){
+        list_xbl=new ArrayList<UserBean>();
+        list_xbl.add(new UserBean("liang93370894","asd123123")) ;
+        list_xbl.add(new UserBean("aisi1985","asd123123")) ;
+        list_xbl.add(new UserBean("ericchena","asd123123")) ;
+        list_xbl.add(new UserBean("a706089578","asd123123")) ;
+        list_xbl.add(new UserBean("nishiniya","asd123123")) ;
+        list_xbl.add(new UserBean("pcs","asd123123")) ;
+        list_mm=new ArrayList<UserBean>();
+        list_mm.add(new UserBean("一品梅136","asd123123"));
+        list_mm.add(new UserBean("难得装bi","asd123123"));
+        list_mm.add(new UserBean("小乖乖3","asd123123"));
+        list_mm.add(new UserBean("不是女人","asd123123"));
+        list_mm.add(new UserBean("幽冥太子","asd123123"));
+        list_mm.add(new UserBean("阿雄本色","asd123123"));
+        list_yhwc=new ArrayList<UserBean>();
+        list_yhwc.add(new UserBean("宇文化骨","asd123123"));
+        list_yhwc.add(new UserBean("半城明月","asd123123"));
+        list_yhwc.add(new UserBean("魔鬼中的天使888","asd123123"));
+        list_yhwc.add(new UserBean("富贵人家","asd123123"));
+        list_yhwc.add(new UserBean("宇文化骨","asd123123"));
+        list_yhwc.add(new UserBean("z1073021759","asd123123"));
+        list_qm=new ArrayList<UserBean>();
+        list_qm.add(new UserBean("zhoushao120","qwert"));
+        list_qm.add(new UserBean("ak47990","qwert"));
+        list_qm.add(new UserBean("airen1999","qwert"));
+        list_qm.add(new UserBean("loli2014","qwert"));
+        list_yb=new ArrayList<UserBean>();
+        list_yb.add(new UserBean("shj801220","qwert"));
+        list_yb.add(new UserBean("7964915","qwert"));
+        list_yb.add(new UserBean("feiliyax","qwert"));
+        list_yb.add(new UserBean("nash110120","qwert"));
+        list_yb.add(new UserBean("amd1800","qwert"));
+        list_rxbs=new ArrayList<UserBean>();
+        list_rxbs.add(new UserBean("rxbs001","aaa123456"));
+        list_rxbs.add(new UserBean("rxbs999","aaa123456"));
+        list_rxbs.add(new UserBean("zhaowei1982328","qwert"));
+        list_rxbs.add(new UserBean("xiaws5693","qwert"));
+        list_rxbs.add(new UserBean("zjjhuhao110","qwert"));
+        list_mgqr=new ArrayList<UserBean>();
+        list_mgqr.add(new UserBean("session1987","qwert"));
+        list_mgqr.add(new UserBean("smilei34516","qwert"));
+        list_mgqr.add(new UserBean("laoniu4510","qwert"));
+        list_mgqr.add(new UserBean("youchouboy","qwert"));
+        list_mct=new ArrayList<UserBean>();
+        list_mct.add(new UserBean("天在看","qwerty"));
+        list_mct.add(new UserBean("曲茎通幽","qwerty"));
+        list_mct.add(new UserBean("操之过急","qwerty"));
+        list_mct.add(new UserBean("前扑后鸡","qwerty"));
+        list_mct.add(new UserBean("性图","qwerty"));
+        list_lyd=new ArrayList<UserBean>();
+        list_lyd.add(new UserBean("ycfbx","qwert"));
+        list_lyd.add(new UserBean("yeyeye2","qwert"));
+        list_lyd.add(new UserBean("liboguxin","qwert"));
+        list_lyd.add(new UserBean("daigaochao","qwert"));
+        list_lyd.add(new UserBean("zxxx1314","qwert"));
+        list_cht=new ArrayList<UserBean>();
+        list_cht.add(new UserBean("撕人野","qwerty"));
+        list_cht.add(new UserBean("金三胖","qwerty"));
+        list_cht.add(new UserBean("失联","qwerty"));
+        list_cht.add(new UserBean("男上女下","qwerty"));
+        list_cht.add(new UserBean("放开","qwerty"));
+    }
+
     public void initJcomboBox(){
         //账号密码list
         List<ComboxBean> sitelist=new ArrayList<ComboxBean>();
@@ -126,9 +193,12 @@ public class UploadUI extends JFrame implements ActionListener {
         sitelist.add(new ComboxBean("MM公寓","http://107.150.3.8/"));
         sitelist.add(new ComboxBean("御花王朝","http://162.220.13.9/"));
         sitelist.add(new ComboxBean("新亲密爱人","http://www.21mybbs.me/"));
-        sitelist.add(new ComboxBean("夜吧","http://www.night8.net/"));
+        sitelist.add(new ComboxBean("夜吧","http://107.150.15.60/"));
         sitelist.add(new ComboxBean("人性本色","http://63.141.255.218:8085/"));
         sitelist.add(new ComboxBean("玫瑰情人","http://63.141.255.218:8086/"));
+        sitelist.add(new ComboxBean("买春堂","http://maichun.org/"));
+        sitelist.add(new ComboxBean("炼狱岛","http://lianyu.org/"));
+        sitelist.add(new ComboxBean("采花堂","http://www.caihua.info/"));
         List<ComboxBean> withfilelist=new ArrayList<ComboxBean>();
         withfilelist.add(new ComboxBean("是","yes"));
         withfilelist.add(new ComboxBean("否","no"));
@@ -248,9 +318,42 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("17|◇→熟女乱伦←◇"));
             fidBox.addItem(new String("22|◇→长篇小说←◇"));
             fidBox.addItem(new String("90|◇→IE BOOK←◇"));
+        }else if("买春堂".equals(sitename)){
+            fidBox.addItem(new String("1004|亚洲风情"));
+            fidBox.addItem(new String("83|欧美风情"));
+            fidBox.addItem(new String("615|自拍风情"));
+            fidBox.addItem(new String("645|亚洲BT"));
+            fidBox.addItem(new String("425|欧美BT"));
+            fidBox.addItem(new String("1003|在线视频"));
+
+        }  else if("炼狱岛".equals(sitename)){
+            fidBox.addItem(new String("28|〓 亚 洲 美 图 〓"));
+            fidBox.addItem(new String("29|〓 欧 美 贴 图 〓"));
+            fidBox.addItem(new String("30|〓 自 拍 偷 窥 〓"));
+            fidBox.addItem(new String("31|〓 明 星 名 模 〓"));
+            fidBox.addItem(new String("32|〓 卡 通 动 漫 〓"));
+            fidBox.addItem(new String("83|〓 清 纯 丝 袜 〓"));
+            fidBox.addItem(new String("77|〓 套 图 欣 赏 〓"));
+            fidBox.addItem(new String("33|〓 亚 洲 影 视 〓"));
+            fidBox.addItem(new String("34|〓 欧 美 影 视 〓"));
+            fidBox.addItem(new String("37|〓 三 级 影 视 〓"));
+            fidBox.addItem(new String("35|〓 在 线 影 视 〓"));
+            fidBox.addItem(new String("84|〓 卡 通 动 漫 〓"));
+            fidBox.addItem(new String("38|〓 都 市 情 感 〓"));
+            fidBox.addItem(new String("40|〓 乱 伦 天 地 〓"));
+            fidBox.addItem(new String("39|〓 玄 幻 武 侠 〓"));
+            fidBox.addItem(new String("41|〓 长 篇 连 载 〓"));
+            fidBox.addItem(new String("42|〓 有 声 小 说 〓"));
+        }else if("采花堂".equals(sitename)){
+            fidBox.addItem(new String("392|〓 自 拍 偷 拍 〓"));
+            fidBox.addItem(new String("423|〓 唯 美 原 创 〓"));
+            fidBox.addItem(new String("173|〓 高 跟 丝 袜 〓"));
+            fidBox.addItem(new String("417|〓 多 彩 动 漫 〓"));
+            fidBox.addItem(new String("420|〓三级影视区〓"));
+            fidBox.addItem(new String("675|〓在线视频区〓"));
+            fidBox.addItem(new String("674|◇◇ 欧 美 B T 区"));
+            fidBox.addItem(new String("675|◇◇ 亚 洲 B T 区"));
         }
-
-
     }
 
     public static void main(String[] args) {
@@ -288,26 +391,60 @@ public class UploadUI extends JFrame implements ActionListener {
             String type="";
             //根据网站 放置不同账号
             String username="";
-            String passowrd="asd123123";
+            String passowrd="";
             if("新巴黎".equals(site.getName())){
-                username="ericchena";
+                UserBean bean = list_xbl.get(rand.nextInt(list_xbl.size()));
+                username=bean.getUsername();
+                 passowrd=bean.getPassword();
             }else if("MM公寓".equals(site.getName())){
-                username="一品梅136";
+                UserBean bean = list_mm.get(rand.nextInt(list_mm.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
             } else if("御花王朝".equals(site.getName())){
-                username="z1073021759";
+                UserBean bean = list_yhwc.get(rand.nextInt(list_xbl.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
             } else if("新亲密爱人".equals(site.getName())){
-                username="yoii0";
-                passowrd="kuangren";
-                type="nomal" ;
+                UserBean bean = list_qm.get(rand.nextInt(list_qm.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
+//                type="nomal" ;
             }else if("夜吧".equals(site.getName())){
-                username="he7253997";
-                passowrd="123456";
+                UserBean bean = list_yb.get(rand.nextInt(list_yb.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
             }else if("人性本色".equals(site.getName())){
-                username="rxbs001";
-                passowrd="aaa123456";
+                UserBean bean = list_rxbs.get(rand.nextInt(list_rxbs.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
             } else if("玫瑰情人".equals(site.getName())){
-                username="smilei34516";
-                passowrd="qwert";
+                UserBean bean = list_mgqr.get(rand.nextInt(list_xbl.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
+            }     else if("炼狱岛".equals(site.getName())){
+                UserBean bean = list_lyd.get(rand.nextInt(list_lyd.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
+                //调用线程开始上传
+                UploadTask task=new  UploadTask(date+","+floderName,path,withfile.getValue(),username,passowrd,site.getValue()+"login.php?",site.getValue()+"post.php?fid="+fid,site.getValue()+"post.php?","phpwind,"+fid);
+                task.start();
+                return ;
+            } else if("买春堂".equals(site.getName())){
+                UserBean bean = list_mct.get(rand.nextInt(list_mct.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
+                //调用线程开始上传
+                UploadTask task=new  UploadTask(date+","+floderName,path,withfile.getValue(),username,passowrd,site.getValue()+"login.php?",site.getValue()+"post.php?fid-"+fid+".htm",site.getValue()+"post.php?","phpwind,"+fid);
+                task.start();
+                return;
+            } else if("采花堂".equals(site.getName())){
+                UserBean bean = list_cht.get(rand.nextInt(list_cht.size()));
+                username=bean.getUsername();
+                passowrd=bean.getPassword();
+                //调用线程开始上传
+                UploadTask task=new  UploadTask(date+","+floderName,path,withfile.getValue(),username,passowrd,site.getValue()+"login.php?",site.getValue()+"post.php?fid="+fid,site.getValue()+"post.php?","phpwind,"+fid);
+                task.start();
+                return;
             }
             //调用线程开始上传
             UploadTask task=new UploadTask(date+","+floderName,path,withfile.getValue(),username ,passowrd,site.getValue(),site.getValue()+"logging.php?action=login&loginsubmit=true",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=page%3D1&topicsubmit=yes",type);
