@@ -49,10 +49,10 @@ public class Sis001Task {
         Boolean loginflag=false;
         loginflag= login(username,password);
         if(!loginflag){
-            System.out.println(username+"登录失败，尝试重新登录！");
-              return ;
+            System.out.println(username+"login error,try login again！");
+             return ;
         }
-        System.out.println(username+"登录成功");
+        System.out.println(username+"login success!");
           //测试图片解析存数据库方法
 //          Sis001DownLoadTask test=new Sis001DownLoadTask("pic_no_download","http://38.103.161.188/forum/forum-249-");
         //测试小说
@@ -70,7 +70,8 @@ public class Sis001Task {
      * url类的线程 Sis001DownLoadTask name以 url_ 开头 对应数据库urls表中的floderName字段
      */
     public static void start(){
-        String []urls={
+        System.out.println("start main thread..");
+        String [] sits={
                 "bt,http://38.103.161.188/forum/forum-25-,bt亚洲无码转帖",
                 "bt,http://38.103.161.188/forum/forum-58-,bt亚洲有码转帖",
                 "bt,http://38.103.161.188/forum/forum-77-,bt欧美无码",
@@ -92,7 +93,7 @@ public class Sis001Task {
         };
         //读取文本的urls配置文件
 //        readTxtInfos("urls.txt");
-        readUrls(urls);
+        readUrls(sits);
     }
 
     /**
@@ -105,11 +106,11 @@ public class Sis001Task {
         //读取txt
         readLine(textPath);
     }
-   public static void readUrls(String [] urls){
-       for(int i=0;i<urls.length;i++){
-           String line;
+   public static void readUrls(String [] sits){
+       System.out.println("sits length:"+sits.length);
+       for(int i=0;i<sits.length;i++){
            try {
-               while((line=urls[i])!=null){
+                   String line=sits[i];
                    System.out.println(""+line);
                    String []temp=line.split(",");//每一行进行分割出对应的需要的
                    String name=temp[0];//在线程类中判断此线程要使用哪种采集方法
@@ -119,25 +120,24 @@ public class Sis001Task {
                    System.out.println(temp.length+finalFloderPath+finalUrl);
                    newFolderMuti(finalFloderPath); //创建对应文件夹
                    threadPool.execute(new Sis001DownLoadTask(name, finalFloderPath, finalUrl,folderName));//线程池启动线程
-               }
                //判断线程池里的线程是否全部执行完
-               threadPool.shutdown();
-               while (true) {
-                   if (threadPool.isTerminated()) {
-                       break;
-                   }
-                   try {
-                       Thread.sleep(200);
-                   } catch (InterruptedException e) {
-                       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                   }
-               }
-               System.out.println("采集结束");
-               System.exit(0);
+
            } catch (ArrayIndexOutOfBoundsException e){
            }
        }
-
+       threadPool.shutdown();
+       while (true) {
+           if (threadPool.isTerminated()) {
+               break;
+           }
+           try {
+               Thread.sleep(200);
+           } catch (InterruptedException e) {
+               e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+           }
+       }
+       System.out.println("采集结束");
+       System.exit(0);
    }
 
     /**
