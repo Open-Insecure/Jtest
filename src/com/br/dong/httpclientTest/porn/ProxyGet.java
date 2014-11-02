@@ -89,7 +89,7 @@ class ProxyThreadForkuai extends Thread{
         try {
             client.clientCreatNoUrl("http");
             Document doc=client.getDocUTF8(client.noProxyGetUrl(wanturl));
-            //        System.out.println(doc.toString());
+                    System.out.println(doc.toString());
             List<ProxyBean> list=new ArrayList<ProxyBean>() ;
             Elements iplist=doc.select("div[id=list]>table>tbody>tr");
             for(Element e:iplist){
@@ -144,7 +144,7 @@ class ProxyThread extends Thread{
             client.clientCreatNoUrl("http");
             List<ProxyBean> list=new ArrayList<ProxyBean>() ;
             Document doc=client.getDocUTF8(client.noProxyGetUrl(wanturl));
-            //        System.out.println(doc.toString());
+                    System.out.println(doc.toString());
             Elements iplist=doc.select("table[id*=ip_list]>tbody>tr");
             //暂时先拿去10页的
             for(Element e:iplist){
