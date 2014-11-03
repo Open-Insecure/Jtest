@@ -87,7 +87,7 @@ class ProxyThreadForkuai extends Thread{
     public void run(){
         System.out.println("get proxy from"+wanturl);
         try {
-            client.clientCreatNoUrl("http");
+            client.clientCreate("http","www.kuaidaili.com","http://www.kuaidaili.com/");
             Document doc=client.getDocUTF8(client.noProxyGetUrl(wanturl));
                     System.out.println(doc.toString());
             List<ProxyBean> list=new ArrayList<ProxyBean>() ;
@@ -141,7 +141,8 @@ class ProxyThread extends Thread{
     public void run(){
         System.out.println("get proxy from"+wanturl);
         try {
-            client.clientCreatNoUrl("http");
+            client.clientCreate("http","www.xici.net.co","http://www.xici.net.co/");
+
             List<ProxyBean> list=new ArrayList<ProxyBean>() ;
             Document doc=client.getDocUTF8(client.noProxyGetUrl(wanturl));
                     System.out.println(doc.toString());

@@ -1,6 +1,7 @@
 package com.br.dong.httpclientTest;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URI;
@@ -276,7 +277,9 @@ public class CrawlerUtil {
 //				System.out.println("连接代理"+proxyUrl+"失败..");
 			}catch(NoHttpResponseException e){
 //				System.out.println("服务器"+proxyUrl+"没有响应..");
-			}
+			} catch (ConnectException e){
+                System.out.println("服务器"+proxyUrl+"没有响应..");
+            }
 	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -471,7 +474,10 @@ public class CrawlerUtil {
         return client.execute(post) ;
 
     }
+    public  HttpResponse execute(HttpGet get) throws IOException {
+        return client.execute(get) ;
 
+    }
 
 
 	//测试

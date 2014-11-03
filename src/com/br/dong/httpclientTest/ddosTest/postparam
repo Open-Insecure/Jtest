@@ -1,0 +1,35 @@
+Request URL:http://99btgc01.com/logging.php?action=login&loginsubmit=true
+Request Method:POST
+Status Code:200 OK
+Request Headersview source
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:zh-CN,zh;q=0.8
+Cache-Control:max-age=0
+Connection:keep-alive
+Content-Length:106
+Content-Type:application/x-www-form-urlencoded
+Cookie:safedog-flow-item=E8B5AC61A9E0525AAFFB5BDCBDDDAA42; SGD_smile=1D1; _ga=GA1.2.461694155.1414723283; SGD_sid=9gPes0
+Host:99btgc01.com
+Origin:http://99btgc01.com
+Referer:http://99btgc01.com/index.php
+User-Agent:Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36
+Query String Parametersview sourceview URL encoded
+action:login
+loginsubmit:true
+Form Dataview sourceview URL encoded
+formhash:d3765021
+cookietime:2592000
+loginfield:username
+username:he7253997
+password:95b004
+userlogin:true
+Response Headersview source
+Connection:close
+Content-Type:text/html
+Date:Mon, 03 Nov 2014 02:35:56 GMT
+Server:IIS
+Set-Cookie:SGD_sid=im700i; expires=Mon, 10-Nov-2014 02:35:56 GMT; path=/
+Set-Cookie:SGD_cookietime=2592000; expires=Tue, 03-Nov-2015 02:35:56 GMT; path=/
+Set-Cookie:SGD_auth=%2BcolNwnjm%2BUWheUACTxrBYFyE49vk4ckW0B5aOqI6g1%2BOnG%2BO%2F7ANTczvPpsJBHe; expires=Wed, 03-Dec-2014 02:35:56 GMT; path=/
+X-Powered-By:WAF/2.0
