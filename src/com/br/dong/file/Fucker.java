@@ -11,14 +11,14 @@ import java.io.PrintWriter;
 import java.util.Properties;
 
 /**
- * 读取指定目录下所有的文件 包含关键字符的一行输出到指定的一个新建文件中
- * */
+* 读取指定目录下所有的文件 包含关键字符的一行输出到指定的一个新建文件中
+* */
 public class Fucker {
 	//要扫描的目录
 	public static String path="d://test";
-	//输出的文件 如果创建失败  
+	//输出的文件 如果创建失败
 	public static String filename="d://pp.txt";
-	
+
 	public static void main(String[] args) {
 		Fucker fucker=new Fucker();
 		try {
@@ -28,13 +28,13 @@ public class Fucker {
 			fucker.readAll(path);
 			//新建文件
     		fucker.newFile(filename, "--*--");
-			 
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-/**获取此类所在的路径		
- * File fileB = new File(fucker.getClass().getResource("").getPath());
- * */
+/**获取此类所在的路径
+* File fileB = new File(fucker.getClass().getResource("").getPath());
+* */
 	}
 	//读取配置文件
 	public void readConfig() throws IOException{
@@ -48,7 +48,7 @@ public class Fucker {
         //赋值
 //        path=prop.getProperty("path");
 //        filename=prop.getProperty("filename");
-        
+
 	}
 	//读取目录下的所有文件
 	public void readAll(String path){
@@ -112,32 +112,32 @@ public class Fucker {
 			}
 		}
 	}
-	 /** 
-	   * 新建文件 
-	    filePathAndName String 文件路径及名称 如c:/fqf.txt 
-	    fileContent String 文件内容 
-	   * 
-	   */  
-	  public void newFile(String filePathAndName, String fileContent) {  
-	    try {  
-	      String filePath = filePathAndName;  
-	      filePath = filePath.toString();  
-	      File myFilePath = new File(filePath);  
-	      if (!myFilePath.exists()) {  
-	        myFilePath.createNewFile();  
-	      }  
-	      
-//	      FileWriter resultFile = new FileWriter(myFilePath);  
-//	      PrintWriter myFile = new PrintWriter(resultFile);  
-//	      String strContent = fileContent;  
-//	      myFile.println(strContent);  
-//	      resultFile.close();  
-	    }  
-	    catch (Exception e) {  
-	      System.out.println("新建目录操作出错");  
-	      e.printStackTrace();  
-	    }  
-	  }  
+	 /**
+	   * 新建文件
+	    filePathAndName String 文件路径及名称 如c:/fqf.txt
+	    fileContent String 文件内容
+	   *
+	   */
+	  public void newFile(String filePathAndName, String fileContent) {
+	    try {
+	      String filePath = filePathAndName;
+	      filePath = filePath.toString();
+	      File myFilePath = new File(filePath);
+	      if (!myFilePath.exists()) {
+	        myFilePath.createNewFile();
+	      }
+
+//	      FileWriter resultFile = new FileWriter(myFilePath);
+//	      PrintWriter myFile = new PrintWriter(resultFile);
+//	      String strContent = fileContent;
+//	      myFile.println(strContent);
+//	      resultFile.close();
+	    }
+	    catch (Exception e) {
+	      System.out.println("新建目录操作出错");
+	      e.printStackTrace();
+	    }
+	  }
 	   /**
 	     * 追加文件：使用FileWriter
 	     * fileName即为文件绝对路径 d://pp.txt

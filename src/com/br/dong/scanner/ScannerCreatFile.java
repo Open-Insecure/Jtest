@@ -7,12 +7,12 @@ import com.br.dong.utils.DateUtil;
 import java.util.Scanner;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Dong
- * Date: 14-8-22
- * Time: 下午3:38
- * To change this template use File | Settings | File Templates.
- */
+* Created with IntelliJ IDEA.
+* User: Dong
+* Date: 14-8-22
+* Time: 下午3:38
+* To change this template use File | Settings | File Templates.
+*/
 public class ScannerCreatFile {
 
     private static Boolean finishFlag=false;

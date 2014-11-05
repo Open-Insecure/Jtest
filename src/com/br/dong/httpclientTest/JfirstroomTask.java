@@ -21,10 +21,10 @@ import com.br.dong.file.FileOperate;
 import com.br.dong.utils.DateUtil;
 
 
-/** 
+/**
  * @author  hexd
- * 创建时间：2014-7-24 下午12:55:45 
- * 类说明 
+ * 创建时间：2014-7-24 下午12:55:45
+ * 类说明
  * firstroom信息抓取
  */
 public class JfirstroomTask {
@@ -47,7 +47,7 @@ public class JfirstroomTask {
 	private static String twourl="http://www.firstgongyu.com/thread-8649-1-1.html?mobile=no";
 	private static String threeurl="http://www.firstgongyu.com/thread-1231-1-1.html?mobile=no";
 	//某购买页面的详细信息
-	private static String onedetailUrl="http://www.firstgongyu.com/thread-8649-1-1.html"; 
+	private static String onedetailUrl="http://www.firstgongyu.com/thread-8649-1-1.html";
 	//目录
 	private static FileOperate fo=new FileOperate();
 	//网站的前缀地址
@@ -104,7 +104,7 @@ public class JfirstroomTask {
 				 i++;
 		 }
 	}
-	
+
 	public static void getMain() throws ClientProtocolException, IOException, CloneNotSupportedException{
 		String file="f://firstroom//main.txt";
 		System.out.println("创建所有购买贴");
@@ -127,14 +127,14 @@ public class JfirstroomTask {
 		 if(e.text().contains("售价")){
 			String tt="地区："
 						+ e.select("th>em").select("a").text() + " 标题："
-						+ e.select("a[class$=xst]").text() +" 链接地址:" 
+						+ e.select("a[class$=xst]").text() +" 链接地址:"
 						+e.select("a[class$=xst]").attr("abs:href")+"**发布时间："
 						+ e.select("td[class$=by]").select("span").text();
 //			 System.out.println(tt);
 			 fo.appendMethodB(file, tt);
 		 }
 	 }
-//	
+//
 	maini++;
 	 }
 	}
@@ -158,15 +158,15 @@ public class JfirstroomTask {
 		//获得内容
 		Element content=doc.select("div[class*=t_f]").first();
  		System.out.println(content.toString());
-		
+
 	}
-	
-	
+
+
 	/**
 	 * 获得某个帖子的详细信息
-	 * @throws CloneNotSupportedException 
-	 * @throws IOException 
-	 * @throws ClientProtocolException 
+	 * @throws CloneNotSupportedException
+	 * @throws IOException
+	 * @throws ClientProtocolException
 	 */
 	public static void  getInfoDeatil(String url) throws ClientProtocolException, IOException, CloneNotSupportedException{
 		Document doc=client.getDocUTF8(client.noProxyGetUrl(url));
@@ -185,7 +185,7 @@ public class JfirstroomTask {
 		fo.newFolder(file+place);
 		String tips="<p>照片请在联网状态下，点击viewimg查看</p>";
 	    fo.appendMehtodByGBK(file+place+"//"+title+".html", content.toString()+tips);
-		
+
 	}
 	public static void readMainTxt(String filename) throws CloneNotSupportedException{
 		System.out.println("read.."+filename);
@@ -209,7 +209,7 @@ public class JfirstroomTask {
 		}catch(FileNotFoundException e){
 			System.out.println("没有找到文件，请确保文件目录");
 //			e.printStackTrace();
-		} 
+		}
 	}
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, CloneNotSupportedException, ClientProtocolException, IOException {
 		 //登录

@@ -5,7 +5,7 @@ import net.sf.json.JSONObject;
 
 
 public class JArrayTest {
-	
+
 	public static void main(String[] args) {
 		String jsonStr="{\"data\":[{\"author\": \"孙志昕\",\"baseBrief\": \"\", \"docAttachments\": [{" +
 				"\"contentSource\": \"document_attachment\"," +
@@ -33,8 +33,8 @@ public class JArrayTest {
 		JSONObject obj = JSONObject.fromObject(jsonStr);
 		//如果是json的数组数据 则转化为jsonarray
 		JSONArray data= obj.getJSONArray("data");
-		int length  = data.size();  
-		 for(int i = 0; i < length; i++){//遍历JSONArray 
+		int length  = data.size();
+		 for(int i = 0; i < length; i++){//遍历JSONArray
 			JSONObject oj = data.getJSONObject(i);
 			//获得json的字符串值
 			System.out.println(oj.getString("title"));
@@ -47,6 +47,6 @@ public class JArrayTest {
             	System.out.println("aa");
             }
 		 }
-		
+
 	}
 }

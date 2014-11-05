@@ -27,13 +27,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Dong
- * Date: 14-10-31
- * Time: 下午5:14
- * To change this template use File | Settings | File Templates.
- *尝试使用ddos攻击
- */
+* Created with IntelliJ IDEA.
+* User: Dong
+* Date: 14-10-31
+* Time: 下午5:14
+* To change this template use File | Settings | File Templates.
+*尝试使用ddos攻击
+*/
 public class DdosThreadTask extends Thread{
    private CrawlerUtil client=new CrawlerUtil();
    private CloseableHttpClient httpclient = HttpClients.createDefault();

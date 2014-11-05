@@ -11,17 +11,17 @@ import org.apache.commons.io.LineIterator;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 敏感字词处理类
- * @author Wiker
- * @date 2010-1-11 下午10:51:30
- */
+* 敏感字词处理类
+* @author Wiker
+* @date 2010-1-11 下午10:51:30
+*/
 public class BadWord {
 
 	private final static File wordfilter = new File("C:/wordfilter.txt");
 
 	private static long lastModified = 0L;
 	private static List<String> words = new ArrayList<String>();
-	
+
 	private static void checkReload(){
 		if(wordfilter.lastModified() > lastModified){
 			synchronized(BadWord.class){
@@ -39,7 +39,7 @@ public class BadWord {
 			}
 		}
 	}
-	
+
 	/**
 	 * 检查敏感字内容
 	 * @param contents
@@ -55,7 +55,7 @@ public class BadWord {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 检查字符串是否包含敏感词
 	 *
@@ -72,7 +72,7 @@ public class BadWord {
 	    }
 	    return false;
 	}
-	
+
 	/**
 	 * 替换掉字符串中的敏感词
 	 *
@@ -93,12 +93,12 @@ public class BadWord {
         }
         return str;
 	}
-	
+
 	public static List<String> lists() {
 		checkReload();
 		return words;
 	}
-	
+
 	/**
 	 * 添加敏感词
 	 *
@@ -126,11 +126,11 @@ public class BadWord {
 		FileUtils.writeLines(wordfilter, "UTF-8", words);
 		lastModified = wordfilter.lastModified();
 	}
-	
+
 	public static void main(String[] args) throws Exception{
         System.out.println(BadWord.replace("中国共产党钓鱼岛","*"));
         System.out.println(BadWord.isContain("岛"));
         BadWord.add("傻逼");
     }
-	
+
 }

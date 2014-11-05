@@ -7,6 +7,6 @@ package com.br.dong.thread.ExecutorServiceTest;
 public class Mythread extends Thread {
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName() + "正在执行。。。");
+        System.out.println(Thread.currentThread().getName() + "exeing");
     }
 }

@@ -20,7 +20,7 @@ public class ImgTest {
     {
         int width = 300;
         int height = 200;
-        String s = "头像未上传";
+        String s = "aaa";
 
         File file = new File("E:/image.jpg");
 

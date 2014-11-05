@@ -10,9 +10,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 身份证工具类
- * 
- */
+* 身份证工具类
+*
+*/
 public class IdCardUtils extends StringUtils {
 
     /** 中国公民身份证号码最小长度。 */
@@ -120,7 +120,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 将15位身份证号码转换为18位
-     * 
+     *
      * @param idCard
      *            15位身份编码
      * @return 18位身份编码
@@ -186,7 +186,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 验证18位身份编码是否合法
-     * 
+     *
      * @param idCard 身份编码
      * @return 是否合法
      */
@@ -217,7 +217,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 验证15位身份编码是否合法
-     * 
+     *
      * @param idCard
      *            身份编码
      * @return 是否合法
@@ -253,7 +253,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 验证10位身份编码是否合法
-     * 
+     *
      * @param idCard 身份编码
      * @return 身份证信息数组
      *         <p>
@@ -300,7 +300,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 验证台湾身份证号码
-     * 
+     *
      * @param idCard
      *            身份证号码
      * @return 验证码是否符合
@@ -329,7 +329,7 @@ public class IdCardUtils extends StringUtils {
      * <p>
      * 将身份证号码全部转换为数字，分别对应乘9-1相加的总和，整除11则证件号码有效
      * </p>
-     * 
+     *
      * @param idCard 身份证号码
      * @return 验证码是否符合
      */
@@ -361,7 +361,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 将字符数组转换成数字数组
-     * 
+     *
      * @param ca
      *            字符数组
      * @return 数字数组
@@ -381,7 +381,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 将身份证的每位和对应位的加权因子相乘之后，再得到和值
-     * 
+     *
      * @param iArr
      * @return 身份证编码。
      */
@@ -401,7 +401,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 将power和值与11取模获得余数进行校验码判断
-     * 
+     *
      * @param iSum
      * @return 校验位
      */
@@ -447,7 +447,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取年龄
-     * 
+     *
      * @param idCard
      *            身份编号
      * @return 年龄
@@ -466,7 +466,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取生日
-     * 
+     *
      * @param idCard 身份编号
      * @return 生日(yyyyMMdd)
      */
@@ -482,7 +482,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取生日年
-     * 
+     *
      * @param idCard 身份编号
      * @return 生日(yyyy)
      */
@@ -498,7 +498,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取生日月
-     * 
+     *
      * @param idCard
      *            身份编号
      * @return 生日(MM)
@@ -515,7 +515,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取生日天
-     * 
+     *
      * @param idCard
      *            身份编号
      * @return 生日(dd)
@@ -532,7 +532,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取性别
-     * 
+     *
      * @param idCard 身份编号
      * @return 性别(M-男，F-女，N-未知)
      */
@@ -552,7 +552,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 根据身份编号获取户籍省份
-     * 
+     *
      * @param idCard 身份编码
      * @return 省级编码。
      */
@@ -569,7 +569,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 数字验证
-     * 
+     *
      * @param val
      * @return 提取的数字。
      */
@@ -579,7 +579,7 @@ public class IdCardUtils extends StringUtils {
 
     /**
      * 验证小于当前日期 是否有效
-     * 
+     *
      * @param iYear
      *            待验证日期(年)
      * @param iMonth

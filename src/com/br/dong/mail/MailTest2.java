@@ -1,16 +1,16 @@
 package com.br.dong.mail;
-/** 
- * @author  hexd
- * 创建时间：2014-7-21 下午2:11:24 
- * 类说明 发送邮件类
- * 
- * send failed, exception: com.sun.mail.smtp.SMTPSendFailedException: 554 MI:SPB UserReject 0,smtp13,EcCowEAp6nWUIc5TkDJiBA--.278S2 1406017940
- *  please feedback at http://feedback.mail.126.com/antispam/complain.php?user=aishidong@163.com
- 	此类错误由于邮箱发送过度被封锁了
- */
+/**
+* @author  hexd
+* 创建时间：2014-7-21 下午2:11:24
+* 类说明 发送邮件类
+*
+* send failed, exception: com.sun.mail.smtp.SMTPSendFailedException: 554 MI:SPB UserReject 0,smtp13,EcCowEAp6nWUIc5TkDJiBA--.278S2 1406017940
+*  please feedback at http://feedback.mail.126.com/antispam/complain.php?user=aishidong@163.com
+	此类错误由于邮箱发送过度被封锁了
+*/
 import java.util.Date;
 import java.util.Properties;
- 
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,20 +20,20 @@ import javax.mail.Transport;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
- 
+
 public class MailTest2 {
- 
+
     static Authenticator auth = new Authenticator() {
- 
+
         @Override
         protected PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication("aishidong@163.com", "95b004");
         }
- 
+
     };
- 
+
     public static void main(String[] args) {
- 
+
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.163.com");
         props.put("mail.smtp.auth", "true");
@@ -41,7 +41,7 @@ public class MailTest2 {
         Session session = Session.getInstance(props, auth);
         //--要发送的文件
         String file="F:\\aa.txt";
-        
+
         try {
         		   MimeMessage msg = new MimeMessage(session);
                    msg.setFrom();
@@ -57,6 +57,6 @@ public class MailTest2 {
         } catch (MessagingException mex) {
             System.out.println("send failed, exception: " + mex);
         }
- 
+
     }
 }

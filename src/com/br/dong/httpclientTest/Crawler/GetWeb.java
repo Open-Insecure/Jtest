@@ -1,10 +1,10 @@
 package com.br.dong.httpclientTest.Crawler;
 
-/** 
- * @author  hexd
- * 创建时间：2014-7-22 下午12:46:01 
- * 类说明 
- */
+/**
+* @author  hexd
+* 创建时间：2014-7-22 下午12:46:01
+* 类说明
+*/
 
 import java.io.*;
 import java.net.*;
@@ -23,7 +23,7 @@ public class GetWeb {
     private String fPath = "web";
     private ArrayList<String>arrUrls = new ArrayList<String>();//
     private ArrayList<String>arrUrl = new ArrayList<String>();//
- 
+
     private Hashtable<String,Integer> allUrls = new Hashtable<String,Integer>();
     private Hashtable<String,Integer> deepUrls = new Hashtable<String,Integer>();
     private int intWebIndex = 0;
@@ -104,7 +104,7 @@ public class GetWeb {
         }
         else if(args.length == 1)
         {*/
-    		
+
             GetWeb gw = new GetWeb("http://www.taobao.com/");//args[0]);
             gw.getWebByHomePage();
         /*}
@@ -256,7 +256,7 @@ public class GetWeb {
     public String getDomain()
     {
         String reg = "(?<=http\\://[a-zA-Z0-9]{0,100}[.]{0,1})[^.\\s]*?\\.(com|cn|net|org|biz|inf|o|cc|tv|h)";
-       
+
         Pattern p = Pattern.compile(reg,Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(strHomePage);
         boolean blnp = m.find();
@@ -289,9 +289,9 @@ public class GetWeb {
             blnp = m.find();
         }
     }
-    
-    
-    
+
+
+
     class Processer implements Runnable
     {
         GetWeb gw;
@@ -333,7 +333,7 @@ public static List<String> getImgStr(String htmlStr){
     {
        return str.contains("衣") || str.contains("鞋") || str.contains("裤") || str.contains("装");
     }
-    
+
     /**下载图片
      * @param urlString
      * @param filename
