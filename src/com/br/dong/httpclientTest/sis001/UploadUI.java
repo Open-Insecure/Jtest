@@ -1,5 +1,7 @@
 package com.br.dong.httpclientTest.sis001;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -233,6 +235,13 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("29|迅雷/电驴下载区"));
             fidBox.addItem(new String("30|情色三级转帖区"));
             fidBox.addItem(new String("27|动漫无码转贴区"));
+            fidBox.addItem(new String("15|新人试贴区"));
+            fidBox.addItem(new String("22|明星图片区"));
+            fidBox.addItem(new String("18|亚洲图片区"));
+            fidBox.addItem(new String("19|欧美图片区"));
+            fidBox.addItem(new String("20|自拍偷拍区"));
+            fidBox.addItem(new String("21|卡通漫画区"));
+            fidBox.addItem(new String("39|精品套图区"));
         }else if("MM公寓".equals(sitename)){
             fidBox.addItem(new String("117|P 2 P 亞 視"));
             fidBox.addItem(new String("430|电 驴 下 载"));
@@ -241,6 +250,23 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("116|迅 雷 影 視"));
             fidBox.addItem(new String("397|P 2 P 三 级"));
             fidBox.addItem(new String("232|P 2 P 动 漫"));
+            fidBox.addItem(new String("492|〓 新 人 图 片 试 帖 〓"));
+            fidBox.addItem(new String("369|〓 會 員 自 拍 〓"));
+            fidBox.addItem(new String("74|〓 套 圖 下 載 〓"));
+            fidBox.addItem(new String("34|〓 東 方 美 眉 〓"));
+            fidBox.addItem(new String("35|〓 西 方 美 女 〓"));
+            fidBox.addItem(new String("36|〓 自 拍 偷 拍 〓"));
+            fidBox.addItem(new String("73|〓 卡 通 動 漫 〓"));
+            fidBox.addItem(new String("75|〓 泳 装 絲 襪 〓"));
+            fidBox.addItem(new String("72|〓 明 星 貼 圖 〓"));
+            fidBox.addItem(new String("76|〓 唯 美 貼 圖 〓"));
+            fidBox.addItem(new String("491|〓 新 人 小 说 试 帖 〓"));
+            fidBox.addItem(new String("389|〓 Ebook 小說 〓"));
+            fidBox.addItem(new String("236|〓 有 声 有 色 〓"));
+            fidBox.addItem(new String("77|〓 现 代 迷 情 〓"));
+            fidBox.addItem(new String("44|〓 乱 伦 人 妻 〓"));
+            fidBox.addItem(new String("47|〓 武 侠 玄 幻 〓"));
+
         } else if("御花王朝".equals(sitename)){
             fidBox.addItem(new String("26|王朝亚洲影视专区"));
             fidBox.addItem(new String("27|王朝欧美影视专区"));
@@ -250,6 +276,18 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("65|亚洲有码专区"));
             fidBox.addItem(new String("66|亚洲无码专区"));
             fidBox.addItem(new String("28|王朝动漫影视专区"));
+            fidBox.addItem(new String("220|王朝自拍偷拍區"));
+            fidBox.addItem(new String("18|王朝日韩貼圖區"));
+            fidBox.addItem(new String("19|王朝欧洲貼圖區"));
+            fidBox.addItem(new String("20|王朝写真丝袜區"));
+            fidBox.addItem(new String("21|王朝卡通成人區"));
+            fidBox.addItem(new String("23|王朝明星合成區"));
+            fidBox.addItem(new String("302|王朝同性贴图區"));
+            fidBox.addItem(new String("16|王朝激情乱伦區"));
+            fidBox.addItem(new String("15|王朝现代都市區"));
+            fidBox.addItem(new String("17|王朝武侠另类區"));
+            fidBox.addItem(new String("298|Ebook-名家合集"));
+
         } else if("新亲密爱人".equals(sitename)){
             fidBox.addItem(new String("19|亚洲转帖区"));
             fidBox.addItem(new String("20|欧美转帖区"));
@@ -357,7 +395,15 @@ public class UploadUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+        try{
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;//设置窗口边框类型
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();//将界面转化为Beauty Eye外观
+        }catch (Exception e){
+            System.out.println("初始化失败");
+        }
 
+        //隐藏设置按钮
+        UIManager.put("RootPane.setupButtonVisible",false);
         UploadUI ui=new UploadUI();
     }
     @Override

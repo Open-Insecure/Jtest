@@ -81,15 +81,23 @@ public class Sis001Task {
                 "url,http://38.103.161.188/forum/forum-187-,url外链成人网盘",
                 "url,http://38.103.161.188/forum/forum-270-,url外链电驴",
                 "url,http://38.103.161.188/forum/forum-212-,url外链迅雷",
-                "pic_no_download_sn,http://38.103.161.188/forum/forum-242-,pic熟女乱伦图片分享区",
-                "pic_no_download_sn,http://38.103.161.188/forum/forum-68-,pic西洋靓女骚妹",
-                "pic_no_download_sn,http://38.103.161.188/forum/forum-60-,pic动漫卡通游戏贴图区",
-                "pic_no_download_sn,http://38.103.161.188/forum/forum-64-,pic东方靓女集中营",
-                "pic_no_download_sn,http://38.103.161.188/forum/forum-184-,pic精品套图鉴赏区",
-                "pic_no_download_sn,http://38.103.161.188/forum/forum-219-,pic高跟美足丝袜区",
-                "txt_download_ycrs,http://38.103.161.188/forum/forum-383-,txt原创人生区",
-                "txt_download_ycrs,http://38.103.161.188/forum/forum-279-,txt人妻意淫区",
-                "txt_download_ycrs,http://38.103.161.188/forum/forum-83-,txt乱伦迷情区"
+                "pic_no_download,http://38.103.161.188/forum/forum-242-,pic熟女乱伦图片分享区",
+                "pic_no_download,http://38.103.161.188/forum/forum-68-,pic西洋靓女骚妹",
+                "pic_no_download,http://38.103.161.188/forum/forum-60-,pic动漫卡通游戏贴图区",
+                "pic_no_download,http://38.103.161.188/forum/forum-64-,pic东方靓女集中营",
+                "pic_no_download,http://38.103.161.188/forum/forum-184-,pic精品套图鉴赏区",
+                "pic_no_download,http://38.103.161.188/forum/forum-219-,pic高跟美足丝袜区",
+                "pic_no_download,http://38.103.161.188/forum/forum-62-,pic网友自拍贴图分享区",
+                "pic_no_download,http://38.103.161.188/forum/forum-61-,pic星梦奇缘合成天堂",//图片在附件
+                "txt_download,http://38.103.161.188/forum/forum-383-,txt原创人生区",
+                "txt_download,http://38.103.161.188/forum/forum-279-,txt人妻意淫区",
+                "txt_download,http://38.103.161.188/forum/forum-83-,txt乱伦迷情区",
+                "txt_download,http://38.103.161.188/forum/forum-96-,txt武侠玄幻区",
+                "txt_download,http://38.103.161.188/forum/forum-31-,txt另类其它区",
+                "txt_download,http://38.103.161.188/forum/forum-385-,txt电子书下载",
+                "txt_download,http://38.103.161.188/forum/forum-368-,txt杂志下载"
+
+
         };
         //读取文本的urls配置文件
 //        readTxtInfos("urls.txt");

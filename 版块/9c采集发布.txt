@@ -1,0 +1,67 @@
+lz0033
+buhui5200
+父亲出生城市
+北京
+国王后宫?山东楼凤 http://www.92emz.com/forum-52-1.html   发布网址：http://maichun.org/thread.php?fid-166-page-1.htm
+
+国王后宫?北京楼凤区http://www.92emz.com/forum-49-1.html   发布网址：http://maichun.org/thread.php?fid-91-page-1.htm
+国王后宫?上海楼凤区http://www.92emz.com/forum-42-1.html   发布网址：http://maichun.org/thread.php?fid-971-page-1.htm
+
+
+
+【九城公社直辖市区】?北京市区←◇? 楼凤http://www.92cheng.com/forum-106-1.html   发布网址：http://maichun.org/thread.php?fid-91.htm
+
+
+北京市区←◇? 楼凤原创http://www.92cheng.com/forum-107-1.html    发布网址：http://maichun.org/thread.php?fid-91-page-1.htm
+Request URL:http://www.92cheng.com/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=reply&loginhash=LOFbV&inajax=1
+Request Method:POST
+Status Code:200 OK
+Request Headersview source
+Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:zh-CN,zh;q=0.8
+Cache-Control:max-age=0
+Connection:keep-alive
+Content-Length:183
+Content-Type:application/x-www-form-urlencoded
+Cookie:tjpctrl=1415256104744; wj7N_2132_noticeTitle=1; wj7N_2132_saltkey=oTrLK5Zn; wj7N_2132_lastvisit=1415250725; wj7N_2132_visitedfid=106; wj7N_2132_sendmail=1; wj7N_2132_forum_lastvisit=D_106_1415254333; wj7N_2132_seccodeShVSA1Z0=b1e3ZaOBzrdiJEXzmCXmF7TXH9DiwzwY9hjBM59pXzSI0LeEHXv9C5pcYn0e8dI%2BjuCjWoCwTKgWR0vnys4; wj7N_2132_viewid=tid_14567; CNZZDATA1000357981=874289373-1415157040-%7C1415252333; wj7N_2132_lastact=1415254355%09member.php%09logging; wj7N_2132_sid=hVSA1Z
+Host:www.92cheng.com
+Origin:http://www.92cheng.com
+Referer:http://www.92cheng.com/thread-14567-1-1.html
+User-Agent:Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36
+Query String Parametersview sourceview URL encoded
+mod:logging
+action:login
+loginsubmit:yes
+handlekey:reply
+loginhash:LOFbV
+inajax:1
+Form Dataview sourceview URL encoded
+formhash:922caa2f
+referer:http://www.92cheng.com/thread-14567-1-1.html
+loginfield:username
+username:lz0033
+password:buhui5200
+questionid:3
+answer:(unable to decode value)
+loginsubmit:true
+Response Headersview source
+Cache-Control:no-store, private, post-check=0, pre-check=0, max-age=0
+Connection:keep-alive
+Content-Encoding:gzip
+Content-Type:text/xml; charset=gbk
+Date:Thu, 06 Nov 2014 06:13:31 GMT
+Expires:-1
+Keep-Alive:timeout=60
+Pragma:no-cache
+Server:nginx
+Set-Cookie:wj7N_2132_activationauth=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/
+Set-Cookie:wj7N_2132_sid=hVSA1Z; expires=Fri, 07-Nov-2014 06:13:31 GMT; path=/
+Set-Cookie:wj7N_2132_auth=c6763xzelcdoxGVVYfHMeMMcBSDsuKPmxshS6bU16%2B8Jo%2B73X2zLlGtSkil0DCsQtekTgKTqyDw2fAumg06%2FcokY; path=/; httponly
+Set-Cookie:wj7N_2132_loginuser=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/
+Set-Cookie:wj7N_2132_lastact=1415254411%09member.php%09logging; expires=Fri, 07-Nov-2014 06:13:31 GMT; path=/
+Set-Cookie:wj7N_2132_pmnum=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; path=/
+Set-Cookie:wj7N_2132_lastcheckfeed=5029%7C1415254411; expires=Fri, 06-Nov-2015 06:13:31 GMT; path=/
+Set-Cookie:wj7N_2132_checkfollow=1; expires=Thu, 06-Nov-2014 06:14:01 GMT; path=/
+Set-Cookie:wj7N_2132_ulastactivity=1efek5csRDh7c6iO%2BXnvMOHq9%2BsA%2BFsEhFeVJrIa6P6VbuCAodFY; expires=Fri, 06-Nov-2015 06:13:31 GMT; path=/
+Transfer-Encoding:chunked

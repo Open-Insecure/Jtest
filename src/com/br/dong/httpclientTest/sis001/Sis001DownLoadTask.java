@@ -228,7 +228,6 @@ public class Sis001DownLoadTask extends Thread{
 //                System.out.println(sb.toString());//打印测试
                 //设置在写入到本地文件的message内容到bean中方便在writeFile方法中写入到本地文件
                 bean.setMessage(sb.toString());
-
                //写入文件
                 writeFile(bean);
             }catch (Exception e){
@@ -263,6 +262,15 @@ public class Sis001DownLoadTask extends Thread{
                Elements pics=doc.select("div[id^=postmessage_]").first().select("img");//
                for(Element element:pics){
                    sb.append("[img]"+element.attr("src")+"[/img]\r\n");
+               }
+               //在此针对星梦奇缘合成区的图片在附件div下面专门进行处理
+               if(folderName.contains("合成")){
+                   Elements attachs=doc.select("dl[class=t_attachlist]").select("img");
+//                   System.out.println("bb1"+attachs.toString());
+                   for(Element e:attachs){
+//                       System.out.println("bbbbbb"+absPre+e.attr("src"));
+                         sb.append("[img]" + absPre + e.attr("href") + "[/img]\r\n");
+                   }
                }
 //               System.out.println("----"+sb.toString());//打印测试
                //设置在写入到本地文件的message内容到bean中方便在writeFile方法中写入到本地文件
