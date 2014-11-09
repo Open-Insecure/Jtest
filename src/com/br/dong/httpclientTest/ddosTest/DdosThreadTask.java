@@ -3,7 +3,6 @@ package com.br.dong.httpclientTest.ddosTest;
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.porn.JdbcUtil;
 import com.br.dong.httpclientTest.porn.ProxyBean;
-import com.br.dong.httpclientTest.sis001.UploadUI;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
