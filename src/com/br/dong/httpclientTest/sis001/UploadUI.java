@@ -1,5 +1,7 @@
 package com.br.dong.httpclientTest.sis001;
 
+import com.br.dong.file.FileOperate;
+import com.br.dong.utils.DateUtil;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 import javax.swing.*;
@@ -30,7 +32,7 @@ public class UploadUI extends JFrame implements ActionListener {
     private JButton jp1_jb1,jp1_jb2;
     private JLabel jp2_jl1,jp2_jl2;
     public static JLabel jp2_jl3,jp2_jl4;
-    private JButton jp_jb1,jp_jb2; //开始，退出 按钮
+    private JButton jp_jb1,jp_jb2,jb_clear; //开始，退出 ，清除日志 按钮
     private JScrollPane jsp;
     public static JTextArea jta;
     //线程池
@@ -42,27 +44,35 @@ public class UploadUI extends JFrame implements ActionListener {
      * 构造方法初始化界面UI
      */
     public UploadUI(){
-       //初始化下拉框
-       initJcomboBox();
-        initAccList();
+        //创建日志目录
+       FileOperate.newFolderMuti("C:\\logs\\");
+       initJcomboBox();   //初始化下拉框
+        initAccList();  //初始化各网站账号
         //处理最里面的jp1
         jp=new JPanel();
         jp.setLayout(null);
         jp_jb1=new JButton("开始");
         jp_jb1.addActionListener(this);
-        jp_jb1.setBounds(195,200,100,40);
+        jp_jb1.setBounds(50,200,100,40);
+
+        jb_clear=new JButton("清除日志");
+        jb_clear.addActionListener(this);
+        jb_clear.setBounds(245,200,100,40);
 
         jp_jb2=new JButton("退出");
         jp_jb2.addActionListener(this);
-        jp_jb2.setBounds(345,200,100,40);
+        jp_jb2.setBounds(405,200,100,40);
+
+
 
         jp.add(jp_jb1);
+        jp.add(jb_clear);
         jp.add(jp_jb2);
 
         //处理左上
         jp1=new JPanel();
         jp1.setBorder(BorderFactory.createTitledBorder("设置"));
-        jp1.setBounds(10, 30, 500, 230);
+        jp1.setBounds(10, 30, 540, 230);
         jp1.setLayout(null);
         jp1_jl1=new JLabel("选择网站:",JLabel.CENTER);
         jp1_jl1.setBounds(15, 30, 100, 30);
@@ -105,7 +115,7 @@ public class UploadUI extends JFrame implements ActionListener {
         jp3.setLayout(null);
         jta=new JTextArea();
         jsp=new JScrollPane(jta);
-        jsp.setBounds(10, 20, 600, 160);
+        jsp.setBounds(10, 20, 580, 160);
         jp3.add(jsp);
 
         jp.add(jp1);
@@ -116,13 +126,17 @@ public class UploadUI extends JFrame implements ActionListener {
         //窗口设置
         int width= Toolkit.getDefaultToolkit().getScreenSize().width;
         int height=Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setTitle("Dialog");
-        this.setSize(650, 500);
+        this.setTitle("上传程序");
+        this.setSize(700, 600);
         this.setLocation(width/4, height/4-50);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
     }
+
+    /**
+     * 初始化各个网站账号
+     */
     public void initAccList(){
         list_xbl=new ArrayList<UserBean>();
         list_xbl.add(new UserBean("liang93370894","asd123123")) ;
@@ -226,7 +240,7 @@ public class UploadUI extends JFrame implements ActionListener {
      * @param sitename
      */
     public void resetFidBox(String sitename){
-        fidBox.removeAllItems();
+        fidBox.removeAllItems();//移除以前加载的
         if("新巴黎".equals(sitename)){
             fidBox.addItem(new String("25|亚洲无码下载区"));
             fidBox.addItem(new String("75|亚洲有码下载区"));
@@ -393,7 +407,6 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("675|◇◇ 亚 洲 B T 区"));
         }
     }
-
     public static void main(String[] args) {
         try{
             BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;//设置窗口边框类型
@@ -401,7 +414,6 @@ public class UploadUI extends JFrame implements ActionListener {
         }catch (Exception e){
             System.out.println("初始化失败");
         }
-
         //隐藏设置按钮
         UIManager.put("RootPane.setupButtonVisible",false);
         UploadUI ui=new UploadUI();
@@ -433,6 +445,7 @@ public class UploadUI extends JFrame implements ActionListener {
             String date=temp[size-2];
             String floderName=temp[size-1];
             System.out.println("dd+"+date+"ff"+floderName);
+            jta.append("发布目录："+path+"\n");
             //发布类型
             String type="";
             //根据网站 放置不同账号
@@ -502,6 +515,10 @@ public class UploadUI extends JFrame implements ActionListener {
             System.exit(0);
             this.dispose();
 
+        }
+        //清除日志按钮被点击
+        else if(e.getSource()==jb_clear){
+            jta.setText("");
         }
         //文件目录选择按钮被点击事件
         else if(e.getSource()==jp1_jb1)

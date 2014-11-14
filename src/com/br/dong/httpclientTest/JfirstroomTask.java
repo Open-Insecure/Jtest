@@ -184,7 +184,11 @@ public class JfirstroomTask {
 //		System.out.println(content.toString());
 		fo.newFolder(file+place);
 		String tips="<p>照片请在联网状态下，点击viewimg查看</p>";
-	    fo.appendMehtodByGBK(file+place+"//"+title+".html", content.toString()+tips);
+	    try{
+            fo.appendMehtodByGBK(file+place+"//"+title+".html", content.toString()+tips);
+        }catch (NullPointerException e){
+            System.out.println("appendMehtodByGBK 空指针啦..");
+        }
 
 	}
 	public static void readMainTxt(String filename) throws CloneNotSupportedException{
@@ -217,9 +221,9 @@ public class JfirstroomTask {
 		//资源购买一区联系方式购买贴链接采集 F:\firstroom\resone.txt
 //		 getOneResource();
 		//首页联系贴采集  F:\firstroom\main.txt
-		  getMain();
+//		  getMain();
 		  //读取main.txt循环创建详细页面
-//		  readMainTxt("f://firstroom//main.txt");
+		  readMainTxt("f://firstroom//main.txt");
 //		   getInfoTest("http://www.firstgongyu.com/thread-4689-1-1.html?mobile=no");
 	}
 }

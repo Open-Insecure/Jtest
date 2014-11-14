@@ -3,6 +3,7 @@ package com.br.dong.httpclientTest.sis001;
 import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.porn.JdbcUtil;
+import com.br.dong.utils.DateUtil;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -42,6 +43,8 @@ public class UploadTask extends Thread{
     //编码方式
     private static String GBK="GBK";
     private static String UTF8="UTF-8";
+    //日志目录
+    private static String logPath="C:\\logs\\"+ DateUtil.getCurrentDay()+"log.txt";
     private  CloseableHttpClient httpclient = HttpClients.createDefault();
     //文件操作工具类
     private static FileOperate fileOperate=new FileOperate();
@@ -66,7 +69,7 @@ public class UploadTask extends Thread{
     //fid
     private String fid="";
     //当前种子所在根目录
-    private static String folderpath="";
+    private  String folderpath="";
     public static void main(String[] args) throws IOException {
 //      UploadTask task=new  UploadTask("2014-10-27,bt亚洲无码原创区","F:\\vedios\\sis\\2014-10-27\\bt亚洲无码原创区\\","yes","yeyeye2","qwert","http://lianyu.org/login.php?","http://lianyu.org/post.php?fid=33","http://lianyu.org/post.php?","phpwind,33");
 //      UploadTask task=new  UploadTask("2014-10-27,bt亚洲无码原创区","F:\\vedios\\sis\\2014-10-27\\bt亚洲无码原创区\\","yes","天在看","qwerty","http://maichun.org/login.php?","http://maichun.org/post.php?fid-645.htm","http://maichun.org/post.php?","phpwind,645");
@@ -151,7 +154,7 @@ public class UploadTask extends Thread{
      */
     public void init(){
         List rows=getTorrentsByFlag(this.getName());
-        System.out.println("片子:"+rows.size());
+        fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"线程用户["+username+"]即将发帖数:"+rows.size()+"\n");//打印当前task线程日志
         if(type.contains("phpwind")){
             //phpwind的调用登录phpwind的方法
           loginPHPWind(username,password);
@@ -183,6 +186,7 @@ public class UploadTask extends Thread{
                 }
             }
         }
+        UploadUI.jta.append("用户"+username+"发帖完毕");
     }
 
     /**
@@ -222,7 +226,11 @@ public class UploadTask extends Thread{
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     Document doc= crawlerUtil.getDocument(entity,GBK);
-                    System.out.println(doc.toString());
+                    if(doc!=null){
+                        fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime() + "[" + doc.select("div[class=box message]").toString() + "]");//打印当前task线程日志
+                        System.out.println(doc.select("div[class=box message]").toString());
+                    }
+
                 }
             } finally {
                 response.close();
@@ -277,13 +285,22 @@ public class UploadTask extends Thread{
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
-            if (eee != null) {
-                System.out.println("--------------------------------------");
-                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
-                System.out.println("--------------------------------------");
-            } else{
-                System.out.println("upload error!");
+            Document doc=crawlerUtil.getDocGBK(response);
+//            System.out.println(doc.toString());
+            UploadUI.jta.append("线程用户["+username+"]正在发帖:"+map.get("title")+"\n");
+            if(doc!=null){
+                fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"线程用户["+username+"]即将发帖:"+map.get("title")+"\n");//打印当前task线程日志
+                fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime()+ "发帖反馈信息:"+ url+"\n[" + doc.select("div[class=box message]").toString() + "]");//打印当前task线程日志
+
             }
+//            if (eee != null) {
+//                System.out.println("--------------------------------------");
+//                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
+//                fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime() + "[" + doc.select("div[class=box message]").toString() + "]");//打印当前task线程日志
+//                System.out.println("--------------------------------------");
+//            } else{
+//                System.out.println("upload error!");
+//            }
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -329,17 +346,25 @@ public class UploadTask extends Thread{
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
-            if (eee != null) {
-                System.out.println("--------------------------------------");
-                String content=EntityUtils.toString(eee, GBK);
-                System.out.println("Response content: " +content );
-                if(content.contains("发帖完毕")){
-                    UploadUI.jta.append("发布成功"+map.get("title")+"\n");
-                }
-                System.out.println("--------------------------------------");
-            } else{
-                System.out.println("upload error!");
+            Document doc=crawlerUtil.getDocGBK(response);
+//            System.out.println(doc.toString());
+            UploadUI.jta.append("线程用户["+username+"]正在发帖:"+map.get("title")+"\n");
+            if(doc!=null){
+                fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"线程用户["+username+"]即将发帖:"+map.get("title")+"\n");//打印当前task线程日志
+                fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime()+ "发帖反馈信息:"+ url+"\n[" + doc.select("center").toString() + "]");//打印当前task线程日志
+
             }
+//            if (eee != null) {
+//                System.out.println("--------------------------------------");
+//                String content=EntityUtils.toString(eee, GBK);
+//                System.out.println("Response content: " +content );
+//                if(content.contains("发帖完毕")){
+//                    UploadUI.jta.append("发布成功"+map.get("title")+"\n");
+//                }
+//                System.out.println("--------------------------------------");
+//            } else{
+//                System.out.println("upload error!");
+//            }
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -394,17 +419,24 @@ public class UploadTask extends Thread{
        try {
            HttpResponse response=httpclient.execute(post);
            HttpEntity eee = response.getEntity();
-           if (eee != null) {
-               System.out.println("--------------------------------------");
-               String content=EntityUtils.toString(eee, GBK);
-               System.out.println("Response content: " +content );
-               if(content.contains("发帖完毕")){
-                   UploadUI.jta.append("发布成功"+map.get("title")+"\n");
-               }
-               System.out.println("--------------------------------------");
-           } else{
-               System.out.println("upload error!");
+           Document doc=crawlerUtil.getDocGBK(response);
+//           System.out.println(doc.toString());
+           UploadUI.jta.append("线程用户["+username+"]正在发帖:"+map.get("title")+"\n");
+           if(doc!=null){
+               fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"线程用户["+username+"]即将发帖:"+map.get("title")+"\n");//打印当前task线程日志
+               fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime()+ "发帖反馈信息:"+ url+"\n[" + doc.select("center").toString() + "]");//打印当前task线程日志
            }
+//           if (eee != null) {
+//               System.out.println("--------------------------------------");
+//               String content=EntityUtils.toString(eee, GBK);
+//               System.out.println("Response content: " +content );
+//               if(content.contains("发帖完毕")){
+//                   UploadUI.jta.append("发布成功"+map.get("title")+"\n");
+//               }
+//               System.out.println("--------------------------------------");
+//           } else{
+//               System.out.println("upload error!");
+//           }
        } catch (IOException e) {
            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
        }
@@ -458,16 +490,24 @@ public class UploadTask extends Thread{
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
-            if (eee != null) {
-                System.out.println("--------------------------------------");
-                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
-                if(eee.toString().length()<1000){
-                    UploadUI.jta.append("发布成功"+map.get("title")+"\n");
-                }
-                System.out.println("--------------------------------------");
-            } else{
-                System.out.println("upload error!");
+            Document doc=crawlerUtil.getDocGBK(response);
+//            System.out.println(doc.toString());
+            UploadUI.jta.append("线程用户["+username+"]正在发帖:"+map.get("title")+"\n");
+            if(doc!=null){
+                fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"线程用户["+username+"]即将发帖:"+map.get("title")+"\n");//打印当前task线程日志
+                fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime()+ "发帖反馈信息:"+ url+"\n[" + doc.select("div[class=box message]").toString() + "]");//打印当前task线程日志
+
             }
+//            if (eee != null) {
+//                System.out.println("--------------------------------------");
+//                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
+//                if(eee.toString().length()<1000){
+//                    UploadUI.jta.append("发布成功"+map.get("title")+"\n");
+//                }
+//                System.out.println("--------------------------------------");
+//            } else{
+//                System.out.println("upload error!");
+//            }
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -508,12 +548,14 @@ public class UploadTask extends Thread{
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     Document doc= crawlerUtil.getDocument(entity,GBK);
+                    fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime() + "用户[" + username + "]登录反馈信息:\n[" + doc.select("center").toString() + "]");
                     if(doc!=null&&doc.toString().contains("顺利")){
                         System.out.println(".."+doc.toString());
-                        System.out.println(username+"登录成功");
+                        System.out.println(username+"login success");
                         UploadUI.jta.append(username+"登录成功"+"\n");
                     }  else{
-                        System.out.println("登录失败:"+doc.toString());
+                        System.out.println("login fault:"+doc.toString());
+                        UploadUI.jta.append(username+"登录失败"+"\n");
                     }
                 }
             } finally {
@@ -525,6 +567,8 @@ public class UploadTask extends Thread{
             e1.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }  catch (NullPointerException e){
+            fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime() + "[" + "用户" + username + "登录空指针报错信息" + "]");//打印当前task线程日志
         }
     }
 
@@ -552,11 +596,13 @@ public class UploadTask extends Thread{
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                    Document doc= crawlerUtil.getDocument(entity,GBK);
+                    fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"用户["+username+"]登录反馈信息:\n["+doc.select("div[class=box message]").toString()+"]");
                    if(doc!=null&&doc.toString().contains(username)){
-                       System.out.println(username+"登录成功");
+                       System.out.println(username+"login success");
                        UploadUI.jta.append(username+"登录成功"+"\n");
                    }  else{
-                       System.out.println("登录失败:"+doc.toString());
+                       System.out.println("login faul:"+doc.toString());
+                       UploadUI.jta.append(username+"登录失败"+"\n");
                    }
                 }
             } finally {
@@ -568,6 +614,8 @@ public class UploadTask extends Thread{
             e1.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e){
+            fileOperate.appendMethodB(logPath,DateUtil.getStrOfDateTime()+"["+"用户"+username+"登录空指针报错信息"+"]");//打印当前task线程日志
         }
     }
 

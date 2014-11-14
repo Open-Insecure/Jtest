@@ -21,8 +21,8 @@ public class UploadUIByBE extends JFrame implements ActionListener {
         //窗口设置
         int width= Toolkit.getDefaultToolkit().getScreenSize().width;
         int height=Toolkit.getDefaultToolkit().getScreenSize().height;
-        this.setSize(650, 500);
-        this.setLocation(width/4, height/4-50);
+        this.setSize(650, 500); //设置大小
+        this.setLocation(width/4, height/4-50); //设置x，y的位置
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //点击关闭按钮 自动退出程序
         this.setResizable(false);
         this.setVisible(true);
@@ -38,7 +38,7 @@ public class UploadUIByBE extends JFrame implements ActionListener {
 
         //隐藏设置按钮
         UIManager.put("RootPane.setupButtonVisible",false);
-        new UploadUIByBE("上传程序").setVisible(true);
+        new UploadUIByBE("程序").setVisible(true);
     }
 
     @Override
