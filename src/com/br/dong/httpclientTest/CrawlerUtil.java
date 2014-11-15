@@ -123,7 +123,7 @@ public class CrawlerUtil {
 		}
 		//设置cookie
 		 client.setCookieStore(cookieStore);
-//		System.out.println("cookie:"+cookieStore.toString());
+		System.out.println("cookie:"+cookieStore.toString());
 		//设置浏览器参数
 		String HEADER_HOST = host;
 		String HEADER_CONNECTION = "keep-alive";
