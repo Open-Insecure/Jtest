@@ -33,19 +33,24 @@ import java.util.List;
  * 针对http://www.92cheng.com/的采集任务
  */
 public class C9Crawler {
+    //--9c的参数
     private static String index="http://www.92cheng.com/";
     private static String loginIndexUrl="http://www.92cheng.com/forum.php?mod=post&action=newthread&fid=106";
     private static String loginPostUrl="http://www.92cheng.com/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=reply&loginhash=LOFbV&inajax=1";
     private static String GBK="GBK";
+    private static String UTF8="UTF-8";
     private  String wantUrlPre="";
     private  String wantUrlAfter=".html";
     private  String fid="";
     private String tid="";
     private  String replayUrl="";//回复查看内容的url
-    private static String mainPath="D:\\download\\9c\\"; //主文件路径
+    private static String mainPath="D:\\download\\"; //主文件路径
+    private static String secondPath=DateUtil.getCurrentDay()+"\\";
     private static String mainTxt="main.txt";//储存采集的信息
-    private static String secondPath=DateUtil.getCurrentDay()+"\\";//采集具体分区的存储文件夹
     private static int wantPage=2;
+    //--国王后宫的参数
+    private static String loginPostUrl92emz="http://www.92emz.com/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1";
+
     private CrawlerUtil crawlerUtil=new CrawlerUtil();
     //http 4.5
     private CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -58,8 +63,8 @@ public class C9Crawler {
     }
 
     public static void main(String[] args) {
-        //创建目录
-        FileOperate.newFolderMuti(mainPath);
+//        创建目录
+        FileOperate.newFolderMuti(mainPath+secondPath);
         //创建文件
         FileOperate.appendMethodB(mainPath+mainTxt, "采集时间：["+DateUtil.getCurrentDay()+"]");
         //要采集的站点 ,因为回复有时间限制 又只有一个账号，所以单线程了
@@ -67,7 +72,14 @@ public class C9Crawler {
                 "http://www.92cheng.com/forum-106-,106",
                 "http://www.92cheng.com/forum-107-,107"
         };
+        String [] sits92emz={
+                "http://www.92emz.com/forum-42-,42",
+                "http://www.92emz.com/forum-49-,49",
+                "http://www.92emz.com/forum-52-,52"
+        };
         C9Crawler c9Crawler=new C9Crawler();
+//        执行9c的采集
+        System.out.println("开始执行九城采集..");
         for(int i=0;i<sits.length;i++){
             System.out.println("正在采集..");
             String[] temp=sits[i].split(",");
@@ -75,11 +87,65 @@ public class C9Crawler {
             c9Crawler.fid=temp[1];
             c9Crawler.login("lz0033", "buhui5200");
         }
+        System.out.println("开始执行国王后宫采集..");
+        //执行完了9城的采集，执行国王后宫的采集
+        for(int i=0;i<sits.length;i++){
+            System.out.println("正在采集..");
+            String[] temp=sits92emz[i].split(",");
+            c9Crawler.wantUrlPre=temp[0];
+            c9Crawler.fid=temp[1];
+            c9Crawler.login92emz("he7253997","95b004");
+        }
 
+
+
+
+    }
+    //--------------------国王后宫的方法
+    public void login92emz(String username,String password){
+        // 创建httppost
+        HttpPost httppost = new HttpPost(loginPostUrl92emz);
+        // 创建参数队列
+        List<NameValuePair> list = new ArrayList<NameValuePair>();
+        list.add(new BasicNameValuePair("fastloginfield", "username"));
+        list.add(new BasicNameValuePair("username", username));
+        list.add(new BasicNameValuePair("password", password));
+        list.add(new BasicNameValuePair("quickforward", "yes"));
+
+        UrlEncodedFormEntity uefEntity;
+        try {
+            uefEntity = new UrlEncodedFormEntity(list, UTF8);
+            httppost.setEntity(uefEntity);
+            System.out.println("executing request " + httppost.getURI());
+            CloseableHttpResponse response = httpclient.execute(httppost);
+            try {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    Document doc= crawlerUtil.getDocument(entity,UTF8);
+                    if(doc!=null){
+                        //登陆成功后才进行采集
+                        for(int i=1;i<=wantPage;i++){
+                            //写入主文件
+                            getInfos(wantUrlPre+i+wantUrlAfter);
+                        }
+                    }
+                }
+            } finally {
+                response.close();
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
+    //--------------------
 
+    //-------------------九城的方法
     /**
      * 采集分区的列表，判断是否采集过，并写入主文件main.txt
      * @param url
@@ -103,7 +169,7 @@ public class C9Crawler {
                             + e.select("a[class$=xst]").text() +" 链接地址:"
                             +e.select("a[class$=xst]").attr("abs:href")+"**发布时间："
                             + e.select("td[class$=by]").select("span").text();
-//			         System.out.println(tt);
+			         System.out.println(tt);
                     //每一次循环到一条信息 先判断main.txt里有没有相同的记录 有的话 则 不进行写入了
                     String content=FileUtils.readFileToString(file);
                     if(!content.contains(e.select("a[class$=xst]").text())){
@@ -128,38 +194,40 @@ public class C9Crawler {
      */
     public void getDeatilOne(String targetUrl){
         HttpGet httpGet=new HttpGet(targetUrl);
-        //采集之前调用统一回复方法，进行回复后，再采集回复后可以看到的内容
-        if(replay(targetUrl)){
-          //发表回复成功后，进行采集
-            CloseableHttpResponse response= null;
-            try {
-                response = httpclient.execute(httpGet);
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            Document doc=crawlerUtil.getDocument(response.getEntity(), GBK);
-            //拿去xj区域与标题 作为创建txt的目录位置与文件标题
-            Elements scope=doc.select("h1[class$=ts]");
-            String place=scope.select(":eq(0)").text()==""?"其他区":scope.select(":eq(0)").text(); //哪个区的
-            String title=(scope.select(":eq(1)").text()==""||scope.select(":eq(1)").text()==null)?place:scope.select(":eq(1)").text(); //标题
+
+            //采集之前调用统一回复方法，进行回复后，再采集回复后可以看到的内容
+            if(replay(targetUrl)){
+                //发表回复成功后，进行采集
+                CloseableHttpResponse response= null;
+                try {
+                    response = httpclient.execute(httpGet);
+                } catch (IOException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+                Document doc=crawlerUtil.getDocument(response.getEntity(), GBK);
+                //拿去xj区域与标题 作为创建txt的目录位置与文件标题
+                Elements scope=doc.select("h1[class$=ts]");
+                String place=scope.select(":eq(0)").text()==""?"其他区":scope.select(":eq(0)").text().replace(".",""); //哪个区的
+                String title=(scope.select(":eq(1)").text()==""||scope.select(":eq(1)").text()==null)?place:scope.select(":eq(1)").text().replace(".",""); //标题
 //            System.out.println("--place"+place+"--"+title);
-            //获得内容
-            String content=doc.select("div[class*=t_f]").first().text().replace("【","\r\n【");
-            //获得隐藏照片url
-            StringBuffer picsb=new StringBuffer();
-            Elements pics=doc.select("div[class*=showhide]>ignore_js_op").select("img");
-            for(Element e:pics){
-                picsb.append("\r\n[img]"+index+e.attr("file")+"[/img]");
-            }
+                //获得内容
+                String content=doc.select("div[class*=t_f]").first().text().replace("【","\r\n【");
+                //获得隐藏照片url
+                StringBuffer picsb=new StringBuffer();
+                Elements pics=doc.select("div[class*=showhide]>ignore_js_op").select("img");
+                for(Element e:pics){
+                    picsb.append("\r\n[img]"+index+e.attr("file")+"[/img]");
+                }
 //            System.out.println(content.toString()+picsb.toString());
-            //写入到具体的分区文件夹与文件中
-            FileOperate.newFolderMuti(mainPath+secondPath+place);//创建分区文件夹
-            FileOperate.appendMethodB(mainPath+secondPath+place+"\\"+title+".txt",content.toString()+picsb.toString());
-        }else{
-            //回复失败，进行回调
-            getDeatilOne(targetUrl);
-        }
+                //写入到具体的分区文件夹与文件中
+//                FileOperate.newFolderMuti(mainPath+secondPath+place);//创建分区文件夹 ，不创建文件夹地区分区了。直接写入txt文件
+                FileOperate.appendMethodB(mainPath+secondPath+title+".txt",content.toString()+picsb.toString());
+            }else{
+                //回复失败，进行回调
+                getDeatilOne(targetUrl);
+            }
     }
+
 
     /**
      * 针对某个帖子进行回复,注意回复间隔15秒。此处让线程暂停15秒
@@ -167,7 +235,11 @@ public class C9Crawler {
      */
     public Boolean replay(String targetUrl){
         //回复的post地址
-        replayUrl =getReplayPostUrl(targetUrl);
+        if(targetUrl.contains("92cheng")){
+            replayUrl =getReplayPostUrl(targetUrl);
+        }else{
+            replayUrl=getReplayPostUrlFor92emz(targetUrl);
+        }
         // 创建httppost
         HttpPost httppost = new HttpPost(replayUrl);
         // 创建参数队列
@@ -211,6 +283,7 @@ public class C9Crawler {
             System.out.println("帖子:["+targetUrl+"]发表回复成功,进行采集..");
             return true;
         } else{
+            System.out.println(doc.toString());
             return false;
         }
     }
@@ -305,5 +378,12 @@ public class C9Crawler {
         tempUrl= tempUrl.replace("fid=","fid="+fid).replace("tid=","tid="+tid);
         return tempUrl;
     }
-
+    public String getReplayPostUrlFor92emz(String targetUrl){
+        //
+        tid=targetUrl.substring(targetUrl.indexOf("thread-")+"thread-".length(),targetUrl.indexOf("-1-"));
+        String  tempUrl="http://www.92emz.com/forum.php?mod=post&infloat=yes&action=reply&fid=&extra=&tid=&replysubmit=yes&inajax=1";
+        tempUrl= tempUrl.replace("fid=","fid="+fid).replace("tid=","tid="+tid);
+        return tempUrl;
+    }
+   //-----------------------------------------------------------
 }

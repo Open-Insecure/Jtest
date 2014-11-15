@@ -25,8 +25,8 @@ public class BeautyEyeTest1 {
         p.add(user);
         f.add(p, BorderLayout.NORTH);
         f.setVisible(true);
-        f.setBounds(400, 300, 400, 300);
-//        f.pack();  界面大小自动适应
+        f.setBounds(400, 300, 400, 300);//设置大小
+        f.pack();  //界面大小自动适应
     }
     public static void main(String[] args) {
         try{

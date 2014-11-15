@@ -269,7 +269,7 @@ public class Sis001DownLoadTask extends Thread{
 //                   System.out.println("bb1"+attachs.toString());
                    for(Element e:attachs){
 //                       System.out.println("bbbbbb"+absPre+e.attr("src"));
-                         sb.append("[img]" + absPre + e.attr("href") + "[/img]\r\n");
+                         sb.append("[img]" + absPre + e.attr("src") + "[/img]\r\n");
                    }
                }
 //               System.out.println("----"+sb.toString());//打印测试
