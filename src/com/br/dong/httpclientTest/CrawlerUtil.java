@@ -73,7 +73,7 @@ public class CrawlerUtil {
 	private BasicCookieStore cookieStore = new BasicCookieStore();
 	//返回给调用此类的一个client实例
 	private DefaultHttpClient client;
-    //返回一个httpclient 4.3.5的client实例
+    //返回一个httpclient 4.5 的client实例
     private CloseableHttpClient closeableHttpClient;
 	//post方式
 	private HttpPost post=new HttpPost();
@@ -101,7 +101,6 @@ public class CrawlerUtil {
      * @throws KeyManagementException
      */
     public void clientCreatNoUrl(String type) throws NoSuchAlgorithmException, KeyManagementException {
-
         this.clientCreate(type,"","");
     }
 
@@ -310,25 +309,7 @@ public class CrawlerUtil {
 		g.setURI(URI.create(URL));
 		return g;
 	}
-	/**
-	 * 设置post表单的内容 需要根据具体的网站设置具体的post内容
-	 * @return UrlEncodedFormEntity
-	 * */
-	public UrlEncodedFormEntity produceFormEntity(){
-		List<NameValuePair> list = new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair("username", "he7253997"));
-		list.add(new BasicNameValuePair("password", "95b004"));
-		UrlEncodedFormEntity encodedFormEntity = null;
-		try {
-			encodedFormEntity = new UrlEncodedFormEntity(list,"utf-8");
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
-		}
-		return encodedFormEntity;
-	}
-	
+
 	/**
 	 * 设置post表单的内容 需要根据具体的网站设置具体的post内容
 	 * @return UrlEncodedFormEntity
