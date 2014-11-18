@@ -129,7 +129,7 @@ public class UploadUI extends JFrame implements ActionListener {
         this.setTitle("上传程序");
         this.setSize(700, 600);
         this.setLocation(width/4, height/4-50);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //关闭后清空内存
         this.setResizable(false);
         this.setVisible(true);
     }

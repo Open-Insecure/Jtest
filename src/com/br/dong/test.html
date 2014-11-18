@@ -2,16 +2,39 @@
 <html>
 <head>
     <title></title>
+    <script type="text/javascript" src="http://js.ue.766.com/common/jqLib/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            alert(window.location.href);
+            //分享绑定事件
+              $("#share>a").click(function(){
+                  if(this.title!=""){
+                      console.info("click..."+this.title);
+                  }
+
+              });
+            //
+            $("#a_src_href").mouseover(function(){
+                        //延迟1s 页面远程加载出分享页面
+                        setTimeout(function(){
+                          //
+                            $(".jiadiv_02>a").click(function(){
+                                console.info("cccccccccc"+$(this).select("span").text());
+                            });
+                        },1000)
+                    });
+        });
+    </script>
 </head>
 <body>
 <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style_24x24">
+<div class="jiathis_style_24x24" id="share">
     <a class="jiathis_button_qzone"></a>
     <a class="jiathis_button_tsina"></a>
     <a class="jiathis_button_tqq"></a>
     <a class="jiathis_button_weixin"></a>
     <a class="jiathis_button_renren"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank" id="a_src_href"></a>
     <a class="jiathis_counter_style"></a>
 </div>
 <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405994342971389" charset="utf-8"></script>
