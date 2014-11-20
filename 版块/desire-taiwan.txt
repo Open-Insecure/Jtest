@@ -19,3 +19,68 @@ http://www.desire-taiwan.com/forum.php?mod=forumdisplay&fid=176  單男/女經�
 只要这个板块就行 http://www.fuqixiu.org/forum-56-1.html
 用户名 我爱我妻啊  密码 456897
 
+
+拿去登录界面
+Remote Address:173.231.4.85:80
+Request URL:http://www.desire-taiwan.com/member.php?mod=logging&action=login&referer=&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login
+Request Method:GET
+Status Code:200 OK
+Request Headersview source
+Accept:*/*
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:zh-CN,zh;q=0.8
+Cache-Control:max-age=0
+Connection:keep-alive
+Cookie:bdshare_firstime=1416019745476; AtE3_2132_widthauto=-1; targetEncodinghttp://desire-taiwancom=1; AtE3_2132_saltkey=Voe3PRct; AtE3_2132_lastvisit=1416078297; Hm_lvt_8f86aed8b8a2c6cd5396b28fe2909176=1416019731,1416075553,1416510026; Hm_lpvt_8f86aed8b8a2c6cd5396b28fe2909176=1416510026; CNZZDATA5500917=cnzz_eid%3D1698113212-1416018808-%26ntime%3D1416509916; _gat=1; AtE3_2132_sid=UdQYWc; AtE3_2132_lastact=1416509982%09home.php%09misc; AtE3_2132_sendmail=1; CNZZDATA1253109364=1604814757-1416014267-http%253A%252F%252Fwww.desire-taiwan.com%252F%7C1416506057; _ga=GA1.2.702981514.1416019746
+Host:www.desire-taiwan.com
+Referer:http://www.desire-taiwan.com/forum.php?1
+User-Agent:Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Query String Parametersview sourceview URL encoded
+mod:logging
+action:login
+referer:
+infloat:yes
+handlekey:login
+inajax:1
+ajaxtarget:fwin_content_login
+Response Headersview source
+Cache-Control:no-store, private, post-check=0, pre-check=0, max-age=0
+Connection:close
+Content-Encoding:gzip
+Content-Length:1930
+Content-Type:text/xml; charset=utf-8
+Date:Thu, 20 Nov 2014 19:00:56 GMT
+Expires:-1
+Pragma:no-cache
+Server:Apache/2.2.27 (Unix) mod_ssl/2.2.27 OpenSSL/0.9.8e-fips-rhel5 mod_bwlimited/1.4 mod_perl/2.0.8 Perl/v5.8.8
+Set-Cookie:AtE3_2132_lastact=1416510056%09member.php%09logging; expires=Fri, 21-Nov-2014 19:00:56 GMT; path=/
+Set-Cookie:AtE3_2132_sid=UdQYWc; expires=Fri, 21-Nov-2014 19:00:56 GMT; path=/
+Vary:User-Agent,Accept-Encoding
+X-Powered-By:PHP/5.3.28
+
+
+
+先发
+http://www.desire-taiwan.com/member.php?mod=logging&action=login&referer=&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login
+获得  ajaxtarget 为seccode_sechash
+http://www.desire-taiwan.com/misc.php?mod=seccode&action=update&idhash=SAUdQYWc0&inajax=1&ajaxtarget=seccode_SAUdQYWc0
+获得图片 idhash 为sechash 后发
+http://www.desire-taiwan.com/misc.php?mod=seccode&update=22275&idhash=SAUdQYWc0
+
+验证验证码
+http://www.desire-taiwan.com/misc.php?mod=seccode&action=check&inajax=1&&idhash=SAUdQYWc0&secverify=2p6j
+登录
+http://www.desire-taiwan.com/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=LCNgV&inajax=1
+formhash:35b47ed1
+referer:http://www.desire-taiwan.com/forum.php?1
+loginfield:username
+username:ckwison
+password:456897
+questionid:0
+answer:
+sechash:SAUdQYWc0
+seccodeverify:2p6j
+loginsubmit:true
+
+    member.php?mod=logging&amp;amp;action=login&amp;amp;loginsubmit=yes&amp;amp;handlekey=login&amp;amp;loginhash=LoCv3
