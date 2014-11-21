@@ -78,23 +78,6 @@ public class DesireTaiWan implements ActionListener{
         lbl = new JLabel();
     }
     public static void main(String[] args) {
-//        HttpGet httpGet=new HttpGet(index);
-//        try {
-//            CloseableHttpResponse response=httpclient.execute(httpGet);
-//            try {
-//                HttpEntity entity = response.getEntity();
-//                if (entity != null) {
-//                    Document doc= crawlerUtil.getDocument(entity,UTF8);
-//                    System.out.println(doc.toString());
-//                }
-//            } finally {
-//                response.close();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
-//        login("ckwison","456897");
-//         geta("http://www.desire-taiwan.com/member.php?mod=logging&action=login&referer=&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login");
         DesireTaiWan desireTaiWan=new DesireTaiWan();
         desireTaiWan.start(getLoginInterface);
     }
@@ -108,7 +91,7 @@ public class DesireTaiWan implements ActionListener{
         try {
             doc = crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl(login_interface_url));
             System.out.println("doc1"+doc.toString());
-            parse_login_param(doc);
+            parseLoginParam(doc);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (CloneNotSupportedException e) {
@@ -123,9 +106,9 @@ public class DesireTaiWan implements ActionListener{
      * 解析登录界面的参数
      * @param document
      */
-    public void parse_login_param(Document document) throws IOException, CloneNotSupportedException {
-        String image_url_1="http://www.desire-taiwan.com/misc.php?mod=seccode&action=update&idhash=&inajax=1&ajaxtarget=seccode_"; //获得image访问地址1
-        String image_url_2="http://www.desire-taiwan.com/";//真正的image的访问地址
+    public void parseLoginParam(Document document) throws IOException, CloneNotSupportedException {
+        String imageUrl_1="http://www.desire-taiwan.com/misc.php?mod=seccode&action=update&idhash=&inajax=1&ajaxtarget=seccode_"; //获得image访问地址1
+        String imageUrl_2="http://www.desire-taiwan.com/";//真正的image的访问地址
          if(document!=null){
              String docString=document.toString();
              String loginhash=docString.substring(docString.indexOf("loginhash=")+"loginhash=".length(),docString.indexOf("&quot;&gt; &lt;div class"));
@@ -134,33 +117,32 @@ public class DesireTaiWan implements ActionListener{
                referer=docString.substring(docString.indexOf("name=&quot;referer&quot; value=&quot;") + "name=&quot;referer&quot; value=&quot;".length(), docString.indexOf("&quot; /&gt; &lt;div class=&quot;rfm&quot;&gt; &lt;table&gt; &lt;tr&gt; &lt;th&gt; &lt;span class=&quot;login_slc"));
              loginPostUrl=loginPostUrl.replace("loginhash=","loginhash="+loginhash);
                //拼装第一个image的地址
-              image_url_1=image_url_1.replace("idhash=","idhash="+sechash)+sechash;
+              imageUrl_1=imageUrl_1.replace("idhash=","idhash="+sechash)+sechash;
              System.out.println(loginhash+"|"+sechash+"|"+formhash+"|"+referer);
-             //
-            Document doc1 = crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl(image_url_1));
+            Document doc1 = crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl(imageUrl_1));
             if(doc1!=null){
                 String doc1_tostring=doc1.toString();
 //                System.out.println(doc1_tostring);
                 String src=doc1_tostring.substring(doc1_tostring.indexOf("src=&quot;")+"src=&quot;".length(),doc1_tostring.indexOf("&quot; class=&quot"));
-                image_url_2=(image_url_2+src).replace("amp;","");
-                System.out.println(image_url_2);
+                imageUrl_2=(imageUrl_2+src).replace("amp;","");
+                System.out.println(imageUrl_2);
                 //初始化登录界面
-                login_ui_init(image_url_2);
+                loginUIInit(imageUrl_2);
             }
          }else{
-             System.out.println("parse_login_param document is null");
+             System.out.println("parseLoginParam document is null");
          }
     }
 
 
     /**
      * 登录界面初始化方法
-     * @param get_img_url
+     * @param getImgUrl
      */
-    public  void login_ui_init(String get_img_url){
+    public  void loginUIInit(String getImgUrl){
         //在界面上获得图片后，输入验证码后点击登录调用login方法
         try {
-           HttpResponse res= crawlerUtil.noProxyGetUrl(get_img_url) ;
+           HttpResponse res= crawlerUtil.noProxyGetUrl(getImgUrl) ;
             if (HttpStatus.SC_OK == res.getStatusLine().getStatusCode()) {
                 //请求成功
                 HttpEntity entity = res.getEntity();
@@ -201,6 +183,13 @@ public class DesireTaiWan implements ActionListener{
         frame.setVisible(true);
     }
 
+    /**
+     * 验证输入的验证码是否正确
+     * @param seccodeverify
+     * @return
+     * @throws IOException
+     * @throws CloneNotSupportedException
+     */
     public Boolean validate(String seccodeverify) throws IOException, CloneNotSupportedException {
         String url="http://www.desire-taiwan.com/misc.php?mod=seccode&action=check&inajax=1&&idhash="+sechash+"&secverify="+seccodeverify ;
         System.out.println(url);
@@ -211,8 +200,6 @@ public class DesireTaiWan implements ActionListener{
         }else{
             return false;
         }
-
-
     }
     /**
      * 登录程序
@@ -220,7 +207,6 @@ public class DesireTaiWan implements ActionListener{
      * @param password
      */
     public  void login(String username,String password,String seccodeverify){
-        // 创建httppost
         // 创建参数队列
         List<NameValuePair> list = new ArrayList<NameValuePair>();
         list.add(new BasicNameValuePair("formhash", formhash));
@@ -255,7 +241,6 @@ public class DesireTaiWan implements ActionListener{
      * @return
      */
     public   String getReDirectUrl(String docString){
-
         String redirectUrl="http://www.desire-taiwan.com/member.php?mod=logging&action=login&auth=&referer=&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login";
         String auth=docString.substring(docString.indexOf("auth=")+"auth=".length(),docString.indexOf("&amp;referer="));
         String refer=docString.substring(docString.indexOf("&amp;referer=")+"&amp;referer=".length(),docString.indexOf("')&lt"));
@@ -264,68 +249,6 @@ public class DesireTaiWan implements ActionListener{
         String result=redirectUrl.replace("auth=","auth="+auth).replace("referer=","referer="+refer);
         System.out.println(result);
         return result;
-    }
-
-    public  void geta(String result){
-        try {
-            crawlerUtil.clientCreate("http","www.desire-taiwan.com","http://www.desire-taiwan.com/forum.php?1");
-           Document doc1=crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl("http://www.desire-taiwan.com/misc.php?mod=seccode&action=update&idhash=SAc6RbC10&inajax=1&ajaxtarget=seccode_SAc6RbC10"));
-            System.out.println("doc1"+doc1.toString());
-            getImg();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (SocketException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
-
-    /**
-     * 下载图片的测试
-     */
-    public  void getImg(){
-        File storeFile = new File("F://2008sohu.png");
-        try {
-            HttpResponse res= crawlerUtil.noProxyGetUrl("http://www.desire-taiwan.com/misc.php?mod=seccode&update=32766&idhash=SAc6RbC10")  ;
-            if (HttpStatus.SC_OK == res.getStatusLine().getStatusCode()) {
-                //请求成功
-                HttpEntity entity = res.getEntity();
-
-                if (entity != null && entity.isStreaming()) {
-                    // 　为目标文件创建目录
-                    // 创建一个空的目标文件
-                    storeFile.createNewFile();
-                    FileOutputStream fos = new FileOutputStream(storeFile);
-
-                    // 将取得的文件文件流写入目标文件
-                    InputStream is = entity.getContent();
-                    byte[] b = new byte[1024];
-                    int j = 0;
-                    while ((j = is.read(b)) != -1) {
-                        fos.write(b, 0, j);
-                    }
-
-                    fos.flush();
-                    fos.close();
-                }
-                else {
-                }
-                if (entity != null) {
-                    entity.consumeContent();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
     }
 
     @Override

@@ -14,8 +14,13 @@ public class PropertyManager {
  
  private static PropertyManager manager = null;
  private static Object managerLock = new Object();
- private static String propsName = "/config.properties"; 
- 
+ private static String propsName = "/com/br/dong/properties/config.properties";
+
+    public static void main(String[] args) {
+        System.out.println(PropertyManager.getProperty("hexd"));
+        PropertyManager.setProperty("hexd","呵呵");
+    }
+
  /**
   * 初始化
   */

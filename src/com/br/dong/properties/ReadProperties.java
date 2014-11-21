@@ -11,15 +11,16 @@ import java.io.IOException;
 */ 
 public final class ReadProperties { 
     private static String param1; 
-    private static String param2; 
-
+    private static String param2;
+    private static String param3;
     static { 
         Properties prop = new Properties(); 
         InputStream in = Object.class.getResourceAsStream("/com/br/dong/properties/config.properties");
         try { 
             prop.load(in); 
             param1 = prop.getProperty("path").trim(); 
-            param2 = prop.getProperty("filename").trim(); 
+            param2 = prop.getProperty("filename").trim();
+            param3 = prop.getProperty("hexd").trim();
         } catch (IOException e) { 
             e.printStackTrace(); 
         } 
@@ -37,10 +38,14 @@ public final class ReadProperties {
 
     public static String getParam2() { 
         return param2; 
-    } 
+    }
+    public static String getParam3() {
+        return param3;
+    }
 
     public static void main(String args[]){ 
         System.out.println(getParam1()); 
-        System.out.println(getParam2()); 
+        System.out.println(getParam2());
+        System.out.println(getParam3());
     } 
 }
