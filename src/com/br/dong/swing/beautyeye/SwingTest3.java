@@ -1,13 +1,12 @@
-package com.br.dong.beautyeye;
+package com.br.dong.swing.beautyeye;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
-import org.jb2011.lnf.beautyeye.ch8_toolbar.BEToolBarUI;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.plaf.BorderUIResource;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Dong

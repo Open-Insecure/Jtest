@@ -1,4 +1,4 @@
-package com.br.dong.beautyeye;
+package com.br.dong.swing.beautyeye;
 
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 

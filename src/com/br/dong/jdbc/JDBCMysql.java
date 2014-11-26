@@ -22,7 +22,9 @@ public class JDBCMysql {
 	     String Password="hexd";
 	     String Driver="com.mysql.jdbc.Driver";
 	    try{
+            //jvm执行静态代码 驱动Driver的实例
 	    Class.forName(Driver).newInstance();
+            //DriverManager 驱动管理器进行链接
 	    Connection con=DriverManager.getConnection(URL,Username,Password);	
 	    PreparedStatement pstmt = con.prepareStatement("select * from user");
 	    ResultSet rs = (ResultSet) pstmt.executeQuery();

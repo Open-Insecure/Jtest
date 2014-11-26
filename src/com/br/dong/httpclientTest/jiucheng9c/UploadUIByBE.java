@@ -24,7 +24,7 @@ public class UploadUIByBE extends JFrame implements ActionListener {
         this.setSize(650, 500); //设置大小
         this.setLocation(width/4, height/4-50); //设置x，y的位置
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //点击关闭按钮 自动退出程序
-        this.setResizable(false);
+        this.setResizable(false); //设置不改变大小
         this.setVisible(true);
     }
 

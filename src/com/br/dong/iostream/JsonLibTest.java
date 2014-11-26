@@ -126,8 +126,8 @@
 //	//将json解析成复合类型对象, 包含List
 //	@Taaaa
 //	public void testJSONToBeanHavaList(){
-//		String json = "{list:[{name:'test1'},{name:'test2'}],map:[{test1:{name:'test1'}},{test2:{name:'test2'}}]}";
-////		String json = "{list:[{name:'test1'},{name:'test2'}]}";
+//		String json = "{list:[{name:'t'},{name:'test2'}],map:[{t:{name:'t'}},{test2:{name:'test2'}}]}";
+////		String json = "{list:[{name:'t'},{name:'test2'}]}";
 //		Map classMap = new HashMap();
 //		classMap.put("list", Person.class);
 //		MyBeanWithPerson diyBean = (MyBeanWithPerson)JSONObject.toBean(JSONObject.fromObject(json),MyBeanWithPerson.class , classMap);
@@ -147,7 +147,7 @@
 //	@Taaaa
 //	public void testJSONToBeanHavaMap(){
 //		//把Map看成一个对象
-//		String json = "{list:[{name:'test1'},{name:'test2'}],map:{test1:{name:'test1'},test2:{name:'test2'}}}";
+//		String json = "{list:[{name:'t'},{name:'test2'}],map:{t:{name:'t'},test2:{name:'test2'}}}";
 //		Map classMap = new HashMap();
 //		classMap.put("list", Person.class);
 //		classMap.put("map", Map.class);
