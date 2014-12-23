@@ -39,7 +39,7 @@ public class SimplyPronCrawler extends Thread {
     CrawlerUtil client;
     long downloaded;//已经下载大小
     //视频文件请求url 后跟参数需要拼装
-    private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
+    private static String vedioFileUrl="http://104.20.5.82/getfile.php?";
 
 
 
@@ -93,9 +93,10 @@ public class SimplyPronCrawler extends Thread {
             getInfoDeatilProxy();
             //代理失败以后 删除代理表中的代理
         }else{//连接代理成功 解析url
-            doc=client.getDocUTF8(response);
-//			 System.out.println(doc.toString());
-            if(doc!=null&&!doc.toString().contains("游客")){
+//            System.out.println(client.getContentCharSet(response.getEntity())+"eeeeeeeeeee");
+              doc=client.getDocUTF8(response);
+			 System.out.println("rrr"+video.getVedioUrl()+"dddddddd"+doc.toString());
+            if(doc!=null/*&&!doc.toString().contains("游客")*/){
                 //设置doc到bean中
                 //如果代理ip没有超过游客访问次数
                 System.out.println("current proxy available["+proxy.toString()+"],ready to download video");
@@ -198,12 +199,14 @@ public class SimplyPronCrawler extends Thread {
             video.setVideoId(file+".mp4");
         } else{
             System.out.println("["+content+"]");
+            return "error[page not contains params]" ;
         }
         //拿到包含下载地址的页面
         String tempUrl=vedioFileUrl+"VID="+map.get("VID")+"&seccode="+map.get("seccode")+"&mp4="+mp4+"&max_vid="+map.get("max_vid");
         //--异常 跳转的下载地址
         HttpResponse response=client.noProxyGetUrl(tempUrl);
         if(response!=null){
+
             //解析下载地址页面
             Document tempdoc=client.getDocUTF8(response);
 //            System.out.println("下载页面"+tempdoc.toString());

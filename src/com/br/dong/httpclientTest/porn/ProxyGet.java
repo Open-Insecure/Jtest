@@ -46,12 +46,12 @@ public class ProxyGet {
 //        JdbcUtil.deleteAll();
         //国内代理拿10页
         for(int i=1;i<=30;i++){
-            ProxyThread thread=new ProxyThread(xiciUrl+""+i);
+            ProxyThread thread=new ProxyThread(xiciUrl+""+i,"www.xici.net.co","http://www.xici.net.co/");
             thread.start();
         }
         //国外代理拿十页
         for(int i=1;i<=30;i++){
-            ProxyThread thread=new ProxyThread(xiciGuowai+""+i);
+            ProxyThread thread=new ProxyThread(xiciGuowai+""+i,"www.kuaidaili.com","http://www.kuaidaili.com/");
             thread.start();
         }
     }
@@ -132,16 +132,20 @@ class ProxyThread extends Thread{
 
     private static CrawlerUtil client=new CrawlerUtil();
     String wanturl;
+    String host;
+    String refurl;
 
-    ProxyThread(String wanturl) {
+    ProxyThread(String wanturl,String host,String refurl) {
         this.wanturl = wanturl;
+        this.host=host;
+        this.refurl=refurl;
     }
 
     @Override
     public void run(){
         System.out.println("get proxy from"+wanturl);
         try {
-            client.clientCreate("http","www.xici.net.co","http://www.xici.net.co/");
+            client.clientCreate("http",host,refurl);
 
             List<ProxyBean> list=new ArrayList<ProxyBean>() ;
             Document doc=client.getDocUTF8(client.noProxyGetUrl(wanturl));

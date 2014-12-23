@@ -17,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
@@ -41,12 +42,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.NoHttpResponseException;
-import org.apache.http.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -63,6 +58,7 @@ public class CrawlerUtil {
 	//解析response的时候所用的编码
 	private static String DECODE_UTF_8="UTF-8";
 	private static String DECODE_GBK="GBK";
+    private static String GB_2312="gb2312" ;
     //超时时间
     private static int TIME_OUT_TIME=50000;
     //socket超时时间
@@ -460,7 +456,31 @@ public class CrawlerUtil {
 
     }
 
-
+    /**
+     * Obtains character set of the entity, if known.
+     *
+     * @param entity must not be null
+     * @return the character set, or null if not found
+     * @throws ParseException if header elements cannot be parsed
+     * @throws IllegalArgumentException if entity is null
+     */
+    public  String getContentCharSet(final HttpEntity entity)
+            throws ParseException {
+        if (entity == null) {
+            throw new IllegalArgumentException("HTTP entity may not be null");
+        }
+        String charset = null;
+        if (entity.getContentType() != null) {
+            HeaderElement values[] = entity.getContentType().getElements();
+            if (values.length > 0) {
+                NameValuePair param = values[0].getParameterByName("charset");
+                if (param != null) {
+                    charset = param.getValue();
+                }
+            }
+        }
+        return charset;
+    }
 	//测试
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
         //------WebKitFormBoundary1ozYW8mBY4lbZLIL
