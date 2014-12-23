@@ -12,11 +12,12 @@ package com.br.dong.httpclientTest.porn;
 public class VedioBean {
      private String title; //视频标题
      private String preImgSrc;//图片链接
-     private String vedioUrl; //视频播放地址
+     private String vedioUrl; //视频播放地址 mp4文件地址
      private String infotime;  //时长
      private String updatetime;//更新日期
      private String videoId;//视频id
-     private int flag=0;        //是否采集标志    0表示未采集 1表示采集
+     private int flag=0;        // 暂时用来当做文件mb大小
+     private String type=""; //用来当做外联的类型 如91 或者caopron
 
     @Override
     public String toString() {
@@ -29,6 +30,14 @@ public class VedioBean {
                 ", videoId='" + videoId + '\'' +
                 ", flag=" + flag +
                 '}';
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public VedioBean(String title, String preImgSrc, String vedioUrl, String infotime, String updatetime, int flag) {

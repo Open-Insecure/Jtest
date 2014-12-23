@@ -14,7 +14,9 @@ CREATE TABLE vedio(
 	infotime varchar(20),
 	 	videoId varchar(100),
 	updatetime varchar(30),
-	flag int
+	flag int,
+	type varchar(10)
+
 )default charset=utf8;
 
 

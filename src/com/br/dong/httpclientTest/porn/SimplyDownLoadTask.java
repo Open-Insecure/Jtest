@@ -303,7 +303,6 @@ public class SimplyDownLoadTask extends Thread {
            raf.setLength(contentLength);//分配文件空间
            raf.close();
        }catch (Exception e){
-
            System.out.println("creat file error");
            e.printStackTrace();
            return ;

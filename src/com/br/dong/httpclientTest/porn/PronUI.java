@@ -117,12 +117,12 @@ public class PronUI extends JFrame implements ActionListener {
             String path=jp1_jtf3.getText()+"\\";
             System.out.println("|"+startPage+"|"+endPage+"|"+path);
             //在此验证下日期 做个后备处理
-            String today= DateUtil.getDateFolder();
-            int deadday=20141201;
-            if(Integer.parseInt(today)>deadday) {
-                 jta.append("error"+today);
-                return ;
-            }
+//            String today= DateUtil.getDateFolder();
+//            int deadday=20141201;
+//            if(Integer.parseInt(today)>deadday) {
+//                 jta.append("error"+today);
+//                return ;
+//            }
             //判断条件 开始下载
             if(startPage!=""&&endPage!=""&&path!=""){
                   PronVideo.getPaging(Integer.parseInt(startPage),Integer.parseInt(endPage),path);
