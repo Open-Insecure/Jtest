@@ -2,7 +2,6 @@ package com.br.dong.httpclientTest.porn.new_pron_2014_12_21;
 
 import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
-import com.br.dong.httpclientTest.porn.SimplyDownLoadTask;
 import com.br.dong.httpclientTest.porn.VedioBean;
 import com.br.dong.utils.DateUtil;
 import org.apache.http.HttpResponse;
