@@ -16,10 +16,9 @@ CREATE TABLE vedio(
 	updatetime varchar(30),
 	flag int,
 	type varchar(10)
-
 )default charset=utf8;
-
-
+//--增加字段
+alter table vedio add type varchar(10)
 
 
 //

@@ -2,6 +2,7 @@ package com.br.dong.httpclientTest.porn.new_pron_2014_12_21;
 
 import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
+import com.br.dong.httpclientTest.porn.JdbcUtil;
 import com.br.dong.httpclientTest.porn.VedioBean;
 import com.br.dong.utils.DateUtil;
 import org.apache.http.HttpResponse;
@@ -59,7 +60,6 @@ public class Pron20141221 {
      * @param wantMaxPage    true 则拿去最大页数    false 则拿去默认的页数
      */
     public static void getPaging(Boolean wantMaxPage){
-
         try {
             //91的已经开始验证http请求头了，加上如下参数
             client.clientCreate("http","91p.vido.ws",url+1);
@@ -93,11 +93,46 @@ public class Pron20141221 {
                 System.out.println("fail to get max page,auto set max page="+defaultPage);
             }
         }
-
         System.out.println("default max page:"+maxpage);
         //开始采集起始页到最大页数的
-        collect(current,maxpage);
+//        collect(current,maxpage);
+        try{
+            collect91Pron(1,1);
+        }catch (Exception e){
+        }
     }
+
+    /**
+     * 采集91视频列表入库
+     * @param startPage
+     * @param endPage
+     */
+    public static void collect91Pron(int startPage,int endPage) throws NoSuchAlgorithmException, KeyManagementException, IOException, CloneNotSupportedException {
+        List<VedioBean> list=new ArrayList<VedioBean>();
+        client.clientCreate("http","91p.vido.ws",url+1);
+        //循环采集1到最大页数
+        for(int i=startPage;i<=endPage;i++){
+            String targetUrl=url+i;
+            Document doc=client.getDocUTF8(client.post(targetUrl, client.produceEntity(getPostParmList())));
+            Elements videobox=doc.select("div[class*=listchannel]");
+            System.out.println(targetUrl+"'s videos total number:["+videobox.size()+"]");
+            //拿去视频预览图片
+            for(Element e:videobox){
+                String title=e.select("div[class*=imagechannel]>a>img").attr("title");//标题
+                String preImgSrc=e.select("div[class*=imagechannel]>a>img").attr("src");//获得预览图片链接
+                String vedioUrl=e.select("div[class*=imagechannel]>a").attr("abs:href");//视频链接地址
+                String infotime=e.text().substring(e.text().indexOf("时长:"),e.text().indexOf(" 添加时间"));//获得时长
+                String updatetime= DateUtil.getStrOfDateMinute();
+                VedioBean bean=new VedioBean(title,preImgSrc,vedioUrl,infotime,updatetime,vedioUrl,"91pron");
+                System.out.println(bean.toString());
+                list.add(bean);
+            }
+        }
+        //循环结束进行插入
+        System.out.println("list长度"+list.size());
+        JdbcUtil.insertVedioBatch(list);
+    }
+
     /**
      * 拿去post参数，获得中文返回页面
      * */

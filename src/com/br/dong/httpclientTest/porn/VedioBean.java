@@ -19,6 +19,8 @@ public class VedioBean {
      private int flag=0;        // 暂时用来当做文件mb大小
      private String type=""; //用来当做外联的类型 如91 或者caopron
 
+
+
     @Override
     public String toString() {
         return "VedioBean{" +
@@ -29,6 +31,7 @@ public class VedioBean {
                 ", updatetime='" + updatetime + '\'' +
                 ", videoId='" + videoId + '\'' +
                 ", flag=" + flag +
+                ", type=" + type +
                 '}';
     }
 
@@ -37,6 +40,23 @@ public class VedioBean {
     }
 
     public void setType(String type) {
+        this.type = type;
+    }
+    public VedioBean(String title, String preImgSrc, String vedioUrl, String infotime, String updatetime, String vkey, String type) {
+        this.title = title;
+        this.preImgSrc = preImgSrc;
+        this.vedioUrl = vedioUrl;
+        this.infotime = infotime;
+        this.updatetime = updatetime;
+        this.type = type;
+        this.videoId=vkey;
+    }
+    public VedioBean(String title, String preImgSrc, String vedioUrl, String infotime, String updatetime, String type) {
+        this.title = title;
+        this.preImgSrc = preImgSrc;
+        this.vedioUrl = vedioUrl;
+        this.infotime = infotime;
+        this.updatetime = updatetime;
         this.type = type;
     }
 

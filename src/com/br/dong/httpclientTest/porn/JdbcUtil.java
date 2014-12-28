@@ -131,7 +131,7 @@ public class JdbcUtil {
      * */
     public static void insertVedioBatch(List<VedioBean> list){
         final List<VedioBean> batchlist=list;
-        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,videoId,updatetime,flag) values(?,?,?,?,?,?,?)";
+        String sql="insert into vedio(title,preImgSrc,vedioUrl,infotime,videoId,updatetime,flag,type) values(?,?,?,?,?,?,?,?)";
         //批量插入
         jdbcAop.batchUpdate(sql,new BatchPreparedStatementSetter() {
             //此为匿名内部类的变量
@@ -143,14 +143,18 @@ public class JdbcUtil {
                 String preImgSrc=batchlist.get(i).getPreImgSrc();
                 String vedioUrl=batchlist.get(i).getVedioUrl();
                 String infotime=batchlist.get(i).getInfotime();
+                String videoId=batchlist.get(i).getVideoId();
                 String updatetime=batchlist.get(i).getUpdatetime();
                 int flag=batchlist.get(i).getFlag();
+                String type=batchlist.get(i).getType();
                 ps.setString(1, title);
                 ps.setString(2, preImgSrc);
                 ps.setString(3, vedioUrl);
                 ps.setString(4, infotime);
-                ps.setString(5, updatetime);
-                ps.setInt(6,flag);
+                ps.setString(5, videoId);
+                ps.setString(6, updatetime);
+                ps.setInt(7,flag);
+                ps.setString(8,type);
                 //每1000条进行事物提交
                 if (i%1000 == 0) {
                     System.out.println("进行一次插入操作");

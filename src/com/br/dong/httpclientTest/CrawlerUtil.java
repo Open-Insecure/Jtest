@@ -26,6 +26,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.params.ClientPNames;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
@@ -33,12 +34,15 @@ import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.cookie.*;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.impl.cookie.BrowserCompatSpec;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import org.apache.http.HttpEntity;
@@ -121,7 +125,7 @@ public class CrawlerUtil {
 			client=getHttpsClient();
 		}
 		//设置cookie
-		 client.setCookieStore(cookieStore);
+	    client.setCookieStore(cookieStore);
 		System.out.println("cookie:"+cookieStore.toString());
 		//设置浏览器参数
 		String HEADER_HOST = host;
@@ -147,8 +151,31 @@ public class CrawlerUtil {
 		get.setHeader("Referer", HEADER_REFERER);
 		get.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
 		get.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
-		
 	}
+
+    /**
+     * 创建client去访问代理的服务器
+     * @param type
+     * @param host
+     * @param refURL
+     */
+    public void clientByProxyCreate(String type,String host,String refURL){
+        CookieSpecFactory csf = new CookieSpecFactory() {
+            public CookieSpec newInstance(HttpParams params) {
+                     return new BrowserCompatSpec() {
+                      @Override
+                               public void validate(Cookie cookie, CookieOrigin origin)
+                          throws MalformedCookieException {
+                             // Oh, I am easy
+                         }
+                    };
+              }
+             };
+        client=getDefaultClient();
+        client.getCookieSpecs().register("easy", csf);
+        client.getParams().setParameter(
+          ClientPNames.COOKIE_POLICY, "easy");
+    }
 
 	/**
 	 * 初始化访问https目标url的类
@@ -257,7 +284,7 @@ public class CrawlerUtil {
 	//使用代理get方式访问url
 	public HttpResponse proxyGetUrl(String url,String proxyUrl,int port) throws IOException, CloneNotSupportedException{
 		HttpGet get =getGetInstance(url);
-	     HttpHost httpHost = new HttpHost(url); 
+	     HttpHost httpHost = new HttpHost(url);
 		HttpResponse response=null;
 		try {
 	        //设置代理对象 ip/代理名称,端口     						// "125.39.66.66", 80 "66.85.131.18", 8089
@@ -273,9 +300,9 @@ public class CrawlerUtil {
 	        try{
 	    		response =client.execute(httpHost, get); 
 	        }catch(HttpHostConnectException e){
-//				System.out.println("连接代理"+proxyUrl+"失败..");
+				System.out.println("连接代理"+proxyUrl+"失败..");
 			}catch(NoHttpResponseException e){
-//				System.out.println("服务器"+proxyUrl+"没有响应..");
+				System.out.println("服务器"+proxyUrl+"没有响应..");
 			} catch (ConnectException e){
                 System.out.println("服务器"+proxyUrl+"没有响应..");
             }

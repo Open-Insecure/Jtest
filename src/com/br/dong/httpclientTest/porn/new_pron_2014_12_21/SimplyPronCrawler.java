@@ -88,14 +88,14 @@ public class SimplyPronCrawler extends Thread {
         if(response==null){
             //连接代理失败，换下一个代理
             System.out.println("fail to connect:["+proxy.toString()+"]");
+            //代理失败以后 删除代理表中的代理
             JdbcUtil.deleteProxyByIp(proxy);
             //回调 重新设置代理
             getInfoDeatilProxy();
-            //代理失败以后 删除代理表中的代理
-        }else{//连接代理成功 解析url
+        }else{//连接代理成功
+            //判断解析的doc中是否包含获得下载的视频的必要参数 如：seccode
             doc=client.getDocUTF8(response);
-//			 System.out.println(doc.toString());
-            if(doc!=null&&!doc.toString().contains("游客")){
+            if(doc!=null&&doc.toString().contains("seccode")){
                 //设置doc到bean中
                 //如果代理ip没有超过游客访问次数
                 System.out.println("current proxy available["+proxy.toString()+"],ready to download video");
@@ -113,7 +113,7 @@ public class SimplyPronCrawler extends Thread {
                     getInfoDeatilProxy();
                 }
             }else{
-                //超过访问次数
+                //超过访问次数或者代理访问目标页面被服务器拒绝了
                 System.out.println("current proxy "+proxy.toString()+"more than number of visits..");
                 //回调重新设置代理
                 getInfoDeatilProxy();
