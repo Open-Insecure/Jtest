@@ -29,6 +29,7 @@ import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.ConnectionPoolTimeoutException;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.conn.params.ConnRoutePNames;
@@ -171,6 +172,26 @@ public class CrawlerUtil {
         client.getCookieSpecs().register("easy", csf);
         client.getParams().setParameter(
           ClientPNames.COOKIE_POLICY, "easy");
+        //设置浏览器参数
+        String HEADER_HOST = host;
+        String HEADER_CONNECTION = "keep-alive";
+        String HEADER_ACCEPT = "*/*";
+        String HEADER_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36";
+        String HEADER_REFERER = refURL;
+        String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
+        String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
+        //设置post请求头
+        post.setHeader("Host",host);
+        post.setHeader("Connection", HEADER_CONNECTION);
+        post.setHeader("Accept", HEADER_ACCEPT);
+        post.setHeader("User-Agent", HEADER_USER_AGENT);
+        post.setHeader("Referer", HEADER_REFERER);
+        post.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
+        post.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
+        //设置get请求头
+        get.setHeader("Host",host);
+        get.setHeader("Connection", HEADER_CONNECTION);
+        get.setHeader("Accept", HEADER_ACCEPT);
     }
 
 	/**
@@ -301,6 +322,8 @@ public class CrawlerUtil {
 				System.out.println("服务器"+proxyUrl+"没有响应..");
 			} catch (ConnectException e){
                 System.out.println("服务器"+proxyUrl+"没有响应..");
+            } catch (ConnectTimeoutException e){
+                System.out.println("服务器"+proxyUrl+"超过自己定义的响应时间"+TIME_OUT_TIME+"..");
             }
 	
 		} catch (Exception e) {

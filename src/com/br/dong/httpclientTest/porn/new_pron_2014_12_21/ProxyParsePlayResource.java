@@ -41,7 +41,7 @@ public class ProxyParsePlayResource {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, CloneNotSupportedException, KeyManagementException, DocumentException {
 //        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/bc08e1a118ca40fd94d3/人妻-熟女-好色妻肛门奸-小仓02"));
-//        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/51cbc9a0f9caeabd6f05/岛崎-絵理子-eriko-shimazaki01"));
+        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/51cbc9a0f9caeabd6f05/岛崎-絵理子-eriko-shimazaki01"));
         System.out.println("..."+parse91pron("http://91p.vido.ws/view_video.php?viewkey=0a5a85de95c783816974&page=1&viewtype=basic&category=mr"));
     }
     /**
@@ -105,7 +105,7 @@ public class ProxyParsePlayResource {
             Document doc=crawlerUtil.getDocUTF8(response);
             //如果doc不为空，且doc中包含file字段，证明当前代理连接的目标页面成功解析出视频路径
             if(doc!=null&&doc.toString().contains("<file>")){
-                System.out.println(doc.toString());
+//                System.out.println(doc.toString());
                 //解析xml形式的返回文件
                  int start=doc.toString().indexOf("<file>");
                  int end=doc.toString().indexOf("</file>");
