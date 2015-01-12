@@ -9,12 +9,12 @@
 //import org.json.JSONException;
 //import org.json.JSONObject;
 ///**
-// * 此类是处理json字符串的工具类
-// *
-// * @author xiaomeng
-// * @since 2013-08-27
-// *
-// */
+//* 此类是处理json字符串的工具类
+//*
+//* @author xiaomeng
+//* @since 2013-08-27
+//*
+//*/
 //public class JsonToList {
 //    /**
 //     * 将json字符串转换为List集合

@@ -17,12 +17,12 @@
 //import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 //
 ///**
-// * Created with IntelliJ IDEA.
-// * User: Dong
-// * Date: 14-9-1
-// * Time: 上午10:16
-// * To change this template use File | Settings | File Templates.
-// */
+//* Created with IntelliJ IDEA.
+//* User: Dong
+//* Date: 14-9-1
+//* Time: 上午10:16
+//* To change this template use File | Settings | File Templates.
+//*/
 //public class ExcelOperClass {
 //    private static String EXCEL_2003 = ".xls";
 //    private static String EXCEL_2007 = ".xlsx";

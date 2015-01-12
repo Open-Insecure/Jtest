@@ -16,7 +16,7 @@ import java.text.ParseException;
 * To change this template use File | Settings | File Templates.
 */
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SchedulerException, ParseException {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("/com/br/dong/quzart/dongtai/pa.xml");
         Scheduler scheduler = (Scheduler)ctx.getBean("scheduler");
 
@@ -32,8 +32,7 @@ public class Test {
                 scheduler.addJob(jobDetail, true);
 
                 CronTrigger cronTrigger =new CronTrigger("cron_" + i, Scheduler.DEFAULT_GROUP, jobDetail.getName(), Scheduler.DEFAULT_GROUP);
-                cronTrigger.setCronExpression("0/5 * * * * ?");
-
+                cronTrigger.setCronExpression("0/20 * * * * ?");
                 scheduler.scheduleJob(cronTrigger);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -49,6 +48,7 @@ public class Test {
         }
 
         System.out.println("Un-scheduling to run tasks.");
+        //卸载一个
         for (int i = 0; i < 5; i++) {
             try {
                 scheduler.unscheduleJob("cron_" + i, Scheduler.DEFAULT_GROUP);
@@ -56,5 +56,18 @@ public class Test {
                 e.printStackTrace();
             }
         }
+        System.out.println("开始加载一个");
+
+        JobDetail jobDetail = new JobDetail();
+        jobDetail.setName("job_apdo");
+        MyTask myTask = new MyTask();
+        myTask.setName("task_apdo");
+        jobDetail.getJobDataMap().put("myTask", myTask);
+        jobDetail.setJobClass(MyJob.class);
+        scheduler.addJob(jobDetail, true);
+
+        CronTrigger cronTrigger =new CronTrigger("cron_apdo" , Scheduler.DEFAULT_GROUP, jobDetail.getName(), Scheduler.DEFAULT_GROUP);
+        cronTrigger.setCronExpression("0/5 * * * * ?");
+        scheduler.scheduleJob(cronTrigger);
     }
 }
