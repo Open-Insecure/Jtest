@@ -73,7 +73,8 @@ public class PronVideo {
      */
     public static List<VedioBean> getPageVideosOnline(String url) throws ClientProtocolException, IOException, CloneNotSupportedException, KeyManagementException, NoSuchAlgorithmException {
         CrawlerUtil client=new CrawlerUtil();
-        client.clientCreatNoUrl("http");
+        //91的已经开始验证http请求头了，加上如下参数
+        client.clientCreate("http","91p.vido.ws",url+1);
         List<VedioBean> list=new ArrayList<VedioBean>();
         //填充中文参数 post获得中文返回页面
         Document doc=client.getDocUTF8(client.post(url, client.produceEntity(getPostParmList())));

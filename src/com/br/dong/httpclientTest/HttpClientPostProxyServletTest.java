@@ -16,7 +16,7 @@ import org.apache.http.util.EntityUtils;
 public class HttpClientPostProxyServletTest {
  public static final String HttpPostProxyUrl="www.baidu.com";
  public static void main(String[] args) throws ParseException, IOException {
-     HttpHost proxy = new HttpHost("127.0.0.1", 8088, "http");  
+     HttpHost proxy = new HttpHost("183.33.22.62", 9797, "http");
 
      DefaultHttpClient httpclient = new DefaultHttpClient();
      try {

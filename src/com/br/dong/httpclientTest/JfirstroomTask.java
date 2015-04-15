@@ -83,8 +83,8 @@ public class JfirstroomTask {
 	 * @throws IOException
 	 */
 	public static void getOneResource() throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, CloneNotSupportedException, IOException{
-		 fo.newFolder("f://firstroom" );
-		 String file="f://firstroom//resone.txt";
+		 fo.newFolder("d://firstroom" );
+		 String file="d://firstroom//resone.txt";
 		 fo.newFile(file, "***开始创建资源购买一区购买帖链接"+DateUtil.getStrOfDateTime()+"***");
 		 while(i<max){
 			 Document doc=getinfo(getResUrl+i);
@@ -106,7 +106,7 @@ public class JfirstroomTask {
 	}
 
 	public static void getMain() throws ClientProtocolException, IOException, CloneNotSupportedException{
-		String file="f://firstroom//main.txt";
+		String file="d://firstroom//main.txt";
 		System.out.println("创建所有购买贴");
 		//主页联系方式采集购买贴 -主页中的标题含有售价xx的字段 表示此帖子有联系方式出售
 //	 System.out.println(doc.toString());
@@ -147,8 +147,8 @@ public class JfirstroomTask {
 	public static void getInfoTest(String url) throws ClientProtocolException, IOException, CloneNotSupportedException{
 		Document doc=client.getDocUTF8(client.noProxyGetUrl(url));
 //		 System.out.println(doc.toString());
-		 //盘符 f://firstroom//
-		 String file="f://firstroom//";
+		 //盘符 d://firstroom//
+		 String file="d://firstroom//";
 		//拿去xj区域与标题 作为创建txt的目录位置与文件标题
 		Elements scope=doc.select("h1[class$=ts]");
 //		System.out.println("----");
@@ -171,8 +171,8 @@ public class JfirstroomTask {
 	public static void  getInfoDeatil(String url) throws ClientProtocolException, IOException, CloneNotSupportedException{
 		Document doc=client.getDocUTF8(client.noProxyGetUrl(url));
 //		 System.out.println(doc.toString());
-		 //盘符 f://firstroom//
-		 String file="f://firstroom//";
+		 //盘符 d://firstroom//
+		 String file="d://firstroom//";
 		//拿去xj区域与标题 作为创建txt的目录位置与文件标题
 		Elements scope=doc.select("h1[class$=ts]");
 //		System.out.println("----");
@@ -218,12 +218,12 @@ public class JfirstroomTask {
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, CloneNotSupportedException, ClientProtocolException, IOException {
 		 //登录
 		   login(getResUrl);
-		//资源购买一区联系方式购买贴链接采集 F:\firstroom\resone.txt
+		//资源购买一区联系方式购买贴链接采集 d:\firstroom\resone.txt
 //		 getOneResource();
-		//首页联系贴采集  F:\firstroom\main.txt
-//		  getMain();
+		//首页联系贴采集 创建txt d:\firstroom\main.txt
+		  getMain();
 		  //读取main.txt循环创建详细页面
-		  readMainTxt("f://firstroom//main.txt");
+		  readMainTxt("d://firstroom//main.txt");
 //		   getInfoTest("http://www.firstgongyu.com/thread-4689-1-1.html?mobile=no");
 	}
 }

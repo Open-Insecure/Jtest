@@ -11,7 +11,7 @@ import java.util.Date;
 public class Test1 {
 	public static void main(String[] args) {//1404 461019491
 		//long型 后面要加L
-		long t=1404461331685L;
+		long t=1426693316481L;
 		Date now=new Date();
 		Date date=new Date(t);
 		

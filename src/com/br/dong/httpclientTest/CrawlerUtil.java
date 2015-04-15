@@ -148,6 +148,8 @@ public class CrawlerUtil {
 		get.setHeader("Referer", HEADER_REFERER);
 		get.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
 		get.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
+        //防止CircularRedirectException 错误
+        client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, false);
 	}
 
     /**
@@ -286,15 +288,15 @@ public class CrawlerUtil {
 	    		 response = client.execute(post);
 
 		}catch(HttpHostConnectException e){
-//            System.out.println("连接代理服务器"+proxyUrl+"失败..");
+            System.out.println("连接代理服务器"+proxyUrl+"失败..");
         }catch(NoHttpResponseException e){
-//            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
+            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
         }catch (SocketException e){
-//            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
+            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
         }catch (SocketTimeoutException e){
-
+            System.out.println("连接服务器"+proxyUrl+"SocketTimeoutException..");
         } catch (ClientProtocolException e){
-
+            System.out.println("连接服务器"+proxyUrl+"ClientProtocolException..");
         }
 		return response;
 	}
@@ -309,7 +311,7 @@ public class CrawlerUtil {
 	        //实例化验证     
 	        CredentialsProvider credsProvider = new BasicCredentialsProvider();  
 	        //设定验证内容     
-	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("fttj", "ft07");  
+	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("test", "test");
 	        //创建验证     
 	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);  
 	        ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);  
@@ -324,6 +326,8 @@ public class CrawlerUtil {
                 System.out.println("服务器"+proxyUrl+"没有响应..");
             } catch (ConnectTimeoutException e){
                 System.out.println("服务器"+proxyUrl+"超过自己定义的响应时间"+TIME_OUT_TIME+"..");
+            }  catch (ClientProtocolException e){
+                System.out.println("服务器"+proxyUrl+"ClientProtocolException异常");
             }
 	
 		} catch (Exception e) {

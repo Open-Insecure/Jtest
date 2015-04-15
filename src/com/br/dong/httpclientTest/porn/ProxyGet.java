@@ -43,7 +43,7 @@ public class ProxyGet {
     public static void getXiciProxys(){
         System.out.println("get proxys from: http://www.xici.net.co/");
         //清空代理表
-//        JdbcUtil.deleteAll();
+        JdbcUtil.deleteAll();
         //国内代理拿10页
         for(int i=1;i<=30;i++){
             ProxyThread thread=new ProxyThread(xiciUrl+""+i,"www.xici.net.co","http://www.xici.net.co/");

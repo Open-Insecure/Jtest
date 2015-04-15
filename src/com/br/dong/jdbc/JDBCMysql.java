@@ -17,7 +17,6 @@ public class JDBCMysql {
 
 //	     String URL="jdbc:mysql://127.0.0.1:3306/bdlogin?useUnicode=true&characterEncoding=UTF-8";
 	     String URL="jdbc:mysql://107.150.21.148:3306/tanzi?useUnicode=true&characterEncoding=UTF-8";
-	    
 	     String Username="hexd";
 	     String Password="hexd";
 	     String Driver="com.mysql.jdbc.Driver";

@@ -17,6 +17,8 @@ public class DateFormatToString {
            Date date1 = (Date) format.parseObject("2005-11-15 20:55:48");
            //date1
            System.out.println("date1:"+date1);
+           //
+            System.out.println("long:"+date1.getTime());
         } catch (ParseException e) {
              // TODO Auto-generated catch block
 

@@ -26,11 +26,11 @@ public class TestPost {
 		HttpClient httpclient = new DefaultHttpClient();
 		httpclient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 1000);
 		httpclient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 1000);
-		HttpPost httppost = new HttpPost("http://localhost:8088/weixinforx/test/fuck3");
+		HttpPost httppost = new HttpPost("http://www.10pan.cc/ajax.php");
 		//创建参数队列
 		List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-		formparams.add(new BasicNameValuePair("username", "h"));
-		 formparams.add(new BasicNameValuePair("password", "h"));
+		formparams.add(new BasicNameValuePair("action", "load_down_addr1"));
+		 formparams.add(new BasicNameValuePair("file_id", "142244"));
 		//formparams.add(new BasicNameValuePair("more", "more1"));
 		//VQXdvvQ/hng2iA97Y64BHssVPQA8Uejp466dEKuDuwY=   S0NTeGiEvFO+eQdgmEL3j5a4KITbfTegqp2M9Ef4/Yc=
 		//formparams.add(new BasicNameValuePair("catName", "S0NTeGiEvFO+eQdgmEL3j5a4KITbfTegqp2M9Ef4/Yc="));
@@ -45,7 +45,8 @@ public class TestPost {
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {	
 			 System.out.println("--------------------------------------");
-			//System.out.println("Response content: " + EntityUtils.toString(entity,"UTF-8"));
+			System.out.println("Response content: " + EntityUtils.toString(entity,"UTF-8"));
+
 			 System.out.println("--------------------------------------");
 				}	
 				} catch (ClientProtocolException e) {

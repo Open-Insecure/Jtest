@@ -30,7 +30,7 @@ public class GetHttpByProxyCredentials {
         //设定目标站点  
         HttpHost httpHost = new HttpHost("www.baidu.com");    
         //设置代理对象 ip/代理名称,端口  
-        HttpHost proxy = new HttpHost("23.94.44.10", 7808, "http");  
+        HttpHost proxy = new HttpHost("104.42.27.181", 3128, "http");
         //实例化验证   
         CredentialsProvider credsProvider = new BasicCredentialsProvider();   
         //设定验证内容   

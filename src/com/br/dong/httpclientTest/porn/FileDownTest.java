@@ -22,7 +22,7 @@ public class FileDownTest {
 	private final static String REMOTE_FILE_URL = "http://www.gjt.org/download/time/java/tar/javatar-2.5.tar.gz";  
 	//http://91p.vido.ws/view_video.php?viewkey=521bc3bca29b6eab14fa&page=1&viewtype=basic&category=rf
 	//http://91p.vido.ws/getfile.php?VID=83283&mp4=0&seccode=a90158c08fa3cb05ad5e53b9797bfb20&max_vid=83322
-	private static String url="http://50.7.69.10//dl//f70bd3188fc3ea8152db6efa5bc85603/53fc2900//91porn/mp43/84816.mp4";
+	private static String url="http://50.7.69.10//dl//12c385200841087af4636ceb81c11a55/54cfded3//91porn/mp43/102072.mp4";
 
     private final static int BUFFER = 10240;
   
@@ -37,7 +37,7 @@ public class FileDownTest {
 	         HttpEntity entity = response.getEntity();
 	         InputStream in = entity.getContent();
              
-            FileOutputStream out = new FileOutputStream(new File("F:\\vedios\\aa.mp4"));
+            FileOutputStream out = new FileOutputStream(new File("E:\\video\\aa.mp4"));
              
             byte[] b = new byte[BUFFER];  
             int len = 0;  

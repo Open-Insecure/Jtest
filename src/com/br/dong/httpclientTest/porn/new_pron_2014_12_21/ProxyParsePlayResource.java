@@ -40,10 +40,11 @@ public class ProxyParsePlayResource {
     private static CrawlerUtil crawlerUtil=new CrawlerUtil();
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, CloneNotSupportedException, KeyManagementException, DocumentException {
-//        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/bc08e1a118ca40fd94d3/人妻-熟女-好色妻肛门奸-小仓02"));
-        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/51cbc9a0f9caeabd6f05/岛崎-絵理子-eriko-shimazaki01"));
-        System.out.println("..."+parse91pron("http://91p.vido.ws/view_video.php?viewkey=0a5a85de95c783816974&page=1&viewtype=basic&category=mr"));
+//        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/c002153de0e8c5ce390d/与客户爆操3p京都大酒店8号小姐03"));
+//        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/51cbc9a0f9caeabd6f05/岛崎-絵理子-eriko-shimazaki01"));
+        System.out.println("..."+parse91pron("http://91p.vido.ws/view_video.php?viewkey=6eea1e36c6b109781af2"));
     }
+
     /**
      * 解析91目标页面中的视频的视频源文件url地址
      * @param targetUrl

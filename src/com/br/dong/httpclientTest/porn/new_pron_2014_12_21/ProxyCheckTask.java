@@ -6,6 +6,8 @@ import com.br.dong.httpclientTest.porn.ProxyBean;
 import org.apache.http.HttpResponse;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +36,14 @@ public class ProxyCheckTask extends Thread{
             ProxyBean proxy= JdbcUtil.getProxy();
             if(proxy!=null){
                 System.out.println(this.getName()+"start connet to proxy:["+proxy.toString()+"]");
-                crawlerUtil.clientByProxyCreate("http",proxy.getIp(),"http://" + proxy.getIp());
+//                crawlerUtil.clientByProxyCreate("http",proxy.getIp(),"http://" + proxy.getIp());
+                try {
+                    crawlerUtil.clientCreate("http","198.105.209.230",testUrl);
+                } catch (KeyManagementException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
                 try {
                     HttpResponse response=crawlerUtil.proxyGetUrl(testUrl,proxy.getIp(),proxy.getPort()) ;
                     if(response!=null){
