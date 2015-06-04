@@ -26,26 +26,9 @@ import sun.rmi.runtime.Log;
  * User: Dong
  * Date: 14-8-20
  * Time: 下午4:56
- *                       _ooOoo_
- *                      o8888888o
- *                      88" . "88
- *                      (| ^_^ |)
- *                      O\  =  /O
- *                   ____/`---'\____
- *                 .'  \\|     |//  `.
- *                /  \\|||  :  |||//  \
- *               /  _||||| -:- |||||-  \
- *               |   | \\\  -  /// |   |
- *               | \_|  ''\---/''  |   |
- *               \  .-\__  `-`  ___/-. /
- *             ___`. .'  /--.--\  `. . ___
- *           ."" '<  `.___\_<|>_/___.'  >'"".
- *         | | :  `- \`.;`\ _ /`;.`/ - ` : | |
- *         \  \ `-.   \_ __\ /__ _/   .-` /  /
- *   ========`-.____`-.___\_____/___.-`____.-'========
- *                        `=---='
- *   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- *         佛祖保佑       永无BUG        永不修改
+ *
+ * 实现一个多线程分段range下载一个文件
+ *
  */
 public class DownloadTask {
 	public static void main(String[] args) {
@@ -53,11 +36,13 @@ public class DownloadTask {
 //	    String url="http://216.157.102.148/~yxgypic1/2014/2014-8/2014-8-17/65.jpg";
 		String saveFile="F:\\test_jar\\aa.mp4";
 		String type="http";
-		String hosturl="91p.vido.ws";
-		String refUrl="http://91p.vido.ws/index.php";
+//		String hosturl="91p.vido.ws";
+		String hosturl="91.v4p.co";//新地址！！！
+//		String refUrl="http://91p.vido.ws/index.php";
+		String refUrl="http://91.v4p.co/index.php";
 		DownloadTask downloadTask= new DownloadTask(url, saveFile, 10,type,hosturl,refUrl);//10个线程
         try {
-
+			//添加一个匿名内部类的实现
             downloadTask.addDownloadTaskListener(new DownloadTaskListener() {
                 //实现接口
             	@Override
@@ -148,10 +133,18 @@ public class DownloadTask {
 		return progress;
 	}
 
+	/**
+	 * 返回文件总大小
+	 * @return
+	 */
 	public long getContentLength() {
 		return contentLength;
 	}
 
+	/**
+	 * 返回已经下载的文件大小
+	 * @return
+	 */
 	public long getDownload() {
 		long download;
 		synchronized (this) {
@@ -165,7 +158,7 @@ public class DownloadTask {
 	 */
 	private Boolean getDownloadFileInfo(CrawlerUtil client) throws IOException,
 			ClientProtocolException, Exception {
-		HttpHead httpHead = new HttpHead(url);
+		HttpHead httpHead = new HttpHead(url);  //创一个访问头
 		HttpResponse response = client.executeHead(httpHead);
 		// 获取HTTP状态码
 		int statusCode = response.getStatusLine().getStatusCode();
@@ -214,7 +207,8 @@ public class DownloadTask {
 			System.out.println("不支持range方式下载，目标文件大小："+contentLength);
 		}
 		httpHead.abort();
-		return true;
+		return acceptRanges;
+//		return true;
 	}
 
 	/**
@@ -240,7 +234,7 @@ public class DownloadTask {
 		final DownloadThreadListener threadListener = new DownloadThreadListener() {
 			
 			public void afterPerDown(DownloadThreadEvent event) {
-				// 
+				//线程同步更改此下载监听器监听事件下载的文件大小
 				synchronized (this) {
 					DownloadTask.this.receivedCount += event.getCount();
 				}
@@ -273,7 +267,7 @@ public class DownloadTask {
 			// 定义普通下载
 			DownloadThread thread = new DownloadThread(url, 0, contentLength,
 					file, false,type,hosturl,refUrl);
-			//添加监听
+			//每个单独的线程都添加监听
 			thread.addDownloadListener(threadListener);
 			thread.start();
 			threads.add(thread);

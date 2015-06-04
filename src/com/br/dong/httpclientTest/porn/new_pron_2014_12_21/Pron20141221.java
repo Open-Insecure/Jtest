@@ -31,10 +31,11 @@ import java.util.concurrent.Executors;
  * 新版本的针对91pron的采集程序
  * 改版：不采用下载视频文件，改用存储视频的播放路径
  * 91p.vido.ws ip 104.20.5.82
+ * 91.v4p.co 新地址 ！！update 2015-04-23
  */
 public class Pron20141221 {
     //视频列表url page页数需要拼装
-    private static String url="http://104.20.5.82/v.php?next=watch&page=";
+    private static String url="http://91.v4p.co/v.php?next=watch&page=";
     //视频文件请求url 后跟参数需要拼装
     //默认查找页数
     private static int defaultPage=1000;

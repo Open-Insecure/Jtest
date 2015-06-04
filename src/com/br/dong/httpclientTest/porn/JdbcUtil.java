@@ -79,7 +79,7 @@ public class JdbcUtil {
     public static void deleteProxyByIp(ProxyBean proxy){
         String sql="delete from proxy where ip=?";
         System.out.println("delete "+proxy.toString()+" from proxy table");
-       jdbcAop.update(sql,new Object[]{proxy.getIp()});
+       jdbcAop.update(sql, new Object[]{proxy.getIp()});
     }
 
     /**
@@ -88,6 +88,14 @@ public class JdbcUtil {
     public static void deleteAll(){
         String sql="delete from proxy";
         jdbcAop.execute(sql);
+    }
+
+    /**
+     * 检查代理是否已经存在于数据库中
+     */
+    public static List checkProxy(String ip){
+        String sql="select * from proxy where ip=? " ;
+        return jdbcAop.queryForList(sql,ip);
     }
 
     /**

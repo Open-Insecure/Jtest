@@ -4,6 +4,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 文件操作工具类
+ * 可用
+ */
 public class FileOperate {
 	  /**
 	   * 新建目录
@@ -36,12 +40,29 @@ public class FileOperate {
           if (!pageElementFileDir.exists()) {
               pageElementFileDir.mkdirs();
           } else{
-              System.out.println(folderPath+"目录已经存在");
+              System.out.println("["+folderPath+"]目录已经存在");
           }
       }
-	  
-	  /** 
-	   * 新建文件 
+	/**
+	 * 创建文件
+	 * @param fn
+	 * @return
+	 */
+	public static boolean createFile(String fn){
+		File fileName=new File(fn);
+		boolean flag=false;
+		try{
+			if(!fileName.exists()){
+				fileName.createNewFile();
+				flag=true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	/**
+	   * 新建文件并写入内容
 	   * @param filePathAndName String 文件路径及名称 如c:/fqf.txt 
 	   * @param fileContent String 文件内容 
 	   * @return boolean 

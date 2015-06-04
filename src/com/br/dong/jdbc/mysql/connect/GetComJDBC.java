@@ -15,7 +15,7 @@ public class GetComJDBC {
 	public static List getExecuteQuery(String user,String password,String IP,String port,String instance, String sql) throws NullPointerException {
         ComJDBC comJDBC = (ComJDBC) JDBCMap.get(IP);
         if (comJDBC == null) {
-            comJDBC = new ComJDBC("root","system","127.0.0.1","3306","test");
+            comJDBC = new ComJDBC(user,password,IP,port,instance);
             JDBCMap.put(IP, comJDBC);
         }
         System.out.println("comJDBC:" + sql);

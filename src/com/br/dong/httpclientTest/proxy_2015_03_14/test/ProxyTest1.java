@@ -1,4 +1,4 @@
-package com.br.dong.httpclientTest.proxy_2015_03_14;
+package com.br.dong.httpclientTest.proxy_2015_03_14.test;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;

@@ -19,7 +19,7 @@ public class ThreadPoolTest2 {
             final int taskID = i;
             try {
                 threadPool.execute(new MyThread("name"+i,i));
-                Thread.sleep(20);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

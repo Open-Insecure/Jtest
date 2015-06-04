@@ -61,7 +61,7 @@ public class SimplyDownLoadTask extends Thread {
      CrawlerUtil client;
     long downloaded;//已经下载大小
     //视频文件请求url 后跟参数需要拼装
-    private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
+    private static String vedioFileUrl="http://91.v4p.co/getfile.php?";
 
     //重写run方法
     public void run() {
@@ -223,7 +223,6 @@ public class SimplyDownLoadTask extends Thread {
             return msg;
 
         }
-
 //
     }
     /**

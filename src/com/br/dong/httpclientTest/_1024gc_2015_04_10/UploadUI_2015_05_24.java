@@ -1,7 +1,7 @@
-package com.br.dong.httpclientTest.sis001;
+package com.br.dong.httpclientTest._1024gc_2015_04_10;
 
 import com.br.dong.file.FileOperate;
-import com.br.dong.utils.DateUtil;
+import com.br.dong.httpclientTest.sis001.UserBean;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 import javax.swing.*;
@@ -10,21 +10,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Dong
- * Date: 14-10-10
- * Time: 下午5:00
- * To change this template use File | Settings | File Templates.
- * 上传程序界面
+ * User: hexor
+ * Date: 2015-5-24
+ * Time: 14:56
+ * 针对网盘采集下来的种子发布到论坛的程序
  * 夜吧 人性本色 玫瑰情人 买春堂 炼狱岛 采花堂 这几个不需要了
  */
-public class UploadUI extends JFrame implements ActionListener {
+public class UploadUI_2015_05_24 extends JFrame implements ActionListener {
     private JComboBox siteBox;//当前要上传的网站的地址
     private JComboBox witefileBox;//上传的版块是否包含附件，bt的上传附件。txt的不上传附件
     private JComboBox fidBox;//fid
@@ -42,13 +42,16 @@ public class UploadUI extends JFrame implements ActionListener {
     //
     private List<UserBean> list_xbl,list_mm,list_yhwc,list_qm,list_yb,list_rxbs,list_mgqr,list_mct,list_lyd,list_cht;
     Random rand = new Random();
+    private static String logPath="E:\\logs\\";//日志路径for windows
+//    private String logPath="/home/log/";//日志路径for linux
+
     /**
-     * 构造方法初始化界面UI
+     * 构造方法生成主界面
      */
-    public UploadUI(){
+    public UploadUI_2015_05_24() {
         //创建日志目录
-       FileOperate.newFolderMuti("C:\\logs\\");
-       initJcomboBox();   //初始化下拉框
+        FileOperate.newFolderMuti(logPath);
+        initJcomboBox();   //初始化下拉框
         initAccList();  //初始化各网站账号
         //处理最里面的jp1
         jp=new JPanel();
@@ -135,7 +138,17 @@ public class UploadUI extends JFrame implements ActionListener {
         this.setResizable(false);
         this.setVisible(true);
     }
-
+    public static void main(String[] args) {
+        try{
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;//设置窗口边框类型
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();//将界面转化为Beauty Eye外观
+        }catch (Exception e){
+            System.out.println("初始化失败");
+        }
+        //隐藏设置按钮
+        UIManager.put("RootPane.setupButtonVisible",false);
+        UploadUI_2015_05_24 ui=new UploadUI_2015_05_24();
+    }
     /**
      * 初始化各个网站账号
      */
@@ -166,43 +179,7 @@ public class UploadUI extends JFrame implements ActionListener {
         list_qm.add(new UserBean("ak47990","qwert"));
         list_qm.add(new UserBean("airen1999","qwert"));
         list_qm.add(new UserBean("loli2014","qwert"));
-        list_yb=new ArrayList<UserBean>();
-        list_yb.add(new UserBean("shj801220","qwert"));
-        list_yb.add(new UserBean("7964915","qwert"));
-        list_yb.add(new UserBean("feiliyax","qwert"));
-        list_yb.add(new UserBean("nash110120","qwert"));
-        list_yb.add(new UserBean("amd1800","qwert"));
-        list_rxbs=new ArrayList<UserBean>();
-        list_rxbs.add(new UserBean("rxbs001","aaa123456"));
-        list_rxbs.add(new UserBean("rxbs999","aaa123456"));
-        list_rxbs.add(new UserBean("zhaowei1982328","qwert"));
-        list_rxbs.add(new UserBean("xiaws5693","qwert"));
-        list_rxbs.add(new UserBean("zjjhuhao110","qwert"));
-        list_mgqr=new ArrayList<UserBean>();
-        list_mgqr.add(new UserBean("session1987","qwert"));
-        list_mgqr.add(new UserBean("smilei34516","qwert"));
-        list_mgqr.add(new UserBean("laoniu4510","qwert"));
-        list_mgqr.add(new UserBean("youchouboy","qwert"));
-        list_mct=new ArrayList<UserBean>();
-        list_mct.add(new UserBean("天在看","qwerty"));
-        list_mct.add(new UserBean("曲茎通幽","qwerty"));
-        list_mct.add(new UserBean("操之过急","qwerty"));
-        list_mct.add(new UserBean("前扑后鸡","qwerty"));
-        list_mct.add(new UserBean("性图","qwerty"));
-        list_lyd=new ArrayList<UserBean>();
-        list_lyd.add(new UserBean("ycfbx","qwert"));
-        list_lyd.add(new UserBean("yeyeye2","qwert"));
-        list_lyd.add(new UserBean("liboguxin","qwert"));
-        list_lyd.add(new UserBean("daigaochao","qwert"));
-        list_lyd.add(new UserBean("zxxx1314","qwert"));
-        list_cht=new ArrayList<UserBean>();
-        list_cht.add(new UserBean("撕人野","qwerty"));
-        list_cht.add(new UserBean("金三胖","qwerty"));
-        list_cht.add(new UserBean("失联","qwerty"));
-        list_cht.add(new UserBean("男上女下","qwerty"));
-        list_cht.add(new UserBean("放开","qwerty"));
     }
-
     public void initJcomboBox(){
         //账号密码list
         List<ComboxBean> sitelist=new ArrayList<ComboxBean>();
@@ -212,12 +189,6 @@ public class UploadUI extends JFrame implements ActionListener {
         sitelist.add(new ComboxBean("MM公寓","http://107.150.3.8/"));
         sitelist.add(new ComboxBean("御花王朝","http://162.220.13.9/"));
         sitelist.add(new ComboxBean("新亲密爱人","http://www.21mybbs.me/"));
-        sitelist.add(new ComboxBean("夜吧","http://107.150.15.60/"));
-        sitelist.add(new ComboxBean("人性本色","http://63.141.255.218:8085/"));
-        sitelist.add(new ComboxBean("玫瑰情人","http://63.141.255.218:8086/"));
-        sitelist.add(new ComboxBean("买春堂","http://maichun.org/"));
-        sitelist.add(new ComboxBean("炼狱岛","http://lianyu.org/"));
-        sitelist.add(new ComboxBean("采花堂","http://www.caihua.info/"));
         List<ComboxBean> withfilelist=new ArrayList<ComboxBean>();
         withfilelist.add(new ComboxBean("是","yes"));
         withfilelist.add(new ComboxBean("否","no"));
@@ -237,7 +208,6 @@ public class UploadUI extends JFrame implements ActionListener {
             }
         });
     }
-
     /**
      * 重新设置关联下拉框
      * @param sitename
@@ -319,108 +289,9 @@ public class UploadUI extends JFrame implements ActionListener {
             fidBox.addItem(new String("45|青春校园区"));
             fidBox.addItem(new String("44|乱伦小说区"));
             fidBox.addItem(new String("46|电子书下载"));
-        }else if("夜吧".equals(sitename)){
-            fidBox.addItem(new String("59|迅雷成人下载区"));
-            fidBox.addItem(new String("57|BT亚洲成人下载区"));
-            fidBox.addItem(new String("81|欧美无码电影分享区"));
-            fidBox.addItem(new String("84|BT动漫成人下载专区"));
-            fidBox.addItem(new String("83|网盘成人下载区"));
-            fidBox.addItem(new String("69|日韩辣妹贴图区"));
-            fidBox.addItem(new String("70|欧美靓女贴图区"));
-            fidBox.addItem(new String("71|高跟美足丝袜区"));
-            fidBox.addItem(new String("72|网友自拍贴图分享区"));
-            fidBox.addItem(new String("80|卡通动漫贴图区"));
-            fidBox.addItem(new String("79|同性贴图区"));
-            fidBox.addItem(new String("77|人体艺术集中营"));
-            fidBox.addItem(new String("63|校园书生"));
-            fidBox.addItem(new String("64|乱伦迷情"));
-            fidBox.addItem(new String("65|武侠玄幻"));
-            fidBox.addItem(new String("66|EBOOK"));
-        } else if("人性本色".equals(sitename)){
-            fidBox.addItem(new String("33|〓 亚 洲 影 视 〓"));
-            fidBox.addItem(new String("34|〓 欧 美 影 视 〓"));
-            fidBox.addItem(new String("37|〓 三 级 影 视 〓"));
-            fidBox.addItem(new String("35| 〓 在 线 影 视 〓"));
-            fidBox.addItem(new String("36| 〓 手 机 视 频 〓"));
-            fidBox.addItem(new String("84|〓 卡 通 动 漫 〓"));
-            fidBox.addItem(new String("38|〓 都 市 情 感 〓"));
-            fidBox.addItem(new String("40|〓 乱 伦 天 地 〓"));
-            fidBox.addItem(new String("39|〓 玄 幻 武 侠 〓"));
-            fidBox.addItem(new String("41|〓 长 篇 连 载 〓"));
-            fidBox.addItem(new String("83|〓 清 纯 丝 袜 〓"));
-            fidBox.addItem(new String("28|〓 亚 洲 美 图 〓"));
-            fidBox.addItem(new String("30|〓 自 拍 偷 窥 〓"));
-            fidBox.addItem(new String("29|〓 欧 美 贴 图 〓"));
-            fidBox.addItem(new String("31|〓 明 星 名 模 〓"));
-            fidBox.addItem(new String("32|〓 卡 通 动 漫 〓"));
-            fidBox.addItem(new String("77|〓 套 图 欣 赏 〓"));
-        } else if("玫瑰情人".equals(sitename)){
-            fidBox.addItem(new String("75|◇→清纯唯美←◇"));
-            fidBox.addItem(new String("2|◇→东方丽人←◇"));
-            fidBox.addItem(new String("4|◇→西洋靓女←◇"));
-            fidBox.addItem(new String("3|◇→偷拍自拍←◇"));
-            fidBox.addItem(new String("5|◇→卡通动漫←◇"));
-            fidBox.addItem(new String("76|◇→套图欣赏←◇"));
-            fidBox.addItem(new String("11|◇→亚洲BT←◇"));
-            fidBox.addItem(new String("12|◇→欧美BT←◇"));
-            fidBox.addItem(new String("72|◇→网盘影视←◇"));
-            fidBox.addItem(new String("32|◇→在线影视←◇"));
-            fidBox.addItem(new String("13|◇→讯雷下载←◇"));
-            fidBox.addItem(new String("14|◇→动漫影视←◇"));
-            fidBox.addItem(new String("89|◇→校园明星←◇"));
-            fidBox.addItem(new String("16|◇→都市激情←◇"));
-            fidBox.addItem(new String("21|◇→武侠玄幻←◇"));
-            fidBox.addItem(new String("17|◇→熟女乱伦←◇"));
-            fidBox.addItem(new String("22|◇→长篇小说←◇"));
-            fidBox.addItem(new String("90|◇→IE BOOK←◇"));
-        }else if("买春堂".equals(sitename)){
-            fidBox.addItem(new String("1004|亚洲风情"));
-            fidBox.addItem(new String("83|欧美风情"));
-            fidBox.addItem(new String("615|自拍风情"));
-            fidBox.addItem(new String("645|亚洲BT"));
-            fidBox.addItem(new String("425|欧美BT"));
-            fidBox.addItem(new String("1003|在线视频"));
+        }
+    }
 
-        }  else if("炼狱岛".equals(sitename)){
-            fidBox.addItem(new String("28|〓 亚 洲 美 图 〓"));
-            fidBox.addItem(new String("29|〓 欧 美 贴 图 〓"));
-            fidBox.addItem(new String("30|〓 自 拍 偷 窥 〓"));
-            fidBox.addItem(new String("31|〓 明 星 名 模 〓"));
-            fidBox.addItem(new String("32|〓 卡 通 动 漫 〓"));
-            fidBox.addItem(new String("83|〓 清 纯 丝 袜 〓"));
-            fidBox.addItem(new String("77|〓 套 图 欣 赏 〓"));
-            fidBox.addItem(new String("33|〓 亚 洲 影 视 〓"));
-            fidBox.addItem(new String("34|〓 欧 美 影 视 〓"));
-            fidBox.addItem(new String("37|〓 三 级 影 视 〓"));
-            fidBox.addItem(new String("35|〓 在 线 影 视 〓"));
-            fidBox.addItem(new String("84|〓 卡 通 动 漫 〓"));
-            fidBox.addItem(new String("38|〓 都 市 情 感 〓"));
-            fidBox.addItem(new String("40|〓 乱 伦 天 地 〓"));
-            fidBox.addItem(new String("39|〓 玄 幻 武 侠 〓"));
-            fidBox.addItem(new String("41|〓 长 篇 连 载 〓"));
-            fidBox.addItem(new String("42|〓 有 声 小 说 〓"));
-        }else if("采花堂".equals(sitename)){
-            fidBox.addItem(new String("392|〓 自 拍 偷 拍 〓"));
-            fidBox.addItem(new String("423|〓 唯 美 原 创 〓"));
-            fidBox.addItem(new String("173|〓 高 跟 丝 袜 〓"));
-            fidBox.addItem(new String("417|〓 多 彩 动 漫 〓"));
-            fidBox.addItem(new String("420|〓三级影视区〓"));
-            fidBox.addItem(new String("675|〓在线视频区〓"));
-            fidBox.addItem(new String("674|◇◇ 欧 美 B T 区"));
-            fidBox.addItem(new String("675|◇◇ 亚 洲 B T 区"));
-        }
-    }
-    public static void main(String[] args) {
-        try{
-            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencyAppleLike;//设置窗口边框类型
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();//将界面转化为Beauty Eye外观
-        }catch (Exception e){
-            System.out.println("初始化失败");
-        }
-        //隐藏设置按钮
-        UIManager.put("RootPane.setupButtonVisible",false);
-        UploadUI ui=new UploadUI();
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
         //开始按钮被点击
@@ -457,7 +328,7 @@ public class UploadUI extends JFrame implements ActionListener {
             if("新巴黎".equals(site.getName())){
                 UserBean bean = list_xbl.get(rand.nextInt(list_xbl.size()));
                 username=bean.getUsername();
-                 passowrd=bean.getPassword();
+                passowrd=bean.getPassword();
             }else if("MM公寓".equals(site.getName())){
                 UserBean bean = list_mm.get(rand.nextInt(list_mm.size()));
                 username=bean.getUsername();
@@ -471,45 +342,9 @@ public class UploadUI extends JFrame implements ActionListener {
                 username=bean.getUsername();
                 passowrd=bean.getPassword();
 //                type="nomal" ;
-            }else if("夜吧".equals(site.getName())){
-                UserBean bean = list_yb.get(rand.nextInt(list_yb.size()));
-                username=bean.getUsername();
-                passowrd=bean.getPassword();
-            }else if("人性本色".equals(site.getName())){
-                UserBean bean = list_rxbs.get(rand.nextInt(list_rxbs.size()));
-                username=bean.getUsername();
-                passowrd=bean.getPassword();
-            } else if("玫瑰情人".equals(site.getName())){
-                UserBean bean = list_mgqr.get(rand.nextInt(list_xbl.size()));
-                username=bean.getUsername();
-                passowrd=bean.getPassword();
-            }     else if("炼狱岛".equals(site.getName())){
-                UserBean bean = list_lyd.get(rand.nextInt(list_lyd.size()));
-                username=bean.getUsername();
-                passowrd=bean.getPassword();
-                //调用线程开始上传
-                UploadTask task=new  UploadTask(date+","+floderName,path,withfile.getValue(),username,passowrd,site.getValue()+"login.php?",site.getValue()+"post.php?fid="+fid,site.getValue()+"post.php?","phpwind,"+fid);
-                task.start();
-                return ;
-            } else if("买春堂".equals(site.getName())){
-                UserBean bean = list_mct.get(rand.nextInt(list_mct.size()));
-                username=bean.getUsername();
-                passowrd=bean.getPassword();
-                //调用线程开始上传
-                UploadTask task=new  UploadTask(date+","+floderName,path,withfile.getValue(),username,passowrd,site.getValue()+"login.php?",site.getValue()+"post.php?fid-"+fid+".htm",site.getValue()+"post.php?","phpwind,"+fid);
-                task.start();
-                return;
-            } else if("采花堂".equals(site.getName())){
-                UserBean bean = list_cht.get(rand.nextInt(list_cht.size()));
-                username=bean.getUsername();
-                passowrd=bean.getPassword();
-                //调用线程开始上传
-                UploadTask task=new  UploadTask(date+","+floderName,path,withfile.getValue(),username,passowrd,site.getValue()+"login.php?",site.getValue()+"post.php?fid="+fid,site.getValue()+"post.php?","phpwind,"+fid);
-                task.start();
-                return;
             }
             //调用线程开始上传
-            UploadTask task=new UploadTask(date+","+floderName,path,withfile.getValue(),username ,passowrd,site.getValue(),site.getValue()+"logging.php?action=login&loginsubmit=true",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=page%3D1&topicsubmit=yes",type);
+            UploadTask_2015_05_24 task=new UploadTask_2015_05_24(date+","+floderName,path,withfile.getValue(),username ,passowrd,site.getValue(),site.getValue()+"logging.php?action=login&loginsubmit=true",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=",site.getValue()+"post.php?action=newthread&fid="+fid+"&extra=page%3D1&topicsubmit=yes",type);
             task.start();
         }
         //退出按钮被点击
@@ -535,15 +370,14 @@ public class UploadUI extends JFrame implements ActionListener {
             jp1_jtf3.setText(path);
         }
     }
-
 }
 
 /**
  * 给Jcombox用的
  */
 class ComboxBean{
-     private String name;
-     private String value;
+    private String name;
+    private String value;
 
     @Override
     public String toString() {

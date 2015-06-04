@@ -8,6 +8,6 @@ package com.br.dong.jdbc.mysql.connect;
  */
 public class JDBCTest {
     public static void main(String[] args) {
-            GetComJDBC.getExecuteQuery("root","system","127.0.0.1","3306","test","select * from proxy");
+            GetComJDBC.getExecuteQuery("root","system","63.141.243.10","3306","test","select * from proxy");
     }
 }

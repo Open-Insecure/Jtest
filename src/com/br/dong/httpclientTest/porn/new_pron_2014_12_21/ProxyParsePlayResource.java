@@ -42,8 +42,10 @@ public class ProxyParsePlayResource {
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, CloneNotSupportedException, KeyManagementException, DocumentException {
 //        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/c002153de0e8c5ce390d/与客户爆操3p京都大酒店8号小姐03"));
 //        System.out.println("....."+parseCaopron(caoPronIndexUrl+"/video/51cbc9a0f9caeabd6f05/岛崎-絵理子-eriko-shimazaki01"));
-        System.out.println("..."+parse91pron("http://91p.vido.ws/view_video.php?viewkey=6eea1e36c6b109781af2"));
+        System.out.println("..."+parse91pron("http://91.v4p.co/view_video.php?viewkey=55f767c19a4c6f588681"));
     }
+
+
 
     /**
      * 解析91目标页面中的视频的视频源文件url地址
@@ -90,7 +92,8 @@ public class ProxyParsePlayResource {
         ProxyBean proxy= JdbcUtil.getProxy();
         System.out.println("start connet to proxy:["+proxy.toString()+"]");
         //使用新的访问代理的方法
-         try{crawlerUtil.clientByProxyCreate("http", proxy.getIp(), "http://" + proxy.getIp());
+         try{
+             crawlerUtil.clientByProxyCreate("http", proxy.getIp(), "http://" + proxy.getIp());
          }catch (Exception e){
              return "error[parseCaopron init fall]";
         }
@@ -101,6 +104,7 @@ public class ProxyParsePlayResource {
         //caopron站点get方式获得视频源文件地址
         HttpResponse response=crawlerUtil.proxyGetUrl(caoPron+vkey,proxy.getIp(),proxy.getPort()) ;
         if(response!=null){
+
             //response不为空，证明代理连接目标页面成功
             System.out.println(response.getStatusLine());
             Document doc=crawlerUtil.getDocUTF8(response);

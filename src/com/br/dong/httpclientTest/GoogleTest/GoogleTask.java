@@ -22,7 +22,10 @@ public class GoogleTask extends Thread {
     private String ulr="http://173.194.72.199/";
     private CrawlerUtil client=new CrawlerUtil();
     public void run(){
-        test();
+        ProxyBean proxyBean=new ProxyBean();
+        proxyBean.setIp("213.239.199.141");
+        proxyBean.setPort(3128);
+        test(proxyBean);
     }
     public GoogleTask(){
         try {
@@ -33,8 +36,8 @@ public class GoogleTask extends Thread {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
-    public void test(){
-        ProxyBean proxy= JdbcUtil.getProxy();
+    public void test(ProxyBean proxy){
+//        ProxyBean proxy= JdbcUtil.getProxy();
         System.out.println("start connet to proxy:["+proxy.toString()+"]");
         //代理post访问视频页面
         HttpResponse response= null;
@@ -46,11 +49,11 @@ public class GoogleTask extends Thread {
                 if(doc!=null){
                     System.out.println(doc.toString());
                 }  else{
-                    test();
+                    System.out.println("没有doc");
                 }
 
             } else if(response==null){
-                test();
+                System.out.println("没有response");
             }
     } catch (CloneNotSupportedException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

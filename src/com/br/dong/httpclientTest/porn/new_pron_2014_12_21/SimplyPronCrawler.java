@@ -27,6 +27,7 @@ import java.util.Map;
  * Time: 下午2:13
  * To change this template use File | Settings | File Templates.
  * 简单的针对91pron的观看地址的采集器
+ * 91.v4p.co 新地址！！！
  */
 public class SimplyPronCrawler extends Thread {
 
@@ -68,7 +69,8 @@ public class SimplyPronCrawler extends Thread {
         //初始化client
         try {
 //            this.client.clientCreate("http", "91p.vido.ws", "http://91p.vido.ws/index.php");
-            this.client.clientCreate("http", "91p.vido.ws", video.getVedioUrl());
+//            this.client.clientCreate("http", "91p.vido.ws", video.getVedioUrl());
+            this.client.clientCreate("http", "91.v4p.co", video.getVedioUrl());
         } catch (Exception e){
             System.out.println("Constructor SimplyPronCrawler fall");
         }

@@ -105,6 +105,7 @@ public class CrawlerUtil {
         this.clientCreate(type,"","");
     }
 
+
 	/**注意此方法可以用于多线程！每个线程单独维护一个client
      * 实例化client并且设置请求头和get post实例
 	 * @param type 返回client的类型 type="http"的时候使用http的实例 type="https"的时候使用https实例
@@ -268,9 +269,20 @@ public class CrawlerUtil {
         }
 		return response;
 	}
+
+	/**
+	 * 不使用代理post访问
+	 */
+	public HttpResponse noProxyPostUrl(String url,List<NameValuePair> list) throws CloneNotSupportedException, IOException {
+		HttpPost post =getPostInstance(url);
+		HttpResponse response=null;
+		response = client.execute(post);
+		return response;
+	}
 	//使用代理post方式访问url
 	public HttpResponse proxyPostUrl(String url,String proxyUrl,int port,List<NameValuePair> list) throws IOException, CloneNotSupportedException{
 		HttpPost post =getPostInstance(url);
+		HttpHost httpHost = new HttpHost(url);
 		HttpResponse response=null;
 		try {
 	        //设置代理对象 ip/代理名称,端口   // "125.39.66.66", 80 "66.85.131.18", 8089 "210.51.56.198",808  "96.56.105.66",7004	 "122.232.229.90",80
@@ -282,10 +294,10 @@ public class CrawlerUtil {
 	        //创建验证     
 	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);  
 	        ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);  
-			//System.out.println("executing request " + get.getURI());
+			System.out.println("executing request " + post.getURI());
 	    		//从新设置post的内容
 	    		post.setEntity(produceEntity(list));
-	    		 response = client.execute(post);
+	    		 response = client.execute(httpHost,post);
 
 		}catch(HttpHostConnectException e){
             System.out.println("连接代理服务器"+proxyUrl+"失败..");
@@ -296,7 +308,7 @@ public class CrawlerUtil {
         }catch (SocketTimeoutException e){
             System.out.println("连接服务器"+proxyUrl+"SocketTimeoutException..");
         } catch (ClientProtocolException e){
-            System.out.println("连接服务器"+proxyUrl+"ClientProtocolException..");
+            System.out.println("连接服务器" + proxyUrl + "ClientProtocolException..");
         }
 		return response;
 	}
@@ -398,6 +410,9 @@ public class CrawlerUtil {
         }  catch (ConnectionPoolTimeoutException e){
             System.out.println("ConnectionPoolTimeoutException..");
         }
+//		finally {
+//			post.abort();
+//		}
 
 		return response;
 	}

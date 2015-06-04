@@ -33,7 +33,8 @@ import java.util.concurrent.Executors;
 public class PronVideo {
 
     //视频列表url page页数需要拼装
-    private static String url="http://91p.vido.ws/v.php?next=watch&page=";
+    private static String url="http://91.v4p.co/v.php?category=hot&viewtype=basic&page=";
+//    private static String url="http://91.v4p.co/v.php?next=watch&page=";
     //视频文件请求url 后跟参数需要拼装
     //默认查找页数
     private static int defaultPage=1000;
@@ -74,7 +75,7 @@ public class PronVideo {
     public static List<VedioBean> getPageVideosOnline(String url) throws ClientProtocolException, IOException, CloneNotSupportedException, KeyManagementException, NoSuchAlgorithmException {
         CrawlerUtil client=new CrawlerUtil();
         //91的已经开始验证http请求头了，加上如下参数
-        client.clientCreate("http","91p.vido.ws",url+1);
+        client.clientCreate("http","91.v4p.co",url+1);
         List<VedioBean> list=new ArrayList<VedioBean>();
         //填充中文参数 post获得中文返回页面
         Document doc=client.getDocUTF8(client.post(url, client.produceEntity(getPostParmList())));

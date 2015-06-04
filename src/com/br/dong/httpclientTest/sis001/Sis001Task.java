@@ -36,7 +36,7 @@ public class Sis001Task {
     private static ExecutorService threadPool= Executors.newCachedThreadPool();
     //本地硬盘
 //    private static String floderpath="F:\\vedios\\sis\\"+DateUtil.getCurrentDay()+"\\";
-    private  static String floderpath="C:\\sis\\download\\"+DateUtil.getCurrentDay()+"\\";
+    private  static String floderpath="E:\\sis\\download\\"+DateUtil.getCurrentDay()+"\\";
     public static CrawlerUtil client=new CrawlerUtil();
     //登录url
     private static String loginPostUrl="http://38.103.161.153/forum/logging.php?action=login&loginsubmit=true";
@@ -59,7 +59,7 @@ public class Sis001Task {
         //测试小说
 //          Sis001DownLoadTask test=new Sis001DownLoadTask("txt_download",floderpath,"http://38.103.161.153/forum/forum-83-");
 //          test.start();
-//         start();      //开始
+         start();      //开始
 
 
 
@@ -199,7 +199,7 @@ public class Sis001Task {
      * @param folderpath
      */
     public static void newFolderMuti(String folderpath){
-        System.out.println("creat floder path:"+folderpath);
+        System.out.println("正在创建目录["+folderpath+"]");
         FileOperate.newFolderMuti(folderpath);
     }
 
