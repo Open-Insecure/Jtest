@@ -42,7 +42,7 @@ import java.util.Map;
  *
  * mm的地址是 21mybbs.me
  * 御花王朝  184.164.72.160
- * 新巴黎 http://107.150.17.66
+ * 新巴黎    http://107.150.17.66
  */
 public class UploadTask_2015_05_24 extends Thread{
     //编码方式
@@ -80,8 +80,8 @@ public class UploadTask_2015_05_24 extends Thread{
 
     public static void main(String[] args) throws UnsupportedEncodingException {
         //新巴黎 http://107.150.17.66/
-//        UploadTask_2015_05_24 task=new UploadTask_2015_05_24("name","E:\\uploads\\1\\","yes","liang93370894","asd123123","http://107.150.17.66/logging.php?action=login","http://107.150.17.66/logging.php?action=login&","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes","");
-//        task.start();
+        UploadTask_2015_05_24 task=new UploadTask_2015_05_24("name","E:\\uploads\\1\\","yes","liang93370894","asd123123","http://107.150.17.66/logging.php?action=login","http://107.150.17.66/logging.php?action=login&","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes","");
+        task.start();
 
         //mm公寓
 //        UploadTask_2015_05_24 task=new UploadTask_2015_05_24("name","E:\\uploads\\1\\","yes","he7253997","95b004","http://21mybbs.me/member.php?mod=logging&action=login&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login","http://21mybbs.me/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=LtnzP&inajax=1","http://21mybbs.me/post.php?action=newthread&fid=25&extra=page%3D1","http://21mybbs.me/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes","mmhouse");

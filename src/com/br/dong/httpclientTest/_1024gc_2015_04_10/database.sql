@@ -18,3 +18,12 @@ alter table  collectlogs modify  column imgUrls varchar(2000) ;
 --2015-06-01 新增字段section 用来储存采集的种子的板块
 alter table collectlogs add section varchar(30);
 
+--2015-06-05 发布日志表
+ CREATE TABLE postlogs(
+  id int NOT NULL AUTO_INCREMENT primary key,
+  collectLogsId int,
+  postSite varchar(30),
+  postUrl varchar(100),
+  postTime  varchar(30)
+)default charset=utf8;
+

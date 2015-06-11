@@ -25,8 +25,14 @@ import java.util.List;
 public class JDBCSkydriveUtil {
 
     public static void main(String[] args) {
-        List<GcBean> list=getAllCollectLogs();
-        System.out.println(list.size());
+//        List<GcBean> list=getAllCollectLogs();
+//        System.out.println(list.size());
+        PostLogBean bean=new PostLogBean();
+        bean.setCollectLogsId(1);
+        bean.setPostSite("test2");
+        bean.setPostUrl("test2");
+        insertPostLog(bean);
+//        System.out.println(   checkPostLog(bean));;
     }
     //jdbcTemplate 依赖注入实例
     private static JdbcTemplate jdbcAop;
@@ -42,6 +48,22 @@ public class JDBCSkydriveUtil {
     public static Object getBean(String beanName){
         return ctx.getBean(beanName);
     }
+
+    /**
+     * 插入一条发布信息
+     * @param bean
+     */
+    public static void insertPostLog(PostLogBean bean){
+        String sql="insert into postlogs(collectLogsId,postSite,postUrl,postTime) values(?,?,?,?)";
+        jdbcAop.update(sql, new Object[] {bean.getCollectLogsId(),bean.getPostSite(),bean.getPostUrl(),bean.getPostTime()});
+    }
+
+    public static List checkPostLog(PostLogBean bean){
+        String sql="select * from postlogs where collectLogsId=? and postUrl=?" ;
+        return jdbcAop.queryForList(sql, bean.getCollectLogsId(),bean.getPostUrl());
+    }
+
+
     /**
      * 根据id查找
      */

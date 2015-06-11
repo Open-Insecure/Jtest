@@ -5,32 +5,53 @@ package com.br.dong.httpclientTest._1024gc_2015_04_10;
  * User: hexor
  * Date: 2015-5-28
  * Time: 16:13
- * ·¢±ískydriveÖĞ²É¼¯µÄÖÖ×ÓĞÅÏ¢µÄÌû×Ó
+ * å‘è¡¨skydriveä¸­é‡‡é›†çš„ç§å­ä¿¡æ¯çš„å¸–å­
  */
 public class UploadForLinux {
 
 
     public static void main(String[] args) {
-        int type = 0; // Òª·¢²¼µÄÍøÕ¾
+        int type = 0; // è¦å‘å¸ƒçš„ç½‘ç«™
+       //é€‰æ‹©è¦å‘å¸ƒçš„ç«™ç‚¹
         while(true){
-            System.out.println("please chose website:[1 for xinbali,2 for mmhose,3 for yuhuawangchao]");// 1±íÊ¾·¢²¼ĞÂ°ÍÀè 2 mmhouse 3Óù»¨Íõ³¯
+            System.out.println("please chose website:[1 for xinbali,2 for mmhose,3 for yuhuawangchao]");// 1è¡¨ç¤ºå‘å¸ƒæ–°å·´é» 2 mmhouse 3å¾¡èŠ±ç‹æœ
             type = readKeyboard();
-            // Ğ£Ñé
+            // æ ¡éªŒ
             if (!checkType(type)) {
-                //ÊäÈë·Ç·¨ÔòÖØĞÂ½øÈëÑ­»·
+                //è¾“å…¥éæ³•åˆ™é‡æ–°è¿›å…¥å¾ªç¯
                 System.out.println("Enter illegal, please re-enter");
                 continue;
             }else{
                 break;
             }
         }
-        //Ğ£ÑéºÏ·¨£¬¿ªÊ¼·¢²¼
+        //é€‰æ‹©å¥½ç«™ç‚¹å é€‰æ‹©è¦å‘å¸ƒçš„æ¿å—
+        while(true){
+
+           break;
+        }
+        //æ ¡éªŒåˆæ³•ï¼Œå¼€å§‹å‘å¸ƒ
         System.out.println("start thread ..");
+        switch(type){
+            case 1:
+                System.out.println("type:"+type);
+                break;
+            case 2:
+                System.out.println("type:"+type);
+                break;
+            case 3:
+                System.out.println("type:"+type);
+                break;
+            default:
+                System.out.println("type:"+type);
+        }
+
+
     }
     /**
-     * ÑºµÄÀàĞÍĞ£Ñé
-     * @param type ÀàĞÍ
-     * @return true´ú±í·ûºÏÒªÇó£¬false´ú±í²»·ûºÏ
+     * æŠ¼çš„ç±»å‹æ ¡éªŒ
+     * @param type ç±»å‹
+     * @return trueä»£è¡¨ç¬¦åˆè¦æ±‚ï¼Œfalseä»£è¡¨ä¸ç¬¦åˆ
      */
     public static boolean checkType(int type) {
         if (type == 1 || type == 2 ||type==3) {
@@ -40,17 +61,17 @@ public class UploadForLinux {
         }
     }
     /**
-     * ¶ÁÈ¡ÓÃ»§ÊäÈë
-     * @return  ÊäÈëµÄÕûÊı£¬Èç¹û¸ñÊ½·Ç·¨Ôò·µ»Ø0
+     * è¯»å–ç”¨æˆ·è¾“å…¥
+     * @return  è¾“å…¥çš„æ•´æ•°ï¼Œå¦‚æœæ ¼å¼éæ³•åˆ™è¿”å›0
      */
     public static int readKeyboard() {
         try {
-            // »º³åÇøÊı×é
+            // ç¼“å†²åŒºæ•°ç»„
             byte[] b = new byte[1024];
-            // ¶ÁÈ¡ÓÃ»§ÊäÈëµ½Êı×ébÖĞ£¬
-            // ¶ÁÈ¡µÄ×Ö½ÚÊıÁ¿Îªn
+            // è¯»å–ç”¨æˆ·è¾“å…¥åˆ°æ•°ç»„bä¸­ï¼Œ
+            // è¯»å–çš„å­—èŠ‚æ•°é‡ä¸ºn
             int n = System.in.read(b);
-            // ×ª»»ÎªÕûÊı
+            // è½¬æ¢ä¸ºæ•´æ•°
             String s = new String(b, 0, n - 1);
             int num = Integer.parseInt(s);
             return num;
