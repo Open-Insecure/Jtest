@@ -32,14 +32,14 @@ import sun.rmi.runtime.Log;
  */
 public class DownloadTask {
 	public static void main(String[] args) {
-	    String url="http://192.240.105.74//dl//c0832d33a5a09389bf77af1323685336/53f314fc//91porn/mp43/83954.mp4";
+	    String url="http://vip.youb66.com:81/media/you22/flv/8486.flv";
 //	    String url="http://216.157.102.148/~yxgypic1/2014/2014-8/2014-8-17/65.jpg";
-		String saveFile="F:\\test_jar\\aa.mp4";
+		String saveFile="E:\\video\\aa.flv";
 		String type="http";
-//		String hosturl="91p.vido.ws";
-		String hosturl="91.v4p.co";//新地址！！！
-//		String refUrl="http://91p.vido.ws/index.php";
-		String refUrl="http://91.v4p.co/index.php";
+		String hosturl="vip.youb66.com:81";
+//		String hosturl="91.v4p.co";//新地址！！！
+		String refUrl="http://www.youbbb.net";
+//		String refUrl="http://91.v4p.co/index.php";
 		DownloadTask downloadTask= new DownloadTask(url, saveFile, 10,type,hosturl,refUrl);//10个线程
         try {
 			//添加一个匿名内部类的实现
