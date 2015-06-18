@@ -230,7 +230,7 @@ public class DownloadTask {
 		// 定义下载线程事件实现类
 		final Calendar time = Calendar.getInstance();
 		final long startMili = System.currentTimeMillis();// 当前时间对应的毫秒数
-		//下载线程监听器
+		//下载线程监听器 构造方法
 		final DownloadThreadListener threadListener = new DownloadThreadListener() {
 			
 			public void afterPerDown(DownloadThreadEvent event) {
