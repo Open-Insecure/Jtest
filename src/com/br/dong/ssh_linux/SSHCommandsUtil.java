@@ -184,7 +184,7 @@ public class SSHCommandsUtil {
 //        System.out.println(test.keepExecCommand("date -d today +\"%Y-%m-%d %H:%M:%S\" "));
 //        System.out.println(test.keepExecCommand("date -d today +\"%Y-%m-%d %H:%M:%S\" "));
 
-//        test.keepExecCommand("mkdir /myshell/mytest/oracle");
+//        test.keepExecCommand("mkdir -p /myshell/mytest/oracle");
 //        test.keepExecCommand("touch /myshell/mytest/oracle/2.sh ");
           test.keepExecCommand("cat >>/myshell/mytest/oracle/2.sh<<!\n" +
                   "sasasasa"+"\n!");

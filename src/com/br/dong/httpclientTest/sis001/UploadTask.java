@@ -38,6 +38,11 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  * 上传程序
  *
+ *  *!!!!!!!!!注意啊 发送附件必须要使用   CloseableHttpClient httpclient = HttpClients.createDefault();
+ * 创建的httpclient 才能够发！！！！！！！！！！！！1
+ *  *!!!!!!!!!注意啊 发送附件必须要使用   CloseableHttpClient httpclient = HttpClients.createDefault();
+ * 创建的httpclient 才能够发！！！！！！！！！！！！1
+ *
  */
 public class UploadTask extends Thread{
     //编码方式

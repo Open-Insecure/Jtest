@@ -1,8 +1,11 @@
 package com.br.dong.httpclientTest.youbb.net;
 
 import com.br.dong.httpclientTest.CrawlerUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,7 +30,7 @@ public class Test {
     private static String absUrl="http://youbbb.net";
     private static String favUrlPre="http://youbbb.net/videos?c=1&o=tf&page=";//最爱前缀
     private static String latestUrlPre="http://youbbb.net/videos?c=1&o=mr&page=";//最新前缀
-    private static String getDownLoadUrlTargetUrl="http://youbbb.net/media/player/config.php?vkey=8885";//获得视频下载地址的请求目标url
+    private static String getDownLoadUrlTargetUrl="http://youbbb.net/media/player/config.php?vkey=9549";//获得视频下载地址的请求目标url
     private static int DEFAULT_PAGE=10;//默认采集page最大为10
     private static Logger logger = Logger.getLogger(Test.class);
     private static CrawlerUtil crawlerUtil=new CrawlerUtil();
@@ -36,13 +39,15 @@ public class Test {
         crawlerUtil.clientCreate("http", "youbbb.net", sectionUrl);
        try{
            int count=getTotalPagerNumber(sectionUrl);
-//           for(int i=1;i<=count;i++){
-//
-//           }
+           for(int i=1;i<=count;i++){
+
+           }
            parsePage(latestUrlPre+1);
        }catch (Exception e){
             e.printStackTrace();
        }
+
+        System.out.println(readDownloadFileInfo("http://vip.youb77.com:81/media/you22/flv/9263.flv"));//返回文件大小
     }
 
     /**
@@ -60,13 +65,38 @@ public class Test {
             String title=absUrl+element.select("a").attr("href");//获得标题
             String imgUlr=absUrl+element.select("img").attr("src");//获得视频预览图片url地址
             String videoTime=element.select("div[class=box_left]").text();//视频时长
+            //获得视频的id
             System.out.println(title+imgUlr+videoTime);
         }
 
 
     }
 
-
+    /**
+     * 返回远程下载文件的文件信息
+     * 创建header进行头访问
+     * http://vip.youb77.com:81/media/you22/flv/9263.flv
+     * @param targetUrl
+     * @return 返回两位小数的String类型
+     */
+    private static String readDownloadFileInfo(String targetUrl) throws IOException, CloneNotSupportedException {
+        HttpHead httpHead = new HttpHead(targetUrl);//创一个访问头
+        HttpResponse response = crawlerUtil.executeHead(httpHead);//返回头访问信息
+        int statusCode = response==null?-1:response.getStatusLine().getStatusCode(); // 获取HTTP状态码
+        if (statusCode != 200) {//响应码不正常的时候
+            logger.info("资源不存在：" + targetUrl);
+            return "";
+        }
+        // Content-Length
+        Header[] headers = response.getHeaders("Content-Length");
+        double contentLength=0;
+        if (headers.length > 0)
+        {	//获得要下载的文件的大小
+            contentLength = Long.valueOf(headers[0].getValue());
+        }
+        httpHead.abort();//释放
+        return String.format("%.2f",contentLength/(1024 * 1024));
+    }
 
     /**
      *传入url，获得当前板块的页数

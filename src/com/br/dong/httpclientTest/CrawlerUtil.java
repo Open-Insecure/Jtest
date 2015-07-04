@@ -64,10 +64,10 @@ public class CrawlerUtil {
 	private static String DECODE_UTF_8="UTF-8";
 	private static String DECODE_GBK="GBK";
     private static String GB_2312="gb2312" ;
-    //超时时间
-    private static int TIME_OUT_TIME=50000;
-    //socket超时时间
-    private static int SO_TIMEOUT_TIME=500000;
+    //超时时间 获得响应的超时时间
+    private static int TIME_OUT_TIME=5*1000;
+    //socket超时时间 传输数据的超时时间
+    private static int SO_TIMEOUT_TIME=5*10000;
 	//想要带入的参数，可以根据需要扩展
 	private String parm1;
 	//使用cookie
@@ -487,12 +487,8 @@ public class CrawlerUtil {
 		HttpResponse response=null;
 		try {
 			response=client.execute(httpHead);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-		}catch (HttpHostConnectException e){
-        }
-        catch (IOException e) {
-			// TODO Auto-generated catch block
+		}catch(Exception e){
+
 		}
 		return response;
 	}

@@ -38,52 +38,52 @@ import java.util.Map;
  * User: hexor
  * Date: 2015-5-24
  * Time: 15:32
- * ·¢Ìû³ÌĞòÕë¶Ô1024gc²É¼¯ÏÂÀ´µÄÖÖ×Ó½øĞĞ·¢Ìû
+ * å‘å¸–ç¨‹åºé’ˆå¯¹1024gcé‡‡é›†ä¸‹æ¥çš„ç§å­è¿›è¡Œå‘å¸–
  *
- * mmµÄµØÖ·ÊÇ 21mybbs.me
- * Óù»¨Íõ³¯  184.164.72.160
- * ĞÂ°ÍÀè    http://107.150.17.66
+ * mmçš„åœ°å€æ˜¯ 21mybbs.me
+ * å¾¡èŠ±ç‹æœ  184.164.72.160
+ * æ–°å·´é»    http://107.150.17.66
  */
 public class UploadTask_2015_05_24 extends Thread{
-    //±àÂë·½Ê½
+    //ç¼–ç æ–¹å¼
     private static String GBK="GBK";
     private static String UTF8="UTF-8";
     private static String path="E:\\logs\\";
-//    private static String path="C:\\logs\\";
-    //ÈÕÖ¾Ä¿Â¼
+    //    private static String path="C:\\logs\\";
+    //æ—¥å¿—ç›®å½•
     private static String logPath=path+ DateUtil.getCurrentDay()+"log.txt";
     private CloseableHttpClient httpclient = HttpClients.createDefault();
-    //ÎÄ¼ş²Ù×÷¹¤¾ßÀà
+    //æ–‡ä»¶æ“ä½œå·¥å…·ç±»
     private static FileOperate fileOperate=new FileOperate();
     //
     private static CrawlerUtil crawlerUtil=new CrawlerUtil();
-    //·¢²¼Ìû×ÓÊÇ·ñ°üº¬¸½¼şµÄ±êÖ¾
+    //å‘å¸ƒå¸–å­æ˜¯å¦åŒ…å«é™„ä»¶çš„æ ‡å¿—
     private String withFile;
-    //ÓÃ»§Ãû
+    //ç”¨æˆ·å
     private String username;
-    //ÃÜÂë
+    //å¯†ç 
     private String password;
-    //µÇÂ¼Ê×Ò³url
+    //ç™»å½•é¦–é¡µurl
     private  String index="";
-    //µÇÂ¼posturl»ñÈ¡formhash
+    //ç™»å½•posturlè·å–formhash
     private  String loginPostUrl="";
-    //µ±Ç°·¢±íĞÂÌûµÄµØÖ·»ñÈ¡formhash
+    //å½“å‰å‘è¡¨æ–°å¸–çš„åœ°å€è·å–formhash
     private  String postPage="";
-    //ÉÏ´«posturl
+    //ä¸Šä¼ posturl
     private  String uploadUrl="";
-    //·¢²¼ÀàĞÍ
+    //å‘å¸ƒç±»å‹
     private String type="";
     //fid
     private String fid="";
-    //µ±Ç°ÖÖ×ÓËùÔÚ¸ùÄ¿Â¼
+    //å½“å‰ç§å­æ‰€åœ¨æ ¹ç›®å½•
     private  String folderpath="";
 
     public static void main(String[] args) throws UnsupportedEncodingException {
-        //ĞÂ°ÍÀè http://107.150.17.66/
+        //æ–°å·´é» http://107.150.17.66/
         UploadTask_2015_05_24 task=new UploadTask_2015_05_24("name","E:\\uploads\\1\\","yes","liang93370894","asd123123","http://107.150.17.66/logging.php?action=login","http://107.150.17.66/logging.php?action=login&","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1","http://107.150.17.66/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes","");
         task.start();
 
-        //mm¹«Ô¢
+        //mmå…¬å¯“
 //        UploadTask_2015_05_24 task=new UploadTask_2015_05_24("name","E:\\uploads\\1\\","yes","he7253997","95b004","http://21mybbs.me/member.php?mod=logging&action=login&infloat=yes&handlekey=login&inajax=1&ajaxtarget=fwin_content_login","http://21mybbs.me/member.php?mod=logging&action=login&loginsubmit=yes&handlekey=login&loginhash=LtnzP&inajax=1","http://21mybbs.me/post.php?action=newthread&fid=25&extra=page%3D1","http://21mybbs.me/post.php?action=newthread&fid=25&extra=page%3D1&topicsubmit=yes","mmhouse");
 //        task.start();
 
@@ -92,14 +92,14 @@ public class UploadTask_2015_05_24 extends Thread{
     }
 
     /**
-     * Ïß³Ì¹¹Ôì·½·¨
-     * @param name ¸ÃÏß³Ì¶ÔÓ¦Êı¾İ¿âÖĞtorrents±íupdate+temp±êÖ¾Èç£º2014-10-27,btÑÇÖŞÎŞÂë×ªÌû ¶ÔÓ¦±¾µØ´æ´¢µÄÎÄ¼ş¼ĞÃû×Ö
-     * @param withFile ÊÇ·ñ°üº¬¸½¼şÉÏ´«µÄ±êÖ¾
-     * @param index Ê×Ò³µÇÂ¼Ò³ÃæÓÃÀ´»ñµÃµÇÂ¼±íµ¥formhash
-     * @param loginPostUrl µÇÂ¼post½Ó¿ÚµØÖ·
-     * @param postPage  ·¢ÌûµØÖ·ÓÃÀ´»ñµÃ·¢Ìû±íµ¥µÄformhash
-     * @param uploadUrl ·¢Ìû½Ó¿ÚµØÖ·
-     * @param type ·¢²¼ÀàĞÍ
+     * çº¿ç¨‹æ„é€ æ–¹æ³•
+     * @param name è¯¥çº¿ç¨‹å¯¹åº”æ•°æ®åº“ä¸­torrentsè¡¨update+tempæ ‡å¿—å¦‚ï¼š2014-10-27,btäºšæ´²æ— ç è½¬å¸– å¯¹åº”æœ¬åœ°å­˜å‚¨çš„æ–‡ä»¶å¤¹åå­—
+     * @param withFile æ˜¯å¦åŒ…å«é™„ä»¶ä¸Šä¼ çš„æ ‡å¿—
+     * @param index é¦–é¡µç™»å½•é¡µé¢ç”¨æ¥è·å¾—ç™»å½•è¡¨å•formhash
+     * @param loginPostUrl ç™»å½•postæ¥å£åœ°å€
+     * @param postPage  å‘å¸–åœ°å€ç”¨æ¥è·å¾—å‘å¸–è¡¨å•çš„formhash
+     * @param uploadUrl å‘å¸–æ¥å£åœ°å€
+     * @param type å‘å¸ƒç±»å‹
      */
     public UploadTask_2015_05_24(String name,String folderpath,String withFile,String username,String password,String index,String loginPostUrl,String postPage,String uploadUrl,String type) {
         super(name);
@@ -114,7 +114,7 @@ public class UploadTask_2015_05_24 extends Thread{
         this.type=type;
         System.out.println(toString());
     }
-    //ÖØĞ´run·½·¨
+    //é‡å†™runæ–¹æ³•
     public void run(){
 //        init();
         try {
@@ -125,7 +125,7 @@ public class UploadTask_2015_05_24 extends Thread{
     }
     public void test() throws IOException, NoSuchAlgorithmException, KeyManagementException, CloneNotSupportedException {
         if(type.equals("mmhouse")){
-            //MM¹«Ô¢µÇÂ¼
+            //MMå…¬å¯“ç™»å½•
             crawlerUtil.clientCreate("http","21mybbs.me","http://21mybbs.me/forum.php");
             mmLoging(username,password);
         }else{
@@ -141,16 +141,16 @@ public class UploadTask_2015_05_24 extends Thread{
     }
 
     /**
-     * µÇÂ¼MM¹«Ô¢µÄ·½·¨
+     * ç™»å½•MMå…¬å¯“çš„æ–¹æ³•
      */
     public void mmLoging(String username,String password) throws IOException, CloneNotSupportedException {
-        // ´´½¨httppost
+        // åˆ›å»ºhttppost
         HttpPost httppost = new HttpPost(loginPostUrl);
-        // ´´½¨²ÎÊı¶ÓÁĞ
+        // åˆ›å»ºå‚æ•°é˜Ÿåˆ—
         List<NameValuePair> list = new ArrayList<NameValuePair>();
-        //--ĞÂ°ÍÀè²ÎÊı
+        //--æ–°å·´é»å‚æ•°
 //        list.add(new BasicNameValuePair("formhash", getFormhash(index,"formhash")));
-        //--mm¹«Ô¢µÄ²ÎÊı
+        //--mmå…¬å¯“çš„å‚æ•°
         list.add(new BasicNameValuePair("fastloginfield", "username"));
         list.add(new BasicNameValuePair("quickforward", "yes"));
         list.add(new BasicNameValuePair("handlekey", "1s"));
@@ -164,7 +164,7 @@ public class UploadTask_2015_05_24 extends Thread{
     }
 
     /**
-     * ³õÊ¼»¯·½·¨
+     * åˆå§‹åŒ–æ–¹æ³•
      */
     public void init(){
         List<GcBean> rows=JDBCSkydriveUtil.getAllCollectLogs();
@@ -172,17 +172,17 @@ public class UploadTask_2015_05_24 extends Thread{
         for(int i=0;i<rows.size();i++){
             Map map= (Map) rows.get(i);
             System.out.println(map.toString());
-            //½çÃæÑ¡ÔñÊÇ·ñÉÏ´«¸½¼ş:ÊÇ
+            //ç•Œé¢é€‰æ‹©æ˜¯å¦ä¸Šä¼ é™„ä»¶:æ˜¯
             if("yes".equals(this.withFile)){
-                //Èç¹û°üº¬¸½¼şµÄÊ±ºò£¬ÔòÊ¹ÓÃ´Ë·½·¨ÉÏ´«
+                //å¦‚æœåŒ…å«é™„ä»¶çš„æ—¶å€™ï¼Œåˆ™ä½¿ç”¨æ­¤æ–¹æ³•ä¸Šä¼ 
                 if("phpwind".equals(type)){
                     uploadForPHPWind(uploadUrl,map);
                 }   else{
 //                    upload(uploadUrl,map);
                 }
             }else{
-                //½çÃæÑ¡ÔñÊÇ·ñÉÏ´«¸½¼ş:·ñ
-                //·¢²¼´¿ÎÄ±¾ÏûÏ¢
+                //ç•Œé¢é€‰æ‹©æ˜¯å¦ä¸Šä¼ é™„ä»¶:å¦
+                //å‘å¸ƒçº¯æ–‡æœ¬æ¶ˆæ¯
                 if("nomal".equals(type)){
                     normalPost(uploadUrl, map);
                 }else if("phpwind".equals(type)){
@@ -195,7 +195,7 @@ public class UploadTask_2015_05_24 extends Thread{
         }
     }
     /**
-     * Õë¶ÔÓÚÇ°¶ËÆÕÍ¨µÄform±íµ¥½øĞĞpostÌá½»
+     * é’ˆå¯¹äºå‰ç«¯æ™®é€šçš„formè¡¨å•è¿›è¡Œpostæäº¤
      * @param url
      * @param map
      */
@@ -239,43 +239,43 @@ public class UploadTask_2015_05_24 extends Thread{
     }
 
     /**
-     * ´¿ÎÄ±¾·¢²¼ÄÚÈİ ²»´ø¸½¼ş
+     * çº¯æ–‡æœ¬å‘å¸ƒå†…å®¹ ä¸å¸¦é™„ä»¶
      * @param url
      * @param map
      */
     public void uploadNoFile(String url,Map map){
         HttpPost post = new HttpPost(url);
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//ÉèÖÃÎªä¯ÀÀÆ÷¼æÈİÄ£Ê½
-        builder.setCharset(Charset.forName(GBK));// ÉèÖÃÇëÇóµÄ±àÂë¸ñÊ½
-        builder.addTextBody("formhash", getFormhash(postPage,"formhash"), ContentType.TEXT_PLAIN);//ÉèÖÃformhash£¬´Ó·¢±íÌû×ÓÒ³Ãæ¶ÁÈ¡formhash²ÎÊıÌî³ä
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//è®¾ç½®ä¸ºæµè§ˆå™¨å…¼å®¹æ¨¡å¼
+        builder.setCharset(Charset.forName(GBK));// è®¾ç½®è¯·æ±‚çš„ç¼–ç æ ¼å¼
+        builder.addTextBody("formhash", getFormhash(postPage,"formhash"), ContentType.TEXT_PLAIN);//è®¾ç½®formhashï¼Œä»å‘è¡¨å¸–å­é¡µé¢è¯»å–formhashå‚æ•°å¡«å……
         builder.addTextBody("isblog", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("frombbs", "1", ContentType.TEXT_PLAIN);
-        //ÉèÖÃStringBody ±àÂëGBK·ÀÖ¹ÂÒÂë
+        //è®¾ç½®StringBody ç¼–ç GBKé˜²æ­¢ä¹±ç 
         String subjectStr=map.get("title").toString()+"["+map.get("size")+"]";
         StringBody  subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
-        //ÄÚÈİ -´Ë´¦µÄ´¿ÎÄ±¾¿ÉÒÔÊ¹ÓÃ±¾µØËù´æµÄtxtÎÄµµµÄÄÚÈİ»òÕßÊ¹ÓÃÊı¾İ¿âÖĞmessage×Ö¶ÎµÄÄÚÈİ¶¼ĞĞ
-//        String msg=map.get("title").toString()+"\r\nÓ°Æ¬´óĞ¡ÓëÀàĞÍ:"+map.get("size")+"Ô¤ÀÀÍ¼Æ¬:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
+        //å†…å®¹ -æ­¤å¤„çš„çº¯æ–‡æœ¬å¯ä»¥ä½¿ç”¨æœ¬åœ°æ‰€å­˜çš„txtæ–‡æ¡£çš„å†…å®¹æˆ–è€…ä½¿ç”¨æ•°æ®åº“ä¸­messageå­—æ®µçš„å†…å®¹éƒ½è¡Œ
+//        String msg=map.get("title").toString()+"\r\nå½±ç‰‡å¤§å°ä¸ç±»å‹:"+map.get("size")+"é¢„è§ˆå›¾ç‰‡:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
         String msg=map.get("message").toString()+"\r\n"+"[img]"+map.get("picUrl")+"[/img]";
         StringBody   message=new StringBody(msg,ContentType.create("text/plain", GBK));
-        builder.addTextBody("selecttypeid", "33", ContentType.TEXT_PLAIN); //Ñ¡ÔñµÄÖ÷ÌâÀàĞÍ
-        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//Ö÷ÌâÀàĞÍ
-        builder.addPart("subject", subject);//Ìû×Ó±êÌâ
-        builder.addPart("message", message); //Ìû×ÓÄÚÈİ
+        builder.addTextBody("selecttypeid", "33", ContentType.TEXT_PLAIN); //é€‰æ‹©çš„ä¸»é¢˜ç±»å‹
+        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//ä¸»é¢˜ç±»å‹
+        builder.addPart("subject", subject);//å¸–å­æ ‡é¢˜
+        builder.addPart("message", message); //å¸–å­å†…å®¹
         builder.addTextBody("localid[]", "1", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachperm[]", "0", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachprice[]", "0", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachdesc[]", "111", ContentType.TEXT_PLAIN);
         builder.addTextBody("readperm", "0", ContentType.TEXT_PLAIN);
         builder.addTextBody("tags", "", ContentType.TEXT_PLAIN);
-        builder.addTextBody("price", "0", ContentType.TEXT_PLAIN);//µ¥¼Û
-        builder.addTextBody("iconid", "0", ContentType.TEXT_PLAIN);//Í¼±êid
+        builder.addTextBody("price", "0", ContentType.TEXT_PLAIN);//å•ä»·
+        builder.addTextBody("iconid", "0", ContentType.TEXT_PLAIN);//å›¾æ ‡id
         builder.addTextBody("wysiwyg", "0", ContentType.TEXT_PLAIN);//
 //
         HttpEntity entity = builder.build();
         post.setEntity(entity);
 //        long length = entity.getContentLength();
-//        System.out.println("³¤¶È..."+length);
+//        System.out.println("é•¿åº¦..."+length);
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
@@ -287,7 +287,7 @@ public class UploadTask_2015_05_24 extends Thread{
 //            if (eee != null) {
 //                System.out.println("--------------------------------------");
 //                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
-//                fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime() + "[" + doc.select("div[class=box message]").toString() + "]");//´òÓ¡µ±Ç°taskÏß³ÌÈÕÖ¾
+//                fileOperate.appendMethodB(logPath, DateUtil.getStrOfDateTime() + "[" + doc.select("div[class=box message]").toString() + "]");//æ‰“å°å½“å‰taskçº¿ç¨‹æ—¥å¿—
 //                System.out.println("--------------------------------------");
 //            } else{
 //                System.out.println("upload error!");
@@ -299,9 +299,9 @@ public class UploadTask_2015_05_24 extends Thread{
     public void uploadForPHPWindNoFile(String url,Map map){
         HttpPost post = new HttpPost(url);
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//ÉèÖÃÎªä¯ÀÀÆ÷¼æÈİÄ£Ê½
-        builder.setCharset(Charset.forName(GBK));// ÉèÖÃÇëÇóµÄ±àÂë¸ñÊ½
-        builder.addTextBody("verify", getFormhash(postPage, "verify"), ContentType.TEXT_PLAIN);//ÉèÖÃformhash£¬´Ó·¢±íÌû×ÓÒ³Ãæ¶ÁÈ¡formhash²ÎÊıÌî³ä
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//è®¾ç½®ä¸ºæµè§ˆå™¨å…¼å®¹æ¨¡å¼
+        builder.setCharset(Charset.forName(GBK));// è®¾ç½®è¯·æ±‚çš„ç¼–ç æ ¼å¼
+        builder.addTextBody("verify", getFormhash(postPage, "verify"), ContentType.TEXT_PLAIN);//è®¾ç½®formhashï¼Œä»å‘è¡¨å¸–å­é¡µé¢è¯»å–formhashå‚æ•°å¡«å……
         builder.addTextBody("magicname", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("magicid", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("p_type", "2", ContentType.TEXT_PLAIN);
@@ -328,12 +328,12 @@ public class UploadTask_2015_05_24 extends Thread{
         StringBody  subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
         String msg=map.get("message").toString()+"\r\n"+"[img]"+map.get("picUrl")+"[/img]";
         StringBody   message=new StringBody(msg,ContentType.create("text/plain", GBK));
-        builder.addPart("atc_title", subject);//Ìû×Ó±êÌâ
-        builder.addPart("atc_content", message); //Ìû×ÓÄÚÈİ
+        builder.addPart("atc_title", subject);//å¸–å­æ ‡é¢˜
+        builder.addPart("atc_content", message); //å¸–å­å†…å®¹
         HttpEntity entity = builder.build();
         post.setEntity(entity);
 //        long length = entity.getContentLength();
-//        System.out.println("³¤¶È..."+length);
+//        System.out.println("é•¿åº¦..."+length);
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
@@ -346,8 +346,8 @@ public class UploadTask_2015_05_24 extends Thread{
 //                System.out.println("--------------------------------------");
 //                String content=EntityUtils.toString(eee, GBK);
 //                System.out.println("Response content: " +content );
-//                if(content.contains("·¢ÌûÍê±Ï")){
-//                    UploadUI.jta.append("·¢²¼³É¹¦"+map.get("title")+"\n");
+//                if(content.contains("å‘å¸–å®Œæ¯•")){
+//                    UploadUI.jta.append("å‘å¸ƒæˆåŠŸ"+map.get("title")+"\n");
 //                }
 //                System.out.println("--------------------------------------");
 //            } else{
@@ -358,7 +358,7 @@ public class UploadTask_2015_05_24 extends Thread{
         }
     }
     /**
-     * Õë¶ÔphpwindµÄÉÏ´«
+     * é’ˆå¯¹phpwindçš„ä¸Šä¼ 
      * @param url
      * @param map
      */
@@ -367,9 +367,9 @@ public class UploadTask_2015_05_24 extends Thread{
 //        File file = new File(folderpath+this.getName()+"\\"+map.get("title"));
         File file = new File(folderpath+map.get("title"));
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//ÉèÖÃÎªä¯ÀÀÆ÷¼æÈİÄ£Ê½
-        builder.setCharset(Charset.forName(GBK));// ÉèÖÃÇëÇóµÄ±àÂë¸ñÊ½
-        builder.addTextBody("verify", getFormhash(postPage, "verify"), ContentType.TEXT_PLAIN);//ÉèÖÃformhash£¬´Ó·¢±íÌû×ÓÒ³Ãæ¶ÁÈ¡formhash²ÎÊıÌî³ä
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//è®¾ç½®ä¸ºæµè§ˆå™¨å…¼å®¹æ¨¡å¼
+        builder.setCharset(Charset.forName(GBK));// è®¾ç½®è¯·æ±‚çš„ç¼–ç æ ¼å¼
+        builder.addTextBody("verify", getFormhash(postPage, "verify"), ContentType.TEXT_PLAIN);//è®¾ç½®formhashï¼Œä»å‘è¡¨å¸–å­é¡µé¢è¯»å–formhashå‚æ•°å¡«å……
         builder.addTextBody("magicname", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("magicid", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("atc_iconid", "0", ContentType.TEXT_PLAIN);
@@ -397,12 +397,12 @@ public class UploadTask_2015_05_24 extends Thread{
         StringBody subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
         String msg=map.get("message").toString()+"\r\n"+"[img]"+map.get("picUrl")+"[/img]";
         StringBody   message=new StringBody(msg,ContentType.create("text/plain", GBK));
-        builder.addPart("atc_title", subject);//Ìû×Ó±êÌâ
-        builder.addPart("atc_content", message); //Ìû×ÓÄÚÈİ
+        builder.addPart("atc_title", subject);//å¸–å­æ ‡é¢˜
+        builder.addPart("atc_content", message); //å¸–å­å†…å®¹
         HttpEntity entity = builder.build();
         post.setEntity(entity);
 //        long length = entity.getContentLength();
-//        System.out.println("³¤¶È..."+length);
+//        System.out.println("é•¿åº¦..."+length);
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
@@ -414,8 +414,8 @@ public class UploadTask_2015_05_24 extends Thread{
 //               System.out.println("--------------------------------------");
 //               String content=EntityUtils.toString(eee, GBK);
 //               System.out.println("Response content: " +content );
-//               if(content.contains("·¢ÌûÍê±Ï")){
-//                   UploadUI.jta.append("·¢²¼³É¹¦"+map.get("title")+"\n");
+//               if(content.contains("å‘å¸–å®Œæ¯•")){
+//                   UploadUI.jta.append("å‘å¸ƒæˆåŠŸ"+map.get("title")+"\n");
 //               }
 //               System.out.println("--------------------------------------");
 //           } else{
@@ -427,34 +427,34 @@ public class UploadTask_2015_05_24 extends Thread{
     }
 
     /**
-     * post½Ó¿ÚÉÏ´«¸½¼şºÍÆÕÍ¨²ÎÊıµÄ·½·¨
-     * @param url ÉÏ´«post½Ó¿Ú
+     * postæ¥å£ä¸Šä¼ é™„ä»¶å’Œæ™®é€šå‚æ•°çš„æ–¹æ³•
+     * @param url ä¸Šä¼ postæ¥å£
      */
     public  void upload(String url,GcBean bean){
         HttpPost post = new HttpPost(url);
 //        File file = new File(folderpath+this.getName()+"\\"+map.get("title"));
         File file = new File(folderpath+bean.getName()+"."+bean.getType());
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//ÉèÖÃÎªä¯ÀÀÆ÷¼æÈİÄ£Ê½
-        builder.setCharset(Charset.forName(GBK));// ÉèÖÃÇëÇóµÄ±àÂë¸ñÊ½
-        builder.addTextBody("formhash", getFormhash(postPage,"formhash"), ContentType.TEXT_PLAIN);//ÉèÖÃformhash£¬´Ó·¢±íÌû×ÓÒ³Ãæ¶ÁÈ¡formhash²ÎÊıÌî³ä
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);//è®¾ç½®ä¸ºæµè§ˆå™¨å…¼å®¹æ¨¡å¼
+        builder.setCharset(Charset.forName(GBK));// è®¾ç½®è¯·æ±‚çš„ç¼–ç æ ¼å¼
+        builder.addTextBody("formhash", getFormhash(postPage,"formhash"), ContentType.TEXT_PLAIN);//è®¾ç½®formhashï¼Œä»å‘è¡¨å¸–å­é¡µé¢è¯»å–formhashå‚æ•°å¡«å……
         builder.addTextBody("isblog", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("frombbs", "1", ContentType.TEXT_PLAIN);
 
-        //ÉèÖÃStringBody ±àÂëGBK·ÀÖ¹ÂÒÂë
+        //è®¾ç½®StringBody ç¼–ç GBKé˜²æ­¢ä¹±ç 
         String subjectStr=bean.getName()+"."+bean.getType();
         StringBody  subject=new StringBody(subjectStr,ContentType.create("text/plain",GBK));
-        //ÄÚÈİ
-//        String msg=map.get("title").toString()+"\r\nÓ°Æ¬´óĞ¡ÓëÀàĞÍ:"+map.get("size")+"Ô¤ÀÀÍ¼Æ¬:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
+        //å†…å®¹
+//        String msg=map.get("title").toString()+"\r\nå½±ç‰‡å¤§å°ä¸ç±»å‹:"+map.get("size")+"é¢„è§ˆå›¾ç‰‡:\r\n"+"[img]"+map.get("picUrl")+"[/img]";
         String msg=bean.getContent();
         StringBody   message=new StringBody(msg,ContentType.create("text/plain", GBK));
-        //typeidĞèÒª¸ù¾İ¾ßÌåµÄ¶ÁÈ¡
-        builder.addTextBody("frombbs", "33", ContentType.TEXT_PLAIN); //Ñ¡ÔñµÄÖ÷ÌâÀàĞÍ
-        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//Ö÷ÌâÀàĞÍ
-//        builder.addTextBody("selecttypeid", "2", ContentType.TEXT_PLAIN); //Ñ¡ÔñµÄÖ÷ÌâÀàĞÍ
-//        builder.addTextBody("typeid", "2", ContentType.TEXT_PLAIN);//Ö÷ÌâÀàĞÍ
-        builder.addPart("subject", subject);//Ìû×Ó±êÌâ
-        builder.addPart("message", message); //Ìû×ÓÄÚÈİ
+        //typeidéœ€è¦æ ¹æ®å…·ä½“çš„è¯»å–
+        builder.addTextBody("frombbs", "33", ContentType.TEXT_PLAIN); //é€‰æ‹©çš„ä¸»é¢˜ç±»å‹
+        builder.addTextBody("typeid", "33", ContentType.TEXT_PLAIN);//ä¸»é¢˜ç±»å‹
+//        builder.addTextBody("selecttypeid", "2", ContentType.TEXT_PLAIN); //é€‰æ‹©çš„ä¸»é¢˜ç±»å‹
+//        builder.addTextBody("typeid", "2", ContentType.TEXT_PLAIN);//ä¸»é¢˜ç±»å‹
+        builder.addPart("subject", subject);//å¸–å­æ ‡é¢˜
+        builder.addPart("message", message); //å¸–å­å†…å®¹
         builder.addBinaryBody("attach[]", file, ContentType.APPLICATION_OCTET_STREAM, folderpath + bean.getName()+"."+bean.getType());
         builder.addTextBody("localid[]", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("attachperm[]", "0", ContentType.TEXT_PLAIN);
@@ -462,14 +462,14 @@ public class UploadTask_2015_05_24 extends Thread{
         builder.addTextBody("attachdesc[]", "", ContentType.TEXT_PLAIN);
         builder.addTextBody("readperm", "0", ContentType.TEXT_PLAIN);
         builder.addTextBody("tags", "", ContentType.TEXT_PLAIN);
-        builder.addTextBody("price", "0", ContentType.TEXT_PLAIN);//µ¥¼Û
-        builder.addTextBody("iconid", "0", ContentType.TEXT_PLAIN);//Í¼±êid
+        builder.addTextBody("price", "0", ContentType.TEXT_PLAIN);//å•ä»·
+        builder.addTextBody("iconid", "0", ContentType.TEXT_PLAIN);//å›¾æ ‡id
         builder.addTextBody("wysiwyg", "0", ContentType.TEXT_PLAIN);//
 //
         HttpEntity entity = builder.build();
         post.setEntity(entity);
 //        long length = entity.getContentLength();
-//        System.out.println("³¤¶È..."+length);
+//        System.out.println("é•¿åº¦..."+length);
         try {
             HttpResponse response=httpclient.execute(post);
             HttpEntity eee = response.getEntity();
@@ -481,7 +481,7 @@ public class UploadTask_2015_05_24 extends Thread{
 //                System.out.println("--------------------------------------");
 //                System.out.println("Response content: " + EntityUtils.toString(eee, GBK));
 //                if(eee.toString().length()<1000){
-//                    UploadUI.jta.append("·¢²¼³É¹¦"+map.get("title")+"\n");
+//                    UploadUI.jta.append("å‘å¸ƒæˆåŠŸ"+map.get("title")+"\n");
 //                }
 //                System.out.println("--------------------------------------");
 //            } else{
@@ -492,19 +492,19 @@ public class UploadTask_2015_05_24 extends Thread{
         }
     }
     /**
-     * Õë¶ÔPHPµÄµÇÂ¼³ÌĞò
+     * é’ˆå¯¹PHPçš„ç™»å½•ç¨‹åº
      * @param username
      * @param password
      */
     public void loginPHPWind(String username,String password){
-        // ´´½¨httppost
+        // åˆ›å»ºhttppost
         HttpPost httppost = new HttpPost(loginPostUrl);
-        // ´´½¨²ÎÊı¶ÓÁĞ
+        // åˆ›å»ºå‚æ•°é˜Ÿåˆ—
         List<NameValuePair> list = new ArrayList<NameValuePair>();
         list.add(new BasicNameValuePair("forward", "http://lianyu.org/post.php?fid-"+fid+".htm"));
         list.add(new BasicNameValuePair("jumpurl", "http://lianyu.org/post.php?fid-"+fid+".htm"));
         list.add(new BasicNameValuePair("step", "2"));
-        list.add(new BasicNameValuePair("hideid", "0")); //Á¶Óüµº
+        list.add(new BasicNameValuePair("hideid", "0")); //ç‚¼ç‹±å²›
         list.add(new BasicNameValuePair("cktime", "31536000"));
         list.add(new BasicNameValuePair("lgt", "0"));
         list.add(new BasicNameValuePair("question", "0"));
@@ -526,7 +526,7 @@ public class UploadTask_2015_05_24 extends Thread{
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     Document doc= crawlerUtil.getDocument(entity,GBK);
-                    if(doc!=null&&doc.toString().contains("Ë³Àû")){
+                    if(doc!=null&&doc.toString().contains("é¡ºåˆ©")){
                         System.out.println(".."+doc.toString());
                         System.out.println(username + "login success");
                     }  else{
@@ -547,14 +547,14 @@ public class UploadTask_2015_05_24 extends Thread{
     }
 
     /**
-     * µÇÂ¼·½·¨
+     * ç™»å½•æ–¹æ³•
      */
     public  void login(String username,String password) {
-        // ´´½¨httppost
+        // åˆ›å»ºhttppost
         HttpPost httppost = new HttpPost(loginPostUrl);
-        // ´´½¨²ÎÊı¶ÓÁĞ
+        // åˆ›å»ºå‚æ•°é˜Ÿåˆ—
         List<NameValuePair> list = new ArrayList<NameValuePair>();
-        //--ĞÂ°ÍÀè²ÎÊı
+        //--æ–°å·´é»å‚æ•°
         list.add(new BasicNameValuePair("formhash", getFormhash(index,"formhash")));
         list.add(new BasicNameValuePair("cookietime", "2592000"));
         list.add(new BasicNameValuePair("referer", "http://107.150.17.66"));
@@ -564,7 +564,7 @@ public class UploadTask_2015_05_24 extends Thread{
         list.add(new BasicNameValuePair("loginmode", ""));
         list.add(new BasicNameValuePair("styleid", ""));
         list.add(new BasicNameValuePair("loginsubmit", "true"));
-        //--mm¹«Ô¢µÄ²ÎÊı
+        //--mmå…¬å¯“çš„å‚æ•°
 //        list.add(new BasicNameValuePair("fastloginfield", "username"));
 //        list.add(new BasicNameValuePair("quickforward", "yes"));
 //        list.add(new BasicNameValuePair("handlekey", "1s"));
@@ -600,9 +600,9 @@ public class UploadTask_2015_05_24 extends Thread{
         }
     }
     /**
-     * »ñµÃµ±Ç°·¢±íĞÂÌûÒ³ÃæµÄformhash ·ÅÈë²ÎÊıÖĞ
+     * è·å¾—å½“å‰å‘è¡¨æ–°å¸–é¡µé¢çš„formhash æ”¾å…¥å‚æ•°ä¸­
      * @param url
-     * @param keyname Òª»ñµÃµÄÒş²Ø²ÎÊı
+     * @param keyname è¦è·å¾—çš„éšè—å‚æ•°
      * @throws IOException
      */
     public  String  getFormhash(String url,String keyname)  {
