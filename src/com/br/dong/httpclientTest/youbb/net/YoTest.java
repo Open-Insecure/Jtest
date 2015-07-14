@@ -15,6 +15,12 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,32 +28,34 @@ import java.security.NoSuchAlgorithmException;
  * Date: 2015-06-12
  * Time: 14:45
  * youbb站点的最爱视频采集测试
- * http://youbbb.net/videos?c=1&o=tf&page=1  最爱
- * http://youbbb.net/videos?c=1&o=mr &page=1最新
+ * http://youb444.com/videos?c=1&o=tf&page=1  最爱
+ * http://youb444.com/videos?c=1&o=mr&page=1 最新
  */
-public class Test {
+public class YoTest {
 
-    private static String absUrl="http://youbbb.net";
-    private static String favUrlPre="http://youbbb.net/videos?c=1&o=tf&page=";//最爱前缀
-    private static String latestUrlPre="http://youbbb.net/videos?c=1&o=mr&page=";//最新前缀
-    private static String getDownLoadUrlTargetUrl="http://youbbb.net/media/player/config.php?vkey=9549";//获得视频下载地址的请求目标url
+    private static String host="youb444.com";//采集的目标站点host
+    private static String absUrl="http://"+host;//给视频资源请求使用的前缀
+    private static String favUrlPre=absUrl+"/videos?c=1&o=tf&page=";//最爱前缀
+    private static String latestUrlPre=absUrl+"/videos?c=1&o=mr&page=";//最新前缀
+    private static String configUrl=absUrl+"/media/player/config.php?vkey=";//获得视频下载地址的请求目标url
     private static int DEFAULT_PAGE=10;//默认采集page最大为10
-    private static Logger logger = Logger.getLogger(Test.class);
-    private static CrawlerUtil crawlerUtil=new CrawlerUtil();
+    private static Logger logger = Logger.getLogger(YoTest.class);//日志
+    private static CrawlerUtil crawlerUtil=new CrawlerUtil();//工具类
+    // 建立一个容量为5的固定尺寸的线程池
+    private static ExecutorService executor = Executors.newFixedThreadPool(5);
     public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException, IOException, CloneNotSupportedException {
         String sectionUrl=latestUrlPre + 1;
-        crawlerUtil.clientCreate("http", "youbbb.net", sectionUrl);
+        crawlerUtil.clientCreate("http", host, sectionUrl);
        try{
            int count=getTotalPagerNumber(sectionUrl);
-           for(int i=1;i<=count;i++){
-
-           }
+//           for(int i=1;i<=count;i++){
+//           }
            parsePage(latestUrlPre+1);
        }catch (Exception e){
             e.printStackTrace();
        }
 
-        System.out.println(readDownloadFileInfo("http://vip.youb77.com:81/media/you22/flv/9263.flv"));//返回文件大小
+//        System.out.println(readDownloadFileInfo("http://vip.youb77.com:81/media/you22/flv/9263.flv"));//返回文件大小
     }
 
     /**
@@ -60,16 +68,27 @@ public class Test {
         if (response==null) return;
         Document document=crawlerUtil.getDocUTF8(response);
         Elements elements=document.select("div[class=video_box]");
+        List<YoubbSimplyBean> list=new ArrayList<YoubbSimplyBean>();
         for(Element element:elements){
 //            System.out.println(element.toString());
-            String title=absUrl+element.select("a").attr("href");//获得标题
-            String imgUlr=absUrl+element.select("img").attr("src");//获得视频预览图片url地址
+            String title=element.select("img").attr("title");//获得标题
+//            String imgUlr=absUrl+element.select("img").attr("src");//获得视频预览图片url地址
             String videoTime=element.select("div[class=box_left]").text();//视频时长
+            String vkey=element.select("a").attr("href").replace("/video/", "").substring(0, element.select("a").attr("href").replace("/video/", "").indexOf("/"));//获得vkey
             //获得视频的id
-            System.out.println(title+imgUlr+videoTime);
+            System.out.println(title +vkey+ videoTime  );
+            list.add(new YoubbSimplyBean(vkey,title,videoTime));
         }
-
-
+        YoubbTaskThread task = new YoubbTaskThread("thread",crawlerUtil,configUrl,list);
+        Future<String> result = executor.submit(task);
+        try {
+            System.out.println("task运行结果"+result.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        destoryAtFinsh();
     }
 
     /**
@@ -119,4 +138,22 @@ public class Test {
         return DEFAULT_PAGE;
     }
 
+    /**
+     * 当所有子线程结束的时候自动退出程序
+     */
+    public static void destoryAtFinsh(){
+        executor.shutdown();
+        while (true) {
+            if (executor.isTerminated()) {
+                break;
+            }
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+        System.out.println("采集结束");
+        System.exit(0);
+    }
 }

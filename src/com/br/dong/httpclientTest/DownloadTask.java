@@ -32,9 +32,9 @@ import sun.rmi.runtime.Log;
  */
 public class DownloadTask {
 	public static void main(String[] args) {
-	    String url="http://vip.youb66.com:81/media/you22/flv/8486.flv";
+	    String url="http://vip.youb77.com:81/media/you22/flv/9735.flv";
 //	    String url="http://216.157.102.148/~yxgypic1/2014/2014-8/2014-8-17/65.jpg";
-		String saveFile="E:\\video\\aa.flv";
+		String saveFile="E:\\video\\9735.flv";
 		String type="http";
 		String hosturl="vip.youb66.com:81";
 //		String hosturl="91.v4p.co";//新地址！！！
@@ -201,7 +201,7 @@ public class DownloadTask {
 		//检测是否支持range断点下载
 		if (response.getStatusLine().getStatusCode() == 206) {
 			acceptRanges = true;
-			System.out.println("支持 range方式下载，目标文件大小："+contentLength+" 启用"+threadCount+"个线程下载");
+			System.out.println("支持 range方式下载，目标文件大小："+contentLength/(1024*1024)+" 启用"+threadCount+"个线程下载");
 		} else {
 			acceptRanges = false;
 			System.out.println("不支持range方式下载，目标文件大小："+contentLength);
@@ -252,7 +252,7 @@ public class DownloadTask {
 					Calendar time1 = Calendar.getInstance();
 					System.out.println(file + "总耗时为：" + (endMili - startMili)
 							+ "毫秒");
-					//调用下载全部完成
+					//调用DownloadTask的监听下载全部完成
 					listener.downloadCompleted();
 				}
 				if (getDebug()) {
@@ -264,7 +264,7 @@ public class DownloadTask {
 		// --不支持多线程下载时
 		if (!acceptRanges) {
 			System.out.println("该地址不支持多线程下载");
-			// 定义普通下载
+			// 定义普通下载 不支持range下载
 			DownloadThread thread = new DownloadThread(url, 0, contentLength,
 					file, false,type,hosturl,refUrl);
 			//每个单独的线程都添加监听
@@ -416,13 +416,11 @@ public class DownloadTask {
 				//响应的状态码
 				int statusCode = response.getStatusLine().getStatusCode();
 				if (statusCode == 206 || (statusCode == 200 && !isRange)) {
-					java.io.InputStream inputStream = response.getEntity()
-							.getContent();
-					RandomAccessFile outputStream = new RandomAccessFile(file,
-							"rw");
-					outputStream.seek(startPosition);
+					java.io.InputStream inputStream = response.getEntity().getContent();//从响应中获得内容创建输入流
+					RandomAccessFile outputStream = new RandomAccessFile(file,"rw");//创建文件输出流
+					outputStream.seek(startPosition);//移动到文件的指定输出起始位置
 					int count = 0;
-					byte[] buffer = new byte[10240];
+					byte[] buffer = new byte[10240];//文件缓冲区
 					while ((count = inputStream.read(buffer, 0, buffer.length)) > 0) {
 						outputStream.write(buffer, 0, count);
 						downloaded += count;

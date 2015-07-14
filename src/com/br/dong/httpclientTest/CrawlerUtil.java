@@ -66,8 +66,8 @@ public class CrawlerUtil {
     private static String GB_2312="gb2312" ;
     //超时时间 获得响应的超时时间
     private static int TIME_OUT_TIME=5*1000;
-    //socket超时时间 传输数据的超时时间
-    private static int SO_TIMEOUT_TIME=5*10000;
+    //socket超时时间 传输数据的超时时间 貌似与下载的链接持续时间无关？
+    private static int SO_TIMEOUT_TIME=50*1000;
 	//想要带入的参数，可以根据需要扩展
 	private String parm1;
 	//使用cookie

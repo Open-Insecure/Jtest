@@ -136,8 +136,8 @@ public class Dom4jParseXmlDemo {
 	//---主方法
     public static void main(String[] args) {  
         Dom4jParseXmlDemo demo = new Dom4jParseXmlDemo();  
-        demo.parseXml01();  
+//        demo.parseXml01();
         demo.parseXml02();
-        demo.parseXml03();
+//        demo.parseXml03();
     }  
 }  

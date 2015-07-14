@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * */
 public class ChangXMLElement {
 	public static void main(String[] args) {  
-	    String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><modules id=\"123\"><module> 这个是module标签的文本信息<name>oa</name><value>系统基本配置</value><descript>对系统的基本配置根目录</descript></module></modules>";  
+	    String str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><modules id=\"123\"><module> 这个是module标签的文本信息<name>oa</name><value>系统基本配置</value><descript>对系统的基本配置根目录</descript></module></modules>";
 	    System.out.println(str.replaceAll("<[^<]*>", "_"));   
 	    Pattern pattern = Pattern.compile("<[^<]*>");  
 	    Matcher matcher = pattern.matcher(str);  
