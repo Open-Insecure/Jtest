@@ -15,8 +15,9 @@ import java.util.concurrent.Callable;
  * User: hexor
  * Date: 2015-07-08
  * Time: 22:07
- * 针对youb444.com的采集线程并进行入库
+ * 测试遗留类，可以参考。
  */
+@Deprecated
 public class YoubbTaskThread implements Callable<String> {
 
     private CrawlerUtil crawlerUtil=null;//采集通用工具类
@@ -76,7 +77,6 @@ public class YoubbTaskThread implements Callable<String> {
             }catch (Exception e){
                 msg=msg+"[vkey:"+simplyBean.getVkey()+" fall]";//获得当前veky的文件信息请求错误
             }
-
     }
 
     /**

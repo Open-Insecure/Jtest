@@ -65,9 +65,9 @@ public class CrawlerUtil {
 	private static String DECODE_GBK="GBK";
     private static String GB_2312="gb2312" ;
     //超时时间 获得响应的超时时间
-    private static int TIME_OUT_TIME=5*1000;
+    private static int TIME_OUT_TIME=30*1000;
     //socket超时时间 传输数据的超时时间 貌似与下载的链接持续时间无关？
-    private static int SO_TIMEOUT_TIME=50*1000;
+    private static int SO_TIMEOUT_TIME=500*1000;
 	//想要带入的参数，可以根据需要扩展
 	private String parm1;
 	//使用cookie
@@ -124,7 +124,7 @@ public class CrawlerUtil {
 		}
 		//设置cookie
 	    client.setCookieStore(cookieStore);
-		System.out.println("cookie:"+cookieStore.toString());
+//		System.out.println("cookie:"+cookieStore.toString());
 		//设置浏览器参数
 		String HEADER_HOST = host;
 		String HEADER_CONNECTION = "keep-alive";
@@ -501,10 +501,7 @@ public class CrawlerUtil {
 		HttpResponse response=null;
 		try {
 			response=client.execute(get);
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

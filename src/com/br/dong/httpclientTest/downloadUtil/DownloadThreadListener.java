@@ -12,7 +12,7 @@ import java.util.EventListener;
 /**
  *具体的对监听的事件类 继承EventListener
  */
-interface DownloadThreadListener extends EventListener {
+public interface DownloadThreadListener extends EventListener {
 
     /**
      * 下载过程的监听方法

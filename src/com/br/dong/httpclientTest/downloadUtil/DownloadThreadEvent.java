@@ -19,7 +19,7 @@ public class DownloadThreadEvent extends EventObject {
         this.count = count;
     }
 
-    float getCount() {
+    public float getCount() {
         return count;
     }
 

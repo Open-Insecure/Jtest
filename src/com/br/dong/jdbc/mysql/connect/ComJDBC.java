@@ -58,31 +58,22 @@ public class ComJDBC {
     }
 
     /**
-     * 执行不返回结果的sql
-     * @param sql
+     * 执行数据库操作
+     * @param sql sql语句
+     * @return 返回操作影响的数据库条数
      */
-    public void executeSql(String sql){
+    public int executeSql(String sql){
 
         System.out.println("SQL:"+sql);
-        ResultSet rs=null;
+        int rs=0;//返回的是更新的条数
         Statement st=null;
         try{
             st=conn.createStatement();
-            rs=st.executeQuery(sql);
-            System.out.println(sql);
+            rs=st.executeUpdate(sql);
         }catch (SQLException e) {
             System.out.println(e);
             e.printStackTrace();
         }  finally{
-            if(rs!=null){
-                try {
-                    rs.close();
-                    System.out.println("关闭 rs>>>" + new java.util.Date());
-                } catch (SQLException e) {
-                    System.out.println(e);
-                    e.printStackTrace();
-                }
-            }
             if(st!=null){
                 try {
                     st.close();
@@ -91,10 +82,9 @@ public class ComJDBC {
                     System.out.println(e);
                     e.printStackTrace();
                 }
-
             }
-
         }
+        return rs;
     }
 
     /**
@@ -104,7 +94,6 @@ public class ComJDBC {
      * @throws Exception 当连接不上的时候 抛出异常，当做一条报警记录插入
      */
     public List getExecuteQuery (String sql) throws NullPointerException{
-        System.out.println("SQL:"+sql);
         List list;
         list = new ArrayList();
         ResultSet rs=null;
@@ -114,7 +103,6 @@ public class ComJDBC {
             st=conn.createStatement();  //连接不上的时候conn为null 抛出空指针异常
             Map map;
             rs=st.executeQuery(sql);
-            System.out.println(sql);
 
             while(rs.next())
             {

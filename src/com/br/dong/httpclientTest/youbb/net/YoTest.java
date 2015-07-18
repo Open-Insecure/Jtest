@@ -30,7 +30,9 @@ import java.util.concurrent.Future;
  * youbb站点的最爱视频采集测试
  * http://youb444.com/videos?c=1&o=tf&page=1  最爱
  * http://youb444.com/videos?c=1&o=mr&page=1 最新
+ * 测试遗留类，可以参考。
  */
+@Deprecated
 public class YoTest {
 
     private static String host="youb444.com";//采集的目标站点host

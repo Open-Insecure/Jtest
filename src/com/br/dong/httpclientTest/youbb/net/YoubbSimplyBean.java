@@ -5,7 +5,9 @@ package com.br.dong.httpclientTest.youbb.net;
  * User: hexor
  * Date: 2015-07-08
  * Time: 23:08
+ * 测试遗留类，可以参考。
  */
+@Deprecated
 public class YoubbSimplyBean {
     private String vkey;//视频vkey
     private String title;//视频标题
