@@ -29,7 +29,7 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
     float size;//文件大小
     float downloaded;//已经下载大小
     String title;//文件的标题
-    String vkey;//该文件在数据库中的唯一标示key
+    String vkey;//该文件在数据库中的唯一标示key。下载文件到本地路径的子文件名字，如E:\video\vkey\vkey.flv
     String time;//如果是视频文件,则表示该文件的时长
     boolean isRange=false;//是否支持range true 表示支持,false 不支持
     DownloadThreadListener listener;//下载线程监听

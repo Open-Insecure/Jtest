@@ -184,14 +184,6 @@ public class JdbcUtil {
     /**
      * 针对urls表
      */
-    public static List getUrls(String type){
-        String sql="select * from urls where type=?";
-        return jdbcAop.queryForList(sql,type);
-    }
-    public static List getAllUrls(){
-        String sql="select * from urls ";
-        return jdbcAop.queryForList(sql);
-    }
     /**
      * 查找种子列表中是否有相同的记录
      * @param url

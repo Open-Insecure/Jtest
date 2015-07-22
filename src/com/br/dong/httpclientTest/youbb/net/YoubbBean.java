@@ -17,13 +17,20 @@ public class YoubbBean {
     private String videoName; //视频播放地址
     private String infotime;  //时长
     private String updatetime= DateUtil.getStrOfDateTime();//更新日期
+    private String vkey;//视频的vkey唯一标示，作为存放的文件夹的文件名 如E:\video\1003\1003.flv这种1003文件夹名字
     private int rate=0;//视频被赞数
     private int views=0;//视频被观看数
     private int favourite=0;//视频被收藏次数
     private int viewAuthority=0;//观看该视频的权限 -1标示不能看
 
-    public YoubbBean(String title, String imgName, String videoName, String infotime) {
+    private String tags;//视频标签
+    private String authorId;//视频作者id
+    private String author;//视频作者账号
+    private String description;//视频描述
+
+    public YoubbBean(String title, String vkey,String imgName, String videoName, String infotime) {
         this.title = title;
+        this.vkey=vkey;
         this.imgName = imgName;
         this.videoName = videoName;
         this.infotime = infotime;
@@ -106,5 +113,45 @@ public class YoubbBean {
 
     public void setViewAuthority(int viewAuthority) {
         this.viewAuthority = viewAuthority;
+    }
+
+    public String getVkey() {
+        return vkey;
+    }
+
+    public void setVkey(String vkey) {
+        this.vkey = vkey;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

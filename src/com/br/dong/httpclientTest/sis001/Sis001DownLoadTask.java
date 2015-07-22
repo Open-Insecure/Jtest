@@ -32,8 +32,8 @@ import java.util.List;
  * Date: 14-9-29
  * Time: 下午2:18
  * To change this template use File | Settings | File Templates.
- * 针对 http://38.103.161.188/forum/index.php 采集程序
- * http://38.103.161.153/forum/forum-426-1.html 新地址 2015-03-16
+ * 针对 http://162.252.9.7/forum/index.php 采集程序
+ * http://162.252.9.7/forum/forum-426-1.html 新地址 2015-03-16
  */
 public class Sis001DownLoadTask extends Thread{
     //html后缀
@@ -41,7 +41,7 @@ public class Sis001DownLoadTask extends Thread{
     //需要替换的字符,这些字符windows文件名不能出现
     private static String needReplace="(?:/|<|>|:|\\?|\\||\\*|\"|\\(|\\)|)";
     //相对路径资源前加绝对路径
-    private static String absPre="http://38.103.161.153/forum/";
+    private static String absPre="http://162.252.9.7/forum/";
     //要采集的版块的url
     private  String zoneurl="";
     //默认最大页数

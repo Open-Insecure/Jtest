@@ -21,12 +21,12 @@ public class YoubbJdbcUtil {
      * @param bean
      */
     public static int insertVideoInfo(YoubbBean bean){
-        String sql="insert into video (title,imgName,videoName,infotime,updatetime,rate,views,favourite,viewAuthority) values ('"+bean.getTitle()+"','"+bean.getImgName()+"','"+bean.getVideoName()+"','"+bean.getInfotime()+"','"+bean.getUpdatetime()+"','"+bean.getRate()+"','"+bean.getViews()+"','"+bean.getFavourite()+"','"+bean.getViewAuthority()+"')";
+        String sql="insert into video (title,vkey,imgName,videoName,infotime,updatetime,rate,views,favourite,viewAuthority) values ('"+bean.getTitle()+"','"+bean.getVkey()+"','"+bean.getImgName()+"','"+bean.getVideoName()+"','"+bean.getInfotime()+"','"+bean.getUpdatetime()+"','"+bean.getRate()+"','"+bean.getViews()+"','"+bean.getFavourite()+"','"+bean.getViewAuthority()+"')";
        return GetComJDBC.ExecuteSql(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);//测试jdbc连接查询
     }
 
     public static void main(String[] args) {
-        YoubbBean bean=new YoubbBean("test","10064.jpg","10064.flv","00:60");
+        YoubbBean bean=new YoubbBean("test","10064","10064.jpg","10064.flv","00:60");
         System.out.println("操作影响条数:"+insertVideoInfo(bean));
     }
 }

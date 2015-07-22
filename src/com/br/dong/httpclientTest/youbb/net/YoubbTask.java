@@ -30,8 +30,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class YoubbTask {
     private static Logger logger = Logger.getLogger(YoubbTask.class);//日志
-    private static String IMG_ROOT_PATH="E:\\video\\";//图片文件存放的本地路径
-    private static String VIDEO_ROOT_PATH="E:\\video\\";//视频文件存放的本地跟路径
+    private static String IMG_ROOT_PATH="E:/video/";//图片文件存放的本地路径
+    private static String VIDEO_ROOT_PATH="E:/video/";//视频文件存放的本地跟路径
 //    private static String VIDEO_DOWNLOAD_HOST="youb77.com";//视频资源host
 //    private static String VIDEO_DOWNLOAD_URL_REF="http://vip.youb77.com:81";//视频资源ref url
     private static String HOST="youb444.com";//采集的视频信息的目标站点host
@@ -64,7 +64,7 @@ public class YoubbTask {
                 if(completedThread.getTname().contains("video")){//如果这是一个视频线程
                //如果 视频大小小于2000Kb 则不插库了检查库中是否有此条消息记录
                     if(event.getCount()>=2000){//单位为kb
-                        YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
+                        YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
                         YoubbJdbcUtil.insertVideoInfo(bean);
                     }
                 }
