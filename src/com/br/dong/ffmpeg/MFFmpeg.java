@@ -8,6 +8,7 @@ import java.util.List;
  * User: hexor
  * Date: 2015-4-13
  * Time: 10:07
+ * 截取路径视频截图
  */
 
 public class MFFmpeg {
