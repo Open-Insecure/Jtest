@@ -23,7 +23,7 @@ public class YoubbBean {
     private int favourite=0;//视频被收藏次数
     private int viewAuthority=0;//观看该视频的权限 -1标示不能看
 
-    private String tags;//视频标签
+    private String tags="自拍";//视频标签
     private String authorId;//视频作者id
     private String author;//视频作者账号
     private String description;//视频描述

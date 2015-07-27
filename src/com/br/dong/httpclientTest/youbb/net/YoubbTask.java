@@ -62,10 +62,17 @@ public class YoubbTask {
             public void downCompleted(DownloadThreadEvent event) {
                 DownloadThread completedThread=(DownloadThread)event.getSource();//获得完成的线程名
                 if(completedThread.getTname().contains("video")){//如果这是一个视频线程
-               //如果 视频大小小于2000Kb 则不插库了检查库中是否有此条消息记录
-                    if(event.getCount()>=2000){//单位为kb
-                        YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
-                        YoubbJdbcUtil.insertVideoInfo(bean);
+               //如果 视频大小小于2000Kb 则不插库了
+                    if(event.getCount()>=2000){//大于2000kb(单位为kb)
+                        if(YoubbJdbcUtil.checkVkey(completedThread.getVkey())){//检查数据库中是否有此条记录
+                            //检查库中是否有此条消息记录
+                            YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
+                            YoubbJdbcUtil.insertVideoInfo(bean);
+                        }else {
+                            logger.info("veky:" + completedThread.getVkey() + "already exist in table video");
+                        }
+                    }else {
+                        logger.info("veky:"+completedThread.getVkey()+completedThread.getTitle()+"size:"+completedThread.getSize());
                     }
                 }
             }
