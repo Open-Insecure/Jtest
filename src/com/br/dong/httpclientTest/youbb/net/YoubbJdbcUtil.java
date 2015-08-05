@@ -1,6 +1,7 @@
 package com.br.dong.httpclientTest.youbb.net;
 
 import com.br.dong.jdbc.mysql.connect.GetComJDBC;
+import com.br.dong.utils.PropertiesUtil;
 
 import java.util.List;
 
@@ -12,11 +13,12 @@ import java.util.List;
  * 插入94lu数据库中的video表
  */
 public class YoubbJdbcUtil {
-    private static String DATABASE_USER="root";//数据库登录用户
-    private static String DATABASE_PASSWORD="system";//数据库登录密码
-    private static String DATABASE_HOST="127.0.0.1";//数据库ip
-    private static String DATABASE_PORT="3306";//数据库端口
-    private static String DATABASE_INSTANCE="94lu";//数据库实例
+    private static PropertiesUtil propertiesUtil=PropertiesUtil.getInstance("/com/br/dong/httpclientTest/youbb/net/properties/config.properties");//读取配置文件
+    private static String DATABASE_USER=propertiesUtil.getPropValue("DATABASE_USER");//数据库登录用户
+    private static String DATABASE_PASSWORD=propertiesUtil.getPropValue("DATABASE_PASSWORD");//数据库登录密码
+    private static String DATABASE_HOST=propertiesUtil.getPropValue("DATABASE_HOST");//数据库ip
+    private static String DATABASE_PORT=propertiesUtil.getPropValue("DATABASE_PORT");//数据库端口
+    private static String DATABASE_INSTANCE=propertiesUtil.getPropValue("DATABASE_INSTANCE");//数据库实例
 
     /**
      * 插入信息

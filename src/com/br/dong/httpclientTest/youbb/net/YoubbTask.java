@@ -5,6 +5,7 @@ import com.br.dong.httpclientTest.downloadUtil.DownloadThread;
 import com.br.dong.httpclientTest.downloadUtil.DownloadThreadEvent;
 import com.br.dong.httpclientTest.downloadUtil.DownloadThreadListener;
 import com.br.dong.jdbc.mysql.connect.GetComJDBC;
+import com.br.dong.utils.PropertiesUtil;
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 import org.dom4j.DocumentException;
@@ -30,12 +31,13 @@ import java.util.concurrent.TimeUnit;
  */
 public class YoubbTask {
     private static Logger logger = Logger.getLogger(YoubbTask.class);//日志
-    private static String IMG_ROOT_PATH="E:/video/";//图片文件存放的本地路径
-    private static String VIDEO_ROOT_PATH="E:/video/";//视频文件存放的本地跟路径
+    private static PropertiesUtil propertiesUtil=PropertiesUtil.getInstance("/com/br/dong/httpclientTest/youbb/net/properties/config.properties");//读取配置文件
+    private static String IMG_ROOT_PATH=propertiesUtil.getPropValue("IMG_ROOT_PATH");//图片文件存放的本地路径
+    private static String VIDEO_ROOT_PATH=propertiesUtil.getPropValue("VIDEO_ROOT_PATH");//视频文件存放的本地跟路径
 //    private static String VIDEO_DOWNLOAD_HOST="youb77.com";//视频资源host
 //    private static String VIDEO_DOWNLOAD_URL_REF="http://vip.youb77.com:81";//视频资源ref url
-    private static String HOST="youb444.com";//采集的视频信息的目标站点host
-    private static String IMG_DOWNLOAD_URL_REF="http://youb444.com";//采集的视频信息的目标站点host
+    private static String HOST=propertiesUtil.getPropValue("HOST");//采集的视频信息的目标站点host
+    private static String IMG_DOWNLOAD_URL_REF=propertiesUtil.getPropValue("IMG_DOWNLOAD_URL_REF");//采集的视频信息的目标站点host
     private static String absUrl="http://"+HOST;//采集的视频信息的请求使用的前缀
     private static String favUrlPre=absUrl+"/videos?c=1&o=tf&page=";//最爱前缀
     private static String latestUrlPre=absUrl+"/videos?c=1&o=mr&page=";//最新前缀
@@ -43,8 +45,8 @@ public class YoubbTask {
     private static String HTTP="http";//http请求类型
     private static int DEFAULT_PAGE=10;//默认采集page最大为10
     private static CrawlerUtil crawlerUtil=new CrawlerUtil();//工具类
-    private static ExecutorService executorForVideo = Executors.newFixedThreadPool(5); // 视频下载线程池
-    private static ExecutorService executorForImage = Executors.newFixedThreadPool(5); // 图片下载线程池
+    private static ExecutorService executorForVideo = Executors.newFixedThreadPool(propertiesUtil.getPropValueInt("VIDEO_THREAD_POOL_SIZE")); // 视频下载线程池
+    private static ExecutorService executorForImage = Executors.newFixedThreadPool(propertiesUtil.getPropValueInt("IMAGE_THREAD_POOL_SIZE")); // 图片下载线程池
     private static  DownloadThreadListener threadListener;
     public static void main(String[] args) {
         //下载线程监听器 构造方法
@@ -64,23 +66,17 @@ public class YoubbTask {
                 if(completedThread.getTname().contains("video")){//如果这是一个视频线程
                //如果 视频大小小于2000Kb 则不插库了
                     if(event.getCount()>=2000){//大于2000kb(单位为kb)
-                        if(YoubbJdbcUtil.checkVkey(completedThread.getVkey())){//检查数据库中是否有此条记录
-                            //检查库中是否有此条消息记录
-                            YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
-                            YoubbJdbcUtil.insertVideoInfo(bean);
-                        }else {
-                            logger.info("veky:" + completedThread.getVkey() + "already exist in table video");
-                        }
-                    }else {
-                        logger.info("veky:"+completedThread.getVkey()+completedThread.getTitle()+"size:"+completedThread.getSize());
+                        YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
+                        YoubbJdbcUtil.insertVideoInfo(bean);
+                    }else {//视频大小小于2000kb 不入库了
+                        logger.info("veky:"+completedThread.getVkey()+completedThread.getTitle()+"too much small--> size:"+completedThread.getSize());
                     }
                 }
             }
         };
         try{
-
             crawlerUtil.clientCreate(HTTP, HOST, latestUrlPre + 1);//创建主线程用来采集视频列表信息
-            for(int i=2;i<=2;i++){
+            for(int i=propertiesUtil.getPropValueInt("WANT_PAGE_START");i<=propertiesUtil.getPropValueInt("WANT_PAGE_END");i++){
                 parsePage(latestUrlPre+i);//解析当前页面的所有视频信息
             }
             //当线程池调用该方法时,线程池的状态则立刻变成SHUTDOWN状态,以后不能再往线程池中添加任何任务，否则将会抛出RejectedExecutionException异常。但是，此时线程池不会立刻退出，直到添加到线程池中的任务都已经处理完成，才会退出。
@@ -197,7 +193,13 @@ public class YoubbTask {
         org.dom4j.Element fileUrl = root.element("file");
 //        org.dom4j.Element image = root.element("image");
 //        logger.info(title+"-"+ "-"+videoTime+"-"+fileUrl.getTextTrim()+"-"+imgUlr);
-        startDownload(vkey,fileUrl.getTextTrim(),title,videoTime,imgUlr);//开始下载
+        //开始下载 检查数据库中是否已经存在vkey 存在则不启动下载
+        if(YoubbJdbcUtil.checkVkey(vkey)){//检查数据库中是否有此条记录
+            startDownload(vkey,fileUrl.getTextTrim(),title,videoTime,imgUlr);
+        }else{
+            logger.info("veky:" + vkey + "already exist in table video");
+        }
+
     }
     /**
      * 开始下载
