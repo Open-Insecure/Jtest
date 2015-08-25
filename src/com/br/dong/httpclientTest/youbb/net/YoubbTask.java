@@ -67,7 +67,7 @@ public class YoubbTask {
                //如果 视频大小小于2000Kb 则不插库了
                     if(event.getCount()>=2000){//大于2000kb(单位为kb)
                         YoubbBean bean=new YoubbBean(completedThread.getTitle(),completedThread.getVkey(),completedThread.getVkey()+"_img.jpg",completedThread.getFile().getName(),completedThread.getTime());
-                        YoubbJdbcUtil.insertVideoInfo(bean);
+                        YoubbJdbcUtil.insertVideoInfo(bean);//插入到视频数据库中
                     }else {//视频大小小于2000kb 不入库了
                         logger.info("veky:"+completedThread.getVkey()+completedThread.getTitle()+"too much small--> size:"+completedThread.getSize());
                     }

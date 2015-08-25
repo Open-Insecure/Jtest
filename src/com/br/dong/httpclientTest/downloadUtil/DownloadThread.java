@@ -137,7 +137,7 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
             System.out.println("创建线程"+tname);
             client.clientCreate(type,hosturl , refUrl);//创建下载的client
         } catch (Exception e){
-            logError(tname, "error-->create client fall" + e.getMessage());//创建client失败 直接返回信息
+            logError(tname, "error-->create client fall" + e);//创建client失败 直接返回信息
             return;
         }
 
@@ -186,7 +186,7 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
                 return;
             }
         }catch (Exception e){
-            logError(tname, file.getName()+" error-->downloading break:" + e.getMessage());//
+            logError(tname, file.getName()+" error-->downloading break:" + e);//
         }finally {
             //无论是否出现异常，都调用downCompleted
 //            httpGet.abort();

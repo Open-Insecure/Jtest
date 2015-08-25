@@ -74,7 +74,7 @@ public class CrawlerUtil {
 	private BasicCookieStore cookieStore = new BasicCookieStore();
 	//返回给调用此类的一个client实例
 	private DefaultHttpClient client;
-    //返回一个httpclient 4.5 的client实例
+    //返回一个httpclient 4.5 的client实例 !!!!!!!!注意啊 发送附件必须要使用   CloseableHttpClient httpclient = HttpClients.createDefault();  创建的httpclient 才能够发！！！！！！！！！！！！1
     private CloseableHttpClient closeableHttpClient;
 	//post方式
 	private HttpPost post=new HttpPost();
