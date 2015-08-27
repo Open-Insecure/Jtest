@@ -76,7 +76,8 @@ public class YoubbTask {
         };
         try{
             crawlerUtil.clientCreate(HTTP, HOST, latestUrlPre + 1);//创建主线程用来采集视频列表信息
-            for(int i=propertiesUtil.getPropValueInt("WANT_PAGE_START");i<=propertiesUtil.getPropValueInt("WANT_PAGE_END");i++){
+//            for(int i=propertiesUtil.getPropValueInt("WANT_PAGE_START");i<=propertiesUtil.getPropValueInt("WANT_PAGE_END");i++){ //不采用此种了采用arg[]参数的形式
+            for(int i=Integer.parseInt(args[0]);i<=Integer.parseInt(args[1]);i++){
                 parsePage(latestUrlPre+i);//解析当前页面的所有视频信息
             }
             //当线程池调用该方法时,线程池的状态则立刻变成SHUTDOWN状态,以后不能再往线程池中添加任何任务，否则将会抛出RejectedExecutionException异常。但是，此时线程池不会立刻退出，直到添加到线程池中的任务都已经处理完成，才会退出。
