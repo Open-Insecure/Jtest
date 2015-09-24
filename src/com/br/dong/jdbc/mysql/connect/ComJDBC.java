@@ -11,14 +11,23 @@ import java.util.Map;
  * User: hexor
  * Date: 2015-4-11
  * Time: 17:27
+ * 通用的jdbc连接工具类
  */
 public class ComJDBC {
-    private String quDong;
-    private String users;
-    private String passwords;
-    private String urls;
-    private Connection conn;
+    private String quDong;//第三方驱动jar
+    private String users;//登录用户名
+    private String passwords;//登录密码
+    private String urls;//链接url
+    private Connection conn;//一个数据库链接
 
+    /***
+     * 构造方法
+     * @param user
+     * @param password
+     * @param IP
+     * @param port
+     * @param instance
+     */
     public ComJDBC(String user,String password,String IP,String port,String instance)
     {
         quDong="com.mysql.jdbc.Driver";
@@ -44,6 +53,11 @@ public class ComJDBC {
         }
     }
 
+    /***
+     * 加载驱动
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public void jiaZaiQuDong() throws IllegalAccessException, InstantiationException {
         try
         {
@@ -91,14 +105,13 @@ public class ComJDBC {
      * 执行返回结果的sql的
      * @param sql
      * @return
-     * @throws Exception 当连接不上的时候 抛出异常，当做一条报警记录插入
+     * @throws Exception 当连接不上的时候 抛出异常
      */
     public List getExecuteQuery (String sql) throws NullPointerException{
         List list;
         list = new ArrayList();
         ResultSet rs=null;
         Statement st=null;
-
         try {
             st=conn.createStatement();  //连接不上的时候conn为null 抛出空指针异常
             Map map;
@@ -143,12 +156,12 @@ public class ComJDBC {
                     System.out.println(e);
                     e.printStackTrace();
                 }
-
             }
 
         }
         return list;
     }
+
 
 
 

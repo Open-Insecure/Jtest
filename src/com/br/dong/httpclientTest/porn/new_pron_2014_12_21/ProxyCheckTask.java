@@ -19,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class ProxyCheckTask extends Thread{
     private static CrawlerUtil crawlerUtil=new CrawlerUtil();
-    private static String testUrl="http://198.105.209.230/media/player/cpconfig.php?vkey=51cbc9a0f9caeabd6f05";
+    private static String testUrl="http://www.94luvideo.com";
     public static void main(String[] args) {
         for(int i=0;i<10;i++){
             ProxyCheckTask task=new ProxyCheckTask("name["+i+"]");
@@ -37,13 +37,7 @@ public class ProxyCheckTask extends Thread{
             if(proxy!=null){
                 System.out.println(this.getName()+"start connet to proxy:["+proxy.toString()+"]");
 //                crawlerUtil.clientByProxyCreate("http",proxy.getIp(),"http://" + proxy.getIp());
-                try {
-                    crawlerUtil.clientCreate("http","198.105.209.230",testUrl);
-                } catch (KeyManagementException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
+                crawlerUtil.clientByProxyCreate("http", "http://www.sis001.com/forum/thread-9476595-1-1.html", testUrl);
                 try {
                     HttpResponse response=crawlerUtil.proxyGetUrl(testUrl,proxy.getIp(),proxy.getPort()) ;
                     if(response!=null){

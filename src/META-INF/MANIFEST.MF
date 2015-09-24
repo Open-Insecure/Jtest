@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: com.br.dong.httpclientTest.youbb.net.YoubbTask
+Main-Class: com.br.dong.httpclientTest._auto_sign_2015_09_03.AutoSignu
+ p58TaskThread
 

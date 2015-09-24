@@ -76,7 +76,7 @@ public class ImageUtils {
 
         // 6-给图片添加图片水印：
 //        ImageUtils.pressImage("e:/abc2.jpg", "e:/abc.jpg","e:/abc_pressImage.jpg", 0, 0, 0.5f);//测试OK
-        ImageUtils.pressImage("F:\\vedios\\logo.jpg", "F:\\vedios\\2.jpg","F:\\vedios\\3b.jpg", 0, 80, 0.9f);//测试OK
+        ImageUtils.pressImage("E:\\logo1.png", "E:\\e.jpg","E:\\e.jpg", 0, 200, 0.9f);//测试OK
     }
 
 

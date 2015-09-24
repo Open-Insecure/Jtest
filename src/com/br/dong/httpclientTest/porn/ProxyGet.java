@@ -36,8 +36,10 @@ public class ProxyGet {
     private static String kuaiouttrUrl="http://www.kuaidaili.com/free/outtr/";
 
     public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
-          getXiciProxys();
-          getKuaiProxys();
+        //代理采集
+        getXiciProxys();
+        getKuaiProxys();
+        //测试代理
     }
 
     public static void getXiciProxys(){

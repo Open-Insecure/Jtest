@@ -17,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -28,6 +29,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
+import org.apache.http.client.params.CookiePolicy;
+import org.apache.http.client.params.HttpClientParams;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.ConnectionPoolTimeoutException;
@@ -40,6 +43,7 @@ import org.apache.http.cookie.*;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.impl.cookie.BasicExpiresHandler;
 import org.apache.http.impl.cookie.BrowserCompatSpec;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
@@ -77,9 +81,10 @@ public class CrawlerUtil {
     //返回一个httpclient 4.5 的client实例 !!!!!!!!注意啊 发送附件必须要使用   CloseableHttpClient httpclient = HttpClients.createDefault();  创建的httpclient 才能够发！！！！！！！！！！！！1
     private CloseableHttpClient closeableHttpClient;
 	//post方式
-	private HttpPost post=new HttpPost();
+	private HttpPost post=new HttpPost("/");
 	//get方式
-	private HttpGet get=new HttpGet();
+	private HttpGet get=new HttpGet("/");
+
 	//带参构造方法
 	public CrawlerUtil(String parm1){
 		this.parm1=parm1;
@@ -122,6 +127,8 @@ public class CrawlerUtil {
 		}else if("https".equals(type)){
 			client=getHttpsClient();
 		}
+		//--设置cookie
+		HttpClientParams.setCookiePolicy(client.getParams(), CookiePolicy.BROWSER_COMPATIBILITY);
 		//设置cookie
 	    client.setCookieStore(cookieStore);
 //		System.out.println("cookie:"+cookieStore.toString());
@@ -174,7 +181,9 @@ public class CrawlerUtil {
         client=getDefaultClient();
         client.getCookieSpecs().register("easy", csf);
         client.getParams().setParameter(
-          ClientPNames.COOKIE_POLICY, "easy");
+				ClientPNames.COOKIE_POLICY, "easy");
+		//--设置cookie
+		HttpClientParams.setCookiePolicy(client.getParams(), CookiePolicy.BROWSER_COMPATIBILITY);
         //设置浏览器参数
         String HEADER_HOST = host;
         String HEADER_CONNECTION = "keep-alive";
@@ -183,18 +192,24 @@ public class CrawlerUtil {
         String HEADER_REFERER = refURL;
         String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
         String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
-        //设置post请求头
-        post.setHeader("Host",host);
-        post.setHeader("Connection", HEADER_CONNECTION);
-        post.setHeader("Accept", HEADER_ACCEPT);
-        post.setHeader("User-Agent", HEADER_USER_AGENT);
-        post.setHeader("Referer", HEADER_REFERER);
-        post.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
-        post.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
-        //设置get请求头
-        get.setHeader("Host",host);
-        get.setHeader("Connection", HEADER_CONNECTION);
-        get.setHeader("Accept", HEADER_ACCEPT);
+		//设置post请求头
+		post.setHeader("Host",host);
+		post.setHeader("Connection", HEADER_CONNECTION);
+		post.setHeader("Accept", HEADER_ACCEPT);
+		post.setHeader("User-Agent", HEADER_USER_AGENT);
+		post.setHeader("Referer", HEADER_REFERER);
+		post.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
+		post.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
+		//设置get请求头
+		get.setHeader("Host",host);
+		get.setHeader("Connection", HEADER_CONNECTION);
+		get.setHeader("Accept", HEADER_ACCEPT);
+		get.setHeader("User-Agent", HEADER_USER_AGENT);
+		get.setHeader("Referer", HEADER_REFERER);
+		get.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
+		get.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
+		//防止CircularRedirectException 错误
+		client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, false);
     }
 
 	/**
@@ -247,7 +262,8 @@ public class CrawlerUtil {
 				CoreConnectionPNames.CONNECTION_TIMEOUT, TIME_OUT_TIME);
 		client.getParams().setParameter(
                 CoreConnectionPNames.SO_TIMEOUT, SO_TIMEOUT_TIME);
-
+		client.getParams().setParameter("http.protocol.single-cookie-header", true);
+		HttpClientParams.setCookiePolicy(client.getParams(), CookiePolicy.BEST_MATCH);
 		return client;
 	}
 	
@@ -276,6 +292,7 @@ public class CrawlerUtil {
 	public HttpResponse noProxyPostUrl(String url,List<NameValuePair> list) throws CloneNotSupportedException, IOException {
 		HttpPost post =getPostInstance(url);
 		HttpResponse response=null;
+		post.setEntity(produceEntity(list));
 		response = client.execute(post);
 		return response;
 	}
@@ -290,7 +307,7 @@ public class CrawlerUtil {
 	        //实例化验证     
 	        CredentialsProvider credsProvider = new BasicCredentialsProvider();  
 	        //设定验证内容     
-	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("fttj", "ft07");  
+	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("fttj", "ft07");
 	        //创建验证     
 	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);  
 	        ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);  
@@ -300,16 +317,18 @@ public class CrawlerUtil {
 	    		 response = client.execute(httpHost,post);
 
 		}catch(HttpHostConnectException e){
-            System.out.println("连接代理服务器"+proxyUrl+"失败..");
-        }catch(NoHttpResponseException e){
-            System.out.println("连接代理服务器"+proxyUrl+"没有响应..");
-        }catch (SocketException e){
-            System.out.println("连接服务器"+proxyUrl+"连接重置错误..");
-        }catch (SocketTimeoutException e){
-            System.out.println("连接服务器"+proxyUrl+"SocketTimeoutException..");
-        } catch (ClientProtocolException e){
-            System.out.println("连接服务器" + proxyUrl + "ClientProtocolException..");
-        }
+			System.out.println("连接代理"+proxyUrl+"HttpHostConnectException..");
+		}catch(NoHttpResponseException e){
+			System.out.println("服务器"+proxyUrl+"NoHttpResponseException..");
+		} catch (ConnectException e){
+			System.out.println("服务器"+proxyUrl+"ConnectException..");
+		} catch (ConnectTimeoutException e){
+			System.out.println("服务器"+proxyUrl+"ConnectTimeoutException"+TIME_OUT_TIME+"..");
+		}  catch (ClientProtocolException e){
+			System.out.println("服务器" + proxyUrl + "ClientProtocolException异常");
+		}catch (SocketException e){
+			System.out.println("服务器"+proxyUrl+"SocketException");
+		}
 		return response;
 	}
 	//使用代理get方式访问url
@@ -318,29 +337,30 @@ public class CrawlerUtil {
 	     HttpHost httpHost = new HttpHost(url);
 		HttpResponse response=null;
 		try {
-	        //设置代理对象 ip/代理名称,端口     						// "125.39.66.66", 80 "66.85.131.18", 8089
-			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyUrl, port));
-	        //实例化验证     
-	        CredentialsProvider credsProvider = new BasicCredentialsProvider();  
+	        CredentialsProvider credsProvider = new BasicCredentialsProvider();
 	        //设定验证内容     
-	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("test", "test");
+	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("fttj", "ft07");
 	        //创建验证     
-	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);  
-	        ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);  
-			//System.out.println("executing request " + get.getURI());
+	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);
+			//设置代理对象 ip/代理名称,端口     						// "125.39.66.66", 80 "66.85.131.18", 8089
+			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyUrl, port));
+			((DefaultHttpClient) client).setCredentialsProvider(credsProvider);
+			System.out.println("executing request " + get.getURI());
 	        try{
 	    		response =client.execute(httpHost, get); 
 	        }catch(HttpHostConnectException e){
-				System.out.println("连接代理"+proxyUrl+"失败..");
+				System.out.println("连接代理"+proxyUrl+"HttpHostConnectException..");
 			}catch(NoHttpResponseException e){
-				System.out.println("服务器"+proxyUrl+"没有响应..");
+				System.out.println("服务器"+proxyUrl+"NoHttpResponseException..");
 			} catch (ConnectException e){
-                System.out.println("服务器"+proxyUrl+"没有响应..");
+                System.out.println("服务器"+proxyUrl+"ConnectException..");
             } catch (ConnectTimeoutException e){
-                System.out.println("服务器"+proxyUrl+"超过自己定义的响应时间"+TIME_OUT_TIME+"..");
+                System.out.println("服务器"+proxyUrl+"ConnectTimeoutException"+TIME_OUT_TIME+"..");
             }  catch (ClientProtocolException e){
                 System.out.println("服务器"+proxyUrl+"ClientProtocolException异常");
-            }
+            }catch (SocketException e){
+				System.out.println("服务器"+proxyUrl+"SocketException");
+			}
 	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -365,7 +385,7 @@ public class CrawlerUtil {
 	 * @throws CloneNotSupportedException
 	 */
 	public HttpGet getGetInstance(String URL) throws CloneNotSupportedException{
-		HttpGet g=new HttpGet();
+		HttpGet g=null;
 		//克隆get的header给新的HttpGet
 		g=(HttpGet) this.get.clone();
 		g.setURI(URI.create(URL));
@@ -458,8 +478,8 @@ public class CrawlerUtil {
      * @param encoded
      * @return
      */
-    public Document getDocument(HttpEntity entity,String encoded){
-        Document document=null;
+    public Document getDocument(HttpEntity entity, String encoded) {
+		Document document=null;
         try {
             document=Jsoup.parse(EntityUtils.toString(entity, encoded));
         } catch (ParseException e) {
@@ -543,6 +563,31 @@ public class CrawlerUtil {
         }
         return charset;
     }
+
+	public BasicCookieStore getCookieStore() {
+		return cookieStore;
+	}
+
+	public void setCookieStore(BasicCookieStore cookieStore) {
+		this.cookieStore = cookieStore;
+	}
+
+	public HttpGet getGet() {
+		return get;
+	}
+
+	public void setGet(HttpGet get) {
+		this.get = get;
+	}
+
+	public HttpPost getPost() {
+		return post;
+	}
+
+	public void setPost(HttpPost post) {
+		this.post = post;
+	}
+
 	//测试
 	public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, ClientProtocolException, IOException, CloneNotSupportedException {
         //------WebKitFormBoundary1ozYW8mBY4lbZLIL

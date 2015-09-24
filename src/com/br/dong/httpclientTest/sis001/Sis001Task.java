@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
  * Date: 14-10-9
  * Time: 下午4:20
  * To change this template use File | Settings | File Templates.
- * http://38.103.161.188/forum/forum-426-1.html   新地址 2015-03-16
+ * http://68.168.16.158/forum/forum-426-1.html   新地址 2015-03-16
  *
  * 如果出现 java.lang.securityException:Invalid signature file digest for manifest main attributes
 
@@ -40,14 +40,15 @@ public class Sis001Task {
     private static ExecutorService threadPool= Executors.newCachedThreadPool();
     //本地硬盘
 //    private static String floderpath="F:\\vedios\\sis\\"+DateUtil.getCurrentDay()+"\\";
-    private  static String floderpath="E:\\sis\\download\\"+DateUtil.getCurrentDay()+"\\";
+    private  static String floderpath="C:\\sis\\download\\"+DateUtil.getCurrentDay()+"\\";
     public static CrawlerUtil client=new CrawlerUtil();
     //登录url
-    private static String loginPostUrl="http://38.103.161.188/forum/logging.php?action=login&loginsubmit=true";
+    private static String loginPostUrl="http://68.168.16.158/forum/logging.php?action=login&loginsubmit=true";
     //用户名
     private static String username="ckwison";
     //密码
-    private static String password="1234qwer!@#$";
+//    private static String password="1234qwer!@#$";
+    private static String password="95b004";
     public static void main(String[] args) {
 
         //登录
@@ -59,9 +60,9 @@ public class Sis001Task {
         }
         System.out.println(username+"login success!");
           //测试图片解析存数据库方法
-//          Sis001DownLoadTask test=new Sis001DownLoadTask("pic_no_download","http://38.103.161.188/forum/forum-249-");
+//          Sis001DownLoadTask test=new Sis001DownLoadTask("pic_no_download","http://68.168.16.158/forum/forum-249-");
         //测试小说
-//          Sis001DownLoadTask test=new Sis001DownLoadTask("txt_download",floderpath,"http://38.103.161.188/forum/forum-83-");
+//          Sis001DownLoadTask test=new Sis001DownLoadTask("txt_download",floderpath,"http://68.168.16.158/forum/forum-83-");
 //          test.start();
          start();      //开始
 
@@ -77,30 +78,30 @@ public class Sis001Task {
     public static void start(){
         System.out.println("start main thread..");
         String [] sits={
-                "bt,http://38.103.161.188/forum/forum-25-,bt亚洲无码转帖",
-                "bt,http://38.103.161.188/forum/forum-58-,bt亚洲有码转帖",
-                "bt,http://38.103.161.188/forum/forum-77-,bt欧美无码",
-                "bt,http://38.103.161.188/forum/forum-27-,bt成人游戏卡通漫画转区",
-                "bt,http://38.103.161.188/forum/forum-143-,bt亚洲无码原创区",
-                "bt,http://38.103.161.188/forum/forum-426-,bt情色三级",
-                "url,http://38.103.161.188/forum/forum-187-,url外链成人网盘",
-                "url,http://38.103.161.188/forum/forum-270-,url外链电驴",
-                "url,http://38.103.161.188/forum/forum-212-,url外链迅雷",
-                "pic_no_download,http://38.103.161.188/forum/forum-242-,pic熟女乱伦图片分享区",
-                "pic_no_download,http://38.103.161.188/forum/forum-68-,pic西洋靓女骚妹",
-                "pic_no_download,http://38.103.161.188/forum/forum-60-,pic动漫卡通游戏贴图区",
-                "pic_no_download,http://38.103.161.188/forum/forum-64-,pic东方靓女集中营",
-                "pic_no_download,http://38.103.161.188/forum/forum-184-,pic精品套图鉴赏区",
-                "pic_no_download,http://38.103.161.188/forum/forum-219-,pic高跟美足丝袜区",
-                "pic_no_download,http://38.103.161.188/forum/forum-62-,pic网友自拍贴图分享区",
-                "pic_no_download,http://38.103.161.188/forum/forum-61-,pic星梦奇缘合成天堂",//图片在附件
-                "txt_download,http://38.103.161.188/forum/forum-383-,txt原创人生区",
-                "txt_download,http://38.103.161.188/forum/forum-279-,txt人妻意淫区",
-                "txt_download,http://38.103.161.188/forum/forum-83-,txt乱伦迷情区",
-                "txt_download,http://38.103.161.188/forum/forum-96-,txt武侠玄幻区",
-                "txt_download,http://38.103.161.188/forum/forum-31-,txt另类其它区",
-                "txt_download,http://38.103.161.188/forum/forum-385-,txt电子书下载",
-                "txt_download,http://38.103.161.188/forum/forum-368-,txt杂志下载"
+                "bt,http://68.168.16.158/forum/forum-25-,bt亚洲无码转帖",
+                "bt,http://68.168.16.158/forum/forum-58-,bt亚洲有码转帖",
+                "bt,http://68.168.16.158/forum/forum-77-,bt欧美无码",
+                "bt,http://68.168.16.158/forum/forum-27-,bt成人游戏卡通漫画转区",
+                "bt,http://68.168.16.158/forum/forum-143-,bt亚洲无码原创区",
+                "bt,http://68.168.16.158/forum/forum-426-,bt情色三级",
+                "url,http://68.168.16.158/forum/forum-187-,url外链成人网盘",
+                "url,http://68.168.16.158/forum/forum-270-,url外链电驴",
+                "url,http://68.168.16.158/forum/forum-212-,url外链迅雷",
+                "pic_no_download,http://68.168.16.158/forum/forum-242-,pic熟女乱伦图片分享区",
+                "pic_no_download,http://68.168.16.158/forum/forum-68-,pic西洋靓女骚妹",
+                "pic_no_download,http://68.168.16.158/forum/forum-60-,pic动漫卡通游戏贴图区",
+                "pic_no_download,http://68.168.16.158/forum/forum-64-,pic东方靓女集中营",
+                "pic_no_download,http://68.168.16.158/forum/forum-184-,pic精品套图鉴赏区",
+                "pic_no_download,http://68.168.16.158/forum/forum-219-,pic高跟美足丝袜区",
+                "pic_no_download,http://68.168.16.158/forum/forum-62-,pic网友自拍贴图分享区",
+                "pic_no_download,http://68.168.16.158/forum/forum-61-,pic星梦奇缘合成天堂",//图片在附件
+                "txt_download,http://68.168.16.158/forum/forum-383-,txt原创人生区",
+                "txt_download,http://68.168.16.158/forum/forum-279-,txt人妻意淫区",
+                "txt_download,http://68.168.16.158/forum/forum-83-,txt乱伦迷情区",
+                "txt_download,http://68.168.16.158/forum/forum-96-,txt武侠玄幻区",
+                "txt_download,http://68.168.16.158/forum/forum-31-,txt另类其它区",
+                "txt_download,http://68.168.16.158/forum/forum-385-,txt电子书下载",
+                "txt_download,http://68.168.16.158/forum/forum-368-,txt杂志下载"
         };
         //读取文本的urls配置文件
 //        readTxtInfos("urls.txt");
@@ -212,7 +213,7 @@ public class Sis001Task {
         try {
             client.clientCreatNoUrl("http");
             //先get执行一下
-            HttpResponse response=client.noProxyGetUrl("http://38.103.161.188/forum/index.php");
+            HttpResponse response=client.noProxyGetUrl("http://68.168.16.158/forum/index.php");
             Document doc=client.getDocGBK(response);
             System.out.println(doc.toString());
 

@@ -23,14 +23,9 @@ import java.util.List;
  * Time: 20:43
  * 新的sis001的采集程序，专门给94lu采集种子与图片的程序
  */
-public class SisFor94luTask {
+public class SisFor94luTask extends SisBase{
     private static Logger logger = Logger.getLogger(SisFor94luTask.class);//日志
-    private static PropertiesUtil propertiesUtil=PropertiesUtil.getInstance("/com/br/dong/httpclientTest/sis001/sis001For94lu/properties/config.properties");//读取配置文件
-    public static CrawlerUtil client=new CrawlerUtil();
-    private static String baseUrl=propertiesUtil.getPropValue("baseUrl");//网址根路径
-    private static String loginPostUrl=propertiesUtil.getPropValue("login_post_url");//登录post接口
-    private static String username=propertiesUtil.getPropValue("username");
-    private static String password=propertiesUtil.getPropValue("password");
+
     private static String [] sits={
             "bt,"+baseUrl+"forum/forum-25-,bt亚洲无码转帖",
             "bt,"+baseUrl+"/forum/forum-58-,bt亚洲有码转帖",
@@ -66,62 +61,6 @@ public class SisFor94luTask {
             return ;
         }
         logger.info(username + "login success!");
-
-
     }
-    /**
-     * 登录sis001
-     */
-    public  static Boolean login(String username,String password) {
-        try {
-            client.clientCreatNoUrl("http");
-            //先get执行一下
-            HttpResponse response=client.noProxyGetUrl(""+baseUrl+"/forum/index.php");
-            Document doc=client.getDocGBK(response);
-//            logger.info(doc.toString());
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        } catch (SocketException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        //填充登录参数
-        List<NameValuePair> list = new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair("formhash", "c27b368e"));
-        list.add(new BasicNameValuePair("cookietime", "2592000"));
-        list.add(new BasicNameValuePair("loginfield", "username"));
-        list.add(new BasicNameValuePair("cookietime", "2592000"));
-        list.add(new BasicNameValuePair("62838ebfea47071969cead9d87a2f1f7", username));
-        list.add(new BasicNameValuePair("c95b1308bda0a3589f68f75d23b15938", password));
-        HttpResponse responsepost= null;
-        try {
-            //发送登录请求
-            responsepost = client.post(loginPostUrl, client.produceEntity(list));
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        } catch (SocketException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        if(responsepost!=null){
-            Document doc=client.getDocGBK(responsepost);
-            logger.info(doc.toString());
-            if(doc.toString().toLowerCase().contains(username)){
-                //登录成功
-                return true;
-            }else{
-                return false;
-            }
-        }
-        return false;
-    }
 }

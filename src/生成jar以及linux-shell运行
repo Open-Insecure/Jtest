@@ -1,0 +1,22 @@
+ 如果出现 java.lang.securityException:Invalid signature file digest for manifest main attributes
+ 用winrar打开  删除META-INF目录下的除了mainfest.mf，.rsa及maven目录以外的其他所有文件
+
+1.切换到shell脚本所在的目录，执行：
+[root@localhost ~]# ./hello.sh
+-bash: ./ hello.sh: 权限不够
+
+2.以绝对路径的方式执行：
+[root@localhost ~]# /root/Desktop/hello.sh
+-bash: /root/Desktop/ hello.sh: 权限不够
+
+3.直接用bash或sh执行：
+[root@localhost ~]# bash hello.sh
+hello guys!
+welcome to my Blog:linuxboy.org!
+[root@localhost ~]# pwd
+/root
+
+[root@localhost ~]# sh hello.sh
+hello guys!
+welcome to my Blog:linuxboy.org!
+[root@localhost ~]# pwd

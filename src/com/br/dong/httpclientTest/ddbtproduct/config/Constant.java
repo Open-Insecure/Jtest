@@ -20,7 +20,8 @@ public class Constant {
     private final static int COMMON_BUFFER = 1024;
     //---www.sis001task.com ip: 38.103.161.188的配置
     private static final String SIS001_USERNAME="ckwison";
-    private static final String SIS001_PASSWORD="1234qwer!@#$";
+//    private static final String SIS001_PASSWORD="1234qwer!@#$";
+    private static final String SIS001_PASSWORD="95b004";
     //相对路径资源前加绝对路径
     private static final String SIS001_ABSPRE="http://38.103.161.188/forum/";
 }

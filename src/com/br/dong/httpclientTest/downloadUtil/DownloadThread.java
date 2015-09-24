@@ -134,7 +134,7 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
      */
     public void run(){
         try {
-            System.out.println("创建线程"+tname);
+            System.out.println("create thread name:"+tname);
             client.clientCreate(type,hosturl , refUrl);//创建下载的client
         } catch (Exception e){
             logError(tname, "error-->create client fall" + e);//创建client失败 直接返回信息
