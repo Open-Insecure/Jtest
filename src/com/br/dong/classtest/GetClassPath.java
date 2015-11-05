@@ -16,7 +16,7 @@ public class GetClassPath {
         //获得当前工程目录
         System.out.println(System.getProperty("user.dir"));
 
-        System.out.println(GetClassPath.class.getResource("urls.txt").toString().substring(6));
-        FileOperate.readLine(GetClassPath.class.getResource("urls.txt").toString().substring(6));
+        System.out.println(GetClassPath.class.getResource("test.txt").toString().substring(6));
+        FileOperate.readLine(GetClassPath.class.getResource("test.txt").toString().substring(6));
     }
 }

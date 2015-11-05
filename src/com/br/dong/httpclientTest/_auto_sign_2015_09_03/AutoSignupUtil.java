@@ -1,7 +1,12 @@
 package com.br.dong.httpclientTest._auto_sign_2015_09_03;
 
+import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.porn.ProxyBean;
+import com.br.dong.httpclientTest.youbb.net.YoubbBean;
+import com.br.dong.jdbc.mysql.connect.GetComJDBC;
+import com.br.dong.utils.PropertiesUtil;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -11,14 +16,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.imageio.ImageIO;
+import javax.print.Doc;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.SocketException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -44,22 +50,179 @@ public class AutoSignupUtil {
     private static final char[] eng_char = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};//用户尾
     private static final String[] first_name = new String[]{"zhao","qian","sun","li","zhou","wang","mao","zheng","feng","chen","chu","wei","jiang","shen","yang"
             ,"zhu","qin","you","shi","zhan","kong","cao","xie","jin","shu","fang","yuan","zhang","chang","liang","dong","kang"};//用户头
-    public static void main(String[] args) {
-//        System.out.println(getBuyProxy());
-        try {
-            System.out.println(getBuyProxyByApi("3"));
-        } catch (KeyManagementException e) {
+    private static   String[] pwds=null;//声明一个6000的数组
+    private static final int max_pwd_leng=2543;//密码txt最多有5953个密码
+    private static final String[] browsers=new String []{
+            "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50",//safari 5.1 – MAC
+            "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",//IE 9.0
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)",//IE 8.0
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1",//Firefox 4.0.1 – MAC
+            "Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11",//Opera 11.11 – Windows
+            "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; en) Presto/2.8.131 Version/11.11",//Opera 11.11 – MAC
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0)",//IE 8.0
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)",//IE 8.0
+            "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.2; Trident/4.0)",//IE 8.0
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",//Chrome 17.0 – MAC
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; 360SE)",//360 浏览器
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; 360SE)",//360 浏览器
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; 360SE)",//360 浏览器
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; The World)",//世界之窗（The World） 3.x
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)",//世界之窗（The World） 2.x
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; TencentTraveler 4.0)",//腾讯TT
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; TencentTraveler 4.0)",//腾讯TT
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; TencentTraveler 4.0)",//腾讯TT
+            "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Maxthon 2.0)",//傲游（Maxthon）
+    };
+    private static PropertiesUtil propertiesUtil = PropertiesUtil.getInstance("/com/br/dong/httpclientTest/_auto_sign_2015_09_03/properties/config.properties");//读取配置文件
+    private static String DATABASE_USER=propertiesUtil.getPropValue("DATABASE_USER");//数据库登录用户
+    private static String DATABASE_PASSWORD=propertiesUtil.getPropValue("DATABASE_PASSWORD");//数据库登录密码
+    private static String DATABASE_HOST=propertiesUtil.getPropValue("DATABASE_HOST");//数据库ip
+    private static String DATABASE_PORT=propertiesUtil.getPropValue("DATABASE_PORT");//数据库端口
+    private static String DATABASE_INSTANCE=propertiesUtil.getPropValue("DATABASE_INSTANCE");//数据库实例
+    public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
+//        Random random = new Random();
+//        int s = random.nextInt(max_pwd_leng)%(max_pwd_leng-0+1) + 0;
+//        for(int i=0;i<pwds.length;i++){
+//            if(!pwds[i].contains("19")){
+//                System.out.println(pwds[i]);
+//            }
+//        }
+        //--测试是否浏览器信息能被识别
+//        for(int i=0;i<20;i++){
+//            CrawlerUtil client=new CrawlerUtil();
+//            String browser=randomBrower();
+//            System.out.println(browser);
+//            client.clientCreate("http","127.0.0.1","http://127.0.0.1",browser);
+//            client.noProxyGetUrl("http://localhost:9088/v/contact/test");
+//        }
+        CrawlerUtil client=new CrawlerUtil();//http://dbeee.org/1?u=a65936&b=2
+        client.clientCreate("http", "www.dbeee.org", "http://dbeee.org/1/?u=a65861&b=2");
+        HttpResponse response=client.noProxyGetUrl("http://dbeee.org/1/?u=a65861&b=2");
+        Document document=client.getDocument(response.getEntity(),"gb2312");
+        System.out.println(document);
+//        System.out.println(randomDatabseUserName());
+    }
+    static{
+             //默认就运行一遍
+//        pwds =  initPwds(propertiesUtil.getPropValue("pwdtxt"));
+        initUserNames(propertiesUtil.getPropValue("usertxt"));//初始化加载用户信息txt文档到数据库中
+    }
+
+    /**
+     * 从数据库中随机拿到一个用户信息
+     * @return
+     */
+   public static Map randomDatabseUserName(){
+       String sql="SELECT * FROM  signuser \n" +
+               "WHERE id >= (SELECT floor( RAND() * ((SELECT MAX(id) FROM signuser)-(SELECT MIN(id) FROM signuser)) + (SELECT MIN(id) FROM signuser)))  \n" +
+               "ORDER BY id LIMIT 1";
+       List list= GetComJDBC.getExecuteQuery(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);
+       Map map= (Map) list.get(0);
+       return map;
+   }
+
+    /**
+     * 检查已经使用过的ip地址
+     * @return
+     */
+    public static boolean checkUsedProxy(String ip){
+        String sql="select count(*) as count from usedproxy where ip='"+ip+"'";
+        List list= GetComJDBC.getExecuteQuery(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);
+        Map map= (Map) list.get(0);
+        int count=Integer.parseInt((String)map.get("count"));
+        if(count>0) return true;//如果已经有使用的则返回true
+        return false;//未使用过此ip 返回false
+    }
+
+    /**
+     * 插入一条已经使用过的代理ip信息
+     * @param ip
+     * @param port
+     */
+    public static void insertUsedProxy(String ip,String port){
+        String sql="insert into usedproxy (ip,port) values ('"+ip+"','"+port+"')";
+        GetComJDBC.ExecuteSql(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);
+    }
+    /**
+     * 移除一条用户信息
+     * @param username
+     * @param password
+     */
+    public static void removeUserInfo(String username,String password){
+        String sql="delete from signuser where username='"+username+"' and password='"+password+"'";
+         GetComJDBC.ExecuteSql(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);
+    }
+    /**
+     * 插入用户信息
+     */
+    public static int insertUserInfo(String username,String password,String email){
+        String sql="insert into signuser (username,password,email) values ('"+username+"','"+password+"','"+email+"')";
+        return GetComJDBC.ExecuteSql(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);//测试jdbc连接查询
+    }
+    /**
+     * 检查库中是否已经有存在的信息
+     * @return true-表示 表中无数据 可以导入  false -表中有数据 不要导入
+     */
+    public static Boolean checkUserCount(){
+        String sql="select count(*) as count from signuser ";
+        List list=GetComJDBC.getExecuteQuery(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST, DATABASE_PORT, DATABASE_INSTANCE, sql);
+        String count = (String) ((Map)list.get(0)).get("count");
+        if(Integer.parseInt(count)==0) return true;
+        return false;
+    }
+    /***
+     * 从用户列表中初始化用户数据到表中
+     */
+    public static void initUserNames(String filePath){
+        System.out.println("loading txt:"+filePath);
+        if(!checkUserCount()) return;//表中已经有数据 不导入
+        BufferedReader in=null;
+        try{
+            in=new BufferedReader(new FileReader(filePath));
+            String line;
+            try {
+                while((line=in.readLine())!=null){
+                    String user[]=line.split("#");
+                    insertUserInfo(user[0], user[1],user[2]);
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }catch(FileNotFoundException e){
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
+        }finally {
+            System.out.println("init table signuser complete!");
         }
     }
 
-
+    /**
+     * 初始化密码txt到内存中
+     * @param filePath
+     * @return
+     */
+    public static String[] initPwds(String filePath){
+        System.out.println("loading txt:"+filePath);
+        String temp[]=new String[max_pwd_leng+1];
+        BufferedReader in=null;
+        try{
+            in=new BufferedReader(new FileReader(filePath));
+            String line;
+            int i=0;
+            try {
+                while((line=in.readLine())!=null){
+                    temp[i]=line;
+                    i++;
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        return temp;
+    }
     /***
      * 加载网络验证码图片
      * @param targetUrl
@@ -149,6 +312,11 @@ public class AutoSignupUtil {
         return checkCode;
     }
 
+    public static String randomPwd(){
+        Random random = new Random();
+        int lenght=pwds.length;
+        return pwds[random.nextInt(lenght)];
+    }
 
     /**
      * 随机获得一个用户名
@@ -251,10 +419,10 @@ public class AutoSignupUtil {
      */
     public static List<ProxyBean> getBuyProxyByApi(String num) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
         CrawlerUtil crawlerUtil=new CrawlerUtil();
-        crawlerUtil.clientCreate("http", "vxer.daili666.com", "http://vxer.daili666.com/ip/?tid=557529282956844&num="+num+"&category=2&sortby=time&filter=on");
-        String url="http://vxer.daili666.com/ip/?tid=557529282956844&num="+num+"&category=2&sortby=time&filter=on";//在线提取api
+        String url="http://vxer.daili666api.com/ip/?tid=557529282956844&num="+num+"&category=2&sortby=time";//在线提取api
+        crawlerUtil.clientCreate("http", "vxer.daili666.com", url);
         HttpResponse response=crawlerUtil.noProxyGetUrl(url);
-        System.out.println(response.getStatusLine().getStatusCode());
+//        System.out.println(response.getStatusLine().getStatusCode());
         if(response==null) return null;
         Document document=crawlerUtil.getDocUTF8(response);
         String proxyStr=document.text();//获得代理字符串
@@ -266,111 +434,14 @@ public class AutoSignupUtil {
             ProxyBean proxy=new ProxyBean();
             proxy.setIp(p[0]);
             proxy.setPort(Integer.parseInt(p[1]));
+            //在此与插入的统
             list.add(proxy);
         }
         return list;
     }
+    @Deprecated
     public static List<ProxyBean> getBuyProxy(){
-        String proxyStr="114.218.23.31:8090\n" +
-                "183.145.245.157:8090\n" +
-                "115.222.15.103:18186\n" +
-                "218.92.227.165:19279\n" +
-                "221.232.27.205:18186\n" +
-                "222.188.198.15:8090\n" +
-                "49.74.222.89:8080\n" +
-                "114.224.73.186:18186\n" +
-                "180.168.34.149:8118\n" +
-                "175.152.201.38:18186\n" +
-                "115.214.162.84:8090\n" +
-                "106.81.134.225:8080\n" +
-                "14.109.111.2:18186\n" +
-                "115.218.68.141:8888\n" +
-                "117.25.72.42:8090\n" +
-                "114.228.46.77:8090\n" +
-                "115.208.217.179:8090\n" +
-                "110.83.193.57:18186\n" +
-                "61.154.14.237:8086\n" +
-                "183.141.77.29:3128\n" +
-                "60.162.158.109:18186\n" +
-                "101.71.224.224:8090\n" +
-                "112.112.11.82:8080\n" +
-                "218.92.227.177:10000\n" +
-                "122.226.21.196:8080\n" +
-                "115.228.53.22:3128\n" +
-                "175.152.188.128:18186\n" +
-                "218.18.121.3:3128\n" +
-                "222.94.55.166:18186\n" +
-                "180.161.102.141:8080\n" +
-                "114.224.140.92:18186\n" +
-                "49.85.160.95:8080\n" +
-                "115.214.167.54:8090\n" +
-                "106.86.92.114:18186\n" +
-                "122.230.127.17:8090\n" +
-                "183.139.184.100:8080\n" +
-                "61.157.136.35:8000\n" +
-                "122.235.46.231:18186\n" +
-                "110.80.65.58:18186\n" +
-                "218.63.208.223:3128\n" +
-                "125.82.109.142:18186\n" +
-                "61.224.144.104:8888\n" +
-                "115.228.59.216:3128\n" +
-                "61.149.182.102:8080\n" +
-                "27.19.101.83:18186\n" +
-                "58.221.184.114:1337\n" +
-                "124.94.187.84:8090\n" +
-                "124.160.251.245:8090\n" +
-                "221.235.82.226:8090\n" +
-                "115.228.49.221:3128\n" +
-                "111.73.196.154:18186\n" +
-                "101.225.95.230:8080\n" +
-                "122.230.99.193:8090\n" +
-                "182.40.49.77:8090\n" +
-                "118.121.46.75:8090\n" +
-                "119.96.235.179:8090\n" +
-                "123.129.143.155:8090\n" +
-                "183.141.66.75:3128\n" +
-                "123.9.169.196:8090\n" +
-                "14.104.46.5:18186\n" +
-                "115.214.7.207:8090\n" +
-                "218.64.136.95:18186\n" +
-                "117.65.203.160:18186\n" +
-                "117.43.248.4:8888\n" +
-                "118.114.120.136:18186\n" +
-                "119.97.164.48:8085\n" +
-                "120.42.66.105:8888\n" +
-                "123.139.56.154:63000\n" +
-                "115.150.113.136:18186\n" +
-                "115.150.138.189:8080\n" +
-                "122.96.59.105:82\n" +
-                "60.183.83.72:18186\n" +
-                "221.224.90.172:9090\n" +
-                "27.19.112.125:18186\n" +
-                "27.19.104.81:18186\n" +
-                "125.123.81.243:3128\n" +
-                "118.248.5.5:8090\n" +
-                "140.75.153.129:8090\n" +
-                "27.17.236.163:18186\n" +
-                "114.230.243.170:8090\n" +
-                "183.141.74.154:3128\n" +
-                "218.92.227.173:21724\n" +
-                "183.141.68.236:3128\n" +
-                "211.90.28.102:80\n" +
-                "27.26.172.1:18186\n" +
-                "218.92.227.172:21725\n" +
-                "139.226.151.21:8090\n" +
-                "14.109.126.58:18186\n" +
-                "183.139.169.31:8080\n" +
-                "61.53.22.206:80\n" +
-                "183.140.166.66:3128\n" +
-                "182.119.163.226:18186\n" +
-                "218.92.227.169:33919\n" +
-                "106.89.94.162:18186\n" +
-                "58.209.184.51:8090\n" +
-                "218.92.227.171:17945\n" +
-                "182.87.107.151:18186\n" +
-                "122.232.228.79:3128\n" +
-                "125.119.103.223:8090\n" +
-                "114.105.89.154:18186";
+        String proxyStr="139.227.150.33:8090";
         String temp[]=proxyStr.split("\n");
         List<ProxyBean> list=new ArrayList<ProxyBean>();
       for(int i=0;i<temp.length;i++){
@@ -386,6 +457,7 @@ public class AutoSignupUtil {
      * 拿去最新的代理信息
      * @return
      */
+    @Deprecated
     public static List<ProxyBean> getLastProxy(){
 //        String url_xici="http://www.xicidaili.com/nn/2";//西刺代理最新国内代理
         String url_xici="http://www.xicidaili.com/wn/2";//西刺代理最新国外代理
@@ -422,7 +494,7 @@ public class AutoSignupUtil {
      * @return
      */
     public static String randomOsName(){
-        String [] citys={"Windows%207","Windows%208","windows%20xp"};
+        String [] citys={"Windows%207","Windows%208","Windows%20Me"};
         Random random = new Random();
         int lenght=citys.length;
         return citys[random.nextInt(lenght)];
@@ -433,10 +505,29 @@ public class AutoSignupUtil {
      * @return
      */
     public static String randomPb(){
-        String [] citys={"1600x1200","1920x1080","1280x720","1280x800","1680x1050"};
+        String [] citys={"1600*1200","1920*1080","1280*720","1280*800","1680*1050","1440*900","1680*1050","1366*768","1280*1024"};
         Random random = new Random();
         int lenght=citys.length;
         return citys[random.nextInt(lenght)];
+    }
+    /***
+     * 随机获得一个操作系统/浏览器信息用来放置header中
+     */
+    public static String randomBrower(){
+        Random random = new Random();
+        int lenght=browsers.length;
+        return browsers[random.nextInt(lenght)];
+    }
+
+    /***
+     * 返回一个随机的randomllqok参数
+     * @return
+     */
+    public static String randomllqok(){
+        String []llqok={"%20360%20QQ","%20360%20搜狗%20谷歌360%20极速","%20火狐","%20360%20遨游","%20360%20uc","%20360%20uc%20谷歌360极速%20百度"};
+        Random random = new Random();
+        int lenght=llqok.length;
+        return llqok[random.nextInt(lenght)];
     }
 
 }

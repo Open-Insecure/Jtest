@@ -20,14 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Created with IntelliJ IDEA.
  * User: hexor
@@ -71,8 +66,8 @@ public class AutoSignup58TaskThread extends Thread {
     public void run(){
         try{
             Random random=new Random();
-            Thread.sleep((random.nextInt(100))*1000);//随机100秒到200秒之间注册一个账号
-            this.client.clientCreate("http",host,signPageUrl);//创建该现成的httpclient
+//            Thread.sleep((random.nextInt(100))*1000);//随机100秒到200秒之间注册一个账号
+            this.client.clientCreate("http",host,signPageUrl,AutoSignupUtil.randomBrower());//创建该现成的httpclient signPageUrl这个不能改 否则提示禁止外部提交
             HttpResponse response=client.proxyGetUrl(this.signPageUrl,this.proxy.getIp(),this.proxy.getPort()) ;//注册页面
             if(response!=null&&response.getStatusLine().getStatusCode()==200){
 //                 String code=String.valueOf(getCode(loadCodeImg(vCodeUrl,proxy.getIp(),proxy.getPort(),client)));
@@ -93,33 +88,35 @@ public class AutoSignup58TaskThread extends Thread {
     public static void main(String[] args) throws InterruptedException, IOException, NoSuchAlgorithmException, CloneNotSupportedException, KeyManagementException {
         List<ProxyBean> list=AutoSignupUtil.getBuyProxyByApi(args[0]);//购买的代理ip
         if(list==null||list.size()==0) return;
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
         PropertiesUtil propertiesUtil = PropertiesUtil.getInstance("/com/br/dong/httpclientTest/_auto_sign_2015_09_03/properties/config.properties");//读取配置文件
         for(ProxyBean proxy:list){
             Random random=new Random();
-            Thread.sleep((random.nextInt(100))*1000);//随机100秒到200秒之间注册一个账号
 //            ProxyBean proxy=new ProxyBean("58.222.254.11",3128,"","");
             AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("HOST"),propertiesUtil.getPropValue("SIGN_PAGE_URL"),propertiesUtil.getPropValue("SIGN_UP_URL"),propertiesUtil.getPropValue("VCODE_URL"),propertiesUtil.getPropValue("SUCCESS_URL"),proxy);
 //            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("AI_HOST"),propertiesUtil.getPropValue("AI_SIGN_PAGE_URL"),propertiesUtil.getPropValue("AI_SIGN_UP_URL"),propertiesUtil.getPropValue("AI_VCODE_URL"),propertiesUtil.getPropValue("AI_SUCCESS_URL"),proxy);
             executor.execute(thread);
+            Thread.sleep((random.nextInt(100)+100)*1000);//随机100秒到200秒之间注册一个账号
         }
 //      executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);//用于等待子线程结束，再继续执行下面的代码。
         executor.shutdown();
 
     }
     public void startSignUp(String code) throws IOException, CloneNotSupportedException, InterruptedException {
-        String randomStr =AutoSignupUtil.randomUserName();//随机的用户名与密码
+        Map userinfo=AutoSignupUtil.randomDatabseUserName();//从数据库中随机一个用户信息
+        String randomStr = ((String) userinfo.get("username")).trim();//随机的用户名
+        String randomPwd=((String) userinfo.get("password")).trim();//随机的密码
         String randomQq=AutoSignupUtil.randomNumber();//随机的qq号
         String randomPro=AutoSignupUtil.randomProvince();//随机省
         String randomCity=AutoSignupUtil.randomCity(randomPro);
         //填充登录参数
         List<NameValuePair> list = new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair("UserName",randomStr ));
-        list.add(new BasicNameValuePair("PassWord", randomStr));
-        list.add(new BasicNameValuePair("PassWord1", randomStr));
+        list.add(new BasicNameValuePair("UserName",randomStr));
+        list.add(new BasicNameValuePair("PassWord", randomPwd));
+        list.add(new BasicNameValuePair("PassWord1", randomPwd));
         list.add(new BasicNameValuePair("xb","0"));
         list.add(new BasicNameValuePair("QQ", randomQq));
-        list.add(new BasicNameValuePair("QQ", randomQq+"qq.com"));
+        list.add(new BasicNameValuePair("QQ", randomQq+"@qq.com"));
         list.add(new BasicNameValuePair("Jymd", "E夜情"));
         list.add(new BasicNameValuePair("Xagn", "开放"));
         list.add(new BasicNameValuePair("Xagn", "认同一夜情"));
@@ -130,6 +127,7 @@ public class AutoSignup58TaskThread extends Thread {
         list.add(new BasicNameValuePair("Ms", "2"));
         list.add(new BasicNameValuePair("T", "0"));
         HttpResponse response=client.proxyPostUrl(signUpUrl, proxy.getIp(), proxy.getPort(),list);
+        System.out.println("username:"+randomStr+"pwd:"+randomPwd);
         Document document=client.getDocument(response.getEntity(), "gb2312");
         System.out.println(document.toString());
 //        HttpResponse ending=client.proxyGetUrl(successUrl,proxy.getIp(),proxy.getPort());

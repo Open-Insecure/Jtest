@@ -110,17 +110,14 @@ public class CrawlerUtil {
         this.clientCreate(type,"","");
     }
 
-
-	/**注意此方法可以用于多线程！每个线程单独维护一个client
-     * 实例化client并且设置请求头和get post实例
+	/***
+	 * 注意此方法可以用于多线程！每个线程单独维护一个client
 	 * @param type 返回client的类型 type="http"的时候使用http的实例 type="https"的时候使用https实例
 	 * @param host 目标主机url
-	 * @param refURL 引用的refURL 具体可以使用谷歌浏览器network查看
-	 * @throws KeyManagementException
-	 * @throws NoSuchAlgorithmException
+	 * @param refURL 引用的refURL 从哪个站点跳转过来的 具体可以使用谷歌浏览器network查看
+	 * @param userAgent 自定义浏览器和操作系统信息
 	 */
-	public void clientCreate(String type,String host,String refURL) throws KeyManagementException, NoSuchAlgorithmException
-	{
+	public void clientCreate(String type,String host,String refURL,String userAgent) throws NoSuchAlgorithmException, KeyManagementException {
 		//初始化client
 		if("http".equals(type)){
 			client=getDefaultClient();
@@ -130,16 +127,16 @@ public class CrawlerUtil {
 		//--设置cookie
 		HttpClientParams.setCookiePolicy(client.getParams(), CookiePolicy.BROWSER_COMPATIBILITY);
 		//设置cookie
-	    client.setCookieStore(cookieStore);
-//		System.out.println("cookie:"+cookieStore.toString());
+		client.setCookieStore(cookieStore);
+		System.out.println("cookie:"+cookieStore.toString());
 		//设置浏览器参数
 		String HEADER_HOST = host;
 		String HEADER_CONNECTION = "keep-alive";
 		String HEADER_ACCEPT = "*/*";
-		String HEADER_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36";
+		String HEADER_USER_AGENT =userAgent ;
 		String HEADER_REFERER = refURL;
 		String HEADER_ACCEPT_ENCODING = "Accept-Encoding";
- 		String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
+		String HEADER_ACCEPT_LANGUAGE = "Accept-Language";
 		//设置post请求头
 		post.setHeader("Host",host);
 		post.setHeader("Connection", HEADER_CONNECTION);
@@ -156,8 +153,21 @@ public class CrawlerUtil {
 		get.setHeader("Referer", HEADER_REFERER);
 		get.setHeader("Accept-Encoding", HEADER_ACCEPT_ENCODING);
 		get.setHeader("Accept-Language", HEADER_ACCEPT_LANGUAGE);
-        //防止CircularRedirectException 错误
-        client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, false);
+		//防止CircularRedirectException 错误
+		client.getParams().setParameter(ClientPNames.ALLOW_CIRCULAR_REDIRECTS, false);
+	}
+
+	/**注意此方法可以用于多线程！每个线程单独维护一个client
+     * 实例化client并且设置请求头和get post实例
+	 * @param type 返回client的类型 type="http"的时候使用http的实例 type="https"的时候使用https实例
+	 * @param host 目标主机url
+	 * @param refURL 引用的refURL 从哪个站点跳转过来的 具体可以使用谷歌浏览器network查看
+	 * @throws KeyManagementException
+	 * @throws NoSuchAlgorithmException
+	 */
+	public void clientCreate(String type,String host,String refURL) throws KeyManagementException, NoSuchAlgorithmException
+	{
+		clientCreate(type,host,refURL,"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
 	}
 
     /**
