@@ -22,6 +22,7 @@ import org.apache.http.*;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -109,6 +110,14 @@ public class CrawlerUtil {
     public void clientCreatNoUrl(String type) throws NoSuchAlgorithmException, KeyManagementException {
         this.clientCreate(type,"","");
     }
+
+	/**
+	 * 设置cookie
+	 * @param cookieStor
+	 */
+	public void setCookieStor(CookieStore cookieStor){
+		this.client.setCookieStore(cookieStor);
+	}
 
 	/***
 	 * 注意此方法可以用于多线程！每个线程单独维护一个client

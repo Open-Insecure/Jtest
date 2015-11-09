@@ -43,8 +43,8 @@ public class YoubTaskFor91shipin {
     private static ExecutorService executorForVideo = Executors.newFixedThreadPool(propertiesUtil.getPropValueInt("VIDEO_THREAD_POOL_SIZE")); // 视频下载线程池
     private static ExecutorService executorForImage = Executors.newFixedThreadPool(propertiesUtil.getPropValueInt("IMAGE_THREAD_POOL_SIZE")); // 图片下载线程池
     private static DownloadThreadListener threadListener;
-    private static String video_url="http://167.160.172.92:9088/video/";
-    private static String img_url="http://167.160.172.92:9088/image/";
+    private static String video_url=propertiesUtil.getPropValue("91_video_url");
+    private static String img_url=propertiesUtil.getPropValue("91_image_url");
     public static void main(String[] args) {
         threadListener = new DownloadThreadListener(){
 

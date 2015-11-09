@@ -96,7 +96,7 @@ public class AutoSignup58TaskThread extends Thread {
             AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("HOST"),propertiesUtil.getPropValue("SIGN_PAGE_URL"),propertiesUtil.getPropValue("SIGN_UP_URL"),propertiesUtil.getPropValue("VCODE_URL"),propertiesUtil.getPropValue("SUCCESS_URL"),proxy);
 //            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("AI_HOST"),propertiesUtil.getPropValue("AI_SIGN_PAGE_URL"),propertiesUtil.getPropValue("AI_SIGN_UP_URL"),propertiesUtil.getPropValue("AI_VCODE_URL"),propertiesUtil.getPropValue("AI_SUCCESS_URL"),proxy);
             executor.execute(thread);
-            Thread.sleep((random.nextInt(100)+100)*1000);//随机100秒到200秒之间注册一个账号
+//            Thread.sleep((random.nextInt(100)+100)*1000);//随机100秒到200秒之间注册一个账号
         }
 //      executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);//用于等待子线程结束，再继续执行下面的代码。
         executor.shutdown();
@@ -127,13 +127,16 @@ public class AutoSignup58TaskThread extends Thread {
         list.add(new BasicNameValuePair("Ms", "2"));
         list.add(new BasicNameValuePair("T", "0"));
         HttpResponse response=client.proxyPostUrl(signUpUrl, proxy.getIp(), proxy.getPort(),list);
-        System.out.println("username:"+randomStr+"pwd:"+randomPwd);
+        System.out.println("username:" + randomStr + "pwd:" + randomPwd);
         Document document=client.getDocument(response.getEntity(), "gb2312");
         System.out.println(document.toString());
-//        HttpResponse ending=client.proxyGetUrl(successUrl,proxy.getIp(),proxy.getPort());
-//        Thread.sleep(1000);
-//        Document endingDoc=client.getDocument(ending.getEntity(),"gb2312");
-//        System.out.println(endingDoc.toString());
+        client.setCookieStore(client.getCookieStore());
+        HttpResponse ending=client.proxyGetUrl(successUrl, proxy.getIp(), proxy.getPort());
+        Thread.sleep(1000);
+        Document endingDoc=client.getDocument(ending.getEntity(), "gb2312");
+        System.out.println(endingDoc.toString());
+
+//ASPSESSIONIDASDCCACS=JFFFDHMDHFKIHIIMKGHPFFIJ; safedog-flow-item=18E604F835959A68379603A4C008A459; a4865_pages=5; a4865_times=1; a1661_pages=7; a1661_times=1
     }
 
 }
