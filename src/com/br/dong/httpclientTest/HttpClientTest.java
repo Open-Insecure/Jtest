@@ -53,7 +53,7 @@ class HttpClientTest {
 
         System.out.println("Accept-Charset:" + httpget.getFirstHeader("Accept-Charset").getValue());
 
-        // Execute HTTP request
+        // execute HTTP request
 
         System.out.println("executing request " + httpget.getURI());
 

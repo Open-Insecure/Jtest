@@ -416,10 +416,11 @@ public class AutoSignupUtil {
      * @throws NoSuchAlgorithmException
      * @throws IOException
      * @throws CloneNotSupportedException
+     * d
      */
     public static List<ProxyBean> getBuyProxyByApi(String num) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
         CrawlerUtil crawlerUtil=new CrawlerUtil();
-        String url="http://vxer.daili666api.com/ip/?tid=557529282956844&num="+num+"&category=2&sortby=time";//在线提取api
+        String url="http://vxer.daili666api.com/ip/?tid=559943419055853&num="+num+"&filter=on";//在线提取api
         crawlerUtil.clientCreate("http", "vxer.daili666.com", url);
         HttpResponse response=crawlerUtil.noProxyGetUrl(url);
 //        System.out.println(response.getStatusLine().getStatusCode());

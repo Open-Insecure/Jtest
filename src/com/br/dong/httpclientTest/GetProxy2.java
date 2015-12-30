@@ -28,7 +28,7 @@ public class GetProxy2 {
         //设定目标站点     www.baidu.com "http://www.firstgongyu.com/forum-2-1.html"
         HttpHost httpHost = new HttpHost("www.baidu.com");  
         //设置代理对象 ip/代理名称,端口     						//192.168.0.101, 3128
-        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost("213.136.72.193", 3128, "http"));
+        httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost("171.36.131.222", 8123, "http"));
         //实例化验证     
         CredentialsProvider credsProvider = new BasicCredentialsProvider();  
         //设定验证内容     

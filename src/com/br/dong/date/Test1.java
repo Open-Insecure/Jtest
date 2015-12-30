@@ -1,6 +1,9 @@
 package com.br.dong.date;
 
+import org.apache.commons.lang.time.DateUtils;
+
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /** 
@@ -18,6 +21,20 @@ public class Test1 {
 		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println(df.format(date).toString());
 		System.out.println(now.getTime());
-		
+		System.out.println(df.format(getLastWeekFriday(new Date())).toString());
+	}
+
+	/***
+	 * 获得上周五的日期
+	 * @param date
+	 * @return
+	 */
+	public static Date getLastWeekFriday(Date date) {
+		Date a = DateUtils.addDays(date, -1);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(a);
+		cal.add(Calendar.WEEK_OF_YEAR, -1);// 一周
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+		return cal.getTime();
 	}
 }

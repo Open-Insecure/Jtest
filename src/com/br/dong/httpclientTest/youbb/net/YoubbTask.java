@@ -4,7 +4,6 @@ import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.httpclientTest.downloadUtil.DownloadThread;
 import com.br.dong.httpclientTest.downloadUtil.DownloadThreadEvent;
 import com.br.dong.httpclientTest.downloadUtil.DownloadThreadListener;
-import com.br.dong.jdbc.mysql.connect.GetComJDBC;
 import com.br.dong.utils.PropertiesUtil;
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;

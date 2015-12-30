@@ -69,7 +69,8 @@ public class FileOperate {
 	   */  
 	  public static void newFile(String filePathAndName, String fileContent) {
 	  
-	    try {  
+
+	    try {
 	      String filePath = filePathAndName;  
 	      filePath = filePath.toString();  
 	      File myFilePath = new File(filePath);  
@@ -319,7 +320,7 @@ public class FileOperate {
                   BufferedReader bufferedReader = new BufferedReader(read);
                   String lineTxt = null;
                   while((lineTxt = bufferedReader.readLine()) != null){
-//                      System.out.println(lineTxt);
+                      System.out.println(lineTxt);
                       stringBuffer.append(lineTxt+"\r\n");
                   }
                   read.close();

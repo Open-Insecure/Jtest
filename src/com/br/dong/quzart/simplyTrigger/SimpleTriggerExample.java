@@ -35,6 +35,7 @@ public class SimpleTriggerExample {
 
         SchedulerFactory sf = new StdSchedulerFactory();
         Scheduler sched = sf.getScheduler();
+
         System.out.println("--------------- 初始化 -------------------");
 
         // 下一个第15秒 例:
@@ -170,6 +171,7 @@ public class SimpleTriggerExample {
             System.out.println("------- 等待5分钟  ... ------------");
             Thread.sleep(300L * 1000L);
         } catch (Exception e) { }
+
 
         sched.shutdown(true);
         System.out.println("------- 调度已关闭 ---------------------");

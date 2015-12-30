@@ -11,7 +11,7 @@ public class JshShellTest{
     public static void main(String[] arg){
         try{
             JSch jsch=new JSch();
-            Session session=jsch.getSession("root", "23.226.66.36", 22);
+            Session session=jsch.getSession("root", "167.88.124.141", 22);
       
       /*
       String xhost="127.0.0.1";

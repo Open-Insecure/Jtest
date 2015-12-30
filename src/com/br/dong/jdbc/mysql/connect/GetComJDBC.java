@@ -1,6 +1,7 @@
 package com.br.dong.jdbc.mysql.connect;
 
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,17 @@ public class GetComJDBC {
         return comJDBC.executeSql(sql);
     }
 
-
+    /**
+     * 获得一个jdbc的连接conn
+     * @return
+     */
+    public static Connection getConn(String user,String password,String IP,String port,String instance){
+        ComJDBC comJDBC = (ComJDBC) JDBCMap.get(IP+instance);
+        if(comJDBC == null){
+            comJDBC = new ComJDBC(user,password,IP,port,instance);
+            JDBCMap.put(IP+instance, comJDBC);
+        }
+        return comJDBC.getConn();
+    }
 	
 }

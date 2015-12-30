@@ -93,10 +93,10 @@ public class AutoSignup58TaskThread extends Thread {
         for(ProxyBean proxy:list){
             Random random=new Random();
 //            ProxyBean proxy=new ProxyBean("58.222.254.11",3128,"","");
-            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("HOST"),propertiesUtil.getPropValue("SIGN_PAGE_URL"),propertiesUtil.getPropValue("SIGN_UP_URL"),propertiesUtil.getPropValue("VCODE_URL"),propertiesUtil.getPropValue("SUCCESS_URL"),proxy);
+            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("HOST").replace("xxddmr",args[1]),propertiesUtil.getPropValue("SIGN_PAGE_URL").replace("xxddmr", args[1]),propertiesUtil.getPropValue("SIGN_UP_URL").replace("xxddmr", args[1]),propertiesUtil.getPropValue("VCODE_URL").replace("xxddmr", args[1]),propertiesUtil.getPropValue("SUCCESS_URL").replace("xxddmr",args[1]),proxy);
 //            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("AI_HOST"),propertiesUtil.getPropValue("AI_SIGN_PAGE_URL"),propertiesUtil.getPropValue("AI_SIGN_UP_URL"),propertiesUtil.getPropValue("AI_VCODE_URL"),propertiesUtil.getPropValue("AI_SUCCESS_URL"),proxy);
             executor.execute(thread);
-//            Thread.sleep((random.nextInt(100)+100)*1000);//随机100秒到200秒之间注册一个账号
+//            Thread.sleep((random.nextInt(5) + 5)*1000);//随机100秒到200秒之间注册一个账号
         }
 //      executor.awaitTermination(Long.MAX_VALUE, TimeUnit.DAYS);//用于等待子线程结束，再继续执行下面的代码。
         executor.shutdown();
@@ -115,7 +115,7 @@ public class AutoSignup58TaskThread extends Thread {
         list.add(new BasicNameValuePair("PassWord", randomPwd));
         list.add(new BasicNameValuePair("PassWord1", randomPwd));
         list.add(new BasicNameValuePair("xb","0"));
-        list.add(new BasicNameValuePair("QQ", randomQq));
+        list.add(new BasicNameValuePair("QQ", randomQq));           System.out.println("username:" + randomStr + "pwd:" + randomPwd);
         list.add(new BasicNameValuePair("QQ", randomQq+"@qq.com"));
         list.add(new BasicNameValuePair("Jymd", "E夜情"));
         list.add(new BasicNameValuePair("Xagn", "开放"));
@@ -127,14 +127,18 @@ public class AutoSignup58TaskThread extends Thread {
         list.add(new BasicNameValuePair("Ms", "2"));
         list.add(new BasicNameValuePair("T", "0"));
         HttpResponse response=client.proxyPostUrl(signUpUrl, proxy.getIp(), proxy.getPort(),list);
-        System.out.println("username:" + randomStr + "pwd:" + randomPwd);
         Document document=client.getDocument(response.getEntity(), "gb2312");
-        System.out.println(document.toString());
-        client.setCookieStore(client.getCookieStore());
-        HttpResponse ending=client.proxyGetUrl(successUrl, proxy.getIp(), proxy.getPort());
-        Thread.sleep(1000);
-        Document endingDoc=client.getDocument(ending.getEntity(), "gb2312");
-        System.out.println(endingDoc.toString());
+        String result=document.toString();
+        if(!result.contains("已经被注册")&&  !result.contains("已经存在")&&!result.contains("禁止从网站外部")){
+            System.out.println(result);
+            client.setCookieStore(client.getCookieStore());
+            HttpResponse ending=client.proxyGetUrl(successUrl, proxy.getIp(), proxy.getPort());
+            Thread.sleep(1000);
+            Document endingDoc=client.getDocument(ending.getEntity(), "gb2312");
+            String top=endingDoc.select("div[class=Top]").toString();
+            System.out.println(top);
+            System.out.println(client.getCookieStore().getCookies());
+        }
 
 //ASPSESSIONIDASDCCACS=JFFFDHMDHFKIHIIMKGHPFFIJ; safedog-flow-item=18E604F835959A68379603A4C008A459; a4865_pages=5; a4865_times=1; a1661_pages=7; a1661_times=1
     }

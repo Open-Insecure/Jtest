@@ -13,5 +13,9 @@ public class ReplaceTest {
         String src2="(?:<>/\\:\"\"*?";
         src2=src2.replaceAll("(?:/|<|>|:|\\?|\\||\\*|\"|\\(|\\)|)","");
         System.out.println(src2);
+
+		String ss="2015-11-11 13:00-18:00";
+		System.out.println(ss.replace(":",""));
+		System.out.println("2015-11-11".length()+ss.substring(0,13)+"点");
 	  }  
 }

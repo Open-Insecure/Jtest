@@ -56,7 +56,7 @@ private final static HttpClient client = new DefaultHttpClient();
 		UrlEncodedFormEntity params = new UrlEncodedFormEntity(qparams, "UTF-8");
 		post.setEntity(params);
 
-		// Execute the request
+		// execute the request
 		HttpResponse response = client.execute(post);
 		
 		if(debug){

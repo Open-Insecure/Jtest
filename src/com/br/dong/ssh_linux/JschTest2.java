@@ -13,21 +13,21 @@ import java.nio.charset.Charset;
  * User: hexor
  * Date: 2015-06-16
  * Time: 12:48
- * ±£³ÖsshÁ¬½Ó
+ * ï¿½ï¿½ï¿½ï¿½sshï¿½ï¿½ï¿½ï¿½
  */
 public class JschTest2 {
-    private String charset = "UTF-8"; // ÉèÖÃ±àÂë¸ñÊ½  
-    private String user; // ÓÃ»§Ãû  
-    private String passwd; // µÇÂ¼ÃÜÂë  
-    private String host; // Ö÷»úIP  
+    private String charset = "UTF-8"; // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½Ê½  
+    private String user; // ï¿½Ã»ï¿½ï¿½ï¿½  
+    private String passwd; // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½  
+    private String host; // ï¿½ï¿½ï¿½ï¿½IP  
     private JSch jsch;
     private Session session;
 
     /**
      *
-     * @param user ÓÃ»§Ãû
-     * @param passwd ÃÜÂë
-     * @param host Ö÷»úIP
+     * @param user ï¿½Ã»ï¿½ï¿½ï¿½
+     * @param passwd ï¿½ï¿½ï¿½ï¿½
+     * @param host ï¿½ï¿½ï¿½ï¿½IP
      */
     public JschTest2(String user, String passwd, String host) {
         this.user = user;
@@ -36,7 +36,7 @@ public class JschTest2 {
     }
 
     /**
-     * Á¬½Óµ½Ö¸¶¨µÄIP 
+     * ï¿½ï¿½ï¿½Óµï¿½Ö¸ï¿½ï¿½ï¿½ï¿½IP 
      *
      * @throws JSchException
      */
@@ -51,11 +51,11 @@ public class JschTest2 {
     }
 
     /**
-     * Ö´ÐÐÏà¹ØµÄÃüÁî
-     * date -d today +"%Y-%m-%d %H:%M:%S"   2015-06-16 01:11:59 ¸ñÊ½Êä³öµ±Ç°Á¬½ÓµÄ·þÎñÆ÷Ê±¼ä
+     * Ö´ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+     * date -d today +"%Y-%m-%d %H:%M:%S"   2015-06-16 01:11:59 ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ÓµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
      */
     public void execCmd() {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));//¶ÁÈ¡¿ØÖÆÌ¨ÊäÈë
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½ï¿½
         String command = "";
         BufferedReader reader = null;
         Channel channel = null;
@@ -65,12 +65,12 @@ public class JschTest2 {
                 ((ChannelExec) channel).setCommand(command);
                 channel.setInputStream(null);
                 ((ChannelExec) channel).setErrStream(System.err);
-                channel.connect();//channelÁ¬½Ólinux
-                InputStream in = channel.getInputStream();//¶ÁÈ¡channelµÄÊäÈë
+                channel.connect();//channelï¿½ï¿½ï¿½ï¿½linux
+                InputStream in = channel.getInputStream();//ï¿½ï¿½È¡channelï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 reader = new BufferedReader(new InputStreamReader(in,
                         Charset.forName(charset)));
                 String buf = null;
-                while ((buf = reader.readLine()) != null) {//raadLine Ñ­»·¶ÁÈ¡µÄ
+                while ((buf = reader.readLine()) != null) {//raadLine Ñ­ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½
                     System.out.println(buf);
                 }
             }
@@ -91,8 +91,8 @@ public class JschTest2 {
 
     public static void main(String[] args) throws Exception {
         String user = "root";
-        String passwd = "MMh0use.aK";
-        String host = "23.226.66.36";
+        String passwd = "95b004";
+        String host = "167.88.124.141";
 
         JschTest2 demo = new JschTest2(user, passwd, host);
         demo.connect();

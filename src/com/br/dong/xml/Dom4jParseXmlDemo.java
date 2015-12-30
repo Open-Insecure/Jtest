@@ -20,8 +20,8 @@ public class Dom4jParseXmlDemo {
 	public void parseXml01(){  
         try{  
             //将src下面的xml转换为输入流  
-//            InputStream inputStream = new FileInputStream(new File("D:/project/dynamicWeb/src/resource/module01.xml"));   
-            InputStream inputStream = this.getClass().getResourceAsStream("module01.xml");//也可以根据类的编译文件相对路径去找xml 
+//            InputStream inputStream = new FileInputStream(new File("D:/project/dynamicWeb/src/resource/module01.xml"));
+            InputStream inputStream = this.getClass().getResourceAsStream("module01.xml");//也可以根据类的编译文件相对路径去找xml
             System.out.println("路径"+this.getClass().getResource("module01.xml").getFile());//此方法获得文件绝对路径
             //创建SAXReader读取器，专门用于读取xml  
             SAXReader saxReader = new SAXReader();  
@@ -80,8 +80,9 @@ public class Dom4jParseXmlDemo {
 	            Element valueElement = moduleElement.element("value");  
 	            System.out.println(valueElement.getName() + ":" + valueElement.getText());  
 	            Element descriptElement = moduleElement.element("descript");  
-	            System.out.println(descriptElement.getName() + ":" + descriptElement.getText());  
-	        }     
+	            System.out.println(descriptElement.getName() + ":" + descriptElement.getText());
+				System.out.println(moduleElement.attribute("test").getValue());
+			}
 	    } catch (Exception e) {    
 	           e.printStackTrace();    
 	       }    

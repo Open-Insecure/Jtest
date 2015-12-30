@@ -16,7 +16,7 @@ import org.dom4j.io.SAXReader;
 public class Dom4jParseXmlStringDemo {
    private static  String xml="<config>\n" +
             "<logo>http://youb444.com/media/player/logo/logosmall.png</logo>\n" +
-            "<file>http://vip.youbvip.com:81/media/you22/flv/9549.flv</file>\n" +
+            "<file test='12121'>http://vip.youbvip.com:81/media/you22/flv/9549.flv</file>\n" +
             "<image>\n" +
             "http://youb444.com/media/videos/tmb/9549/default.jpg\n" +
             "</image>\n" +
@@ -37,11 +37,11 @@ public class Dom4jParseXmlStringDemo {
             SAXReader reader = new SAXReader();
             Document doc;
             doc = DocumentHelper.parseText(xml);
-
             //Document doc = reader.read(ffile); //读取一个xml的文件
             Element root = doc.getRootElement();
             Element eName = root.element("file");
             System.out.println("节点内容*--"+eName.getTextTrim());
+            System.out.println(eName.attribute("test").getValue());
 
         } catch (Exception e) {
             e.printStackTrace();

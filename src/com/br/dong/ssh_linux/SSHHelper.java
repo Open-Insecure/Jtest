@@ -86,7 +86,7 @@ public class SSHHelper {
                 "}  \n" +
                 "  \n" +
                 "url_down";
-        String exec = exec("23.226.66.36", "root", "MMh0use.aK", 22, myshell);
+        String exec = exec("167.88.124.141", "root", "95b004", 22, myshell);
         System.out.println(exec);
     }
 }
