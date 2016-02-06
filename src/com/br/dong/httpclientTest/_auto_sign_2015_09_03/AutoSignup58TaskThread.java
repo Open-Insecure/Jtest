@@ -93,7 +93,7 @@ public class AutoSignup58TaskThread extends Thread {
         for(ProxyBean proxy:list){
             Random random=new Random();
 //            ProxyBean proxy=new ProxyBean("58.222.254.11",3128,"","");
-            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("HOST").replace("xxddmr",args[1]),propertiesUtil.getPropValue("SIGN_PAGE_URL").replace("xxddmr", args[1]),propertiesUtil.getPropValue("SIGN_UP_URL").replace("xxddmr", args[1]),propertiesUtil.getPropValue("VCODE_URL").replace("xxddmr", args[1]),propertiesUtil.getPropValue("SUCCESS_URL").replace("xxddmr",args[1]),proxy);
+            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("HOST").replace("xxddmr.com",args[1]),propertiesUtil.getPropValue("SIGN_PAGE_URL").replace("xxddmr.com", args[1]),propertiesUtil.getPropValue("SIGN_UP_URL").replace("xxddmr.com", args[1]),propertiesUtil.getPropValue("VCODE_URL").replace("xxddmr.com", args[1]),propertiesUtil.getPropValue("SUCCESS_URL").replace("xxddmr.com",args[1]),proxy);
 //            AutoSignup58TaskThread thread=new AutoSignup58TaskThread("thread["+proxy.getIp()+"]",propertiesUtil.getPropValue("AI_HOST"),propertiesUtil.getPropValue("AI_SIGN_PAGE_URL"),propertiesUtil.getPropValue("AI_SIGN_UP_URL"),propertiesUtil.getPropValue("AI_VCODE_URL"),propertiesUtil.getPropValue("AI_SUCCESS_URL"),proxy);
             executor.execute(thread);
 //            Thread.sleep((random.nextInt(5) + 5)*1000);//随机100秒到200秒之间注册一个账号

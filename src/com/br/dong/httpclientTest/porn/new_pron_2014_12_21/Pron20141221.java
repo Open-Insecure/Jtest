@@ -83,16 +83,9 @@ public class Pron20141221 {
                 Elements maxpageElement=doc.select("div[class*=pagingnav]").select("a:eq(6)");
 //                System.out.println("...."+maxpageElement.toString());
                 maxpage=Integer.parseInt(maxpageElement.text());
-            } catch (CloneNotSupportedException e1) {
+            } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
-            }  catch (SocketException e){
-                e.printStackTrace();
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-            catch(NumberFormatException e){
-                System.out.println("fail to get max page,auto set max page="+defaultPage);
             }
         }
         System.out.println("default max page:"+maxpage);

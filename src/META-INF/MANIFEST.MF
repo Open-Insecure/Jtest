@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: com.br.dong.cmd_test.CpuExecCmd
+Main-Class: com.br.dong.httpclientTest.skonlt_auto_post_2015_12_30.Sko
+ nltAutoPost
 

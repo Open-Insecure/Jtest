@@ -10,12 +10,16 @@ import com.br.dong.properties.FileOperate;
 /** 
  * @author  hexd
  * 创建时间：2014-8-5 下午2:45:53 
- * 类说明 
+ * 类说明
+ * 切换到jdk的执行bin目录下
+cd D:\Program Files\Java6\jdk1.6.0_39\bin\
+执行 java -jar  -classpath lib/*.jar; -verbose:class 91pSoft.jar >> class.txt
+pause
  */
 public class Jres {
 	public static void main(String[] args) throws CloneNotSupportedException {
 		FileOperate fo=new FileOperate();
-		readMainTxt("F://JRETest//firstgongyu//class.txt");
+		readMainTxt("E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\class.txt");
 	}
 	//读取文件
 	public static void readMainTxt(String filename) throws CloneNotSupportedException{

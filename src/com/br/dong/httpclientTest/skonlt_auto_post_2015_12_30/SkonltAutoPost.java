@@ -30,28 +30,30 @@ import java.util.Map;
  * 针对司空论坛的自动登录与发帖程序
  */
 public class SkonltAutoPost {
+    private static String fid="207";
     private static  CrawlerUtil crawlerUtil=new CrawlerUtil();
     /**登录接口*/
     private static String login_post_url="http://forum.skonlt.com/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1";
     /**验证是否登录成功的主页*/
     private static String home_url="http://forum.skonlt.com/forum.php";
     /**发帖页面 用来获得发帖的from的hidden参数 填充发帖参数*/
-    private static String topical_post_page_url="http://forum.skonlt.com/forum.php?mod=post&action=newthread&fid=109";
+    private static String topical_post_page_url="http://forum.skonlt.com/forum.php?mod=post&action=newthread&fid="+fid;
     /**发帖接口*/
-    private static String topical_post_url="http://forum.skonlt.com/forum.php?mod=post&action=newthread&fid=109&extra=&topicsubmit=yes";
+    private static String topical_post_url="http://forum.skonlt.com/forum.php?mod=post&action=newthread&fid="+fid+"&extra=&topicsubmit=yes";
     /***获得帖子接口*/
-    private static String get_topicals_url="http://www.94luvideo.com/video/viewVideosInfo?count=1&type=random";
+    private static String get_topicals_url="http://www.94luvideo.com/video/viewVideosInfo?type=random&count=";
     /**登录账号与密码*/
     private static String username="he7253997";
     private static String password="95b004";
     /***/
     private static String UTF8="utf-8";
-    public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException, IOException, CloneNotSupportedException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException, IOException, CloneNotSupportedException, InterruptedException {
+        get_topicals_url=get_topicals_url+args[0];
         crawlerUtil.clientCreate("http", "forum.skonlt.com", "http://forum.skonlt.com/forum.php");
         login();
         post();
     }
-    public static void post() throws IOException, CloneNotSupportedException {
+    public static void post() throws IOException, CloneNotSupportedException, InterruptedException {
          if(checkLogin()){
              System.out.println("login success!!");
              /***登录成功，开始发帖*/
@@ -75,7 +77,7 @@ public class SkonltAutoPost {
     /**
      * 从94lu获得帖子
      */
-    public static void getTopicalFrom94lu() throws IOException, CloneNotSupportedException {
+    public static void getTopicalFrom94lu() throws IOException, CloneNotSupportedException, InterruptedException {
         Document doc=crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl(get_topicals_url));
         String jsonStr=doc.body().text();
         List<Object> list=JsonUtil.jsonToList(JSONArray.fromObject(jsonStr));
@@ -88,7 +90,9 @@ public class SkonltAutoPost {
     /***
      * 发帖方法
      */
-    public static void topicalPost(Map map) throws IOException, CloneNotSupportedException {
+    public static void topicalPost(Map map) throws IOException, CloneNotSupportedException, InterruptedException {
+        /**间隔15秒*/
+        Thread.sleep(15*1000);
            /**拿去发帖页面的隐藏参数*/
         Document document = crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl(topical_post_page_url));
         if (document == null) return;
@@ -98,7 +102,7 @@ public class SkonltAutoPost {
         for(Element element:elements){
             list.add(new BasicNameValuePair(element.attr("name"), element.attr("value")));
         }
-           list.add(new BasicNameValuePair("typeid","26"));
+           list.add(new BasicNameValuePair("typeid","1"));//1 26
            list.add(new BasicNameValuePair("subject",(String)map.get("title")));
            String message="[img]"+map.get("imgName")+"[/img]\n" +"[color=#000][font=Simsun][size=3]http://www.94luvideo.com/videoplay?vkey="+map.get("vkey")+"[/size][/font][/color]\n";
            list.add(new BasicNameValuePair("message",message));
@@ -139,11 +143,7 @@ public class SkonltAutoPost {
             uefEntity = new UrlEncodedFormEntity(list, UTF8);
             Document doc=crawlerUtil.getDocUTF8(crawlerUtil.post(login_post_url,uefEntity));
             System.out.println(doc.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }

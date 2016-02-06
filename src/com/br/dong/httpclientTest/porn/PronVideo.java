@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 public class PronVideo {
 
     //视频列表url page页数需要拼装
-    private static String url="http://91.v4p.co/v.php?category=hot&viewtype=basic&page=";
+    private static String url="http://ch.u6p.co/v.php?next=watch&page=";
 //    private static String url="http://91.v4p.co/v.php?next=watch&page=";
     //视频文件请求url 后跟参数需要拼装
     //默认查找页数
@@ -118,7 +118,7 @@ public class PronVideo {
     public static void getPaging(Boolean wantMaxPage){
         CrawlerUtil client=new CrawlerUtil();
         try {
-            client.clientCreate("http","91p.vido.ws",url+1);
+            client.clientCreate("http","ch.u6p.co",url+1);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (KeyManagementException e) {
@@ -136,17 +136,11 @@ public class PronVideo {
                 //拿到视频分页
                 Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
                 maxpage=Integer.parseInt(maxpageElement.text());
-            } catch (CloneNotSupportedException e1) {
+            } catch (Exception e1) {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
-            }  catch (SocketException e){
-                e.printStackTrace();
-            } catch (IOException e){
-                e.printStackTrace();
             }
-            catch(NumberFormatException e){
-                System.out.println("fail to get max page,auto set max page="+defaultPage);
-            }
+
         }
 
         System.out.println("get max page:"+maxpage);

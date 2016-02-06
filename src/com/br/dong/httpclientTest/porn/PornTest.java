@@ -35,7 +35,7 @@ import com.br.dong.httpclientTest.CrawlerUtil;
 public class PornTest {
 
     //视频列表url page页数需要拼装
-	private static String url="http://91p.vido.ws/v.php?next=watch&page=";
+	private static String url="http://ch.u6p.co/v.php?next=watch&page=";
 	//视频文件请求url 后跟参数需要拼装
 	private static String vedioFileUrl="http://91p.vido.ws/getfile.php?";
     //默认查找页数
@@ -139,15 +139,11 @@ public class PornTest {
                 //拿到视频分页
                 Elements maxpageElement=doc.select("div[class*=pagingnav]>a:eq(6)");
                 maxpage=Integer.parseInt(maxpageElement.text());
-            }catch (IOException e){
+            }catch (Exception e){
                 e.printStackTrace();
-            }
-            catch (CloneNotSupportedException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }catch(NumberFormatException e){
                 System.out.println("拿去最大页数失败,自动填充为50");
             }
+
         }
 
      	System.out.println("获得最大页数:"+maxpage);

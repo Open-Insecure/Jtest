@@ -225,11 +225,7 @@ public class DesireTaiWan implements ActionListener{
             uefEntity = new UrlEncodedFormEntity(list, UTF8);
             Document doc=crawlerUtil.getDocUTF8(crawlerUtil.post(loginPostUrl,uefEntity));
             System.out.println(doc.toString());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 

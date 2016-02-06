@@ -95,18 +95,19 @@ public class AutoSignupUtil {
 //            client.clientCreate("http","127.0.0.1","http://127.0.0.1",browser);
 //            client.noProxyGetUrl("http://localhost:9088/v/contact/test");
 //        }
-        CrawlerUtil client=new CrawlerUtil();//http://dbeee.org/1?u=a65936&b=2
-        client.clientCreate("http", "www.dbeee.org", "http://dbeee.org/1/?u=a65861&b=2");
-        HttpResponse response=client.noProxyGetUrl("http://dbeee.org/1/?u=a65861&b=2");
-        Document document=client.getDocument(response.getEntity(),"gb2312");
-        System.out.println(document);
+//        CrawlerUtil client=new CrawlerUtil();//http://dbeee.org/1?u=a65936&b=2
+//        client.clientCreate("http", "www.dbeee.org", "http://dbeee.org/1/?u=a65861&b=2");
+//        HttpResponse response=client.noProxyGetUrl("http://dbeee.org/1/?u=a65861&b=2");
+//        Document document=client.getDocument(response.getEntity(),"gb2312");
+//        System.out.println(document);
 //        System.out.println(randomDatabseUserName());
+        AutoSignupUtil.getBuyProxyByApi("1");
     }
-    static{
+//    static{
              //默认就运行一遍
 //        pwds =  initPwds(propertiesUtil.getPropValue("pwdtxt"));
-        initUserNames(propertiesUtil.getPropValue("usertxt"));//初始化加载用户信息txt文档到数据库中
-    }
+//        initUserNames(propertiesUtil.getPropValue("usertxt"));//初始化加载用户信息txt文档到数据库中
+//    }
 
     /**
      * 从数据库中随机拿到一个用户信息

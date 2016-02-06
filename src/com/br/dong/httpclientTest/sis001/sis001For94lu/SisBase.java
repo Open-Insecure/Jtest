@@ -68,11 +68,7 @@ public class SisBase {
         try {
             //发送登录请求
             responsepost = client.post(loginPostUrl, client.produceEntity(list));
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        } catch (SocketException e){
-            e.printStackTrace();
-        } catch (IOException e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if(responsepost!=null){

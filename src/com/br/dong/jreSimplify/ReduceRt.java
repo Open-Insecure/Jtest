@@ -76,10 +76,9 @@ public class ReduceRt {
     
     public static void main(String[] args) {  
     	
-    	
-        String needfile = "F://JRETest//firstgongyu//re_class.txt";//运行JAR生成的，应用程序所需类的txt文件  
-        String sdir = "F://JRETest//firstgongyu//rt//"; //rt.jar解压后的目录  
-        String odir = "F://JRETest//firstgongyu//rt1//";//抽取的类存放目录  
+        String needfile = "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\reclass.txt";//运行JAR生成的，应用程序所需类的txt文件
+        String sdir = "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\rt\\"; //rt.jar解压后的目录
+        String odir = "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\rt1\\";//抽取的类存放目录
         try {  
             int sn = dealClass(needfile, sdir, odir);  
             System.out.print(sn);  

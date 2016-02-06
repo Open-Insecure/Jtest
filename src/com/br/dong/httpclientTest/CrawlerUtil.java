@@ -437,17 +437,15 @@ public class CrawlerUtil {
 	 * @throws CloneNotSupportedException 
 	 * 
 	 * */
-	public  HttpResponse post(String URL,UrlEncodedFormEntity entity) throws CloneNotSupportedException, IOException {
+	public  HttpResponse post(String URL,UrlEncodedFormEntity entity)   {
+		HttpResponse response = null;
+		try{
 		HttpPost post = getPostInstance(URL);
 		//从新设置post的内容
 		post.setEntity(entity);
-		HttpResponse response = null;
-        try{
-            response = client.execute(post);
-        } catch (SocketException e)  {
+        response = client.execute(post);
+        } catch (Exception e)  {
             System.out.println("SocketException..");
-        }  catch (ConnectionPoolTimeoutException e){
-            System.out.println("ConnectionPoolTimeoutException..");
         }
 //		finally {
 //			post.abort();

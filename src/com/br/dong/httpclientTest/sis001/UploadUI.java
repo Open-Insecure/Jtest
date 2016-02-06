@@ -48,7 +48,7 @@ public class UploadUI extends JFrame implements ActionListener {
     public UploadUI(){
         //创建日志目录
        FileOperate.newFolderMuti("C:\\logs\\");
-       initJcomboBox();   //初始化下拉框
+        initJcomboBox();   //初始化下拉框
         initAccList();  //初始化各网站账号
         //处理最里面的jp1
         jp=new JPanel();
