@@ -57,7 +57,7 @@ public class UserDao {
 				    ps.setString(2, demoDate); 
 				    ps.setString(3, demoId); 
 				  //每1000条进行事物提交  
-                    if (i%1000 == 0) {  
+                    if (i%3000 == 0) {
                     	System.out.println("进行一次插入操作");
                         ps.executeBatch(); //执行prepareStatement对象中所有的sql语句  
                     }  
@@ -86,7 +86,7 @@ public class UserDao {
     	 //批量插入1000条
     	List<Demo> inList=new ArrayList<Demo>();
      	System.out.println();
-     	for(int i=0;i<3000;i++){
+     	for(int i=0;i<30000;i++){
     		inList.add(new Demo("name"+i,"date"+i,"id"+i));
      	}
      	 long start =DateUtil.getCurrentTimeMillis();

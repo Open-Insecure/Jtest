@@ -19,9 +19,15 @@ import java.security.NoSuchAlgorithmException;
 public class MyTest {
 
     public static void main(String[] args) throws KeyManagementException, NoSuchAlgorithmException, IOException, CloneNotSupportedException {
+//        CrawlerUtil crawlerUtil=new CrawlerUtil();
+//        crawlerUtil.clientCreate("http", "www.asiaxxxporn.com","http://www.asiaxxxporn.com");
+//        HttpResponse response=crawlerUtil.noProxyGetUrl("http://www.asiaxxxporn.com");
+//        System.out.println(crawlerUtil.getDocUTF8(response).toString());
+
         CrawlerUtil crawlerUtil=new CrawlerUtil();
-        crawlerUtil.clientCreate("http", "www.asiaxxxporn.com","http://www.asiaxxxporn.com");
-        HttpResponse response=crawlerUtil.noProxyGetUrl("http://www.asiaxxxporn.com");
-        System.out.println(crawlerUtil.getDocUTF8(response).toString());
+        crawlerUtil.clientCreatNoUrl("http");
+        HttpResponse response=crawlerUtil.noProxyGetUrl("http://168.235.76.56/video?page=1");
+        System.out.println(crawlerUtil.getDocUTF8(response).body().toString().replace("&quot;","\"").replace("<body>","").replace("</body>",""));
+
     }
 }
