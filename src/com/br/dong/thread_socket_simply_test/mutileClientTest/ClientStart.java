@@ -3,7 +3,6 @@ package com.br.dong.thread_socket_simply_test.mutileClientTest;
 import com.br.dong.thread_socket_simply_test.mutileClientTest.execute.CpuUsage;
 import com.br.dong.thread_socket_simply_test.mutileClientTest.schedule.listener.MyJobListenerImpl;
 import com.br.dong.thread_socket_simply_test.mutileClientTest.schedule.listener.MyJoblListener;
-import com.br.dong.thread_socket_simply_test.mutileClientTest.schedule.service.QuartzManager;
 import com.br.dong.thread_socket_simply_test.mutileClientTest.util.PropertiesUtil;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

@@ -47,6 +47,7 @@ public class SimpleTriggerExample {
 
         // job1 将只会执行一次
         JobDetail job = newJob(SimpleJob.class).withIdentity("job1", "group1").build();
+        //重复次数，注意：如果为0表示不执行，-1表示不限制次数（直到过期），默认为0
         SimpleTrigger trigger = (SimpleTrigger) newTrigger()
                 .withIdentity("trigger1", "group1")
                 .startAt(startTime).build();
