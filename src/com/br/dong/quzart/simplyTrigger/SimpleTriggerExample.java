@@ -73,8 +73,8 @@ public class SimpleTriggerExample {
                 .startAt(startTime)
                 .withSchedule(
                         simpleSchedule()
-                                .withIntervalInSeconds(10)// 重复间隔
-                                .withRepeatCount(10))     // 重复次数
+                                .withIntervalInSeconds(1)// 重复间隔
+                                .withRepeatCount(-1))     // 重复次数
                 .build();
         ft = sched.scheduleJob(job, trigger);
         System.out.println(job.getKey().getName()+ " 将在 : " + dateFormat.format(ft) + " 时运行.并且重复: "
