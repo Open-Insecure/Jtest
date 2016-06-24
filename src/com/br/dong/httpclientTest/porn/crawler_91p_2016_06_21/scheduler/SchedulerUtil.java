@@ -1,8 +1,11 @@
 package com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler;
 
+import com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler.job.Scheduler91PJob;
 import org.apache.log4j.Logger;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.quartz.JobBuilder.newJob;
@@ -21,6 +24,8 @@ public class SchedulerUtil {
     private static Scheduler sched=null;
     private static final String DEFAULT_GROUP="DEFAULT_GROUP";/**默认任务组分组*/
     private static final String DEFAULT_TRIGGER="DEFAULT_TRIGGER";/**默认触发器分组*/
+    // 日期格式化
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     /**初始化*/
     static {
         if(null==sched){
@@ -35,8 +40,8 @@ public class SchedulerUtil {
 
 
     public static void main(String[] args) throws SchedulerException {
-//        addJob("job1",-1,10,Scheduler91PJob.class);
-        addJob("job1",3,3,Scheduler91PJob.class);
+//      addJob("job1",-1,10,Scheduler91PJob.class);
+        addJob("job1",-1,5,Scheduler91PJob.class);
         start();
         try {
             System.out.println("------- 等待50 s  ... ------------");
@@ -65,8 +70,8 @@ public class SchedulerUtil {
      * @param triggerName 触发器名
      * @param repeatCount 重复次数 -1表示无限
      * @param interval 重复间隔
-     * @param startTime
-     * @param jobClass
+     * @param startTime 起始时间
+     * @param jobClass 任务class
      */
     private static void addJob(String jobName,String groupName,String triggerName,int repeatCount,int interval, Date startTime,Class  jobClass ) throws SchedulerException {
         JobDetail job  = newJob(jobClass).withIdentity(jobName, groupName).build();
@@ -77,7 +82,8 @@ public class SchedulerUtil {
                                  .withIntervalInSeconds(interval)/**重复间隔*/
                                  .withRepeatCount(repeatCount))  /**重复次数*/
                                  .build();
-        Date ft = sched.scheduleJob(job, trigger);
+        Date ft = sched.scheduleJob(job, trigger);/**该任务的启动时间*/
+        logger.info("add new job:"+jobName+" will start at "+dateFormat.format(ft));
     }
 
     /***
@@ -93,6 +99,7 @@ public class SchedulerUtil {
     /***
      * 定时器停止
      * @param immediately 是否立刻停止
+     *                    调用Shutdown方法时传入参数false，即不等待任务运行结束立即关闭
      * @throws SchedulerException
      */
     public static void shutdown(Boolean immediately) throws SchedulerException {

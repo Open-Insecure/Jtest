@@ -1,4 +1,4 @@
-package com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler;
+package com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler.job;
 
 import com.br.dong.httpclientTest.CrawlerUtil;
 import com.br.dong.utils.PropertiesUtil;
@@ -9,9 +9,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ public abstract class SchedulerBaseJob implements Job{
     protected static Logger logger = Logger.getLogger(SchedulerBaseJob.class);
     protected CrawlerUtil crawlerUtil = new CrawlerUtil();
     protected static PropertiesUtil propertiesUtil=PropertiesUtil.getInstance("/com/br/dong/httpclientTest/porn/crawler_91p_2016_06_21/config/config.properties");/**读取配置文件*/
-    protected static final String HTTP= propertiesUtil.getPropValue("HTTP") ;/**主机HOST*/
+    protected static final String HTTP= propertiesUtil.getPropValue("HTTP") ;/**Http地址前缀*/
     protected static final String HOST= propertiesUtil.getPropValue("HOST") ;/**主机HOST*/
     protected static final String NEW_SUFFIX=propertiesUtil.getPropValue("NEW_SUFFIX");/**最新前缀*/
     protected  String jobName="";/**任务名*/

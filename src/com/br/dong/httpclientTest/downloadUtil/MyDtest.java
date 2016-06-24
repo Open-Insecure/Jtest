@@ -16,8 +16,8 @@ public class MyDtest {
 
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-//        start();
-        System.out.println(parseFileType("http://vip.youb77.com:81/media/you22/flv/9970.flv"));
+        start();
+//        System.out.println(parseFileType("http://vip.youb77.com:81/media/you22/flv/9970.flv"));
     }
     public static void start() throws InterruptedException {
         ExecutorService executor = Executors.newFixedThreadPool(10);//创建固定大小的线程池
@@ -38,7 +38,7 @@ public class MyDtest {
         };
         //模拟32个线程
         for(int i=0;i<5;i++){
-            DownloadThread downloadThread=new DownloadThread("test"+i,"http://vip.youb77.com:81/media/you22/flv/9970.flv", new File("E:\\video\\9970_"+i+".flv"),"http","youb77.com","http://vip.youb77.com:81");
+            DownloadThread downloadThread=new DownloadThread("test"+i,"http://168.235.76.56/13140_img.jpg", new File("E:\\video\\test_img"+i+".jpg"),"http","youb77.com","http://vip.youb77.com:81");
             downloadThread.addDownloadListener(threadListener);
             executor.execute(downloadThread );
 //            Future<String> result = executor.submit(downloadThread);
