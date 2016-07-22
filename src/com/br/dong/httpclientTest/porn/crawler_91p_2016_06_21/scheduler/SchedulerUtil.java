@@ -79,7 +79,7 @@ public class SchedulerUtil {
                                  .startAt(startTime)/**启动时间*/
                                  .withSchedule(
                                  simpleSchedule()
-                                 .withIntervalInSeconds(interval)/**重复间隔*/
+                                 .withIntervalInSeconds(interval)/**重复间隔 单位秒*/
                                  .withRepeatCount(repeatCount))  /**重复次数*/
                                  .build();
         Date ft = sched.scheduleJob(job, trigger);/**该任务的启动时间*/

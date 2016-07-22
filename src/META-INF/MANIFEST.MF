@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: com.br.dong.httpclientTest.skonlt_auto_post_2015_12_30.Sko
- nltAutoPost
+Main-Class: com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.sch
+ eduler.SchedulerUtil
 

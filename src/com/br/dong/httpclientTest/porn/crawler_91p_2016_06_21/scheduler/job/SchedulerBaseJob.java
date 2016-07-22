@@ -32,6 +32,7 @@ public abstract class SchedulerBaseJob implements Job{
      * 这个问题在使用类反射实例化某个对象时,如果这个对象不包含无参数的构造函数,也会出现这个错误,解决办法是在这个要通过类反射实例化的这个类中添加一个空的无参数构造函数就可以了.
      */
     public SchedulerBaseJob() {
+
     }
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {

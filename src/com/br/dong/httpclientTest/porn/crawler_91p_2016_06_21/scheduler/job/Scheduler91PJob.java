@@ -18,6 +18,7 @@ import org.quartz.JobExecutionException;
 public class Scheduler91PJob extends SchedulerBaseJob {
 
     private String url_for_91p="";
+
     public Scheduler91PJob() {
        try{
             url_for_91p=HTTP+HOST+NEW_SUFFIX+1;

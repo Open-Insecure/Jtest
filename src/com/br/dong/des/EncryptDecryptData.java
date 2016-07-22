@@ -127,12 +127,15 @@ public class EncryptDecryptData {
      * @param args
      * @throws Exception
      */
-    public static void main(String[] args) throws Exception { 
+    public static void main(String[] args) throws Exception {
+        /**加密公钥*/
          String key = "12345678"; //密码只能为8位 0102030405060708  sign=026ec875336739dee0132d39e8361f10
-         String message ="information_jjh_jjxy_jjzs"; 
+         String message ="0000001-0001";
          String enStr = encrypt(message,key);
          System.out.println("加密后:" + enStr);
          String decStr = decrypt(enStr,key);
          System.out.println("解密后:" + decStr);
+
+
     } 
 }
