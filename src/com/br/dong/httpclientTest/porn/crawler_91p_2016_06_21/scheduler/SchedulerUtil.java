@@ -17,7 +17,6 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * PACKAGE_NAME:com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler
  * AUTHOR: hexOr
  * DATE :2016-06-21 20:14
- *
  * DESCRIPTION:定时器工具类
  */
 public class SchedulerUtil {
@@ -42,7 +41,7 @@ public class SchedulerUtil {
 
     public static void main(String[] args) throws SchedulerException {
 //      addJob("job1",-1,10,Scheduler91PJob.class);
-        addJob("job1",-1,5,Scheduler91PJob.class);
+        addJob("job1",-1,24*60*60,Scheduler91PJob.class);
         start();
         try {
             System.out.println("------- 等待50 s  ... ------------");
@@ -53,14 +52,15 @@ public class SchedulerUtil {
 
     /***
      * 新增定时任务-外部接口
-     * @param jobName
-     * @param repeatCount
-     * @param interval
+     * @param jobName 任务名
+     * @param repeatCount 重复次数 -1表示无限
+     * @param interval 重复间隔(单位秒)
      * @param jobClass
      * @throws SchedulerException
      */
     public static void addJob(String jobName,int repeatCount,int  interval,Class   jobClass ) throws SchedulerException {
-        Date startTime = DateBuilder.nextGivenSecondDate(null, 5);/**启动时间*/
+        logger.info("\n===>add job["+jobClass.getSimpleName()+"]jobName ["+jobName+"]"+" repeatCount["+repeatCount+"]"+"interval["+interval+"]<===");
+        Date startTime = DateBuilder.nextGivenSecondDate(null, 5);/**启动时间5秒后*/
         addJob(jobName, DEFAULT_GROUP, DEFAULT_TRIGGER, repeatCount, interval, startTime, jobClass);
     }
 
@@ -79,9 +79,9 @@ public class SchedulerUtil {
         SimpleTrigger trigger =  newTrigger() .withIdentity(triggerName, groupName)
                                  .startAt(startTime)/**启动时间*/
                                  .withSchedule(
-                                 simpleSchedule()
-                                 .withIntervalInSeconds(interval)/**重复间隔 单位秒*/
-                                 .withRepeatCount(repeatCount))  /**重复次数*/
+                                     simpleSchedule()
+                                        .withIntervalInSeconds(interval)/**重复间隔 单位秒*/
+                                        .withRepeatCount(repeatCount))  /**重复次数*/
                                  .build();
         Date ft = sched.scheduleJob(job, trigger);/**该任务的启动时间*/
         logger.info("add new job:"+jobName+" will start at "+dateFormat.format(ft));
@@ -119,5 +119,6 @@ public class SchedulerUtil {
             logger.info(metaData);
         }
     }
+
 
 }

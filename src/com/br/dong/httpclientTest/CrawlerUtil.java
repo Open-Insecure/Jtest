@@ -25,7 +25,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
@@ -70,7 +72,7 @@ public class CrawlerUtil {
 	private static String DECODE_GBK="GBK";
     private static String GB_2312="gb2312" ;
     //超时时间 获得响应的超时时间
-    private static int TIME_OUT_TIME=30*1000;
+    private static int TIME_OUT_TIME=300*1000;
     //socket超时时间 传输数据的超时时间 貌似与下载的链接持续时间无关？
     private static int SO_TIMEOUT_TIME=500*1000;
 	//想要带入的参数，可以根据需要扩展
@@ -108,7 +110,7 @@ public class CrawlerUtil {
      * @throws KeyManagementException
      */
     public void clientCreatNoUrl(String type) throws NoSuchAlgorithmException, KeyManagementException {
-        this.clientCreate(type,"","");
+        this.clientCreate(type, "", "");
     }
 
 	/**
@@ -176,7 +178,7 @@ public class CrawlerUtil {
 	 */
 	public void clientCreate(String type,String host,String refURL) throws KeyManagementException, NoSuchAlgorithmException
 	{
-		clientCreate(type,host,refURL,"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
+		clientCreate(type, host, refURL, "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36");
 	}
 
     /**
@@ -304,10 +306,10 @@ public class CrawlerUtil {
         }
 		return response;
 	}
-
 	/**
 	 * 不使用代理post访问
 	 */
+	@Deprecated
 	public HttpResponse noProxyPostUrl(String url,List<NameValuePair> list) throws CloneNotSupportedException, IOException {
 		HttpPost post =getPostInstance(url);
 		HttpResponse response=null;
@@ -316,39 +318,40 @@ public class CrawlerUtil {
 		return response;
 	}
 	//使用代理post方式访问url
+	@Deprecated
 	public HttpResponse proxyPostUrl(String url,String proxyUrl,int port,List<NameValuePair> list) throws IOException, CloneNotSupportedException{
-		HttpPost post =getPostInstance(url);
-		HttpHost httpHost = new HttpHost(url);
-		HttpResponse response=null;
-		try {
-	        //设置代理对象 ip/代理名称,端口   // "125.39.66.66", 80 "66.85.131.18", 8089 "210.51.56.198",808  "96.56.105.66",7004	 "122.232.229.90",80
-			client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyUrl, port));
-	        //实例化验证     
-	        CredentialsProvider credsProvider = new BasicCredentialsProvider();  
-	        //设定验证内容     
-	        UsernamePasswordCredentials creds = new UsernamePasswordCredentials("fttj", "ft07");
-	        //创建验证     
-	        credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);  
-	        ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);  
-			System.out.println("executing request " + post.getURI());
-	    		//从新设置post的内容
-	    		post.setEntity(produceEntity(list));
-	    		 response = client.execute(httpHost,post);
+		 HttpPost post =getPostInstance(url);
+		 HttpHost httpHost = new HttpHost(url);
+		 HttpResponse response=null;
+		 try {
+		 //设置代理对象 ip/代理名称,端口   // "125.39.66.66", 80 "66.85.131.18", 8089 "210.51.56.198",808  "96.56.105.66",7004	 "122.232.229.90",80
+		 client.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, new HttpHost(proxyUrl, port));
+		 //实例化验证
+		 CredentialsProvider credsProvider = new BasicCredentialsProvider();
+		 //设定验证内容
+		 UsernamePasswordCredentials creds = new UsernamePasswordCredentials("fttj", "ft07");
+		 //创建验证
+		 credsProvider.setCredentials(new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT), creds);
+		 ((DefaultHttpClient) client).setCredentialsProvider(credsProvider);
+		 System.out.println("executing request " + post.getURI());
+		 //从新设置post的内容
+		 post.setEntity(produceEntity(list));
+		 response = client.execute(httpHost,post);
+		 }catch(HttpHostConnectException e){
+		 System.out.println("连接代理"+proxyUrl+"HttpHostConnectException..");
+		 }catch(NoHttpResponseException e){
+		 System.out.println("服务器"+proxyUrl+"NoHttpResponseException..");
+		 } catch (ConnectException e){
+		 System.out.println("服务器"+proxyUrl+"ConnectException..");
+		 } catch (ConnectTimeoutException e){
+		 System.out.println("服务器"+proxyUrl+"ConnectTimeoutException"+TIME_OUT_TIME+"..");
+		 }  catch (ClientProtocolException e){
+		 System.out.println("服务器" + proxyUrl + "ClientProtocolException异常");
+		 }catch (SocketException e){
+		 System.out.println("服务器"+proxyUrl+"SocketException");
+		 }
+		 return response;
 
-		}catch(HttpHostConnectException e){
-			System.out.println("连接代理"+proxyUrl+"HttpHostConnectException..");
-		}catch(NoHttpResponseException e){
-			System.out.println("服务器"+proxyUrl+"NoHttpResponseException..");
-		} catch (ConnectException e){
-			System.out.println("服务器"+proxyUrl+"ConnectException..");
-		} catch (ConnectTimeoutException e){
-			System.out.println("服务器"+proxyUrl+"ConnectTimeoutException"+TIME_OUT_TIME+"..");
-		}  catch (ClientProtocolException e){
-			System.out.println("服务器" + proxyUrl + "ClientProtocolException异常");
-		}catch (SocketException e){
-			System.out.println("服务器"+proxyUrl+"SocketException");
-		}
-		return response;
 	}
 	//使用代理get方式访问url
 	public HttpResponse proxyGetUrl(String url,String proxyUrl,int port) throws IOException, CloneNotSupportedException{

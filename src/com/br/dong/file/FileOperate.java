@@ -61,15 +61,13 @@ public class FileOperate {
 		}
 		return flag;
 	}
-	/**
+		/**
 	   * 新建文件并写入内容
 	   * @param filePathAndName String 文件路径及名称 如c:/fqf.txt 
 	   * @param fileContent String 文件内容 
 	   * @return boolean 
 	   */  
 	  public static void newFile(String filePathAndName, String fileContent) {
-	  
-
 	    try {
 	      String filePath = filePathAndName;  
 	      filePath = filePath.toString();  

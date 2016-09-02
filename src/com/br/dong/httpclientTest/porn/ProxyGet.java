@@ -45,7 +45,7 @@ public class ProxyGet {
     public static void getXiciProxys(){
         System.out.println("get proxys from: http://www.xici.net.co/");
         //清空代理表
-        JdbcUtil.deleteAll();
+//        JdbcUtil.deleteAll();
         //国内代理拿10页
         for(int i=1;i<=30;i++){
             ProxyThread thread=new ProxyThread(xiciUrl+""+i,"www.xici.net.co","http://www.xici.net.co/");
@@ -108,7 +108,7 @@ class ProxyThreadForkuai extends Thread{
                 }
 
                 //插入数据库
-                JdbcUtil.insertBatch(list);
+//                JdbcUtil.insertBatch(list);
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -168,7 +168,7 @@ class ProxyThread extends Thread{
                 }
             }
             //插入数据库
-             JdbcUtil.insertBatch(list);
+//             JdbcUtil.insertBatch(list);
 
 
         } catch (NoSuchAlgorithmException e) {
