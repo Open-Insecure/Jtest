@@ -1,6 +1,7 @@
 package com.br.dong.utils;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,6 +9,7 @@ import java.io.IOException;
  * Date: 14-9-1
  * Time: 下午5:37
  * To change this template use File | Settings | File Templates.
+ * base 64加密
  */
 public class EncodeUtil {
     public static String encodeString(String str) throws IOException
@@ -21,22 +23,24 @@ public class EncodeUtil {
     {
         sun.misc.BASE64Decoder dec = new sun.misc.BASE64Decoder();
         String value = new String(dec.decodeBuffer(str));
-
         return value;
     }
 
-    public static void main(String[] args){
-        String str="123456789";
+    public static void main(String[] args) throws IOException {
+//        String str="123456789";
+//
+//        try {
+//            String encode=EncodeUtil.encodeString(str);
+//            String decode=EncodeUtil.decodeString(encode) ;
+//            System.out.println();
+//            System.out.println(encode+":"+decode);
+//        } catch (IOException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
 
-        try {
-            String encode=EncodeUtil.encodeString(str);
-            String decode=EncodeUtil.decodeString(encode) ;
-            System.out.println();
-            System.out.println(encode+":"+decode);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        String str="aHR0cCUzQSUyRiUyRmlxaXlpMS55b3VrdS1jb20tMTYzLWNvbS5jb20lMkZpcGhvbmUlMkY4OTQ3Lm1wNA==";
+        System.out.println(URLDecoder.decode(EncodeUtil.decodeString(str)));
 
     }
 }

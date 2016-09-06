@@ -458,6 +458,7 @@ public class CrawlerUtil {
 	}
 
     public Document getDocUTF8(HttpResponse response){
+		if(null==response) return null;
 		HttpEntity entity=response.getEntity();
 		Document document=null;
 		try {

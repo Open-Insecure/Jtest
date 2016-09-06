@@ -1,6 +1,7 @@
 package com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler;
 
 import com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler.job.Scheduler91PJob;
+import com.br.dong.httpclientTest.porn.crawler_91p_2016_06_21.scheduler.job.TestJob;
 import org.apache.log4j.Logger;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -41,13 +42,23 @@ public class SchedulerUtil {
 
     public static void main(String[] args) throws SchedulerException {
 //      addJob("job1",-1,10,Scheduler91PJob.class);
-        addJob("job1",-1,24*60*60,Scheduler91PJob.class);
+//        addJob("job1",-1,24*60*60,Scheduler91PJob.class);
+//        start();
+//        try {
+//            System.out.println("------- 等待50 s  ... ------------");
+//            Thread.sleep(50*1000);
+//        } catch (Exception e) { }
+//        showMetaData();
+
+        addJob("job2", DEFAULT_GROUP, DEFAULT_TRIGGER, 3, 3, DateBuilder.todayAt(15, 20, 00), TestJob.class);
         start();
         try {
             System.out.println("------- 等待50 s  ... ------------");
             Thread.sleep(50*1000);
+            showMetaData();
+            shutdown(true);
         } catch (Exception e) { }
-        showMetaData();
+
     }
 
     /***
@@ -58,7 +69,7 @@ public class SchedulerUtil {
      * @param jobClass
      * @throws SchedulerException
      */
-    public static void addJob(String jobName,int repeatCount,int  interval,Class   jobClass ) throws SchedulerException {
+    public static void addJob(String jobName,int repeatCount,int  interval,Class jobClass ) throws SchedulerException {
         logger.info("\n===>add job["+jobClass.getSimpleName()+"]jobName ["+jobName+"]"+" repeatCount["+repeatCount+"]"+"interval["+interval+"]<===");
         Date startTime = DateBuilder.nextGivenSecondDate(null, 5);/**启动时间5秒后*/
         addJob(jobName, DEFAULT_GROUP, DEFAULT_TRIGGER, repeatCount, interval, startTime, jobClass);
@@ -74,7 +85,7 @@ public class SchedulerUtil {
      * @param startTime 起始时间
      * @param jobClass 任务class
      */
-    private static void addJob(String jobName,String groupName,String triggerName,int repeatCount,int interval, Date startTime,Class  jobClass ) throws SchedulerException {
+    public static void addJob(String jobName,String groupName,String triggerName,int repeatCount,int interval, Date startTime,Class  jobClass ) throws SchedulerException {
         JobDetail job  = newJob(jobClass).withIdentity(jobName, groupName).build();
         SimpleTrigger trigger =  newTrigger() .withIdentity(triggerName, groupName)
                                  .startAt(startTime)/**启动时间*/
@@ -100,7 +111,7 @@ public class SchedulerUtil {
     /***
      * 定时器停止
      * @param immediately 是否立刻停止
-     *                    调用Shutdown方法时传入参数false，即不等待任务运行结束立即关闭
+     *                     调用Shutdown方法时传入参数false，即不等待任务运行结束立即关闭
      * @throws SchedulerException
      */
     public static void shutdown(Boolean immediately) throws SchedulerException {

@@ -23,6 +23,8 @@ public class Scheduler91PJob extends SchedulerBaseJob {
     private String url_for_91p="";
     private int maxPage=300;
     public Scheduler91PJob() {
+
+
        try{
            url_for_91p=HTTP+HOST+NEW_SUFFIX+1;
            crawlerUtil.clientCreate("http", HOST, url_for_91p);
