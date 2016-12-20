@@ -2,7 +2,6 @@ package com.br.dong.httpclientTest._1024gc_2015_04_10;
 
 import com.br.dong.file.FileOperate;
 import com.br.dong.httpclientTest.CrawlerUtil;
-import com.sun.glass.ui.gtk.GtkTimer;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.*;
 import org.apache.http.message.BasicNameValuePair;

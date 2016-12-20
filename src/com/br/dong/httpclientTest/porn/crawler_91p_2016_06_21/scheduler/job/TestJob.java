@@ -13,6 +13,6 @@ import org.quartz.JobExecutionException;
 public class TestJob extends SchedulerBaseJob {
     @Override
     public void myExecute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        logger.info("test job start ");
+        logger.info("test job start "+jobExecutionContext.getTrigger().getKey());
     }
 }
