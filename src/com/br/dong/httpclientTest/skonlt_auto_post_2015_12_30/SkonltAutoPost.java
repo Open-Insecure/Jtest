@@ -30,7 +30,7 @@ import java.util.Map;
  * 针对司空论坛的自动登录与发帖程序
  */
 public class SkonltAutoPost {
-    private static String fid="207";
+    private static String fid="109";
     private static  CrawlerUtil crawlerUtil=new CrawlerUtil();
     /**登录接口*/
     private static String login_post_url="http://forum.skonlt.com/member.php?mod=logging&action=login&loginsubmit=yes&infloat=yes&lssubmit=yes&inajax=1";
@@ -48,7 +48,7 @@ public class SkonltAutoPost {
     /***/
     private static String UTF8="utf-8";
     public static void main(String[] args) throws NoSuchAlgorithmException, KeyManagementException, IOException, CloneNotSupportedException, InterruptedException {
-        get_topicals_url=get_topicals_url+args[0];
+//        get_topicals_url=get_topicals_url+args[0];
         crawlerUtil.clientCreate("http", "forum.skonlt.com", "http://forum.skonlt.com/forum.php");
         login();
         post();
@@ -57,7 +57,8 @@ public class SkonltAutoPost {
          if(checkLogin()){
              System.out.println("login success!!");
              /***登录成功，开始发帖*/
-             getTopicalFrom94lu();
+//             getTopicalFrom94lu();
+             post91pApp();
          }else {
              System.out.println("login fault!!");
          }
@@ -71,9 +72,26 @@ public class SkonltAutoPost {
      */
     public static Boolean checkLogin() throws IOException, CloneNotSupportedException {
         Document docc=crawlerUtil.getDocUTF8(crawlerUtil.noProxyGetUrl(home_url));
+//        System.out.println(docc.toString());
         return  docc.toString().contains(username)?true:false;
     }
 
+    /***
+     * 发布91app的帖子
+     * @throws IOException
+     * @throws CloneNotSupportedException
+     * @throws InterruptedException
+     */
+    public static void post91pApp()throws IOException, CloneNotSupportedException, InterruptedException {
+        String context="";
+        Map map =new HashMap();
+        map.put("title","快乐的老司机分享一个91看片的安卓版 http://www.pojie91porn.com");
+        map.put("imgName","首页");
+        map.put("url","http://pojie91porn.com/img/introduction_video_typing.jpg");
+        for(int i=0;i<5;i++){
+            topicalPost(map);
+        }
+    }
     /**
      * 从94lu获得帖子
      */
@@ -102,14 +120,17 @@ public class SkonltAutoPost {
         for(Element element:elements){
             list.add(new BasicNameValuePair(element.attr("name"), element.attr("value")));
         }
-           list.add(new BasicNameValuePair("typeid","1"));//1 26
+           list.add(new BasicNameValuePair("typeid","26"));//1 26
            list.add(new BasicNameValuePair("subject",(String)map.get("title")));
-           String message="[img]"+map.get("imgName")+"[/img]\n" +"[color=#000][font=Simsun][size=3]http://www.94luvideo.com/videoplay?vkey="+map.get("vkey")+"[/size][/font][/color]\n";
+//           String message="[img]"+map.get("imgName")+"[/img]\n" +"[color=#000][font=Simsun][size=3]http://www.94luvideo.com/videoplay?vkey="+map.get("vkey")+"[/size][/font][/color]\n";
+           String message="[img]"+map.get("imgName")+"[/img]\n" +"[color=#000][font=Simsun][size=3]"+map.get("url")+"[/size][/font][/color]\n";
            list.add(new BasicNameValuePair("message",message));
            list.add(new BasicNameValuePair("replycredit_extcredits","0"));
            list.add(new BasicNameValuePair("replycredit_times","1"));
            list.add(new BasicNameValuePair("replycredit_membertimes","1"));
            list.add(new BasicNameValuePair("replycredit_random","100"));
+           list.add(new BasicNameValuePair("readperm",""));
+           list.add(new BasicNameValuePair("price",""));
            list.add(new BasicNameValuePair("tags",""));
            list.add(new BasicNameValuePair("rushreplyfrom",""));
            list.add(new BasicNameValuePair("rushreplyto",""));
@@ -119,7 +140,8 @@ public class SkonltAutoPost {
            list.add(new BasicNameValuePair("creditlimit",""));
            list.add(new BasicNameValuePair("allownoticeauthor","1"));
            list.add(new BasicNameValuePair("addfeed","1"));
-           list.add(new BasicNameValuePair("rushreplyfrom",""));
+           list.add(new BasicNameValuePair("usesig:",""));
+           list.add(new BasicNameValuePair("save:",""));
            list.add(new BasicNameValuePair("uploadalbum","-2"));
            list.add(new BasicNameValuePair("newalbum", "请输入相册名称"));
            Document doc=crawlerUtil.getDocUTF8(crawlerUtil.post(topical_post_url, crawlerUtil.produceEntity(list)));

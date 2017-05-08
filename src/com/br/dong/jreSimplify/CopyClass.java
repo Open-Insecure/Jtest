@@ -32,9 +32,8 @@ public class CopyClass {
     public static void main(String[] args)
     {
         String[] jarArr = new String[]{"rt","charsets"};
-        CopyClass obj = new CopyClass("E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\rt\\",
-        "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\rt2\\",jarArr);
-        obj.readAndCopy("E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\reclass.txt");
+        CopyClass obj = new CopyClass("D:\\rt\\", "D:\\rt2\\",jarArr);
+        obj.readAndCopy("D:\\reclass.txt");
     }
 
     /***

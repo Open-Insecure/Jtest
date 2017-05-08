@@ -9,6 +9,8 @@ import org.apache.http.client.methods.HttpHead;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 /**
@@ -39,6 +41,10 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
     String refUrl;//主机ref url
     private final static int BUFFER = 1024;//缓冲数组大小
     private static Logger logger = Logger.getLogger(DownloadThread.class);//日志
+    /**
+     * 下面的为了扩展
+     * */
+    Map map;
     /**
      * 支持range下载的下载线程构造方法
      * @param tname 线程名
@@ -122,6 +128,13 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
         this.listener = listener;
     }
 
+    /**
+     * 设置Map
+     * @param map
+     */
+    public void setMap(Map map){
+        this.map=map;
+    }
     /***
      * 返回当前已经下载的文件大小
      * @return
@@ -299,6 +312,10 @@ public class DownloadThread  extends Thread/**implements Callable<String>*/ {
      * @return
      */
     public String getVkey() { return vkey;}
+
+    public Map getMap() {
+        return map;
+    }
 }
 
 

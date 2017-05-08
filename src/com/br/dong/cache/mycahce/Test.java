@@ -1,6 +1,7 @@
 package com.br.dong.cache.mycahce;
 
 public class Test {
+
 	public static void main(String[] args) { 
 		System.out.println(CacheManagerm.getSimpleFlag("alksd")); 
 		 CacheManagerm.putCache("abc", new Cache()); 

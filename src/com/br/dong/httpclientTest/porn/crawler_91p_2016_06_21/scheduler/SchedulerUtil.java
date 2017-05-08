@@ -125,7 +125,6 @@ public class SchedulerUtil {
                           .withIdentity(triggerName, groupName)
                           .startAt(startTime)
                           .withSchedule(simpleSchedule().withIntervalInSeconds(interval).withRepeatCount(repeatCount)).build();
-        System.out.println("...."+trigger.getKey());
         sched.rescheduleJob(trigger.getKey(),trigger);
     }
 
@@ -135,8 +134,7 @@ public class SchedulerUtil {
      * @param groupName
      */
     public static void unscheduleJob(String triggerName, String groupName) throws SchedulerException {
-        Trigger trigger = newTrigger()
-                .withIdentity(triggerName, groupName).build();
+        Trigger trigger = newTrigger().withIdentity(triggerName, groupName).build();
         sched.unscheduleJob(trigger.getKey());
     }
 

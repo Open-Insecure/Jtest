@@ -15,11 +15,12 @@ import com.br.dong.properties.FileOperate;
 cd D:\Program Files\Java6\jdk1.6.0_39\bin\
 执行 java -jar  -classpath lib/*.jar; -verbose:class 91pSoft.jar >> class.txt
 pause
+ 1
  */
 public class Jres {
 	public static void main(String[] args) throws CloneNotSupportedException {
 		FileOperate fo=new FileOperate();
-		readMainTxt("E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\class.txt");
+		readMainTxt("D:\\jvm_simply\\精简jre测试三\\classes.txt");
 	}
 	//读取文件
 	public static void readMainTxt(String filename) throws CloneNotSupportedException{

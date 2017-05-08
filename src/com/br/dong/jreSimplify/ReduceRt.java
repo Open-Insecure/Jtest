@@ -3,7 +3,8 @@ package com.br.dong.jreSimplify;
 /** 
  * @author  hexd
  * 创建时间：2014-8-5 下午3:02:38 
- * 类说明 
+ * 类说明
+ * 2
  */
 import java.io.File;  
 import java.io.FileInputStream;  
@@ -75,10 +76,10 @@ public class ReduceRt {
     }
     
     public static void main(String[] args) {  
-    	
-        String needfile = "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\reclass.txt";//运行JAR生成的，应用程序所需类的txt文件
-        String sdir = "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\rt\\"; //rt.jar解压后的目录
-        String odir = "E:\\workspace\\91pSoft\\out\\artifacts\\91pSoft_jar\\rt1\\";//抽取的类存放目录
+    	String basedir="D:\\jvm_simply\\精简jre测试三\\";
+        String needfile = basedir+"reclasses.txt";//运行JAR生成的，应用程序所需类的txt文件
+        String sdir =  "D:\\jvm_simply\\rt\\"; //rt.jar解压后的目录
+        String odir =  basedir+"rt1\\";//抽取的类存放目录
         try {  
             int sn = dealClass(needfile, sdir, odir);  
             System.out.print(sn);  
